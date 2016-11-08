@@ -1,0 +1,31 @@
+{
+  "name": "graphql-starter-kit",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=7.0 && <8",
+    "npm": ">=3.10 && <4"
+  },
+  "dependencies": {
+    "body-parser": "1.15.2",
+    "cookie-parser": "1.4.3",
+    "express": "4.14.0",
+    "express-graphql": "0.5.4",
+    "express-jwt": "5.1.0",
+    "graphiql": "0.7.8",
+    "graphql": "0.7.2",
+    "pretty-error": "2.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^3.9.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0"
+  },
+  "eslintConfig": {
+    "extends": "airbnb/base"
+  },
+  "scripts": {
+    "lint": "eslint config.js server.js schema",
+    "start": "node server.js"
+  }
+}
