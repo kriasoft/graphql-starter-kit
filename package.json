@@ -1,10 +1,8 @@
 {
-  "name": "graphql-starter-kit",
-  "version": "0.0.0",
   "private": true,
   "engines": {
-    "node": ">=7.0 && <8",
-    "npm": ">=3.10 && <4"
+    "node": ">=7",
+    "npm": ">=3.10"
   },
   "dependencies": {
     "body-parser": "1.15.2",
