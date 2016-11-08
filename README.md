@@ -1,7 +1,7 @@
 # GraphQL Starter Kit
 
-Project template for building a [GraphQL](http://graphql.org/) server
-application with Node.js 7+ and JavaScript.
+Project template for authoring [GraphQL](http://graphql.org/) server
+applications with Node.js 7+ and JavaScript (**[demo](https://api.reactstarterkit.com)**).
 
 ---
 <p align="center">
