@@ -8,6 +8,7 @@
  */
 
 const express = require('express');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressJwt = require('express-jwt');
@@ -19,14 +20,17 @@ const config = require('./config');
 const app = express();
 const port = process.env.PORT || 5000;
 
+app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 app.use(expressJwt({
   secret: config.auth.jwt.secret,
   credentialsRequired: false,
   getToken: req => req.cookies.id_token,
 }));
+
 app.use(expressGraphQL(req => ({
   schema,
   graphiql: true,
