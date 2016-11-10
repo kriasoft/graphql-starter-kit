@@ -7,13 +7,17 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-module.exports = {
-  //
-  // Authentication
-  // ---------------------------------------------------------------------------
-  auth: {
-    jwt: {
-      secret: process.env.JWT_SECRET || 'React Starter Kit',
+const { GraphQLObjectType } = require('graphql');
+const User = require('./User');
+
+module.exports = new GraphQLObjectType({
+  name: 'Viewer',
+  fields: {
+    user: {
+      type: User,
+      resolve(root, args, { user }) {
+        return user;
+      },
     },
   },
-};
+});

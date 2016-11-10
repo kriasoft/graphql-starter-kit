@@ -1,5 +1,5 @@
 /**
- * React Starter Kit (https://www.reactstarterkit.com/)
+ * GraphQL Starter Kit (https://www.reactstarterkit.com/)
  *
  * Copyright © 2016-present Kriasoft, LLC. All rights reserved.
  *
@@ -33,8 +33,10 @@ app.use(expressJwt({
 
 app.use(expressGraphQL(req => ({
   schema,
+  context: {
+    user: req.user,
+  },
   graphiql: true,
-  rootValue: { request: req },
   pretty: process.env.NODE_ENV !== 'production',
 })));
 
@@ -49,5 +51,5 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
-  console.log(`The server is running at http://localhost:${port}/`);
+  console.log(`The GraphQL server is running at http://localhost:${port}/`);
 });

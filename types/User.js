@@ -1,5 +1,5 @@
 /**
- * React Starter Kit (https://www.reactstarterkit.com/)
+ * GraphQL Starter Kit (https://www.reactstarterkit.com/)
  *
  * Copyright © 2016-present Kriasoft, LLC. All rights reserved.
  *
@@ -14,12 +14,21 @@ const {
   GraphQLString,
 } = require('graphql');
 
-const UserType = new GraphQLObjectType({
+module.exports = new GraphQLObjectType({
   name: 'User',
   fields: {
-    id: { type: new GraphQLNonNull(GraphQLID) },
-    email: { type: GraphQLString },
+    id: {
+      type: new GraphQLNonNull(GraphQLID),
+      resolve(user) {
+        return user.id;
+      },
+    },
+
+    email: {
+      type: GraphQLString,
+      resolve(user) {
+        return user.email;
+      },
+    },
   },
 });
-
-module.exports = UserType;

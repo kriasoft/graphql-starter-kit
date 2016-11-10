@@ -1,7 +1,8 @@
 # GraphQL Starter Kit
 
-Project template for authoring [GraphQL](http://graphql.org/) server
-applications with Node.js 7+ and JavaScript (**[demo](https://api.reactstarterkit.com)**).
+Project template for authoring **[GraphQL](http://graphql.org/)** server
+applications with **Node.js 6+** and **JavaScript** (**[demo](https://api.reactstarterkit.com)**).
+You can use it eighter just as a playground or a base for your next API project.
 
 ---
 <p align="center">
@@ -24,6 +25,23 @@ $ npm install
 $ node server
 ```
 
+Or, if you have [nodemon](https://github.com/remy/nodemon) installed globally,
+you can launch the server by running:
+
+```sh
+$ nodemon
+```
+
+The GraphQL server should become available at [http://localhost:5000/](http://localhost:5000/)
+
+
+### Related Projects
+
+* [GraphQL.js](https://github.com/graphql/graphql-js) — The JavaScript reference implementation for [GraphQL](http://graphql.org/)
+* [React Starter Kit](https://github.com/kriasoft/react-starter-kit) — Isomorphic web app boilerplate (React, Node.js, Babel, Webpack, CSS Modules)
+* [React Static Boilerplate](https://github.com/kriasoft/react-static-boilerplate) — Single-page application (SPA) starter kit (React, Redux, Webpack, Firebase)
+* [Membership Database](https://github.com/membership/membership.db) — SQL schema boilerplate for user accounts, profiles, roles, and auth claims
+
 
 ### Support
 
@@ -31,14 +49,6 @@ $ node server
 * [#react-starter-kit](https://gitter.im/kriasoft/react-starter-kit) on Gitter — Watch announcements, share ideas and feedback
 * [GitHub Issues](https://github.com/kriasoft/graphql-starter-kit/issues) — Check open issues, send feature requests
 * [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya) or [HackHands](https://hackhands.com/koistya/) — Private consulting
-
-
-### Related Projects
-
-* [React Starter Kit](https://github.com/kriasoft/react-starter-kit) — Isomorphic web app boilerplate (React, Node.js, Babel, Webpack, CSS Modules)
-* [React Static Boilerplate](https://github.com/kriasoft/react-static-boilerplate) — Single-page application (SPA) starter kit (React, Redux, Webpack, Firebase)
-* [Membership Database](https://github.com/membership/membership.db) — SQL schema boilerplate for user accounts, profiles, roles, and auth claims
-* [Babel Starter Kit](https://github.com/kriasoft/babel-starter-kit) — Boilerplate for authoring JavaScript/React.js libraries
 
 
 ### License

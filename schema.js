@@ -1,5 +1,5 @@
 /**
- * React Starter Kit (https://www.reactstarterkit.com/)
+ * GraphQL Starter Kit (https://www.reactstarterkit.com/)
  *
  * Copyright © 2016-present Kriasoft, LLC. All rights reserved.
  *
@@ -8,16 +8,18 @@
  */
 
 const { GraphQLSchema, GraphQLObjectType } = require('graphql');
+const Viewer = require('./types/Viewer');
 
-/* eslint-disable global-require */
-
-const schema = new GraphQLSchema({
+module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
     fields: {
-      viewer: require('./queries/viewer'),
+      viewer: {
+        type: Viewer,
+        resolve() {
+          return Object.create(null);
+        },
+      },
     },
   }),
 });
-
-module.exports = schema;

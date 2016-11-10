@@ -1,8 +1,8 @@
 {
   "private": true,
   "engines": {
-    "node": ">=7",
-    "npm": ">=3.10"
+    "node": ">=6.9.1",
+    "npm": ">=3.10.8"
   },
   "dependencies": {
     "body-parser": "1.15.2",
