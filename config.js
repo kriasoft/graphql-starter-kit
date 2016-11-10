@@ -13,7 +13,7 @@ module.exports = {
   // ---------------------------------------------------------------------------
   auth: {
     jwt: {
-      secret: process.env.JWT_SECRET || 'React Starter Kit',
+      secret: process.env.JWT_SECRET || 'GraphQL Starter Kit',
     },
   },
 };
