@@ -23,7 +23,7 @@
     "extends": "airbnb-base"
   },
   "scripts": {
-    "lint": "eslint config.js server.js schema",
+    "lint": "eslint types config.js schema.js server.js",
     "start": "node server.js"
   }
 }

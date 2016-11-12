@@ -1,4 +1,4 @@
-# GraphQL Starter Kit
+# GraphQL Starter Kit &nbsp; <a href="https://github.com/kriasoft/graphql-starter-kit/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/graphql-starter-kit.svg?style=social&label=Star&maxAge=3600" height="20"></a> <a href="https://twitter.com/ReactStarter"><img src="https://img.shields.io/twitter/follow/ReactStarter.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
 
 Project template for authoring **[GraphQL](http://graphql.org/)** server
 applications with **Node.js 6+** and **JavaScript** (**[demo](https://api.reactstarterkit.com)**).
@@ -11,6 +11,23 @@ You can use it eighter just as a playground or a base for your next API project.
   <a href="https://es6.io/friend/konstantin">ES6 course</a> by Wes Bos.
 </p>
 ---
+
+
+### Directory Layout
+
+```shell
+.
+├── /node_modules/              # 3rd-party libraries and utilities
+├── /types/                     # GraphQL types /w resolve functions
+│   ├── /User.js                # User account
+│   ├── /Viewer.js              # The top-level object
+│   └── /...                    # etc.
+├── /test/                      # Unit and integration tests
+│── config.js                   # Configuration settings 
+│── package.json                # The list of project dependencies and NPM scripts
+│── schema.js                   # GraphQL schema
+└── server.js                   # Node.js application
+```
 
 
 ### Getting Started
@@ -33,6 +50,7 @@ $ nodemon
 ```
 
 The GraphQL server should become available at [http://localhost:5000/](http://localhost:5000/)
+([live demo](https://api.reactstarterkit.com))
 
 
 ### Related Projects
