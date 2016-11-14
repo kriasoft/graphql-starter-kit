@@ -15,15 +15,19 @@
     "pretty-error": "2.0.2"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "eslint": "^3.9.1",
     "eslint-config-airbnb-base": "^10.0.1",
-    "eslint-plugin-import": "^2.2.0"
+    "eslint-plugin-import": "^2.2.0",
+    "mocha": "^3.1.2"
   },
   "eslintConfig": {
     "extends": "airbnb-base"
   },
   "scripts": {
-    "lint": "eslint types config.js schema.js server.js",
+    "lint": "eslint types test config.js schema.js server.js",
+    "test": "mocha",
     "start": "node server.js"
   }
 }

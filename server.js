@@ -53,3 +53,5 @@ app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`The GraphQL server is running at http://localhost:${port}/`);
 });
+
+module.exports = app;
