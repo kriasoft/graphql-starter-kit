@@ -1,4 +1,4 @@
-# GraphQL Starter Kit &nbsp; <a href="https://github.com/kriasoft/graphql-starter-kit/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/graphql-starter-kit.svg?style=social&label=Star&maxAge=3600" height="20"></a> <a href="https://twitter.com/ReactStarter"><img src="https://img.shields.io/twitter/follow/ReactStarter.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
+# GraphQL Starter Kit &nbsp; <img src="https://app.codeship.com/projects/985b6330-8c78-0134-d24e-4e52c2517239/status?branch=master" alt="Build Status" height="20" /> <a href="https://github.com/kriasoft/graphql-starter-kit/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/graphql-starter-kit.svg?style=social&label=Star&maxAge=3600" height="20"></a> <a href="https://twitter.com/ReactStarter"><img src="https://img.shields.io/twitter/follow/ReactStarter.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
 
 Project template for authoring **[GraphQL](http://graphql.org/)** server
 applications with **Node.js 6+** and **JavaScript** (**[demo](https://api.reactstarterkit.com)**).
