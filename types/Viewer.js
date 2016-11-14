@@ -13,7 +13,7 @@ const User = require('./User');
 module.exports = new GraphQLObjectType({
   name: 'Viewer',
   fields: {
-    user: {
+    me: {
       type: User,
       resolve(root, args, { user }) {
         return user;
