@@ -2,7 +2,7 @@
 
 Project template for authoring **[GraphQL](http://graphql.org/)** server
 applications with **Node.js 6+** and **JavaScript** (**[demo](https://api.reactstarterkit.com)**).
-You can use it eighter just as a playground or a base for your next API project.
+You can use it either just as a playground or a base for your next API project.
 
 ---
 <p align="center">
