@@ -7,10 +7,10 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-const { GraphQLSchema, GraphQLObjectType } = require('graphql');
-const Viewer = require('./types/Viewer');
+import { GraphQLSchema, GraphQLObjectType } from 'graphql';
+import Viewer from './types/Viewer';
 
-module.exports = new GraphQLSchema({
+export default new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
     fields: {

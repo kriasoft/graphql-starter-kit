@@ -15,19 +15,38 @@
     "pretty-error": "2.0.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-syntax-trailing-function-commas": "^6.13.0",
+    "babel-plugin-transform-class-properties": "^6.19.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.19.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "eslint": "^3.9.1",
     "eslint-config-airbnb-base": "^10.0.1",
     "eslint-plugin-import": "^2.2.0",
-    "mocha": "^3.1.2"
+    "mocha": "^3.1.2",
+    "nodemon": "^1.11.0"
+  },
+  "babel": {
+    "plugins": [
+      "syntax-trailing-function-commas",
+      "transform-es2015-modules-commonjs",
+      "syntax-async-functions",
+      "transform-class-properties",
+      "transform-object-rest-spread"
+    ]
   },
   "eslintConfig": {
     "extends": "airbnb-base"
   },
   "scripts": {
-    "lint": "eslint types test config.js schema.js server.js",
-    "test": "mocha",
-    "start": "node server.js"
+    "lint": "eslint src test",
+    "test": "mocha --compilers js:babel-core/register",
+    "build": "node run build",
+    "start": "node run"
   }
 }

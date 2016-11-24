@@ -7,16 +7,15 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const server = require('../server');
+import chai, { expect } from 'chai';
+import chaiHttp from 'chai-http';
+import app from '../src/app';
 
-const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('Viewer', () => {
   it('.me must be null if user is not authenticated', (done) => {
-    chai.request(server)
+    chai.request(app)
       .post('/')
       .send({ query: 'query { viewer { me { id, email } } }' })
       .end((err, res) => {

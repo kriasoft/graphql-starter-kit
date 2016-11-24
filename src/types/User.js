@@ -7,17 +7,17 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-const { GraphQLObjectType } = require('graphql');
-const User = require('./User');
+import { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLString } from 'graphql';
 
-module.exports = new GraphQLObjectType({
-  name: 'Viewer',
+export default new GraphQLObjectType({
+  name: 'User',
   fields: {
-    me: {
-      type: User,
-      resolve(root, args, { user }) {
-        return user;
-      },
+    id: {
+      type: new GraphQLNonNull(GraphQLID),
+    },
+
+    email: {
+      type: GraphQLString,
     },
   },
 });

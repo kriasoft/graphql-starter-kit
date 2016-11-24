@@ -7,18 +7,17 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const expressJwt = require('express-jwt');
-const expressGraphQL = require('express-graphql');
-const PrettyError = require('pretty-error');
-const schema = require('./schema');
-const config = require('./config');
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import expressJwt from 'express-jwt';
+import expressGraphQL from 'express-graphql';
+import PrettyError from 'pretty-error';
+import schema from './schema';
+import config from './config';
 
 const app = express();
-const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(cookieParser());
@@ -26,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(expressJwt({
-  secret: config.auth.jwt.secret,
+  secret: config.jwtSecret,
   credentialsRequired: false,
   getToken: req => req.cookies.id_token,
 }));
@@ -45,13 +44,12 @@ pe.skipNodeFiles();
 pe.skipPackage('express');
 
 app.use((err, req, res, next) => {
-  console.error(pe.render(err)); // eslint-disable-line no-console
+  process.stderr.write(pe.render(err));
   next(err);
 });
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`The GraphQL server is running at http://localhost:${port}/`);
+app.listen(config.port, () => {
+  process.stdout.write(config.message);
 });
 
 module.exports = app;

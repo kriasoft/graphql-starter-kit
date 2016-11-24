@@ -15,18 +15,21 @@ You can use it either just as a playground or a base for your next API project.
 
 ### Directory Layout
 
-```shell
+```sh
 .
-├── /node_modules/              # 3rd-party libraries and utilities
-├── /types/                     # GraphQL types /w resolve functions
-│   ├── /User.js                # User account
-│   ├── /Viewer.js              # The top-level object
-│   └── /...                    # etc.
+├── /build/                     # The compiled output (via Babel)
+├── /node_modules/              # Project dependencies (npm modules)
+├── /src/                       # Node.js application source files
+│   ├──/types/                  # GraphQL types /w resolve functions
+│   │   ├── /User.js            # User account (id, email, etc.)
+│   │   ├── /Viewer.js          # The top-level GraphQL object type
+│   │   └── /...                # etc.
+│   ├── /app.js                 # Node.js application (entry point)
+│   ├── /config.js              # Node.js application settings
+│   └── /schema.js              # GraphQL schema
 ├── /test/                      # Unit and integration tests
-│── config.js                   # Configuration settings 
-│── package.json                # The list of project dependencies and NPM scripts
-│── schema.js                   # GraphQL schema
-└── server.js                   # Node.js application
+│── package.json                # The list of project dependencies
+└── run.js                      # Build automation scripts
 ```
 
 
@@ -39,18 +42,18 @@ $ git clone -o graphql-starter-kit -b master --single-branch \
       https://github.com/kriasoft/graphql-starter-kit.git api.example.com
 $ cd api.example.com
 $ npm install
-$ node server
-```
-
-Or, if you have [nodemon](https://github.com/remy/nodemon) installed globally,
-you can launch the server by running:
-
-```sh
-$ nodemon
+$ npm start
 ```
 
 The GraphQL server should become available at [http://localhost:5000/](http://localhost:5000/)
 ([live demo](https://api.reactstarterkit.com))
+
+
+### How to Test
+
+```sh
+$ npm test
+```
 
 
 ### Related Projects
