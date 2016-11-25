@@ -48,6 +48,6 @@
     "test": "mocha --compilers js:babel-core/register",
     "test:watch": "mocha --compilers js:babel-core/register --reporter min --watch",
     "build": "node run build",
-    "start": "node run"
+    "start": "node run start"
   }
 }
