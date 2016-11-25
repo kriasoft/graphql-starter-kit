@@ -29,7 +29,7 @@ You can use it either just as a playground or a base for your next API project.
 │   ├── /schema.js              # GraphQL schema
 │   └── /server.js              # Node.js server (entry point)
 ├── /test/                      # Unit and integration tests
-│── package.json                # The list of project dependencies
+├── package.json                # The list of project dependencies
 └── run.js                      # Build automation scripts
 ```
 
