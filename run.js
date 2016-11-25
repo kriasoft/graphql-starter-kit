@@ -55,7 +55,7 @@ tasks.set('start', () => new Promise((resolve) => {
     watch: [path.join(__dirname, 'src')],
     ignore: [],
     verbose: true,
-    script: 'src/app.js',
+    script: 'src/server.js',
     stdout: false,
   })
     .on('stdout', data => {

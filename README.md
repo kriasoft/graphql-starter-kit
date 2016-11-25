@@ -24,9 +24,10 @@ You can use it either just as a playground or a base for your next API project.
 │   │   ├── /User.js            # User account (id, email, etc.)
 │   │   ├── /Viewer.js          # The top-level GraphQL object type
 │   │   └── /...                # etc.
-│   ├── /app.js                 # Node.js application (entry point)
-│   ├── /config.js              # Node.js application settings
-│   └── /schema.js              # GraphQL schema
+│   ├── /app.js                 # Express application
+│   ├── /config.js              # Application settings
+│   ├── /schema.js              # GraphQL schema
+│   └── /server.js              # Node.js server (entry point)
 ├── /test/                      # Unit and integration tests
 │── package.json                # The list of project dependencies
 └── run.js                      # Build automation scripts
@@ -52,7 +53,8 @@ The GraphQL server should become available at [http://localhost:5000/](http://lo
 ### How to Test
 
 ```sh
-$ npm test
+$ npm run test                  # Run unit tests once
+$ npm run test:watch            # Run unit tests in watch mode
 ```
 
 
