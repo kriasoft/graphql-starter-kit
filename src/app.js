@@ -48,8 +48,4 @@ app.use((err, req, res, next) => {
   next(err);
 });
 
-app.listen(config.port, () => {
-  process.stdout.write(config.message);
-});
-
-module.exports = app;
+export default app;
