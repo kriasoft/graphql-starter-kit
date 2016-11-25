@@ -7,6 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+import 'source-map-support/register';
 import app from './app';
 import config from './config';
 

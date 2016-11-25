@@ -12,7 +12,8 @@
     "express-graphql": "0.5.4",
     "express-jwt": "5.1.0",
     "graphql": "0.7.2",
-    "pretty-error": "2.0.2"
+    "pretty-error": "2.0.2",
+    "source-map-support": "0.4.6"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
