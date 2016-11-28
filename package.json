@@ -9,9 +9,9 @@
     "cookie-parser": "1.4.3",
     "cors": "2.8.1",
     "express": "4.14.0",
-    "express-graphql": "0.5.4",
+    "express-graphql": "0.6.1",
     "express-jwt": "5.1.0",
-    "graphql": "0.7.2",
+    "graphql": "0.8.2",
     "pretty-error": "2.0.2",
     "source-map-support": "0.4.6"
   },
@@ -24,12 +24,13 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.19.0",
     "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-register": "^6.18.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
-    "eslint": "^3.9.1",
+    "eslint": "^3.11.0",
     "eslint-config-airbnb-base": "^10.0.1",
     "eslint-plugin-import": "^2.2.0",
-    "mocha": "^3.1.2",
+    "mocha": "^3.2.0",
     "nodemon": "^1.11.0"
   },
   "babel": {
@@ -49,6 +50,7 @@
     "test": "mocha --compilers js:babel-core/register",
     "test:watch": "mocha --compilers js:babel-core/register --reporter min --watch",
     "build": "node run build",
+    "build:watch": "node run build --watch",
     "start": "node run start"
   }
 }

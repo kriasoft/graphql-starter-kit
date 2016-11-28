@@ -13,6 +13,8 @@ const cp = require('child_process');
 const nodemon = require('nodemon');
 const config = require('./src/config');
 
+/* eslint-disable no-console, global-require */
+
 const tasks = new Map();
 
 function run(task) {
@@ -23,39 +25,44 @@ function run(task) {
   }, err => console.error(err.stack));
 }
 
-tasks.set('build', () => new Promise((resolve) => {
-  const pkg = require('./package.json');
-  fs.writeFileSync('build/package.json', JSON.stringify({
-    engines: pkg.engines,
-    dependencies: pkg.dependencies,
-    scripts: {
-      start: 'node app.js',
-    },
-  }, null, '  '), 'utf8');
-  console.log('package.json -> build/package.json');
-
-  cp.spawn(
-    'node',
-    [
-      './node_modules/babel-cli/bin/babel.js',
+tasks.set('build', () => Promise.resolve()
+  .then(() => new Promise(resolve => {
+    cp.spawn('node', [
+      'node_modules/babel-cli/bin/babel.js',
       'src',
       '--out-dir',
       'build',
       '--source-maps',
-    ],
-    {
-      stdio: 'inherit',
-    }).on('exit', resolve);
-}));
+      ...(process.argv.includes('--watch') || process.argv.includes('-w') ? ['--watch'] : []),
+    ], { stdio: ['inherit', 'pipe', 'inherit'] })
+      .on('exit', resolve)
+      .stdout.on('data', data => {
+        if (data.toString().startsWith('src/server.js')) {
+          const src = fs.readFileSync('build/server.js', 'utf8');
+          fs.writeFileSync('build/server.js', `require('source-map-support').install(); ${src}`, 'utf8');
+        }
+        process.stdout.write(data);
+      })
+  }))
+  .then(() => new Promise(resolve => {
+    const pkg = require('./package.json');
+    fs.writeFileSync('build/package.json', JSON.stringify({
+      engines: pkg.engines,
+      dependencies: pkg.dependencies,
+      scripts: { start: 'node server.js' },
+    }, null, '  '), 'utf8');
+    console.log('package.json -> build/package.json');
+    resolve();
+  })));
 
-tasks.set('start', () => new Promise((resolve) => {
+tasks.set('start', () => {
   process.stdout.write('\033c');
   nodemon({
-    exec: 'babel-node',
     watch: [path.join(__dirname, 'src')],
     ignore: [],
     verbose: true,
     script: 'src/server.js',
+    nodeArgs: ['--require', 'babel-register', ...process.argv.filter(x => x.startsWith('-'))],
     stdout: false,
   })
     .on('stdout', data => {
@@ -66,7 +73,7 @@ tasks.set('start', () => new Promise((resolve) => {
     })
     .on('stderr', data => process.stderr.write(data))
     .on('start', () => process.stdout.write('\033cBuilding...'));
-}));
+});
 
 // Execute the specified task or default one. E.g.: node run build
 run(/^\w/.test(process.argv[2] || '') ? process.argv[2] : 'start' /* default */);

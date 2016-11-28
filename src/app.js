@@ -35,7 +35,7 @@ app.use(expressGraphQL(req => ({
   context: {
     user: req.user,
   },
-  graphiql: true,
+  graphiql: process.env.NODE_ENV !== 'production',
   pretty: process.env.NODE_ENV !== 'production',
 })));
 

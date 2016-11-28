@@ -50,12 +50,41 @@ The GraphQL server should become available at [http://localhost:5000/](http://lo
 ([live demo](https://api.reactstarterkit.com))
 
 
+### How to Build
+
+If you need to build the project without launching a dev server:
+
+```sh
+$ npm run build                # Compiles the app into the /build folder
+$ npm run build:watch          # Compiles the app and starts watching for changes
+```
+
+
 ### How to Test
 
 ```sh
 $ npm run test                  # Run unit tests once
 $ npm run test:watch            # Run unit tests in watch mode
 ```
+
+
+### How to Debug
+
+Pick one of the two ways of launching the Node.js app in a debug mode:
+
+##### Option #1
+
+```sh
+$ npm run build
+$ node --debug --nolazy build/server
+
+##### Option #2
+
+```sh
+$ npm start -- --debug --nolazy
+```
+
+Then attach your debugger to the process listening on `127.0.0.1:5858` ([learn more](https://code.visualstudio.com/Docs/editor/debugging)).
 
 
 ### Related Projects

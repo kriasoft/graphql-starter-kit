@@ -7,12 +7,11 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import 'source-map-support/register';
 import app from './app';
 import config from './config';
 
 const server = app.listen(config.port, () => {
-  process.stdout.write(config.message);
+  process.stdout.write(`${config.message}\n`);
 });
 
 export default server;
