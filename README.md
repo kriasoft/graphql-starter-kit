@@ -77,6 +77,7 @@ Pick one of the two ways of launching the Node.js app in a debug mode:
 ```sh
 $ npm run build
 $ node --debug --nolazy build/server
+```
 
 ##### Option #2
 
