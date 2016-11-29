@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var glob = require('glob');
 
 module.exports = yeoman.Base.extend({
   greeting: function () {
@@ -11,23 +12,36 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
-    this.copy(
-      this.templatePath('**/*'),
-      this.destinationRoot(),
-      {
-        globOptions: {
-          dot: true,
-          ignore: [
-            '**/.git',
-            '**/.gitignore',
-            '**/.npmignore',
-            '**/CONTRIBUTING.md'
-          ]
-        }
-      }
-    );
+    var files = glob.sync('**/*', {
+      cwd: this.sourceRoot(),
+      dot: true,
+      nodir: true,
+      ignore: [
+        '**/.git',
+        '**/.gitignore',
+        '**/.npmignore',
+        '**/CONTRIBUTING.md'
+      ]});
+    for (var i = 0; i < files.length; i++) {
+      this.copy(files[i], files[i]);
+    }
+    // this.copy(
+    //   this.templatePath('**/*'),
+    //   this.destinationRoot(),
+    //   {
+    //     globOptions: {
+    //       dot: true,
+    //       ignore: [
+    //         '**/.git',
+    //         '**/.gitignore',
+    //         '**/.npmignore',
+    //         '**/CONTRIBUTING.md'
+    //       ]
+    //     }
+    //   }
+    // );
     this.write(
-      '.gitignore',
+      this.destinationPath('.gitignore'),
       '# Include your project-specific ignores in this file\n' +
       '# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files\n\n' +
       'build\n' +

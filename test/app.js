@@ -12,6 +12,13 @@ describe('generator-graphql-server:app', function () {
 
   it('creates files', function () {
     assert.file([
+      'src/types/Viewer.js',
+      'src/app.js',
+      'src/config.js',
+      'src/schema.js',
+      'src/server.js',
+      'test/.eslintrc',
+      'test/ViewerSpec.js',
       '.editorconfig',
       '.gitattributes',
       '.gitignore',

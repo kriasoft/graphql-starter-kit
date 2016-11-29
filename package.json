@@ -1,6 +1,6 @@
 {
   "name": "generator-graphql-server",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "GraphQL Server Starter Kit built with Node.js 6+ and JavaScript (ES6, ES2017+ via Babel)",
   "repository": "https://github.com/kriasoft/graphql-starter-kit.git",
   "author": "Kriasoft <hello@kriasoft.com> (https://www.kriasoft.com)",
@@ -32,8 +32,9 @@
     "yeoman-generator"
   ],
   "dependencies": {
-    "yeoman-generator": "^0.24.1",
     "chalk": "^1.1.3",
+    "glob": "^7.1.1",
+    "yeoman-generator": "^0.24.1",
     "yosay": "^1.2.1"
   },
   "devDependencies": {
