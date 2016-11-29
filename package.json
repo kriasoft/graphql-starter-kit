@@ -31,7 +31,8 @@
     "eslint-config-airbnb-base": "^10.0.1",
     "eslint-plugin-import": "^2.2.0",
     "mocha": "^3.2.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "rimraf": "^2.5.4"
   },
   "babel": {
     "plugins": [
@@ -46,11 +47,11 @@
     "extends": "airbnb-base"
   },
   "scripts": {
-    "lint": "eslint src test",
-    "test": "mocha --compilers js:babel-core/register",
-    "test:watch": "mocha --compilers js:babel-core/register --reporter min --watch",
-    "build": "node run build",
-    "build:watch": "node run build --watch",
-    "start": "node run start"
+    "lint": "eslint src test scripts --ignore-pattern scripts/start.js",
+    "test": "mocha test/unit --compilers js:babel-core/register",
+    "test:watch": "mocha test/unit --compilers js:babel-core/register --reporter min --watch",
+    "build": "node scritps/build",
+    "build:watch": "node scripts/build --watch",
+    "start": "node scripts/start"
   }
 }

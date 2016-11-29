@@ -15,10 +15,11 @@ You can use it either just as a playground or a base for your next API project.
 
 ## Directory Layout
 
-```sh
+```bash
 .
 ├── /build/                     # The compiled output (via Babel)
 ├── /node_modules/              # Project dependencies (npm modules)
+├── /scripts/                   # Build automation scripts
 ├── /src/                       # Node.js application source files
 │   ├──/types/                  # GraphQL types /w resolve functions
 │   │   ├── /User.js            # User account (id, email, etc.)
@@ -29,8 +30,7 @@ You can use it either just as a playground or a base for your next API project.
 │   ├── /schema.js              # GraphQL schema
 │   └── /server.js              # Node.js server (entry point)
 ├── /test/                      # Unit and integration tests
-├── package.json                # The list of project dependencies
-└── run.js                      # Build automation scripts
+└── package.json                # The list of project dependencies
 ```
 
 
@@ -38,12 +38,12 @@ You can use it either just as a playground or a base for your next API project.
 
 Just clone the repo and start hacking:
 
-```sh
-$ git clone -o graphql-starter-kit -b master --single-branch \
-      https://github.com/kriasoft/graphql-starter-kit.git api.example.com
-$ cd api.example.com
-$ npm install
-$ npm start
+```bash
+git clone -o graphql-starter-kit -b master --single-branch \
+   https://github.com/kriasoft/graphql-starter-kit.git api.example.com
+cd api.example.com
+npm install
+npm start                       # Alternatively, node scripts/start.js
 ```
 
 The GraphQL server should become available at [http://localhost:5000/](http://localhost:5000/)
@@ -54,17 +54,18 @@ The GraphQL server should become available at [http://localhost:5000/](http://lo
 
 If you need to build the project without launching a dev server:
 
-```sh
-$ npm run build                # Compiles the app into the /build folder
-$ npm run build:watch          # Compiles the app and starts watching for changes
+```bash
+node scripts/build.js           # Compiles the app into the /build folder
+node scripts/build.js --watch   # Compiles the app and starts watching for changes
 ```
 
 
 ## How to Test
 
-```sh
-$ npm run test                  # Run unit tests once
-$ npm run test:watch            # Run unit tests in watch mode
+```bash
+npm run lint                    # Find problematic patterns in code
+npm run test                    # Run unit tests once
+npm run test:watch              # Run unit tests in watch mode
 ```
 
 
@@ -74,15 +75,15 @@ Pick one of the two ways of launching the Node.js app in a debug mode:
 
 #### Option #1
 
-```sh
-$ npm run build
-$ node --debug --nolazy build/server
+```bash
+node scripts/build.js --watch
+node build/server.js --debug --nolazy
 ```
 
 #### Option #2
 
-```sh
-$ npm start -- --debug --nolazy
+```bash
+node scripts/start.js --debug --nolazy
 ```
 
 Then attach your debugger to the process listening on `127.0.0.1:5858` ([learn more](https://code.visualstudio.com/Docs/editor/debugging)).
