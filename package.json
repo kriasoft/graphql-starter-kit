@@ -1,0 +1,64 @@
+{
+  "name": "generator-graphql-server",
+  "version": "0.1.0",
+  "description": "GraphQL Server Starter Kit built with Node.js 6+ and JavaScript (ES6, ES2017+ via Babel)",
+  "repository": "https://github.com/kriasoft/graphql-starter-kit.git",
+  "author": "Kriasoft <hello@kriasoft.com> (https://www.kriasoft.com)",
+  "contributors": [
+    "Konstantin Tarkus <hello@tarkus.me> (https://www.codementor.io/koistya)"
+  ],
+  "license": "MIT",
+  "files": [
+    "generators"
+  ],
+  "main": "generators/index.js",
+  "keywords": [
+    "graphql",
+    "relay",
+    "react",
+    "reactjs",
+    "react.js",
+    "node",
+    "nodejs",
+    "node.js",
+    "babel",
+    "es6",
+    "es2015",
+    "es2017",
+    "sdk",
+    "template",
+    "starter kit",
+    "yeoman",
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^0.24.1",
+    "chalk": "^1.1.3",
+    "yosay": "^1.2.1"
+  },
+  "devDependencies": {
+    "yeoman-test": "^1.5.1",
+    "yeoman-assert": "^2.2.1",
+    "eslint": "^3.11.1",
+    "eslint-config-xo-space": "^0.15.0",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-exclude-gitignore": "^1.1.1",
+    "gulp-line-ending-corrector": "^1.0.1",
+    "gulp-istanbul": "^1.1.1",
+    "gulp-mocha": "^3.0.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-nsp": "^2.4.2",
+    "gulp-coveralls": "^0.1.4"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "mocha": true
+    }
+  },
+  "scripts": {
+    "prepublish": "gulp prepublish",
+    "test": "gulp"
+  }
+}

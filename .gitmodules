@@ -1,0 +1,4 @@
+[submodule "graphql-starter-kit"]
+	path = generators/app/templates
+	url = https://github.com/kriasoft/graphql-starter-kit.git
+	branch = master
