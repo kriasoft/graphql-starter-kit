@@ -13,7 +13,7 @@ You can use it either just as a playground or a base for your next API project.
 ---
 
 
-### Directory Layout
+## Directory Layout
 
 ```sh
 .
@@ -34,7 +34,7 @@ You can use it either just as a playground or a base for your next API project.
 ```
 
 
-### Getting Started
+## Getting Started
 
 Just clone the repo and start hacking:
 
@@ -50,7 +50,7 @@ The GraphQL server should become available at [http://localhost:5000/](http://lo
 ([live demo](https://api.reactstarterkit.com))
 
 
-### How to Build
+## How to Build
 
 If you need to build the project without launching a dev server:
 
@@ -60,7 +60,7 @@ $ npm run build:watch          # Compiles the app and starts watching for change
 ```
 
 
-### How to Test
+## How to Test
 
 ```sh
 $ npm run test                  # Run unit tests once
@@ -68,18 +68,18 @@ $ npm run test:watch            # Run unit tests in watch mode
 ```
 
 
-### How to Debug
+## How to Debug
 
 Pick one of the two ways of launching the Node.js app in a debug mode:
 
-##### Option #1
+#### Option #1
 
 ```sh
 $ npm run build
 $ node --debug --nolazy build/server
 ```
 
-##### Option #2
+#### Option #2
 
 ```sh
 $ npm start -- --debug --nolazy
@@ -88,7 +88,19 @@ $ npm start -- --debug --nolazy
 Then attach your debugger to the process listening on `127.0.0.1:5858` ([learn more](https://code.visualstudio.com/Docs/editor/debugging)).
 
 
-### Related Projects
+## Contributing
+
+Anyone and everyone is welcome to [contribute](CONTRIBUTING.md). Start by checking out the list of
+[open issues](https://github.com/kriasoft/graphql-starter-kit/issues) marked
+[help wanted](https://github.com/kriasoft/graphql-starter-kit/issues?q=label:"help+wanted").
+However, if you decide to get involved, please take a moment to review the [guidelines](CONTRIBUTING.md):
+
+* [Bug reports](CONTRIBUTING.md#bugs)
+* [Feature requests](CONTRIBUTING.md#features)
+* [Pull requests](CONTRIBUTING.md#pull-requests)
+
+
+## Related Projects
 
 * [GraphQL.js](https://github.com/graphql/graphql-js) — The JavaScript reference implementation for [GraphQL](http://graphql.org/)
 * [React Starter Kit](https://github.com/kriasoft/react-starter-kit) — Isomorphic web app boilerplate (React, Node.js, Babel, Webpack, CSS Modules)
@@ -96,7 +108,7 @@ Then attach your debugger to the process listening on `127.0.0.1:5858` ([learn m
 * [Membership Database](https://github.com/membership/membership.db) — SQL schema boilerplate for user accounts, profiles, roles, and auth claims
 
 
-### Support
+## Support
 
 * [#react-starter-kit](http://stackoverflow.com/questions/tagged/react-starter-kit) on Stack Overflow — Questions and answers
 * [#react-starter-kit](https://gitter.im/kriasoft/react-starter-kit) on Gitter — Watch announcements, share ideas and feedback
@@ -104,7 +116,7 @@ Then attach your debugger to the process listening on `127.0.0.1:5858` ([learn m
 * [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya) or [HackHands](https://hackhands.com/koistya/) — Private consulting
 
 
-### License
+## License
 
 Copyright © 2016-present Kriasoft, LLC. This source code is licensed under the MIT
 license found in the [LICENSE.txt](https://github.com/kriasoft/graphql-starter-kit/blob/master/LICENSE.txt)
