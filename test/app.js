@@ -12,21 +12,25 @@ describe('generator-graphql-server:app', function () {
 
   it('creates files', function () {
     assert.file([
+      'scripts/lib/task.js',
+      'scripts/.eslintrc',
+      'scripts/clean.js',
+      'scripts/build.js',
+      'scripts/start.js',
       'src/types/Viewer.js',
       'src/app.js',
       'src/config.js',
       'src/schema.js',
       'src/server.js',
       'test/.eslintrc',
-      'test/ViewerSpec.js',
+      'test/unit/ViewerSpec.js',
       '.editorconfig',
       '.gitattributes',
       '.gitignore',
       '.travis.yml',
       'LICENSE.txt',
       'package.json',
-      'README.md',
-      'run.js'
+      'README.md'
     ]);
   });
 });
