@@ -29,25 +29,25 @@ You can use it either just as a playground or a base for your next API project.
 │   ├── /config.js              # Application settings
 │   ├── /schema.js              # GraphQL schema
 │   └── /server.js              # Node.js server (entry point)
-├── /test/                      # Unit and integration tests
+├── /test/                      # Unit, integration and load tests
 └── package.json                # The list of project dependencies
 ```
 
 
 ## Getting Started
 
-Just clone the repo and start hacking:
+Just clone the repo and start hacking (we assume you have pre-installed [Node.js](https://nodejs.org/) 6+):
 
 ```bash
 git clone -o graphql-starter-kit -b master --single-branch \
    https://github.com/kriasoft/graphql-starter-kit.git api.example.com
 cd api.example.com
-npm install
-npm start                       # Alternatively, node scripts/start.js
+npm install                     # Install project dependencies
+npm start                       # Launch the app. Alternatively, node scripts/start.js
 ```
 
 The GraphQL server should become available at [http://localhost:5000/](http://localhost:5000/)
-([live demo](https://api.reactstarterkit.com))
+([live demo](https://api.reactstarterkit.com)).
 
 
 ## How to Build
@@ -55,8 +55,8 @@ The GraphQL server should become available at [http://localhost:5000/](http://lo
 If you need to build the project without launching a dev server:
 
 ```bash
-node scripts/build.js           # Compiles the app into the /build folder
-node scripts/build.js --watch   # Compiles the app and starts watching for changes
+npm run build                   # Compiles the app into the /build folder
+npm run build:watch             # Compiles the app and starts watching for changes
 ```
 
 
@@ -76,14 +76,14 @@ Pick one of the two ways of launching the Node.js app in a debug mode:
 #### Option #1
 
 ```bash
-node scripts/build.js --watch
+npm run build -- --watch
 node build/server.js --debug --nolazy
 ```
 
 #### Option #2
 
 ```bash
-node scripts/start.js --debug --nolazy
+npm run start -- --debug --nolazy
 ```
 
 Then attach your debugger to the process listening on `127.0.0.1:5858` ([learn more](https://code.visualstudio.com/Docs/editor/debugging)).

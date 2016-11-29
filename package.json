@@ -50,7 +50,7 @@
     "lint": "eslint src test scripts --ignore-pattern scripts/start.js",
     "test": "mocha test/unit --compilers js:babel-core/register",
     "test:watch": "mocha test/unit --compilers js:babel-core/register --reporter min --watch",
-    "build": "node scritps/build",
+    "build": "node scripts/build",
     "build:watch": "node scripts/build --watch",
     "start": "node scripts/start"
   }
