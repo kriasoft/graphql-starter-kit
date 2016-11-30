@@ -9,6 +9,7 @@
 
 const fs = require('fs');
 const cp = require('child_process');
+const copyFile = require('cp-file');
 const pkg = require('../package.json');
 const clean = require('./clean');
 const task = require('./lib/task');
@@ -33,6 +34,7 @@ module.exports = task(() => Promise.resolve()
         process.stdout.write(data);
       });
   }))
+  .then(copyFile.bind(undefined, 'yarn.lock', 'build/yarn.lock'))
   .then(() => new Promise((resolve) => {
     fs.writeFileSync('build/package.json', JSON.stringify({
       engines: pkg.engines,
