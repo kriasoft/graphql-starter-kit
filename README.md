@@ -22,7 +22,8 @@ You can use it either just as a playground or a base for your next API project.
 │   ├── /schema.js              # GraphQL schema
 │   └── /server.js              # Node.js server (entry point)
 ├── /test/                      # Unit, integration and load tests
-└── package.json                # The list of project dependencies
+├── package.json                # The list of project dependencies
+└── yarn.lock                   # Fixed versions of all the dependencies
 ```
 
 
@@ -53,6 +54,7 @@ npm run build:watch             # Compiles the app and starts watching for chang
 
 ```bash
 npm run lint                    # Find problematic patterns in code
+npm run check                   # Check source code for type errors
 npm run test                    # Run unit tests once
 npm run test:watch              # Run unit tests in watch mode
 ```

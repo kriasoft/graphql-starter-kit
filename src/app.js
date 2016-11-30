@@ -7,6 +7,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+/* @flow */
+
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';

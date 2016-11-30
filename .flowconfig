@@ -1,0 +1,4 @@
+[ignore]
+.*/build/.*
+.*/coverage/.*
+.*/scripts/.*
