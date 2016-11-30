@@ -4,14 +4,6 @@ Project template for authoring **[GraphQL](http://graphql.org/)** server
 applications with **Node.js 6+** and **JavaScript** (**[demo](https://api.reactstarterkit.com)**).
 You can use it either just as a playground or a base for your next API project.
 
----
-<p align="center">
-  <b>🔥 Want to strengthen your core JavaScript skills and master ES6?</b>
-  <br>I would personally recommend this awesome
-  <a href="https://es6.io/friend/konstantin">ES6 course</a> by Wes Bos.
-</p>
----
-
 
 ## Directory Layout
 
@@ -49,10 +41,7 @@ npm start                       # Launch the app. Alternatively, node scripts/st
 The GraphQL server should become available at [http://localhost:5000/](http://localhost:5000/)
 ([live demo](https://api.reactstarterkit.com)).
 
-
-## How to Build
-
-If you need to build the project without launching a dev server:
+If you just need to build the project without launching a dev server, run one of these two commands:
 
 ```bash
 npm run build                   # Compiles the app into the /build folder
@@ -60,7 +49,7 @@ npm run build:watch             # Compiles the app and starts watching for chang
 ```
 
 
-## How to Test
+## Testing
 
 ```bash
 npm run lint                    # Find problematic patterns in code
@@ -69,7 +58,7 @@ npm run test:watch              # Run unit tests in watch mode
 ```
 
 
-## How to Debug
+## Debugging
 
 Pick one of the two ways of launching the Node.js app in a debug mode:
 
