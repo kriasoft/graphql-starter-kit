@@ -5,15 +5,15 @@
     "npm": ">=3.10.8"
   },
   "dependencies": {
-    "body-parser": "1.15.2",
-    "cookie-parser": "1.4.3",
-    "cors": "2.8.1",
-    "express": "4.14.0",
-    "express-graphql": "0.6.1",
-    "express-jwt": "5.1.0",
-    "graphql": "0.8.2",
-    "pretty-error": "2.0.2",
-    "source-map-support": "0.4.6"
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "express-graphql": "^0.6.1",
+    "express-jwt": "^5.1.0",
+    "graphql": "^0.8.2",
+    "pretty-error": "^2.0.2",
+    "source-map-support": "^0.4.6"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

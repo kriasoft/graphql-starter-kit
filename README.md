@@ -28,13 +28,13 @@ You can use it either just as a playground or a base for your next API project.
 
 ## Getting Started
 
-Just clone the repo and start hacking (we assume you have pre-installed [Node.js](https://nodejs.org/) 6+):
+Just clone the repo and start hacking (we assume you have pre-installed [Node.js](https://nodejs.org/) 6+ and [Yarn](https://yarnpkg.com)):
 
 ```bash
 git clone -o graphql-starter-kit -b master --single-branch \
    https://github.com/kriasoft/graphql-starter-kit.git api.example.com
 cd api.example.com
-npm install                     # Install project dependencies
+yarn install                    # Install project dependencies. Alternatively, npm install
 npm start                       # Launch the app. Alternatively, node scripts/start.js
 ```
 
