@@ -2,6 +2,10 @@ language: node_js
 node_js:
   - '7'
   - '6'
+cache:
+  yarn: true
+  directories:
+    - node_modules
 script:
   - npm run lint
   - npm run build
