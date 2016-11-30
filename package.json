@@ -1,8 +1,8 @@
 {
   "name": "generator-graphql-server",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "GraphQL Server Starter Kit built with Node.js 6+ and JavaScript (ES6, ES2017+ via Babel)",
-  "repository": "https://github.com/kriasoft/graphql-starter-kit.git",
+  "repository": "kriasoft/graphql-starter-kit",
   "author": "Kriasoft <hello@kriasoft.com> (https://www.kriasoft.com)",
   "contributors": [
     "Konstantin Tarkus <hello@tarkus.me> (https://www.codementor.io/koistya)"

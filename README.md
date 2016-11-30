@@ -6,7 +6,7 @@ applications with Node.js 6+ and JavaScript (ES2017+ via Babel).
 
 ## Installation
 
-First, install [Yeoman][yo] and `generator-graphql-server` using [npm](https://www.npmjs.com/) (we assume you have pre-installed [Node.js](https://nodejs.org/) 6+).
+First, install [Yeoman][yo] and `generator-graphql-server` using [npm](https://www.npmjs.com/) (we assume you have pre-installed [Node.js](https://nodejs.org/) 6+ and [Yarn](https://yarnpkg.com/)).
 
 ```bash
 npm install -g yo
