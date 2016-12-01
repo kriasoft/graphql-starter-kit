@@ -2,7 +2,7 @@
 
 Project template for authoring **[GraphQL](http://graphql.org/)** server
 applications with **Node.js 6+** and **JavaScript** (**[demo](https://api.reactstarterkit.com)**).
-You can use it either just as a playground or a base for your next API project.
+You can use it either as a playground or a base for your next Node.js-based backend project.
 
 
 ## Directory Layout
@@ -10,6 +10,7 @@ You can use it either just as a playground or a base for your next API project.
 ```bash
 .
 ├── /build/                     # The compiled output (via Babel)
+├── /migrations/                # Database schema migrations
 ├── /node_modules/              # Project dependencies (npm modules)
 ├── /scripts/                   # Build automation scripts
 ├── /src/                       # Node.js application source files
@@ -27,16 +28,26 @@ You can use it either just as a playground or a base for your next API project.
 ```
 
 
+## Prerequisites
+
+* OS X, Windows or Linux
+* [Node.js](https://nodejs.org) v6 or newer + [Yarn](https://yarnpkg.com) package manager
+* [PostgreSQL](https://www.postgresql.org/) v9.5 or newer (see [how to install PostgreSQL on a dev machine](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup))
+* Text editor or IDE (e.g. [VS Code](https://code.visualstudio.com/), [WebStorm](https://www.jetbrains.com/webstorm/) etc.)
+
+
 ## Getting Started
 
-Just clone the repo and start hacking (we assume you have pre-installed [Node.js](https://nodejs.org/) 6+ and [Yarn](https://yarnpkg.com)):
+Just clone the repo and start hacking:
 
 ```bash
 git clone -o graphql-starter-kit -b master --single-branch \
    https://github.com/kriasoft/graphql-starter-kit.git api.example.com
 cd api.example.com
 yarn install                    # Install project dependencies. Alternatively, npm install
-npm start                       # Launch the app. Alternatively, node scripts/start.js
+npm run db:create               # Create a new database (see src/config.js/databaseUrl)
+npm run db:migrate              # Migrate database schema to the latest version
+npm run start                   # Launch the app. Alternatively, node scripts/start.js
 ```
 
 The GraphQL server should become available at [http://localhost:5000/](http://localhost:5000/)
@@ -47,6 +58,24 @@ If you just need to build the project without launching a dev server, run one of
 ```bash
 npm run build                   # Compiles the app into the /build folder
 npm run build:watch             # Compiles the app and starts watching for changes
+```
+
+
+## Database
+
+The following scripts can be used to transfer your existing database into another state and vise
+versa. Those state transitions are saved in migration files (`/migrations/*.js`), which describe
+the way how to get to the new state and how to revert the changes in order to get back to the old
+state.
+
+```bash
+npm run db:create               # Create a new database
+npm run db:drop                 # Drop the database
+npm run db:version              # Print database schema version
+npm run db:migrate              # Migrate database schema to the latest version
+npm run db:migrate:undo         # Rollback the latest migration
+npm run db:migration <name>     # Create a new migration from the template (see /migrations folder)
+npm run db:seed                 # Import reference data
 ```
 
 
@@ -62,22 +91,16 @@ npm run test:watch              # Run unit tests in watch mode
 
 ## Debugging
 
-Pick one of the two ways of launching the Node.js app in a debug mode:
-
-#### Option #1
-
 ```bash
-npm run build -- --watch
-node build/server.js --debug --nolazy
-```
+# Option 1:
+npm run build && node build/server.js --debug --nolazy
 
-#### Option #2
-
-```bash
+# Option 2:
 npm run start -- --debug --nolazy
 ```
 
-Then attach your debugger to the process listening on `127.0.0.1:5858` ([learn more](https://code.visualstudio.com/Docs/editor/debugging)).
+After launching the app in a debug mode [attach your debugger](https://code.visualstudio.com/Docs/editor/debugging)
+to the process listening on `127.0.0.1:5858`.
 
 
 ## Contributing

@@ -10,10 +10,12 @@
 const path = require('path');
 
 function run(task, action) {
+  const command = process.argv[2];
+  const taskName = command && !command.startsWith('-') ? `${task}:${command}` : task;
   const start = new Date();
-  process.stdout.write(`Starting '${task}'...\n`);
+  process.stdout.write(`Starting '${taskName}'...\n`);
   return Promise.resolve().then(() => action()).then(() => {
-    process.stdout.write(`Finished '${task}' after ${new Date().getTime() - start.getTime()}ms\n`);
+    process.stdout.write(`Finished '${taskName}' after ${new Date().getTime() - start.getTime()}ms\n`);
   }, err => process.stderr.write(`${err.stack}\n`));
 }
 
