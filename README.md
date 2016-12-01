@@ -10,6 +10,7 @@ You can use it either just as a playground or a base for your next API project.
 ```bash
 .
 ├── /build/                     # The compiled output (via Babel)
+├── /migrations/                # Database schema migrations
 ├── /node_modules/              # Project dependencies (npm modules)
 ├── /scripts/                   # Build automation scripts
 ├── /src/                       # Node.js application source files
@@ -78,6 +79,24 @@ npm run start -- --debug --nolazy
 ```
 
 Then attach your debugger to the process listening on `127.0.0.1:5858` ([learn more](https://code.visualstudio.com/Docs/editor/debugging)).
+
+
+## Database
+
+The following scripts can be used to transfer your existing database into another state and vise
+versa. Those state transitions are saved in migration files (`/migrations/*.js`), which describe
+the way how to get to the new state and how to revert the changes in order to get back to the old
+state.
+
+```bash
+npm run db:create               # Create a new database
+npm run db:drop                 # Delete the database
+npm run db:version              # Print database version
+npm run db:migrate              # Migrate database schema to the latest version
+npm run db:migrate:undo         # Rollback the latest migration
+npm run db:migration <name>     # Creates a new migration from a template (see /migrations folder)
+npm run db:seed                 # Import reference data
+```
 
 
 ## Contributing

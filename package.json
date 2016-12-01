@@ -12,6 +12,8 @@
     "express-graphql": "^0.6.1",
     "express-jwt": "^5.1.0",
     "graphql": "^0.8.2",
+    "knex": "^0.12.6",
+    "pg": "^6.1.0",
     "pretty-error": "^2.0.2",
     "source-map-support": "^0.4.6"
   },
@@ -55,8 +57,15 @@
     "check": "flow check",
     "test": "mocha test/unit --compilers js:babel-core/register",
     "test:watch": "mocha test/unit --compilers js:babel-core/register --reporter min --watch",
-    "build": "node scripts/build",
-    "build:watch": "node scripts/build --watch",
-    "start": "node scripts/start"
+    "build": "node scripts/build.js",
+    "build:watch": "node scripts/build.js --watch",
+    "db:create": "node --harmony scripts/db.js create",
+    "db:drop": "node --harmony scripts/db.js drop",
+    "db:version": "node --harmony scripts/db.js version",
+    "db:migrate": "node --harmony scripts/db.js migrate",
+    "db:migrate:undo": "node --harmony scripts/db.js migrate:undo",
+    "db:migration": "node --harmony scripts/db.js migration",
+    "db:seed": "node --harmony scripts/db.js seed",
+    "start": "node scripts/start.js"
   }
 }

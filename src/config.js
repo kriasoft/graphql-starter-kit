@@ -17,8 +17,19 @@ const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
 const message = `The GraphQL server is running at http://${host}/`;
 
 //
+// Database settings
+// -----------------------------------------------------------------------------
+const databaseUrl = process.env.DATABASE_URL || 'postgres://postgres@localhost:5432/graphql';
+
+//
 // Authentication
 // -----------------------------------------------------------------------------
 const jwtSecret = process.env.JWT_SECRET || 'GraphQL Starter Kit';
 
-module.exports = { port, host, message, jwtSecret };
+module.exports = {
+  port,
+  host,
+  message,
+  databaseUrl,
+  jwtSecret,
+};
