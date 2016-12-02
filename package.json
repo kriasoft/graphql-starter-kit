@@ -1,7 +1,7 @@
 {
   "name": "generator-graphql-server",
-  "version": "0.6.0",
-  "description": "GraphQL Server Starter Kit built with Node.js 6+ and JavaScript (ES6, ES2017+ via Babel)",
+  "version": "0.7.0",
+  "description": "GraphQL Starter Kit built with Node.js, JavaScript (ES2015+ via Babel) and PostgreSQL",
   "repository": "kriasoft/graphql-starter-kit",
   "author": "Kriasoft <hello@kriasoft.com> (https://www.kriasoft.com)",
   "contributors": [
@@ -28,6 +28,10 @@
     "sdk",
     "template",
     "starter kit",
+    "sql",
+    "database",
+    "postgres",
+    "postgresql",
     "yeoman",
     "yeoman-generator"
   ],

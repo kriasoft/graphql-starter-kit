@@ -12,19 +12,19 @@ describe('generator-graphql-server:app', function () {
 
   it('creates files', function () {
     assert.file([
-      'scripts/lib/task.js',
       'scripts/.eslintrc',
       'scripts/clean.js',
       'scripts/build.js',
       'scripts/start.js',
       'src/types/Viewer.js',
+      'src/utils/task.js',
       'src/app.js',
-      'src/config.js',
       'src/schema.js',
       'src/server.js',
       'test/.eslintrc',
       'test/unit/ViewerSpec.js',
       '.editorconfig',
+      '.env.example',
       '.gitattributes',
       '.gitignore',
       '.travis.yml',

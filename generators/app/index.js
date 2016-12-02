@@ -46,7 +46,8 @@ module.exports = yeoman.Base.extend({
       '# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files\n\n' +
       'build\n' +
       'node_modules\n' +
-      'npm-debug.log\n'
+      'npm-debug.log\n' +
+      '.env\n'
     );
   },
 
