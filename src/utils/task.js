@@ -7,7 +7,13 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-const path = require('path');
+/*
+ * Minimalistic script runner used in automation scripts (see /scripts/*.js). Usage example:
+ *
+ *   > node scripts/db.js create
+ *   > Starting 'db:create'...
+ *   > Finished 'db:create' in 25ms
+ */
 
 function run(task, action) {
   const command = process.argv[2];
@@ -19,9 +25,6 @@ function run(task, action) {
   }, err => process.stderr.write(`${err.stack}\n`));
 }
 
-module.exports = (action) => {
-  const task = path.basename(module.parent.filename, '.js');
-  return run.bind(undefined, task, action);
-};
-
 process.nextTick(() => require.main.exports());
+
+module.exports = (task, action) => run.bind(undefined, task, action);

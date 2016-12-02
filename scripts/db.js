@@ -10,15 +10,14 @@
 const fs = require('fs');
 const cp = require('child_process');
 const knex = require('knex');
-const task = require('./lib/task');
-const { databaseUrl } = require('../src/config');
+const task = require('../src/utils/task');
 
 const command = process.argv[2];
 const commands = ['create', 'drop', 'version', 'migrate', 'migrate:undo', 'migration', 'seed'];
 
 const config = {
   client: 'pg',
-  connection: databaseUrl,
+  connection: process.env.DATABASE_URL,
   migrations: {
     tableName: 'migrations',
   },
@@ -29,7 +28,7 @@ const template = `module.exports.up = async (db) => {\n  \n};\n
 module.exports.down = async (db) => {\n  \n};\n
 module.exports.configuration = { transaction: true };\n`;
 
-module.exports = task(async () => {
+module.exports = task('db', async () => {
   let db;
 
   if (!commands.includes(command)) {

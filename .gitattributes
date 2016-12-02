@@ -6,8 +6,9 @@
 # checkin and prevent conversion to CRLF when they are checked out
 # (this is required in order to prevent newline related issues like,
 # for example, after the build script is run)
-.*      text eol=lf
-*.js    text eol=lf
-*.json  text eol=lf
-*.md    text eol=lf
-*.txt   text eol=lf
+.*        text eol=lf
+*.example text eol=lf
+*.js      text eol=lf
+*.json    text eol=lf
+*.md      text eol=lf
+*.txt     text eol=lf

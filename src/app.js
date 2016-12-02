@@ -17,7 +17,6 @@ import expressJwt from 'express-jwt';
 import expressGraphQL from 'express-graphql';
 import PrettyError from 'pretty-error';
 import schema from './schema';
-import config from './config';
 
 const app = express();
 
@@ -27,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(expressJwt({
-  secret: config.jwtSecret,
+  secret: process.env.JWT_SECRET,
   credentialsRequired: false,
   getToken: req => req.cookies.id_token,
 }));

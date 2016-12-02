@@ -8,9 +8,9 @@
  */
 
 const rimraf = require('rimraf');
-const task = require('./lib/task');
+const task = require('../src/utils/task');
 
-module.exports = task(() => new Promise((resolve, reject) => {
+module.exports = task('clean', () => new Promise((resolve, reject) => {
   rimraf('build/*', {
     nosort: true,
     dot: true,

@@ -19,10 +19,10 @@ You can use it either as a playground or a base for your next Node.js-based back
 │   │   ├── /Viewer.js          # The top-level GraphQL object type
 │   │   └── /...                # etc.
 │   ├── /app.js                 # Express application
-│   ├── /config.js              # Application settings
 │   ├── /schema.js              # GraphQL schema
 │   └── /server.js              # Node.js server (entry point)
 ├── /test/                      # Unit, integration and load tests
+├── .env                        # Application settings for the dev environment
 ├── package.json                # The list of project dependencies
 └── yarn.lock                   # Fixed versions of all the dependencies
 ```
@@ -45,7 +45,7 @@ git clone -o graphql-starter-kit -b master --single-branch \
    https://github.com/kriasoft/graphql-starter-kit.git api.example.com
 cd api.example.com
 yarn install                    # Install project dependencies. Alternatively, npm install
-npm run db:create               # Create a new database (see src/config.js/databaseUrl)
+npm run db:create               # Create a new database (see .env/DATABASE_URL)
 npm run db:migrate              # Migrate database schema to the latest version
 npm run start                   # Launch the app. Alternatively, node scripts/start.js
 ```

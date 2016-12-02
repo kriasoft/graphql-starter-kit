@@ -9,11 +9,11 @@
 
 /* @flow */
 
+import 'dotenv/config';
 import app from './app';
-import config from './config';
 
-const server = app.listen(config.port, () => {
-  process.stdout.write(`${config.message}\n`);
+const server = app.listen(process.env.PORT, () => {
+  process.stdout.write(`Node.js app is listening on http://localhost:${process.env.PORT}/\n`);
 });
 
 export default server;

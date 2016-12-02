@@ -8,6 +8,7 @@
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.1",
+    "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "express-graphql": "^0.6.1",
     "express-jwt": "^5.1.0",
@@ -55,8 +56,8 @@
   "scripts": {
     "lint": "eslint src test scripts --ignore-pattern scripts/start.js",
     "check": "flow check",
-    "test": "mocha test/unit --compilers js:babel-core/register",
-    "test:watch": "mocha test/unit --compilers js:babel-core/register --reporter min --watch",
+    "test": "mocha test/unit --compilers js:babel-core/register --require dotenv/config",
+    "test:watch": "mocha test/unit --compilers js:babel-core/register --require dotenv/config --reporter min --watch",
     "build": "node scripts/build.js",
     "build:watch": "node scripts/build.js --watch",
     "db:create": "node --harmony scripts/db.js create",
