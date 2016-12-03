@@ -12,7 +12,7 @@
 
 import { Strategy } from 'passport-facebook';
 import db from '../db';
-import utils from './utils';
+import { findUser, findUserByProvider, saveUserTokens } from './utils';
 
 export default new Strategy({
   clientID: process.env.FACEBOOK_ID,
@@ -32,13 +32,13 @@ export default new Strategy({
       if (result.rows[0].exists) {
         done(new Error('This Facebook account already exists.'));
       } else {
-        await utils.saveUserTokens(
+        await saveUserTokens(
           client, req.user.id, profile.provider, profile.id, accessToken, refreshToken);
-        done(null, await utils.findUser(client, req.user.id));
+        done(null, await findUser(client, req.user.id));
       }
       done();
     } else {
-      result = await utils.findUserByProvider(client, profile.provider, profile.id);
+      result = await findUserByProvider(client, profile.provider, profile.id);
       if (result) {
         done(null, result);
       } else {
@@ -52,7 +52,7 @@ export default new Strategy({
             'INSERT INTO users (email) VALUES ($1) RETURNING id, email',
             [profile._json.email]);
           const { id, email } = result.rows[0];
-          await utils.saveUserTokens(
+          await saveUserTokens(
             client, id, profile.provider, profile.id, accessToken, refreshToken);
           done(null, { id, email });
         }
