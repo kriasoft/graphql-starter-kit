@@ -16,6 +16,7 @@ import bodyParser from 'body-parser';
 import expressJwt from 'express-jwt';
 import expressGraphQL from 'express-graphql';
 import PrettyError from 'pretty-error';
+import passport from './passport';
 import schema from './schema';
 
 const app = express();
@@ -30,6 +31,9 @@ app.use(expressJwt({
   credentialsRequired: false,
   getToken: req => req.cookies.id_token,
 }));
+
+app.use(passport.initialize());
+app.use('/login', require('./routes/login'));
 
 app.use(expressGraphQL(req => ({
   schema,

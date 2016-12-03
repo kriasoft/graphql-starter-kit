@@ -8,12 +8,16 @@
  */
 
 /*
- * Minimalistic script runner used in automation scripts (see /scripts/*.js). Usage example:
+ * Minimalistic script runner for build automation scripts (see /scripts/*.js).
  *
- *   > node scripts/db.js create
- *   > Starting 'db:create'...
- *   > Finished 'db:create' in 25ms
+ * Usage example:
+ *
+ *     node scripts/db.js create
+ *     Starting 'db:create'...
+ *     Finished 'db:create' in 25ms
  */
+
+require('dotenv/config');
 
 function run(task, action) {
   const command = process.argv[2];

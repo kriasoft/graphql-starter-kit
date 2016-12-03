@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "syntax-async-functions",
+    "syntax-trailing-function-commas",
+    ["transform-async-to-module-method", {
+      "module": "bluebird",
+      "method": "coroutine"
+    }],
+    "transform-class-properties",
+    "transform-es2015-modules-commonjs",
+    "transform-flow-strip-types",
+    "transform-object-rest-spread"
+  ]
+}

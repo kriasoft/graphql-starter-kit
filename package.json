@@ -5,6 +5,7 @@
     "npm": ">=3.10.8"
   },
   "dependencies": {
+    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.1",
@@ -14,15 +15,22 @@
     "express-jwt": "^5.1.0",
     "graphql": "^0.8.2",
     "knex": "^0.12.6",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "passport-twitter": "^1.0.4",
     "pg": "^6.1.0",
+    "pg-pool": "^1.5.0",
     "pretty-error": "^2.0.2",
     "source-map-support": "^0.4.6"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.1",
     "babel-plugin-syntax-async-functions": "^6.13.0",
     "babel-plugin-syntax-trailing-function-commas": "^6.13.0",
+    "babel-plugin-transform-async-to-module-method": "^6.16.0",
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
     "babel-plugin-transform-flow-strip-types": "^6.18.0",
@@ -34,30 +42,18 @@
     "cp-file": "^4.1.1",
     "eslint": "^3.11.0",
     "eslint-config-airbnb-base": "^10.0.1",
+    "eslint-plugin-flowtype": "^2.29.1",
     "eslint-plugin-import": "^2.2.0",
     "flow-bin": "^0.36.0",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "rimraf": "^2.5.4"
   },
-  "babel": {
-    "plugins": [
-      "syntax-async-functions",
-      "syntax-trailing-function-commas",
-      "transform-class-properties",
-      "transform-es2015-modules-commonjs",
-      "transform-flow-strip-types",
-      "transform-object-rest-spread"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "airbnb-base"
-  },
   "scripts": {
     "lint": "eslint src test scripts --ignore-pattern scripts/start.js",
     "check": "flow check",
-    "test": "mocha test/unit --compilers js:babel-core/register --require dotenv/config",
-    "test:watch": "mocha test/unit --compilers js:babel-core/register --require dotenv/config --reporter min --watch",
+    "test": "mocha test/unit --compilers js:babel-register --require dotenv/config",
+    "test:watch": "mocha test/unit --compilers js:babel-register --require dotenv/config --reporter min --watch",
     "build": "node scripts/build.js",
     "build:watch": "node scripts/build.js --watch",
     "db:create": "node --harmony scripts/db.js create",
