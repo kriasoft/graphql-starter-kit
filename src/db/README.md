@@ -9,7 +9,7 @@ import pool, * as db from './db';
 ```js
 let client;
 try {
-  client = await db.connect();
+  client = await pool.connect();
   const user = await db.users.findById(client, 123);
   // user => { id: 123, email: 'hello@example.com' };
 } finally {
