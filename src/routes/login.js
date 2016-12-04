@@ -20,7 +20,25 @@ router.get('/facebook',
 router.get('/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login', session: false }),
   (req, res) => {
-    res.redirect('/'); // hello
+    res.redirect('/');
+  });
+
+router.get('/google',
+  passport.authenticate('google', { scope: 'profile email' }));
+
+router.get('/google/return',
+  passport.authenticate('google', { failureRedirect: '/login', session: false }),
+  (req, res) => {
+    res.redirect('/');
+  });
+
+router.get('/twitter',
+  passport.authenticate('twitter'));
+
+router.get('/facebook/return',
+  passport.authenticate('twitter', { failureRedirect: '/login', session: false }),
+  (req, res) => {
+    res.redirect('/');
   });
 
 module.exports = router;
