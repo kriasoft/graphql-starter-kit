@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "no-confusing-arrow": "off",
+    "import/prefer-default-export": "off"
+  }
+}

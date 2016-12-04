@@ -11,8 +11,7 @@
 /* eslint-disable no-underscore-dangle */
 
 import { Strategy } from 'passport-facebook';
-import db from '../db';
-import { findUser, findUserByProvider, saveUserTokens } from './utils';
+import pool, * as db from '../db';
 
 export default new Strategy({
   clientID: process.env.FACEBOOK_ID,
@@ -24,7 +23,7 @@ export default new Strategy({
   let client;
   let result;
   try {
-    client = await db.connect();
+    client = await pool.connect();
     if (req.user) {
       result = await client.query(
         'SELECT EXISTS(SELECT 1 FROM user_logins WHERE name = $1 AND key = $2)',
@@ -32,13 +31,13 @@ export default new Strategy({
       if (result.rows[0].exists) {
         done(new Error('This Facebook account already exists.'));
       } else {
-        await saveUserTokens(
+        await db.users.saveLogin(
           client, req.user.id, profile.provider, profile.id, accessToken, refreshToken);
-        done(null, await findUser(client, req.user.id));
+        done(null, await db.users.findById(client, req.user.id));
       }
       done();
     } else {
-      result = await findUserByProvider(client, profile.provider, profile.id);
+      result = await db.users.findByLogin(client, profile.provider, profile.id);
       if (result) {
         done(null, result);
       } else {
@@ -52,7 +51,7 @@ export default new Strategy({
             'INSERT INTO users (email) VALUES ($1) RETURNING id, email',
             [profile._json.email]);
           const { id, email } = result.rows[0];
-          await saveUserTokens(
+          await db.users.saveLogin(
             client, id, profile.provider, profile.id, accessToken, refreshToken);
           done(null, { id, email });
         }

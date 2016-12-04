@@ -9,55 +9,51 @@
 
 /* @flow */
 
-async function findUser(db: any, id: number) {
-  const result = await db.query('SELECT id, email FROM users WHERE id = $1', [id]);
-  return result.rows.length ? result.rows[0] : null;
+export function findById(client: any, id: number) {
+  return client
+    .query('SELECT id, email FROM users WHERE id = $1', [id])
+    .then(({ rows }) => rows.length ? rows[0] : null);
 }
 
-async function findUserByProvider(db: any, providerName: string, providerKey: string) {
-  const result = db.query(
-    'SELECT id, email FROM users AS u ' +
-    '  LEFT JOIN user_logins AS l ON l.user_id = u.id ' +
-    'WHERE l.name = $1 AND l.key = $2',
-    [providerName, providerKey]);
-  return result.rows.length ? result.rows[0] : null;
+export function findByLogin(client: any, provider: string, key: string) {
+  return client
+    .query(
+      'SELECT id, email FROM users AS u ' +
+      '  LEFT JOIN user_logins AS l ON l.user_id = u.id ' +
+      'WHERE l.name = $1 AND l.key = $2',
+      [provider, key])
+    .then(({ rows }) => rows.length ? rows[0] : null);
 }
 
-async function saveUserTokens(
-  db: any,
+export async function saveLogin(
+  client: any,
   userId: number,
   provider: string,
   providerKey: string,
   accessToken: string,
   refreshToken: string,
 ) {
-  await db.query(
+  await client.query(
     'INSERT INTO user_logins (user_id, name, key) VALUES ($1, $2, $3)',
     [userId, provider, providerKey]);
 
-  await db.query(
+  await client.query(
     'UPDATE user_claims SET value = $3 WHERE user_id = $1 AND type = $2',
     [userId, `urn:${provider}:access_token`, accessToken]);
 
-  await db.query(
+  await client.query(
     'INSERT INTO user_claims (user_id, type, value) ' +
     '  SELECT $1, $2, $3 ' +
     '  WHERE NOT EXISTS (SELECT 1 FROM user_claims WHERE user_id = $1 AND type = $2)',
     [userId, `urn:${provider}:access_token`, accessToken]);
 
-  await db.query(
+  await client.query(
     'UPDATE user_claims SET value = $3 WHERE user_id = $1 AND type = $2',
     [userId, `urn:${provider}:refresh_token`, refreshToken]);
 
-  await db.query(
+  await client.query(
     'INSERT INTO user_claims (user_id, type, value) ' +
     '  SELECT $1, $2, $3 ' +
     '  WHERE NOT EXISTS (SELECT 1 FROM user_claims WHERE user_id = $1 AND type = $2)',
     [userId, `urn:${provider}:refresh_token`, refreshToken]);
 }
-
-export default {
-  findUser,
-  findUserByProvider,
-  saveUserTokens,
-};

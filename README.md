@@ -14,19 +14,14 @@ You can use it either as a playground or a base for your next Node.js-based back
 ├── /node_modules/              # Project dependencies (npm modules)
 ├── /scripts/                   # Build automation scripts
 ├── /src/                       # Node.js application source files
-│   ├──/passport/               # Passport.js strategies
-│   │   ├── /GoogleStrategy.js  # OAuth authentication strategy for Google
-│   │   └── /...                # etc.
-│   ├──/routes/                 # Express routes
-│   │   ├── /login.js           # www.example.com/login/* routes
-│   │   └── /...                # etc.
-│   ├──/types/                  # GraphQL types /w resolve functions
+│   ├── /db/                    # Database access methods and connection pooling
+│   ├── /passport/              # Passport.js authentication strategies
+│   ├── /routes/                # Express routes, e.g. /login/facebook
+│   ├── /types/                 # GraphQL types /w resolve functions
 │   │   ├── /User.js            # User account (id, email, etc.)
 │   │   ├── /Viewer.js          # The top-level GraphQL object type
 │   │   └── /...                # etc.
-│   ├──/utils/                  # Utility classes
-│   │   ├── /task.js            # Script runner used in /scripts/*.js
-│   │   └── /...                # etc.
+│   ├── /utils/                 # Utility functions
 │   ├── /app.js                 # Express application
 │   ├── /schema.js              # GraphQL schema
 │   └── /server.js              # Node.js server (entry point)

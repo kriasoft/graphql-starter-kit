@@ -28,3 +28,5 @@ export default new Pool({
   Client,
   Promise,
 });
+
+export * as users from './users';
