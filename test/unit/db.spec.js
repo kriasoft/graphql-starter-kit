@@ -11,16 +11,17 @@ import { expect } from 'chai';
 import db from '../../src/db';
 
 describe('db', () => {
-  it('.connect()', async () => {
-    const client = await db.connect();
-    try {
-      const result = await client.query('SELECT NOW()');
-      expect(client).to.be.ok;
-      expect(result).to.be.ok;
-      expect(result.rows.length).to.be.equal(1);
-      expect(result.rows[0][result.fields[0].name]).to.be.ok;
-    } finally {
-      client.release();
-    }
+  describe('db.users', () => {
+    it('.create()', async () => {
+      const email = `__test__${Date.now()}__@example.com`;
+      const user = await db.users.create(email);
+      expect(user).to.be.ok;
+      expect(user.id).to.be.ok;
+      expect(user.email).to.be.equal(email);
+      const existsTrue = await db.users.any(email);
+      const existsFalse = await db.users.any(`${Date.now()}@example.com`);
+      expect(existsTrue).to.be.true;
+      expect(existsFalse).to.be.false;
+    });
   });
 });

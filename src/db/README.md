@@ -1,20 +1,13 @@
-# Database Access and Connection Pooling
+# Database Access
 
 #### Usage example:
 
 ```js
-import pool, * as db from './db';
+import db from './db';
 ```
 
 ```js
-let client;
-try {
-  client = await pool.connect();
-  const user = await db.users.findById(client, 123);
-  // user => { id: 123, email: 'hello@example.com' };
-} finally {
-  if (client) client.release();
-}
+let user = await db.users.findById(123); // => { id: 123, email: 'hello@example.com' }
 ```
 
 For more information visit [`pg`](https://github.com/brianc/node-postgres)

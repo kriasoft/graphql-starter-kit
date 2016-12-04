@@ -18,13 +18,10 @@ export default new OAuth2Strategy({
   callbackURL: '/login/google/return',
   passReqToCallback: true,
 }, async (req, accessToken, refreshToken, profile, done) => {
-  let client;
   try {
-    client = await db.connect();
+    await db.userLogins.any(profile.provider, profile.id);
     done(new Error('Not yet implemented.'));
   } catch (err) {
     done(err);
-  } finally {
-    if (client) client.release();
   }
 });

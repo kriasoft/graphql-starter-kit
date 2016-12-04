@@ -13,7 +13,7 @@ import 'dotenv/config';
 import app from './app';
 
 const server = app.listen(process.env.PORT, () => {
-  process.stdout.write(`Node.js app is listening on http://localhost:${process.env.PORT}/\n`);
+  process.stdout.write(`Node.js app is listening on http://localhost:${String(process.env.PORT)}/\n`);
 });
 
 export default server;

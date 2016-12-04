@@ -9,51 +9,29 @@
 
 /* @flow */
 
-export function findById(client: any, id: number) {
-  return client
+import db from './pool';
+
+export function findById(id: number) {
+  return db
     .query('SELECT id, email FROM users WHERE id = $1', [id])
     .then(({ rows }) => rows.length ? rows[0] : null);
 }
 
-export function findByLogin(client: any, provider: string, key: string) {
-  return client
-    .query(
-      'SELECT id, email FROM users AS u ' +
-      '  LEFT JOIN user_logins AS l ON l.user_id = u.id ' +
-      'WHERE l.name = $1 AND l.key = $2',
-      [provider, key])
+export function findByLogin(provider: string, key: string) {
+  return db
+    .query(`
+      SELECT id, email FROM users AS u
+        LEFT JOIN user_logins AS l ON l.user_id = u.id
+      WHERE l.name = $1 AND l.key = $2`, [provider, key])
     .then(({ rows }) => rows.length ? rows[0] : null);
 }
 
-export async function saveLogin(
-  client: any,
-  userId: number,
-  provider: string,
-  providerKey: string,
-  accessToken: string,
-  refreshToken: string,
-) {
-  await client.query(
-    'INSERT INTO user_logins (user_id, name, key) VALUES ($1, $2, $3)',
-    [userId, provider, providerKey]);
+export function any(email: string) {
+  return db.query('SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)', [email])
+    .then(x => x.rows[0].exists);
+}
 
-  await client.query(
-    'UPDATE user_claims SET value = $3 WHERE user_id = $1 AND type = $2',
-    [userId, `urn:${provider}:access_token`, accessToken]);
-
-  await client.query(
-    'INSERT INTO user_claims (user_id, type, value) ' +
-    '  SELECT $1, $2, $3 ' +
-    '  WHERE NOT EXISTS (SELECT 1 FROM user_claims WHERE user_id = $1 AND type = $2)',
-    [userId, `urn:${provider}:access_token`, accessToken]);
-
-  await client.query(
-    'UPDATE user_claims SET value = $3 WHERE user_id = $1 AND type = $2',
-    [userId, `urn:${provider}:refresh_token`, refreshToken]);
-
-  await client.query(
-    'INSERT INTO user_claims (user_id, type, value) ' +
-    '  SELECT $1, $2, $3 ' +
-    '  WHERE NOT EXISTS (SELECT 1 FROM user_claims WHERE user_id = $1 AND type = $2)',
-    [userId, `urn:${provider}:refresh_token`, refreshToken]);
+export function create(email: string) {
+  return db.query('INSERT INTO users (email) VALUES ($1) RETURNING id', [email])
+    .then(({ rows }) => findById(rows[0].id));
 }

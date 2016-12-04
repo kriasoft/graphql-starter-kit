@@ -9,24 +9,12 @@
 
 /* @flow */
 
-import url from 'url';
-import Pool from 'pg-pool';
-import Promise from 'bluebird';
-import { Client } from 'pg';
+import * as users from './users';
+import * as userLogins from './userLogins';
+import * as userClaims from './userClaims';
 
-// Parse database connection string
-const { auth, hostname: host, port, pathname } = url.parse(process.env.DATABASE_URL || '');
-const [user, password] = auth ? auth.split(':').concat(null) : [null, null];
-const database = pathname ? pathname.split('/')[1] : null;
-
-export default new Pool({
-  user,
-  password,
-  host,
-  port,
-  database,
-  Client,
-  Promise,
-});
-
-export * as users from './users';
+export default {
+  users,
+  userLogins,
+  userClaims,
+};

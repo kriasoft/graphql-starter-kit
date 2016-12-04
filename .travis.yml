@@ -6,8 +6,16 @@ cache:
   yarn: true
   directories:
     - node_modules
+services:
+  - postgresql
+addons:
+  postgresql: "9.4"
+env:
+  - DATABASE_URL=postgres://postgres@localhost:5432/ci_test
 script:
   - npm run lint
   - npm run check
   - npm run build
+  - npm run db:create
+  - npm run db:migrate
   - npm run test
