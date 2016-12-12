@@ -49,9 +49,9 @@ git clone -o graphql-starter-kit -b master --single-branch \
    https://github.com/kriasoft/graphql-starter-kit.git api.example.com
 cd api.example.com
 yarn install                    # Install project dependencies. Alternatively, npm install
-npm run db:create               # Create a new database (see .env/DATABASE_URL)
-npm run db:migrate              # Migrate database schema to the latest version
-npm run start                   # Launch the app. Alternatively, node scripts/start.js
+yarn run db:create              # Create a new database (see .env/DATABASE_URL)
+yarn run db:migrate             # Migrate database schema to the latest version
+yarn start                      # Launch the app. Alternatively, node scripts/start.js
 ```
 
 The GraphQL server should become available at [http://localhost:5000/](http://localhost:5000/)
@@ -60,8 +60,8 @@ The GraphQL server should become available at [http://localhost:5000/](http://lo
 If you just need to build the project without launching a dev server, run one of these two commands:
 
 ```bash
-npm run build                   # Compiles the app into the /build folder
-npm run build:watch             # Compiles the app and starts watching for changes
+yarn run build                  # Compiles the app into the /build folder
+yarn run build:watch            # Compiles the app and starts watching for changes
 ```
 
 
@@ -73,23 +73,23 @@ the way how to get to the new state and how to revert the changes in order to ge
 state.
 
 ```bash
-npm run db:create               # Create a new database
-npm run db:drop                 # Drop the database
-npm run db:version              # Print database schema version
-npm run db:migrate              # Migrate database schema to the latest version
-npm run db:migrate:undo         # Rollback the latest migration
-npm run db:migration <name>     # Create a new migration from the template (see /migrations folder)
-npm run db:seed                 # Import reference data
+yarn run db:create              # Create a new database
+yarn run db:drop                # Drop the database
+yarn run db:version             # Print database schema version
+yarn run db:migrate             # Migrate database schema to the latest version
+yarn run db:migrate:undo        # Rollback the latest migration
+yarn run db:migration <name>    # Create a new migration from the template (see /migrations folder)
+yarn run db:seed                # Import reference data
 ```
 
 
 ## Testing
 
 ```bash
-npm run lint                    # Find problematic patterns in code
-npm run check                   # Check source code for type errors
-npm run test                    # Run unit tests once
-npm run test:watch              # Run unit tests in watch mode
+yarn run lint                   # Find problematic patterns in code
+yarn run check                  # Check source code for type errors
+yarn run test                   # Run unit tests once
+yarn run test:watch             # Run unit tests in watch mode
 ```
 
 
@@ -97,10 +97,10 @@ npm run test:watch              # Run unit tests in watch mode
 
 ```bash
 # Option 1:
-npm run build && node build/server.js --debug --nolazy
+yarn run build && node build/server.js --debug --nolazy
 
 # Option 2:
-npm run start -- --debug --nolazy
+yarn run start -- --debug --nolazy
 ```
 
 After launching the app in a debug mode [attach your debugger](https://code.visualstudio.com/Docs/editor/debugging)

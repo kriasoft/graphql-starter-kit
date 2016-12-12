@@ -12,13 +12,10 @@ const nodemon = require('nodemon');
 const setup = require('./setup');
 const task = require('../src/utils/task');
 
-module.exports = task('start', () => setup().then(() => new Promise(resolve => {
-  process.on('SIGINT', () => {
-    nodemon.emit('exit');
-    process.exit();
-  });
-  process.stdout.write('\033c');
-  nodemon({
+module.exports = task('start', () => setup().then(() => new Promise((resolve) => {
+  let start;
+
+  const nm = nodemon({
     watch: [path.join(__dirname, '../src')],
     ignore: [],
     stdin: false,
@@ -26,12 +23,18 @@ module.exports = task('start', () => setup().then(() => new Promise(resolve => {
     nodeArgs: ['--require', 'babel-register', ...process.argv.filter(x => x.startsWith('-'))],
     stdout: false,
   })
-    .on('stdout', data => {
+    .on('stdout', (data) => {
       if (data.toString().includes(' is listening on ')) {
-        process.stdout.write('\033c');
+        console.log(`Finished 'build' after ${new Date().getTime() - start.getTime()}ms`);
       }
       process.stdout.write(data);
     })
     .on('stderr', data => process.stderr.write(data))
-    .on('start', () => process.stdout.write('\033cBuilding...'));
+    .on('start', () => {
+      start = new Date();
+      console.log('Starting \'build\'...');
+    });
+
+  process.on('exit', () => nm.emit.bind(nm, 'exit'));
+  process.once('SIGINT', process.exit.bind(process, 0));
 })));
