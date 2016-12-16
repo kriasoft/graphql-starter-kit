@@ -41,7 +41,6 @@
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
-    "cp-file": "^4.1.1",
     "eslint": "^3.12.0",
     "eslint-config-airbnb-base": "^11.0.0",
     "eslint-plugin-flowtype": "^2.29.1",
@@ -52,6 +51,7 @@
     "rimraf": "^2.5.4"
   },
   "scripts": {
+    "postinstall": "node scripts/setup.js",
     "lint": "eslint src test scripts --ignore-pattern scripts/start.js",
     "check": "flow check",
     "test": "mocha test/unit --compilers js:babel-register --require dotenv/config",

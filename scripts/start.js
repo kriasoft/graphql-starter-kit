@@ -9,10 +9,9 @@
 
 const path = require('path');
 const nodemon = require('nodemon');
-const setup = require('./setup');
 const task = require('../src/utils/task');
 
-module.exports = task('start', () => setup().then(() => new Promise((resolve) => {
+module.exports = task('start', () => new Promise((resolve) => {
   let start;
 
   const nm = nodemon({
@@ -37,4 +36,4 @@ module.exports = task('start', () => setup().then(() => new Promise((resolve) =>
 
   process.on('exit', () => nm.emit.bind(nm, 'exit'));
   process.once('SIGINT', process.exit.bind(process, 0));
-})));
+}));

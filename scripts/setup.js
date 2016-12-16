@@ -12,29 +12,13 @@ const task = require('../src/utils/task');
 
 // Creates .env file from the template (.env.example)
 // with application settings for the development environment
-module.exports = task('setup', () => new Promise((resolve, reject) => {
-  fs.open('.env', 'wx', (err, fd) => {
-    if (err) {
-      if (err.code === 'EEXIST') {
-        resolve();
-      } else {
-        reject(err);
-      }
-    } else {
-      fs.readFile('.env.example', 'utf8', (err2, data) => {
-        if (err2) {
-          reject(err2);
-        } else {
-          fs.write(fd, data, 'utf8', (err3) => {
-            if (err3) {
-              reject(err3);
-            } else {
-              console.log('.env.example -> .env');
-              resolve();
-            }
-          });
-        }
-      });
-    }
-  });
-}));
+module.exports = task('setup', () => {
+  if (!fs.existsSync('.env.example')) {
+    return;
+  }
+
+  if (!fs.existsSync('.env')) {
+    fs.writeFileSync('.env', fs.readFileSync('.env.example', 'utf8'), 'utf8');
+    console.log('.env.example -> .env');
+  }
+});

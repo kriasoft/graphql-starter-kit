@@ -9,15 +9,12 @@
 
 const fs = require('fs');
 const cp = require('child_process');
-const copyFile = require('cp-file');
 const pkg = require('../package.json');
 const clean = require('./clean');
-const setup = require('./setup');
 const task = require('../src/utils/task');
 
 module.exports = task('build', () => Promise.resolve()
   .then(clean)
-  .then(setup)
   .then(() => new Promise((resolve) => {
     cp.spawn('node', [
       'node_modules/babel-cli/bin/babel.js',
@@ -37,13 +34,15 @@ module.exports = task('build', () => Promise.resolve()
         process.stdout.write(data);
       });
   }))
-  .then(() => copyFile.bind('yarn.lock', 'build/yarn.lock'))
-  .then(() => new Promise((resolve) => {
+  .then(() => {
+    fs.writeFileSync('build/yarn.lock', fs.readFileSync('yarn.lock', 'utf8'), 'utf8');
+    console.log('yarn.lock -> build/yarn.lock');
+  })
+  .then(() => {
     fs.writeFileSync('build/package.json', JSON.stringify({
       engines: pkg.engines,
       dependencies: pkg.dependencies,
       scripts: { start: 'node server.js' },
     }, null, '  '), 'utf8');
     console.log('package.json -> build/package.json');
-    resolve();
-  })));
+  }));
