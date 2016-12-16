@@ -10,7 +10,7 @@
 const fs = require('fs');
 const cp = require('child_process');
 const knex = require('knex');
-const task = require('../src/utils/task');
+const task = require('./task');
 
 const command = process.argv[2];
 const commands = ['create', 'drop', 'version', 'migrate', 'migrate:undo', 'migration', 'seed'];

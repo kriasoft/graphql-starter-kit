@@ -8,7 +8,7 @@
  */
 
 const rimraf = require('rimraf');
-const task = require('../src/utils/task');
+const task = require('./task');
 
 module.exports = task('clean', () => new Promise((resolve, reject) => {
   rimraf('build/*', {

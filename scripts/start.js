@@ -9,7 +9,7 @@
 
 const path = require('path');
 const nodemon = require('nodemon');
-const task = require('../src/utils/task');
+const task = require('./task');
 
 module.exports = task('start', () => new Promise((resolve) => {
   let start;

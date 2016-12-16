@@ -8,7 +8,7 @@
  */
 
 const fs = require('fs');
-const task = require('../src/utils/task');
+const task = require('./task');
 
 // Creates .env file from the template (.env.example)
 // with application settings for the development environment

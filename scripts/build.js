@@ -11,7 +11,7 @@ const fs = require('fs');
 const cp = require('child_process');
 const pkg = require('../package.json');
 const clean = require('./clean');
-const task = require('../src/utils/task');
+const task = require('./task');
 
 module.exports = task('build', () => Promise.resolve()
   .then(clean)

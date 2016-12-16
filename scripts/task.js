@@ -8,9 +8,7 @@
  */
 
 /*
- * Minimalistic script runner for build automation scripts (see /scripts/*.js).
- *
- * Usage example:
+ * Minimalistic script runner. Usage example:
  *
  *     node scripts/db.js create
  *     Starting 'db:create'...
