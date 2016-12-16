@@ -15,6 +15,21 @@ const task = require('./task');
 
 module.exports = task('build', () => Promise.resolve()
   .then(clean)
+  // Copy database migration scripts so you could run `node scripts/db.js migrate` on the server
+  .then(() => {
+    ['build', 'build/migrations', 'build/scripts'].forEach((dir) => {
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+    });
+    [
+      ...fs.readdirSync('migrations').map(file => `migrations/${file}`),
+      ...fs.readdirSync('scripts').map(file => `scripts/${file}`),
+      'yarn.lock',
+    ].forEach((file) => {
+      fs.writeFileSync(`build/${file}`, fs.readFileSync(file, 'utf8'), 'utf8');
+      console.log(`${file} -> build/${file}`);
+    });
+  })
+  // Compile Node.js application from source code with Babel
   .then(() => new Promise((resolve) => {
     cp.spawn('node', [
       'node_modules/babel-cli/bin/babel.js',
@@ -34,15 +49,12 @@ module.exports = task('build', () => Promise.resolve()
         process.stdout.write(data);
       });
   }))
-  .then(() => {
-    fs.writeFileSync('build/yarn.lock', fs.readFileSync('yarn.lock', 'utf8'), 'utf8');
-    console.log('yarn.lock -> build/yarn.lock');
-  })
+  // Copy package.json in order to be able to run `yarn install` on the server
   .then(() => {
     fs.writeFileSync('build/package.json', JSON.stringify({
       engines: pkg.engines,
       dependencies: pkg.dependencies,
-      scripts: { start: 'node server.js' },
+      scripts: pkg.scripts,
     }, null, '  '), 'utf8');
     console.log('package.json -> build/package.json');
   }));

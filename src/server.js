@@ -10,9 +10,10 @@
 /* @flow */
 
 import dotenv from 'dotenv';
-import app from './app';
 
-dotenv.config({ silent: true });
+dotenv.config({ silent: process.env.NODE_ENV === 'production' });
+
+const app = require('./app').default;
 
 const server = app.listen(process.env.PORT, () => {
   process.stdout.write(`Node.js app is listening on http://localhost:${String(process.env.PORT)}/\n`);
