@@ -67,6 +67,7 @@
     "db:migrate:undo": "node --harmony scripts/db.js migrate:undo",
     "db:migration": "node --harmony scripts/db.js migration",
     "db:seed": "node --harmony scripts/db.js seed",
+    "deploy": "node scripts/deploy.js",
     "start": "node scripts/start.js"
   }
 }

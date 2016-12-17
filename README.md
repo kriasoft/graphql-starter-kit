@@ -1,8 +1,9 @@
 # GraphQL Starter Kit &nbsp; <a href="https://github.com/kriasoft/graphql-starter-kit/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/graphql-starter-kit.svg?style=social&label=Star&maxAge=3600" height="20"></a> <a href="https://twitter.com/ReactStarter"><img src="https://img.shields.io/twitter/follow/ReactStarter.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
 
-Project template for authoring **[GraphQL](http://graphql.org/)** server
-applications with **Node.js 7+** and **JavaScript** (**[demo](https://api.reactstarterkit.com)**).
-You can use it either as a playground or a base for your next Node.js-based backend project.
+Project template (aka boilerplate) for authoring web application **data API**s (backends) with
+**[Node.js][node]** 7+, **[JavaScript][js]** (via [Babel][babel]) and **[GraphQL][gql]**
+([live demo][demo]). You can use it either as a playground or a base framework for your next
+**Node.js-based data API** project.
 
 
 ## Directory Layout
@@ -21,7 +22,6 @@ You can use it either as a playground or a base for your next Node.js-based back
 │   │   ├── /User.js            # User account (id, email, etc.)
 │   │   ├── /Viewer.js          # The top-level GraphQL object type
 │   │   └── /...                # etc.
-│   ├── /utils/                 # Utility functions
 │   ├── /app.js                 # Express application
 │   ├── /schema.js              # GraphQL schema
 │   └── /server.js              # Node.js server (entry point)
@@ -35,9 +35,9 @@ You can use it either as a playground or a base for your next Node.js-based back
 ## Prerequisites
 
 * OS X, Windows or Linux
-* [Node.js](https://nodejs.org) v6 or newer + [Yarn](https://yarnpkg.com) package manager
-* [PostgreSQL](https://www.postgresql.org/) v9.5 or newer (see [how to install PostgreSQL on a dev machine](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup))
-* Text editor or IDE (e.g. [VS Code](https://code.visualstudio.com/), [WebStorm](https://www.jetbrains.com/webstorm/) etc.)
+* [Node.js][node] v7 or newer + [Yarn][yarn] package manager
+* [PostgreSQL][pg] v9.5 or newer (see [how to install PostgreSQL on a dev machine](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup))
+* Text editor or IDE (e.g. [VS Code][code], [WebStorm][wstorm] etc.)
 
 
 ## Getting Started
@@ -46,16 +46,16 @@ Just clone the repo and start hacking:
 
 ```bash
 git clone -o graphql-starter-kit -b master --single-branch \
-   https://github.com/kriasoft/graphql-starter-kit.git api.example.com
-cd api.example.com
+   https://github.com/kriasoft/graphql-starter-kit.git example.api
+cd example.api
 yarn install                    # Install project dependencies. Alternatively, npm install
-yarn run db:create              # Create a new database (see .env/DATABASE_URL)
+yarn run db:create              # Create a new database (see .env/DATABASE_URL), or create it manually
 yarn run db:migrate             # Migrate database schema to the latest version
 yarn start                      # Launch the app. Alternatively, node scripts/start.js
 ```
 
 The GraphQL server should become available at [http://localhost:5000/](http://localhost:5000/)
-([live demo](https://api.reactstarterkit.com)).
+([live demo][demo]).
 
 If you just need to build the project without launching a dev server, run one of these two commands:
 
@@ -107,6 +107,18 @@ After launching the app in a debug mode [attach your debugger](https://code.visu
 to the process listening on `127.0.0.1:5858`.
 
 
+## Deployment
+
+Customize the deployment script found in `scripts/deploy.js` so you could run:
+
+```bash
+yarn run deploy                 # Build and push the app to the default deployment slot, or...
+yarn run deploy --prod          # Build and push the app to the production deployment slot
+```
+
+Not sure where to deploy your app? [DigitalOcean][do] is a great choice in many cases (get [$10 credit][do])
+
+
 ## Contributing
 
 Anyone and everyone is welcome to [contribute](CONTRIBUTING.md). Start by checking out the list of
@@ -145,3 +157,14 @@ file. The documentation to the project is licensed under the
 
 ---
 Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and [contributors](https://github.com/kriasoft/graphql-starter-kit/graphs/contributors)
+
+[node]: https://nodejs.org
+[js]: https://developer.mozilla.org/docs/Web/JavaScript
+[babel]: http://babeljs.io/
+[gql]: http://graphql.org/
+[yarn]: https://yarnpkg.com
+[demo]: https://www.reactstarterkit.com/graphql
+[pg]: https://www.postgresql.org/
+[do]: https://m.do.co/c/eef302dbae9f
+[code]: https://code.visualstudio.com/
+[wstorm]: https://www.jetbrains.com/webstorm/
