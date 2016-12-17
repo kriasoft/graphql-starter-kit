@@ -7,10 +7,12 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+// Create database schema for storing user accounts, logins and authentication claims/tokens
+// Source https://github.com/membership/membership.db
 module.exports.up = async (db) => {
-  // PostgreSQL extensions
-  await db.raw('CREATE EXTENSION "uuid-ossp"');
-  await db.raw('CREATE EXTENSION "hstore"');
+  // PostgreSQL extensions (may require superuser or database owner priveleges)
+  await db.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
+  await db.raw('CREATE EXTENSION IF NOT EXISTS "hstore"');
 
   await db.schema.createTable('users', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
@@ -52,8 +54,6 @@ module.exports.down = async (db) => {
   await db.schema.dropTableIfExists('user_claims');
   await db.schema.dropTableIfExists('user_logins');
   await db.schema.dropTableIfExists('users');
-  await db.raw('DROP EXTENSION "hstore"');
-  await db.raw('DROP EXTENSION "uuid-ossp"');
 };
 
 module.exports.configuration = { transaction: true };
