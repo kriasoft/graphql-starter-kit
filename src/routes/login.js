@@ -27,7 +27,7 @@ router.get('/google',
   passport.authenticate('google', { scope: 'profile email' }));
 
 router.get('/google/return',
-  passport.authenticate('google', { failureRedirect: '/login', session: false }),
+  passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     res.redirect('/');
   });
@@ -36,7 +36,7 @@ router.get('/twitter',
   passport.authenticate('twitter'));
 
 router.get('/facebook/return',
-  passport.authenticate('twitter', { failureRedirect: '/login', session: false }),
+  passport.authenticate('twitter', { failureRedirect: '/login' }),
   (req, res) => {
     res.redirect('/');
   });

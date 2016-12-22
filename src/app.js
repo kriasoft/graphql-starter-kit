@@ -11,9 +11,8 @@
 
 import express from 'express';
 import cors from 'cors';
-import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import expressJwt from 'express-jwt';
+import session from 'express-session';
 import expressGraphQL from 'express-graphql';
 import PrettyError from 'pretty-error';
 import passport from './passport';
@@ -22,17 +21,17 @@ import schema from './schema';
 const app = express();
 
 app.use(cors());
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app.use(expressJwt({
-  secret: process.env.JWT_SECRET,
-  credentialsRequired: false,
-  getToken: req => req.cookies.id_token,
+app.use(session({
+  name: 'sid',
+  resave: true,
+  saveUninitialized: true,
+  secret: process.env.SESSION_SECRET,
 }));
-
 app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/login', require('./routes/login'));
 
 app.use(expressGraphQL(req => ({
