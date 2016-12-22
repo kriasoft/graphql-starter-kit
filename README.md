@@ -1,9 +1,9 @@
-# GraphQL Starter Kit &nbsp; <a href="https://github.com/kriasoft/graphql-starter-kit/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/graphql-starter-kit.svg?style=social&label=Star&maxAge=3600" height="20"></a> <a href="https://twitter.com/ReactStarter"><img src="https://img.shields.io/twitter/follow/ReactStarter.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
+# Node.js API Starter Kit &nbsp; <a href="https://github.com/kriasoft/nodejs-api-starter/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/nodejs-api-starter.svg?style=social&label=Star&maxAge=3600" height="20"></a> <a href="https://twitter.com/ReactStarter"><img src="https://img.shields.io/twitter/follow/ReactStarter.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
 
-Project template (aka boilerplate) for authoring web application **data API**s (backends) with
-**[Node.js][node]** 7+, **[JavaScript][js]** (via [Babel][babel]) and **[GraphQL][gql]**
-([live demo][demo]). You can use it either as a playground or a base framework for your next
-**Node.js-based data API** project.
+[Node.js API Starter Kit][nodejskit] is a boilerplate and tooling for authoring
+**data API** backends with [Node.js][node] 7+, [JavaScript][js] (via
+[Babel][babel]) and [GraphQL][gql]. It's meant to be paired with a web and/or
+mobile application project such as [React Starter Kit][rsk].
 
 
 ## Directory Layout
@@ -45,8 +45,8 @@ Project template (aka boilerplate) for authoring web application **data API**s (
 Just clone the repo and start hacking:
 
 ```bash
-git clone -o graphql-starter-kit -b master --single-branch \
-   https://github.com/kriasoft/graphql-starter-kit.git example.api
+git clone -o nodejs-api-starter -b master --single-branch \
+   https://github.com/kriasoft/nodejs-api-starter.git example.api
 cd example.api
 yarn install                    # Install project dependencies. Alternatively, npm install
 yarn run db:create              # Create a new database (see .env/DATABASE_URL), or create it manually
@@ -122,8 +122,8 @@ Not sure where to deploy your app? [DigitalOcean][do] is a great choice in many 
 ## Contributing
 
 Anyone and everyone is welcome to [contribute](CONTRIBUTING.md). Start by checking out the list of
-[open issues](https://github.com/kriasoft/graphql-starter-kit/issues) marked
-[help wanted](https://github.com/kriasoft/graphql-starter-kit/issues?q=label:"help+wanted").
+[open issues](https://github.com/kriasoft/nodejs-api-starter/issues) marked
+[help wanted](https://github.com/kriasoft/nodejs-api-starter/issues?q=label:"help+wanted").
 However, if you decide to get involved, please take a moment to review the [guidelines](CONTRIBUTING.md):
 
 * [Bug reports](CONTRIBUTING.md#bugs)
@@ -143,21 +143,24 @@ However, if you decide to get involved, please take a moment to review the [guid
 
 * [#react-starter-kit](http://stackoverflow.com/questions/tagged/react-starter-kit) on Stack Overflow — Questions and answers
 * [#react-starter-kit](https://gitter.im/kriasoft/react-starter-kit) on Gitter — Watch announcements, share ideas and feedback
-* [GitHub Issues](https://github.com/kriasoft/graphql-starter-kit/issues) — Check open issues, send feature requests
+* [GitHub Issues](https://github.com/kriasoft/nodejs-api-starter/issues) — Check open issues, send feature requests
 * [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya) or [HackHands](https://hackhands.com/koistya/) — Private consulting
 
 
 ## License
 
 Copyright © 2016-present Kriasoft, LLC. This source code is licensed under the MIT
-license found in the [LICENSE.txt](https://github.com/kriasoft/graphql-starter-kit/blob/master/LICENSE.txt)
+license found in the [LICENSE.txt](https://github.com/kriasoft/nodejs-api-starter/blob/master/LICENSE.txt)
 file. The documentation to the project is licensed under the
 [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/) license.
 
 
 ---
-Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and [contributors](https://github.com/kriasoft/graphql-starter-kit/graphs/contributors)
+Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and [contributors](https://github.com/kriasoft/nodejs-api-starter/graphs/contributors)
 
+
+[nodejskit]: https://github.com/kriasoft/nodejs-api-starter
+[rsk]: https://github.com/kriasoft/react-starter-kit
 [node]: https://nodejs.org
 [js]: https://developer.mozilla.org/docs/Web/JavaScript
 [babel]: http://babeljs.io/
@@ -168,3 +171,4 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and
 [do]: https://m.do.co/c/eef302dbae9f
 [code]: https://code.visualstudio.com/
 [wstorm]: https://www.jetbrains.com/webstorm/
+
