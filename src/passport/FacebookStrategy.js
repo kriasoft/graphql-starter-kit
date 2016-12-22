@@ -26,11 +26,14 @@ export default new Strategy({
 
     if (req.user) {
       if (await db.userLogins.any(profile.provider, profile.id)) {
-        done(new Error('This Facebook account already exists.'));
+        const err = new Error('There is already a Facebook account that belongs to you. Sign in with that account or delete it, then link it with your current account.');
+        req.flash('errors', { msg: err.message });
+        done(err);
       } else {
         await db.userLogins.create(req.user.id, profile.provider, profile.id);
         await db.userClaims.createOrUpdate(req.user.id, accessTokenClaim, accessToken);
         await db.userClaims.createOrUpdate(req.user.id, refreshTokenClaim, refreshToken);
+        req.flash('info', { msg: 'Facebook account has been linked.' });
         done(null, await db.users.findById(req.user.id));
       }
     } else {
@@ -40,7 +43,9 @@ export default new Strategy({
       } else {
         user = await db.users.any(profile._json.email);
         if (user) {
-          done(new Error('A user with this email address already exists.'));
+          const err = new Error('There is already an account using this email address. Sign in to that account and link it with Facebook manually from Account Settings.');
+          req.flash('errors', { msg: err.message });
+          done(err);
         } else {
           user = await db.users.create(profile._json.email);
           await db.userLogins.create(user.id, profile.provider, profile.id);

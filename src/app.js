@@ -13,6 +13,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import flash from 'express-flash';
 import expressGraphQL from 'express-graphql';
 import PrettyError from 'pretty-error';
 import passport from './passport';
@@ -31,10 +32,12 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.use('/login', require('./routes/login'));
+app.use('/logout', (req, res) => { req.logout(); res.redirect('/'); });
 
-app.use(expressGraphQL(req => ({
+app.use('/graphql', expressGraphQL(req => ({
   schema,
   context: {
     user: req.user,
@@ -43,13 +46,21 @@ app.use(expressGraphQL(req => ({
   pretty: process.env.NODE_ENV !== 'production',
 })));
 
+app.get('/', (req, res) => {
+  if (req.user) {
+    res.send(`<p>Welcome, ${req.user.email}! (<a href="/logout">logout</a>)</p>`);
+  } else {
+    res.send('<p>Welcome, guest! (<a href="/login/facebook">login</a>)</p>');
+  }
+});
+
 const pe = new PrettyError();
 pe.skipNodeFiles();
 pe.skipPackage('express');
 
 app.use((err, req, res, next) => {
   process.stderr.write(pe.render(err));
-  next(err);
+  next();
 });
 
 export default app;

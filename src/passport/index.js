@@ -13,6 +13,15 @@ import passport from 'passport';
 import FacebookStrategy from './FacebookStrategy';
 import GoogleStrategy from './GoogleStrategy';
 import TwitterStrategy from './TwitterStrategy';
+import db from '../db';
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  db.users.findById(id).then(user => done(null, user), done);
+});
 
 passport.use(FacebookStrategy);
 passport.use(GoogleStrategy);

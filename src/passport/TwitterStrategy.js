@@ -24,11 +24,14 @@ export default new Strategy({
 
     if (req.user) {
       if (await db.userLogins.any(profile.provider, profile.id)) {
-        done(new Error('This Facebook account already exists.'));
+        const err = new Error('There is already a Twitter account that belongs to you. Sign in with that account or delete it, then link it with your current account.');
+        req.flash('errors', { msg: err.message });
+        done(err);
       } else {
         await db.userLogins.create(req.user.id, profile.provider, profile.id);
         await db.userClaims.createOrUpdate(req.user.id, accessTokenClaim, accessToken);
         await db.userClaims.createOrUpdate(req.user.id, refreshTokenClaim, refreshToken);
+        req.flash('info', { msg: 'Twitter account has been linked.' });
         done(null, await db.users.findById(req.user.id));
       }
     } else {

@@ -9,8 +9,8 @@
 
 /* @flow */
 
-import { Router } from 'express';
 import passport from 'passport';
+import { Router } from 'express';
 
 const router = new Router();
 
@@ -18,7 +18,7 @@ router.get('/facebook',
   passport.authenticate('facebook', { scope: ['email', 'user_location'] }));
 
 router.get('/facebook/return',
-  passport.authenticate('facebook', { failureRedirect: '/login', session: false }),
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
   (req, res) => {
     res.redirect('/');
   });
