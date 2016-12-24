@@ -122,12 +122,16 @@ Not sure where to deploy your app? [DigitalOcean][do] is a great choice in many 
 Anyone and everyone is welcome to [contribute](CONTRIBUTING.md). Start by checking out the list of
 [open issues](https://github.com/kriasoft/nodejs-api-starter/issues) marked
 [help wanted](https://github.com/kriasoft/nodejs-api-starter/issues?q=label:"help+wanted").
-However, if you decide to get involved, please take a moment to review the [guidelines](CONTRIBUTING.md):
+However, if you decide to get involved, please take a moment to review the [guidelines](CONTRIBUTING.md).
 
-* [Bug reports](CONTRIBUTING.md#bugs)
-* [Feature requests](CONTRIBUTING.md#features)
-* [Pull requests](CONTRIBUTING.md#pull-requests)
 
+## Books and Tutorials
+
+[![Docker in Action](https://images-na.ssl-images-amazon.com/images/I/518L63vGMpL._SL160_.jpg)](http://amzn.to/2hmUrNP)
+[![You Don't Know JS](https://images-na.ssl-images-amazon.com/images/I/B172ZcXnYDS._SL160_.png)](http://amzn.to/2idQ3gL)
+[![JavaScript Ninja](https://images-na.ssl-images-amazon.com/images/I/51tQ+JAczgL._SL160_.jpg)](http://amzn.to/2idDamK)
+[![Effective JavaScript](https://images-na.ssl-images-amazon.com/images/I/51W25NBDLQL._SL160_.jpg)](http://amzn.to/2idMZBq)
+[![NodeSchool.io](http://koistya.github.io/files/nodeschool.jpg)](https://nodeschool.io/)
 
 ## Related Projects
 
