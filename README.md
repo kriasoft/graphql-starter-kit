@@ -6,6 +6,13 @@
 mobile application project such as [React Starter Kit][rsk].
 
 
+## Prerequisites
+
+* macOS, Windows or Linux
+* [Docker][docker] v1.12.5 or newer
+* Text editor or IDE (e.g. [VS Code][code], [WebStorm][wstorm] etc.)
+
+
 ## Directory Layout
 
 ```bash
@@ -27,41 +34,32 @@ mobile application project such as [React Starter Kit][rsk].
 │   └── /server.js              # Node.js server (entry point)
 ├── /test/                      # Unit, integration and load tests
 ├── .env                        # Application settings for the dev environment
+├── .env.example                # Available application settings for a reference
+├── docker-compose.yml          # Defines Docker services, networks and volumes
+├── Dockerfile                  # Commands for building a Docker image for production
 ├── package.json                # The list of project dependencies
 └── yarn.lock                   # Fixed versions of all the dependencies
 ```
 
 
-## Prerequisites
-
-* OS X, Windows or Linux
-* [Node.js][node] v7 or newer + [Yarn][yarn] package manager
-* [PostgreSQL][pg] v9.5 or newer (see [how to install PostgreSQL on a dev machine](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup))
-* Text editor or IDE (e.g. [VS Code][code], [WebStorm][wstorm] etc.)
-
-
 ## Getting Started
 
-Just clone the repo and start hacking:
+Just clone the repo and launch the app with [Docker Compose][compose]:
 
 ```bash
 git clone -o nodejs-api-starter -b master --single-branch \
    https://github.com/kriasoft/nodejs-api-starter.git example.api
 cd example.api
-yarn install                    # Install project dependencies. Alternatively, npm install
-yarn run db:create              # Create a new database (see .env/DATABASE_URL), or create it manually
-yarn run db:migrate             # Migrate database schema to the latest version
-yarn start                      # Launch the app. Alternatively, node scripts/start.js
+docker-compose up               # Launch Docker containers with the Node.js API app running inside
 ```
 
-The GraphQL server should become available at [http://localhost:5000/](http://localhost:5000/)
+The API server must become available at [http://localhost:5000/](http://localhost:5000/)
 ([live demo][demo]).
 
-If you just need to build the project without launching a dev server, run one of these two commands:
+If you just need to build the project without launching a dev server, simply run:
 
 ```bash
-yarn run build                  # Compiles the app into the /build folder
-yarn run build:watch            # Compiles the app and starts watching for changes
+docker-compose exec api yarn run build
 ```
 
 
@@ -70,7 +68,7 @@ yarn run build:watch            # Compiles the app and starts watching for chang
 The following scripts can be used to transfer your existing database into another state and vise
 versa. Those state transitions are saved in migration files (`/migrations/*.js`), which describe
 the way how to get to the new state and how to revert the changes in order to get back to the old
-state.
+state. You can execute them inside the `api` docker container.
 
 ```bash
 yarn run db:create              # Create a new database
@@ -171,4 +169,6 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and
 [do]: https://m.do.co/c/eef302dbae9f
 [code]: https://code.visualstudio.com/
 [wstorm]: https://www.jetbrains.com/webstorm/
+[docker]: https://www.docker.com/products/docker
+[compose]: https://docs.docker.com/compose/
 

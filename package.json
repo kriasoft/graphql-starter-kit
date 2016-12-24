@@ -43,13 +43,13 @@
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
+    "chokidar": "^1.6.1",
     "eslint": "^3.12.2",
     "eslint-config-airbnb-base": "^11.0.0",
     "eslint-plugin-flowtype": "^2.29.1",
     "eslint-plugin-import": "^2.2.0",
     "flow-bin": "^0.37.0",
     "mocha": "^3.2.0",
-    "nodemon": "^1.11.0",
     "rimraf": "^2.5.4"
   },
   "scripts": {

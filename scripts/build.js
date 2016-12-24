@@ -8,53 +8,99 @@
  */
 
 const fs = require('fs');
-const cp = require('child_process');
-const pkg = require('../package.json');
-const clean = require('./clean');
+const path = require('path');
+const rimraf = require('rimraf');
+const babel = require('babel-core');
+const chokidar = require('chokidar');
 const task = require('./task');
 
-module.exports = task('build', () => Promise.resolve()
-  .then(clean)
-  // Copy database migration scripts so you could run `node scripts/db.js migrate` on the server
-  .then(() => {
-    ['build', 'build/migrations', 'build/scripts'].forEach((dir) => {
-      if (!fs.existsSync(dir)) fs.mkdirSync(dir);
-    });
-    [
-      ...fs.readdirSync('migrations').map(file => `migrations/${file}`),
-      ...fs.readdirSync('scripts').map(file => `scripts/${file}`),
-      'yarn.lock',
-    ].forEach((file) => {
-      fs.writeFileSync(`build/${file}`, fs.readFileSync(file, 'utf8'), 'utf8');
-      console.log(`${file} -> build/${file}`);
-    });
-  })
-  // Compile Node.js application from source code with Babel
-  .then(() => new Promise((resolve) => {
-    cp.spawn('node', [
-      'node_modules/babel-cli/bin/babel.js',
-      'src',
-      '--out-dir',
-      'build',
-      '--source-maps',
-      '--copy-files',
-      ...(process.argv.includes('--watch') || process.argv.includes('-w') ? ['--watch'] : []),
-    ], { stdio: ['inherit', 'pipe', 'inherit'] })
-      .on('exit', resolve)
-      .stdout.on('data', (data) => {
-        if (data.toString().startsWith('src/server.js')) {
-          const src = fs.readFileSync('build/server.js', 'utf8');
-          fs.writeFileSync('build/server.js', `require('source-map-support').install(); ${src}`, 'utf8');
-        }
-        process.stdout.write(data);
-      });
-  }))
-  // Copy package.json in order to be able to run `yarn install` on the server
-  .then(() => {
-    fs.writeFileSync('build/package.json', JSON.stringify({
-      engines: pkg.engines,
-      dependencies: pkg.dependencies,
-      scripts: pkg.scripts,
-    }, null, '  '), 'utf8');
-    console.log('package.json -> build/package.json');
-  }));
+module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promise((resolve) => {
+  let ready = false;
+
+  // Clean up the output directory
+  rimraf.sync('build/*', { nosort: true, dot: true });
+
+  const watcher = chokidar.watch(
+    ['src', 'package.json', 'yarn.lock', '.env', 'migrations', 'scripts']);
+  watcher.on('all', (event, src) => {
+    // Reload the app if .env file has changed (in watch mode)
+    if (src === '.env') {
+      if (ready && onComplete) onComplete();
+      return;
+    }
+
+    // Skip files starting with a dot, e.g. .DS_Store, .eslintrc etc.
+    if (path.basename(src)[0] === '.') return;
+
+    // Get destination file name, e.g. src/app.js (src) -> build/app.js (dest)
+    const dest = src.startsWith('src') ? `build/${path.relative('src', src)}` : `build/${src}`;
+
+    try {
+      switch (event) {
+        // Create a directory if it doesn't exist
+        case 'addDir':
+          if (!fs.existsSync(dest)) fs.mkdirSync(dest);
+          if (ready && onComplete) onComplete();
+          break;
+
+        // Create or update a file inside the output (build) folder
+        case 'add':
+        case 'change':
+          if (src.startsWith('src') && src.endsWith('.js')) {
+            const { code, map } = babel.transformFileSync(src, {
+              sourceMaps: true,
+              sourceFileName: path.relative('./build', src),
+            });
+            // Enable source maps
+            const data = (src === 'src/server.js' ?
+              'require(\'source-map-support\').install(); ' : '') + code +
+              (map ? `\n//# sourceMappingURL=${path.basename(src)}.map\n` : '');
+            fs.writeFileSync(dest, data, 'utf8');
+            console.log(src, '->', dest);
+            if (map) fs.writeFileSync(`${dest}.map`, JSON.stringify(map), 'utf8');
+          } else if (src === 'package.json') {
+            const pkg = require('../package.json'); // eslint-disable-line global-require
+            fs.writeFileSync('build/package.json', JSON.stringify({
+              name: pkg.name,
+              version: pkg.version,
+              private: pkg.private,
+              engines: pkg.engines,
+              dependencies: pkg.dependencies,
+              scripts: pkg.scripts,
+            }, null, '  '), 'utf8');
+            console.log(src, '->', dest);
+          } else {
+            const data = fs.readFileSync(src, 'utf8');
+            fs.writeFileSync(dest, data, 'utf8');
+            console.log(src, '->', dest);
+          }
+          if (ready && onComplete) onComplete();
+          break;
+
+        // Remove directory if it was removed from the source folder
+        case 'unlinkDir':
+          if (fs.existsSync(dest)) fs.rmdirSync(dest);
+          break;
+
+        default:
+          // Skip
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  });
+
+  watcher.on('ready', () => {
+    ready = true;
+    if (onComplete) onComplete();
+    if (!watch) watcher.close();
+    resolve();
+  });
+
+  process.on('exit', () => {
+    watcher.close();
+    resolve();
+  });
+
+  process.once('SIGINT', () => process.exit(0));
+}));

@@ -17,7 +17,6 @@ module.exports = task('deploy', () => Promise.resolve()
   .then(build)
   // Create Docker image and push it to a remote server
   .then(() => {
-    console.log('pkg.name:', pkg.name);
     cp.spawnSync('docker', ['build', '-t', pkg.name, '.'], { stdio: 'inherit' });
     throw new Error('TODO: Update deployment logic in /scripts/deploy.js');
   }));

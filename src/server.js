@@ -9,14 +9,18 @@
 
 /* @flow */
 
-import dotenv from 'dotenv';
-
-dotenv.config({ silent: process.env.NODE_ENV === 'production' });
-
-const app = require('./app').default;
+import app from './app';
+import pool from './db/pool';
 
 const server = app.listen(process.env.PORT, () => {
-  process.stdout.write(`Node.js app is listening on http://localhost:${String(process.env.PORT)}/\n`);
+  process.stdout.write(`Node.js API server is listening on http://localhost:${String(process.env.PORT)}/\n`);
+});
+
+// Gracefull shutdown
+process.once('SIGTERM', () => {
+  let count = 2;
+  pool.end().then(() => { count -= 1; if (count === 0) process.exit(0); });
+  server.close(() => { count -= 1; if (count === 0) process.exit(0); });
 });
 
 export default server;

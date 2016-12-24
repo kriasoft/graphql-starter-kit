@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+
+  api:
+    image: node:7.3.0-alpine
+    restart: always
+    env_file: .env
+    ports:
+      - $PORT:$PORT
+    links:
+      - postgres
+      - redis
+    volumes:
+      - yarn:/root/.cache/yarn
+      - npm:/root/.npm
+      - ./:/usr/src/app
+    working_dir: /usr/src/app
+    entrypoint: /bin/sh scripts/entrypoints/api.sh
+
+  postgres:
+    image: postgres:9.6.1-alpine
+    restart: always
+    read_only: true
+    tmpfs:
+      - /run/postgresql
+      - /tmp
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./scripts/entrypoints/postgres.sh:/docker-entrypoint-initdb.d/init.sh
+
+  redis:
+    image: redis:3.2.6-alpine
+    restart: always
+    read_only: true
+    volumes:
+      - redis:/data
+
+volumes:
+  postgres:
+  redis:
+  yarn:
+  npm:

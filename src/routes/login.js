@@ -41,4 +41,4 @@ router.get('/facebook/return',
     res.redirect('/');
   });
 
-module.exports = router;
+export default router;
