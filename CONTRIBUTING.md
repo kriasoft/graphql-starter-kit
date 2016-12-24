@@ -1,4 +1,4 @@
-# Contributing to GraphQL Starter Kit
+# Contributing to Node.js API Starter Kit
 
 ♥ [Node.js API Starter Kit](https://github.com/kriasoft/nodejs-api-starter) and
 want to get involved? Thanks! There are plenty of ways you can help!

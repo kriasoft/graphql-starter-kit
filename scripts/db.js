@@ -1,5 +1,5 @@
 /**
- * GraphQL Starter Kit (https://www.reactstarterkit.com/)
+ * Node.js API Starter Kit (https://reactstarter.com/nodejs)
  *
  * Copyright © 2016-present Kriasoft, LLC. All rights reserved.
  *
