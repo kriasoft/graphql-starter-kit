@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "api",
   "version": "0.0.0",
   "private": true,
   "engines": {
@@ -7,7 +7,7 @@
     "npm": ">=3.10.8"
   },
   "dependencies": {
-    "bluebird": "^3.4.6",
+    "bluebird": "^3.4.7",
     "body-parser": "^1.15.2",
     "cors": "^2.8.1",
     "express": "^4.14.0",
@@ -15,6 +15,7 @@
     "express-graphql": "^0.6.1",
     "express-session": "^1.14.2",
     "graphql": "^0.8.2",
+    "knex": "^0.12.6",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
@@ -22,7 +23,7 @@
     "pg": "^6.1.2",
     "pg-pool": "^1.6.0",
     "pretty-error": "^2.0.2",
-    "source-map-support": "^0.4.6"
+    "source-map-support": "^0.4.8"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -45,8 +46,7 @@
     "eslint-config-airbnb-base": "^11.0.0",
     "eslint-plugin-flowtype": "^2.29.1",
     "eslint-plugin-import": "^2.2.0",
-    "flow-bin": "^0.37.0",
-    "knex": "^0.12.6",
+    "flow-bin": "^0.37.4",
     "mocha": "^3.2.0",
     "rimraf": "^2.5.4"
   },

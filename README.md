@@ -60,7 +60,7 @@ The API server must become available at [http://localhost:5000/](http://localhos
 In order to open a new terminal session from inside the Docker container run:
 
 ```bash
-$ docker-compose exec api /bin/sh
+docker-compose exec api /bin/sh
 ```
 
 
@@ -106,11 +106,13 @@ to the process listening on `127.0.0.1:5858`.
 
 ## Deployment
 
-Customize the deployment script found in `scripts/deploy.js` so you could run:
+Customize the deployment script found in `scripts/publish.js`. Set this script
+executable by running `chmod +x scripts/publish.sh` on macOS/Linux or convert
+it to `publish.cmd` on Windows. Then whenever you need to deploy your app to a
+remote server simply run:
 
 ```bash
-yarn run deploy                 # Build and push the app to the default deployment slot, or...
-yarn run deploy --prod          # Build and push the app to the production deployment slot
+scripts/publish.sh
 ```
 
 Not sure where to deploy your app? [DigitalOcean][do] is a great choice in many cases (get [$10 credit][do])
