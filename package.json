@@ -1,8 +1,8 @@
 {
-  "name": "generator-graphql-server",
-  "version": "0.11.0",
-  "description": "GraphQL Starter Kit built with Node.js, JavaScript (ES2015+ via Babel) and PostgreSQL",
-  "repository": "kriasoft/graphql-starter-kit",
+  "name": "generator-nodejs-api",
+  "version": "0.1.1",
+  "description": "Node.js API Starter Kit built with Docker, Node.js, JavaScript (ES6, ES2015+ via Babel), PostgreSQL and GraphQL",
+  "repository": "kriasoft/nodejs-api-starter",
   "author": "Kriasoft <hello@kriasoft.com> (https://www.kriasoft.com)",
   "contributors": [
     "Konstantin Tarkus <hello@tarkus.me> (https://www.codementor.io/koistya)"
@@ -14,6 +14,7 @@
   "main": "generators/index.js",
   "keywords": [
     "graphql",
+    "docker",
     "relay",
     "react",
     "reactjs",

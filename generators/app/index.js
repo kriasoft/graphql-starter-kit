@@ -25,21 +25,7 @@ module.exports = yeoman.Base.extend({
     for (var i = 0; i < files.length; i++) {
       this.copy(files[i], files[i]);
     }
-    // this.copy(
-    //   this.templatePath('**/*'),
-    //   this.destinationRoot(),
-    //   {
-    //     globOptions: {
-    //       dot: true,
-    //       ignore: [
-    //         '**/.git',
-    //         '**/.gitignore',
-    //         '**/.npmignore',
-    //         '**/CONTRIBUTING.md'
-    //       ]
-    //     }
-    //   }
-    // );
+    this.copy('.env.example', '.env');
     this.write(
       this.destinationPath('.gitignore'),
       '# Include your project-specific ignores in this file\n' +
@@ -51,7 +37,12 @@ module.exports = yeoman.Base.extend({
     );
   },
 
-  install: function () {
-    this.installDependencies();
+  done: function () {
+    this.log(yosay(
+      chalk.red('Done!') +
+      'Now you can launch the app by running:\n\n  ' +
+      chalk.blue('docker-compose up') + '\n\n' +
+      'For more information visit https://reactstarter.com/nodejs'
+    ));
   }
 });

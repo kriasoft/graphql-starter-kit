@@ -1,29 +1,30 @@
-# generator-graphql-server [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+# generator-nodejs-api [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 
-[Yeoman][yo] generator based on [GraphQL Starter Kit][gsk] — a project template for authoring GraphQL
-applications with Node.js 6+ and JavaScript (ES2017+ via Babel).
+[Yeoman][yo] generator based on [Node.js API Starter Kit][nodeapi] — boilerplate and tooling for
+authoring data API backends with Docker, Node.js, JavaScript (ES2017+ via Babel), PostgreSQL and
+GraphQL.
 
 
 ## Installation
 
-First, install [Yeoman][yo] and `generator-graphql-server` using [npm](https://www.npmjs.com/) (we assume you have pre-installed [Node.js](https://nodejs.org/) 6+ and [Yarn](https://yarnpkg.com/)).
+First, install [Yeoman][yo] and `generator-nodejs-api` using [npm](https://www.npmjs.com/) (we assume you have pre-installed [Node.js](https://nodejs.org/) 6+ and [Yarn](https://yarnpkg.com/)).
 
 ```bash
 npm install -g yo
-npm install -g generator-graphql-server
+npm install -g generator-nodejs-api
 ```
 
 Then generate your new project:
 
 ```bash
-mkdir api.example.com
-cd api.example.com
-yo graphql-server
+mkdir example-api
+cd example-api
+yo nodejs-api
 ```
 
-Then you can launch your GraphQL server by running `npm start`.
+Then you can launch your data API server by running `docker-compose up`.
 
-For more information visit https://github.com/kriasoft/graphql-starter-kit
+For more information visit https://github.com/kriasoft/nodejs-api-starter
 
 
 ### Related Projects
@@ -53,7 +54,7 @@ file. The documentation to the project is licensed under the
 ---
 Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and [contributors](https://github.com/kriasoft/graphql-starter-kit/graphs/contributors)
 
-[gsk]: https://github.com/kriasoft/graphql-starter-kit
+[nodeapi]: https://github.com/kriasoft/nodejs-api-starter
 [yo]: https://yeoman.io
 [npm-image]: https://badge.fury.io/js/generator-graphql-server.svg
 [npm-url]: https://npmjs.org/package/generator-graphql-server
