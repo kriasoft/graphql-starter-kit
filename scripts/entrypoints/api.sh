@@ -1,6 +1,5 @@
 #!/bin/sh
-
 npm install -g yarn --no-progress --silent
-yarn install
-node --harmony scripts/db.js migrate
+yarn install --no-progress
+yarn run db:migrate
 node scripts/start.js
