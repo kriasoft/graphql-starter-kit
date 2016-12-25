@@ -15,10 +15,6 @@
  *     Finished 'db:create' in 25ms
  */
 
-const dotenv = require('dotenv');
-
-dotenv.config({ silent: true });
-
 function run(task, action, ...args) {
   const command = process.argv[2];
   const taskName = command && !command.startsWith('-') ? `${task}:${command}` : task;

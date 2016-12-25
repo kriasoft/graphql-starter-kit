@@ -48,18 +48,19 @@ Just clone the repo and launch the app with [Docker Compose][compose]:
 
 ```bash
 git clone -o nodejs-api-starter -b master --single-branch \
-   https://github.com/kriasoft/nodejs-api-starter.git example.api
-cd example.api
+   https://github.com/kriasoft/nodejs-api-starter.git example-api
+cd example-api
+cp .env.example .env            # Copy environment variables from the template: '.env.example' -> '.env'
 docker-compose up               # Launch Docker containers with the Node.js API app running inside
 ```
 
 The API server must become available at [http://localhost:5000/](http://localhost:5000/)
 ([live demo][demo]).
 
-If you just need to build the project without launching a dev server, simply run:
+In order to open a new terminal session from inside the Docker container run:
 
 ```bash
-docker-compose exec api yarn run build
+$ docker-compose exec api /bin/sh
 ```
 
 
@@ -71,8 +72,6 @@ the way how to get to the new state and how to revert the changes in order to ge
 state. You can execute them inside the `api` docker container.
 
 ```bash
-yarn run db:create              # Create a new database
-yarn run db:drop                # Drop the database
 yarn run db:version             # Print database schema version
 yarn run db:migrate             # Migrate database schema to the latest version
 yarn run db:migrate:undo        # Rollback the latest migration

@@ -16,7 +16,7 @@ chai.use(chaiHttp);
 describe('types.Viewer', () => {
   it('.me must be null if user is not authenticated', (done) => {
     chai.request(app)
-      .post('/')
+      .post('/graphql')
       .send({ query: 'query { viewer { me { id, email } } }' })
       .end((err, res) => {
         expect(err).to.be.null;

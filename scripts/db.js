@@ -8,12 +8,11 @@
  */
 
 const fs = require('fs');
-const cp = require('child_process');
 const knex = require('knex');
 const task = require('./task');
 
 const command = process.argv[2];
-const commands = ['create', 'drop', 'version', 'migrate', 'migrate:undo', 'migration', 'seed'];
+const commands = ['version', 'migrate', 'migrate:undo', 'migration', 'seed'];
 
 const config = {
   client: 'pg',
@@ -37,32 +36,16 @@ module.exports = task('db', async () => {
 
   try {
     switch (command) {
-      case 'create':
-      case 'drop': {
+      case 'version':
         db = knex(config);
-        const conn = db.client.config.connection;
-        await db.destroy();
-        await new Promise((resolve) => {
-          cp.spawn(command === 'create' ? 'createdb' : 'dropdb', [
-            '-h', conn.host,
-            '-p', conn.port,
-            '-U', conn.user,
-            conn.password ? '-W' : '-w',
-            conn.database,
-          ], { stdio: 'inherit' }).on('exit', resolve);
-        });
+        await db.migrate.currentVersion(config).then(console.log);
         break;
-      }
       case 'migration':
         fs.writeFileSync(`migrations/${version}_${process.argv[3] || 'new'}.js`, template, 'utf8');
         break;
       case 'migrate:undo':
         db = knex(config);
         await db.migrate.rollback(config);
-        break;
-      case 'version':
-        db = knex(config);
-        await db.migrate.currentVersion(config).then(console.log);
         break;
       case 'seed':
         console.error('Not yet implemented.');
