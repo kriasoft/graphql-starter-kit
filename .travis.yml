@@ -1,20 +1,25 @@
-language: node_js
-node_js:
-  - '7'
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
 cache:
-  yarn: true
   directories:
     - node_modules
-services:
-  - postgresql
-addons:
-  postgresql: "9.4"
-env:
-  - DATABASE_URL=postgres://postgres@localhost:5432/ci_test
+
+before_install:
+  - cp .env.example .env
+  - docker-compose up -d
+  - docker-compose logs -f api | while read line; do
+      echo $line;
+      [[ $line == *"server is listening"* ]] && pkill -f "docker-compose logs -f api";
+    done
+
 script:
-  - npm run lint
-  - npm run check
-  - npm run build
-  - npm run db:create
-  - npm run db:migrate
-  - npm run test
+  - docker-compose exec api yarn lint
+  - docker-compose exec api yarn test
+
+after_script:
+  - docker-compose down
