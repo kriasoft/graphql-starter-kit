@@ -16,13 +16,12 @@ let node; /* Node.js server child process */
 function launch() {
   node = cp.spawn('node',
     [
-      process.env.NODE_DEBUG ? '--inspect' : '',
-      process.env.NODE_DEBUG ? '--no-lazy' : '',
+      ...(process.env.NODE_DEBUG === 'true' ? ['--inspect', '--no-lazy'] : []),
       'server.js',
     ],
     {
       cwd: './build',
-      stdio: ['ignore', 'inherit', 'inherit'],
+      stdio: 'inherit',
     });
 }
 
