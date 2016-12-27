@@ -14,10 +14,16 @@ const build = require('./build');
 let node; /* Node.js server child process */
 
 function launch() {
-  node = cp.spawn('node', ['server.js'], {
-    cwd: './build',
-    stdio: ['ignore', 'inherit', 'inherit'],
-  });
+  node = cp.spawn('node',
+    [
+      process.env.NODE_DEBUG ? '--inspect' : '',
+      process.env.NODE_DEBUG ? '--no-lazy' : '',
+      'server.js',
+    ],
+    {
+      cwd: './build',
+      stdio: ['ignore', 'inherit', 'inherit'],
+    });
 }
 
 module.exports = task('start', () =>

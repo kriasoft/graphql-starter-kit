@@ -22,6 +22,8 @@ import loginRoute from './routes/login';
 
 const app = express();
 
+app.set('trust proxy', 'loopback');
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

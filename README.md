@@ -92,16 +92,11 @@ yarn run test:watch             # Run unit tests in watch mode
 
 ## Debugging
 
-```bash
-# Option 1:
-yarn run build && node build/server.js --debug --nolazy
-
-# Option 2:
-yarn run start -- --debug --nolazy
-```
-
-After launching the app in a debug mode [attach your debugger](https://code.visualstudio.com/Docs/editor/debugging)
-to the process listening on `127.0.0.1:5858`.
+In order to run the app with [V8 inspector][v8debug] enabled, simply set
+`NODE_DEBUG=true` flag in the `.env` file, restart the app (`docker-compose up`)
+and [attach your debugger][vsdebug] to `127.0.0.1:9229` (see
+[`.vscode/launch.json`](https://gist.github.com/koistya/421ea3e0139225b27f909e98202a34de)
+for [VS Code][code]).
 
 
 ## Deployment
@@ -176,4 +171,6 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and
 [wstorm]: https://www.jetbrains.com/webstorm/
 [docker]: https://www.docker.com/products/docker
 [compose]: https://docs.docker.com/compose/
+[v8debug]: https://chromedevtools.github.io/debugger-protocol-viewer/v8/
+[vsdebug]: https://code.visualstudio.com/Docs/editor/debugging
 
