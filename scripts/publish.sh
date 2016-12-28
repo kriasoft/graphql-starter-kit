@@ -8,6 +8,9 @@ SERVICE_NAME=$(cat package.json \
   | sed 's/[",]//g' \
   | tr -d '[[:space:]]')
 
+# Compile the app into the ./build folder
+docker-compose run --rm api /bin/sh -c "yarn install; yarn run build"
+
 # Build a Docker image for production
 docker build --no-cache -t $SERVICE_NAME .
 
