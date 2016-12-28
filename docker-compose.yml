@@ -3,18 +3,19 @@ version: '2'
 services:
 
   api:
-    image: node:7.3.0-alpine
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
     restart: always
     env_file: .env
-    ports:
-      - $PORT:$PORT
-      - '127.0.0.1:9229:9229' # V8 inspector
     links:
       - postgres
       - redis
+    ports:
+      - $PORT:$PORT
+      - '127.0.0.1:9229:9229' # V8 inspector
     volumes:
-      - api-yarn-cache:/root/.cache/yarn
-      - api-npm-cache:/root/.npm
+      - yarn:/root/.cache/yarn
       - ./:/usr/src/app
     working_dir: /usr/src/app
     command: node scripts/run.js
@@ -27,7 +28,7 @@ services:
       - /run/postgresql
       - /tmp
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
       - ./scripts/postgres-init.sh:/docker-entrypoint-initdb.d/init.sh
 
   redis:
@@ -35,10 +36,9 @@ services:
     restart: always
     read_only: true
     volumes:
-      - redis-data:/data
+      - redis:/data
 
 volumes:
-  api-yarn-cache:
-  api-npm-cache:
-  postgres-data:
-  redis-data:
+  yarn:
+  postgres:
+  redis:

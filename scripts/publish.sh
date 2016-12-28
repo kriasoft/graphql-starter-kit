@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 # Read application name from 'package.json'
 SERVICE_NAME=$(cat package.json \
