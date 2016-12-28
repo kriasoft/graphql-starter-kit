@@ -1,16 +1,19 @@
-# Node.js API Starter Kit &nbsp; <a href="https://github.com/kriasoft/nodejs-api-starter/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/nodejs-api-starter.svg?style=social&label=Star&maxAge=3600" height="20"></a> <a href="https://twitter.com/ReactStarter"><img src="https://img.shields.io/twitter/follow/ReactStarter.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
+# Node.js API Starter Kit &nbsp; <a href="https://gitter.im/kriasoft/nodejs-api-starter"><img src="https://img.shields.io/gitter/room/kriasoft/nodejs-api-starter.js.svg" width="102" height="20"></a> <a href="https://github.com/kriasoft/nodejs-api-starter/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/nodejs-api-starter.svg?style=social&label=Star&maxAge=3600" height="20"></a> <a href="https://twitter.com/ReactStarter"><img src="https://img.shields.io/twitter/follow/ReactStarter.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
 
-[Node.js API Starter Kit][nodejskit] is a boilerplate and tooling for authoring
-**data API** backends with [Node.js][node] 7+, [JavaScript][js] (via
-[Babel][babel]) and [GraphQL][gql]. It's meant to be paired with a web and/or
-mobile application project such as [React Starter Kit][rsk].
+[Node.js API Starter Kit][nodejskit] is a boilerplate and tooling for authoring **data API**
+backends with [Node.js][node], [JavaScript][js] (via [Babel][babel]) and [GraphQL][gql]. It's
+meant to be paired with a web and/or mobile application project such as [React Starter Kit][rsk].
 
 
-## Prerequisites
+## Features
 
-* macOS, Windows or Linux
-* [Docker][docker] v1.12.5 or newer
-* Text editor or IDE (e.g. [VS Code][code], [WebStorm][wstorm] etc.)
+✓ Cross-platform, develope on macOS, Windows or Linux inside a [Docker][docker] container<br>
+✓ No development dependencies except for [Docker][docker] v1.12.5 or neweer<br>
+✓ Authentication and authorization via [Passport.js][passport] (see [`src/passport`](./src/passport))<br>
+✓ Session and cache management with [Redis][redis] (see [stop using JWT for sessions](http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/))<br>
+✓ [PostgreSQL][pg] database schema boilerplate and migration tools (see [`scripts`](./scripts), [`migrations`](./migrations))<br>
+✓ [GraphQL][gql] boilerplate, everything needed to get started building a [GraphQL][gql] API endpoint<br>
+✓ The exact same process is used to build the app for production and build for running/testing locally<br>
 
 
 ## Directory Layout
@@ -19,22 +22,21 @@ mobile application project such as [React Starter Kit][rsk].
 .
 ├── /build/                     # The compiled output (via Babel)
 ├── /migrations/                # Database schema migrations
-├── /node_modules/              # Project dependencies (npm modules)
 ├── /scripts/                   # Build automation scripts
 ├── /src/                       # Node.js application source files
-│   ├── /db/                    # Database access methods and connection pooling
+│   ├── /db/                    # Database access and connection pooling
 │   ├── /passport/              # Passport.js authentication strategies
 │   ├── /routes/                # Express routes, e.g. /login/facebook
-│   ├── /types/                 # GraphQL types /w resolve functions
+│   ├── /types/                 # GraphQL types with resolve functions
 │   │   ├── /User.js            # User account (id, email, etc.)
 │   │   ├── /Viewer.js          # The top-level GraphQL object type
 │   │   └── /...                # etc.
-│   ├── /app.js                 # Express application
+│   ├── /app.js                 # Express.js application
 │   ├── /schema.js              # GraphQL schema
 │   └── /server.js              # Node.js server (entry point)
 ├── /test/                      # Unit, integration and load tests
 ├── .env                        # Application settings for the dev environment
-├── .env.example                # Available application settings for a reference
+├── .env.example                # Available application settings as a reference
 ├── docker-compose.yml          # Defines Docker services, networks and volumes
 ├── Dockerfile                  # Commands for building a Docker image for production
 ├── package.json                # The list of project dependencies
@@ -44,7 +46,9 @@ mobile application project such as [React Starter Kit][rsk].
 
 ## Getting Started
 
-Just clone the repo and launch the app with [Docker Compose][compose]:
+Make sure that you have [Docker][docker] v1.12.5 or newer installed plus a good text editor or IDE
+([VS Code][code], [WebStorm][wstorm] or another), clone the repo and launch the app with [Docker
+Compose][compose]:
 
 ```bash
 git clone -o nodejs-api-starter -b master --single-branch \
@@ -57,27 +61,20 @@ docker-compose up               # Launch Docker containers with the Node.js API 
 The API server must become available at [http://localhost:5000/](http://localhost:5000/)
 ([live demo][demo]).
 
-In order to open a new terminal session from inside the Docker container run:
+Once the docker container named `api` is started, the Docker engine executes `node scripts/run.js`
+command that installs Node.js dependencies, migrates database schema to the latest version,
+compiles Node.js app from source files (see [`src`](./src)) and launches it with "live reload"
+on port `5000` (see [`.env`](.env.example)).
+
+In order to open a new terminal session from inside the `api` Docker container run:
 
 ```bash
 docker-compose exec api /bin/sh
 ```
 
-
-## Database
-
-The following scripts can be used to transfer your existing database into another state and vise
-versa. Those state transitions are saved in migration files (`/migrations/*.js`), which describe
-the way how to get to the new state and how to revert the changes in order to get back to the old
-state. You can execute them inside the `api` docker container.
-
-```bash
-yarn run db:version             # Print database schema version
-yarn run db:migrate             # Migrate database schema to the latest version
-yarn run db:migrate:undo        # Rollback the latest migration
-yarn run db:migration <name>    # Create a new migration from the template (see /migrations folder)
-yarn run db:seed                # Import reference data
-```
+From this shell you can run automation scripts such as `yarn test`, `yarn run db:migrate` etc.
+Find the full list of scripts available inside the [`scripts`](./scripts) folder and
+the [`package.json`](./package.json) file.
 
 
 ## Testing
@@ -92,22 +89,19 @@ yarn run test:watch             # Run unit tests in watch mode
 
 ## Debugging
 
-In order to run the app with [V8 inspector][v8debug] enabled, simply set
-`NODE_DEBUG=true` flag in the `.env` file, restart the app (`docker-compose up`)
-and [attach your debugger][vsdebug] to `127.0.0.1:9229` (see
-[`.vscode/launch.json`](https://gist.github.com/koistya/421ea3e0139225b27f909e98202a34de)
-for [VS Code][code]).
+In order to run the app with [V8 inspector][v8debug] enabled, simply set `NODE_DEBUG=true` flag in
+the [`.env`](.env.example) file, restart the app (`docker-compose up`) and [attach your
+debugger][vsdebug] to `127.0.0.1:9229` (see [`.vscode/launch.json`](https://gist.github.com/koistya/421ea3e0139225b27f909e98202a34de)
+for [VS Code][code] as an example).
 
 
 ## Deployment
 
-Customize the deployment script found in `scripts/publish.js`. Set this script
-executable by running `chmod +x scripts/publish.sh` on macOS/Linux or convert
-it to `publish.cmd` on Windows. Then whenever you need to deploy your app to a
-remote server simply run:
+Customize the deployment script found in `scripts/publish.js` on macOS/Linux or convert it to
+`publish.cmd` on Windows. Then whenever you need to deploy your app to a remote server simply run:
 
 ```bash
-scripts/publish.sh
+/bin/sh scripts/publish.sh      # or, `scripts/publish.cmd` on Windows
 ```
 
 Not sure where to deploy your app? [DigitalOcean][do] is a great choice in many cases (get [$10 credit][do])
@@ -139,8 +133,8 @@ However, if you decide to get involved, please take a moment to review the [guid
 
 ## Support
 
-* [#react-starter-kit](http://stackoverflow.com/questions/tagged/react-starter-kit) on Stack Overflow — Questions and answers
-* [#react-starter-kit](https://gitter.im/kriasoft/react-starter-kit) on Gitter — Watch announcements, share ideas and feedback
+* [#nodejs-api-starter](http://stackoverflow.com/questions/tagged/nodejs-api-starter) on Stack Overflow — Questions and answers
+* [#nodejs-api-starter](https://gitter.im/kriasoft/nodejs-api-starter) on Gitter — Watch announcements, share ideas and feedback
 * [GitHub Issues](https://github.com/kriasoft/nodejs-api-starter/issues) — Check open issues, send feature requests
 * [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya) or [HackHands](https://hackhands.com/koistya/) — Private consulting
 
@@ -154,7 +148,7 @@ file. The documentation to the project is licensed under the
 
 
 ---
-Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and [contributors](https://github.com/kriasoft/nodejs-api-starter/graphs/contributors)
+Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [blog](https://medium.com/@tarkus)) and [contributors](https://github.com/kriasoft/nodejs-api-starter/graphs/contributors)
 
 
 [nodejskit]: https://github.com/kriasoft/nodejs-api-starter
@@ -164,7 +158,7 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and
 [babel]: http://babeljs.io/
 [gql]: http://graphql.org/
 [yarn]: https://yarnpkg.com
-[demo]: https://www.reactstarterkit.com/graphql
+[demo]: https://reactstarter.com/graphql
 [pg]: https://www.postgresql.org/
 [do]: https://m.do.co/c/eef302dbae9f
 [code]: https://code.visualstudio.com/
@@ -173,4 +167,6 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and
 [compose]: https://docs.docker.com/compose/
 [v8debug]: https://chromedevtools.github.io/debugger-protocol-viewer/v8/
 [vsdebug]: https://code.visualstudio.com/Docs/editor/debugging
+[passport]: http://passportjs.org/
+[redis]: https://redis.io/
 

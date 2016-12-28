@@ -10,9 +10,9 @@
 /*
  * Minimalistic script runner. Usage example:
  *
- *     node scripts/db.js create
- *     Starting 'db:create'...
- *     Finished 'db:create' in 25ms
+ *     node scripts/db.js migrate
+ *     Starting 'db:migrate'...
+ *     Finished 'db:migrate' in 25ms
  */
 
 function run(task, action, ...args) {
@@ -26,5 +26,4 @@ function run(task, action, ...args) {
 }
 
 process.nextTick(() => require.main.exports());
-
 module.exports = (task, action) => run.bind(undefined, task, action);

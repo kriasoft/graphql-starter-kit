@@ -11,8 +11,9 @@ const fs = require('fs');
 const knex = require('knex');
 const task = require('./task');
 
-const command = process.argv[2];
+// The list of available commands, e.g. node scripts/db.js migrate:undo
 const commands = ['version', 'migrate', 'migrate:undo', 'migration', 'seed'];
+const command = process.argv[2];
 
 const config = {
   client: 'pg',
@@ -22,6 +23,7 @@ const config = {
   },
 };
 
+// The template for database migration files (see templates/*.js)
 const version = new Date().toISOString().substr(0, 16).replace(/\D/g, '');
 const template = `module.exports.up = async (db) => {\n  \n};\n
 module.exports.down = async (db) => {\n  \n};\n
