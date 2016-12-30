@@ -18,7 +18,7 @@ import expressGraphQL from 'express-graphql';
 import PrettyError from 'pretty-error';
 import passport from './passport';
 import schema from './schema';
-import loginRoute from './routes/login';
+import accountRoutes from './routes/account';
 
 const app = express();
 
@@ -37,8 +37,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.use('/login', loginRoute);
-app.use('/logout', (req, res) => { req.logout(); res.redirect('/'); });
+app.use(accountRoutes);
 
 app.use('/graphql', expressGraphQL(req => ({
   schema,
