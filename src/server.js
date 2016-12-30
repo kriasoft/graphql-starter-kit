@@ -19,8 +19,8 @@ const server = app.listen(process.env.PORT, () => {
 // Gracefull shutdown
 process.once('SIGTERM', () => {
   let count = 2;
-  pool.end().then(() => { count -= 1; if (count === 0) process.exit(0); });
-  server.close(() => { count -= 1; if (count === 0) process.exit(0); });
+  pool.end().then(() => { count -= 1; if (count === 0) process.exit(); });
+  server.close(() => { count -= 1; if (count === 0) process.exit(); });
 });
 
 export default server;

@@ -20,7 +20,7 @@ module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promi
   // Clean up the output directory
   rimraf.sync('build/*', { nosort: true, dot: true });
 
-  const watcher = chokidar.watch(['src', 'package.json', 'yarn.lock', '.env']);
+  let watcher = chokidar.watch(['src', 'package.json', 'yarn.lock', '.env']);
   watcher.on('all', (event, src) => {
     // Reload the app if .env or package.json file has changed (in watch mode)
     if (src === '.env' || src === 'package.json' || src === 'yarn.lock') {
@@ -85,8 +85,14 @@ module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promi
     resolve();
   });
 
-  process.once('exit', () => {
-    watcher.close();
-    resolve();
-  });
+  function cleanup() {
+    if (watcher) {
+      watcher.close();
+      watcher = null;
+    }
+  }
+
+  process.on('SIGINT', cleanup);
+  process.on('SIGTERM', cleanup);
+  process.on('exit', cleanup);
 }));

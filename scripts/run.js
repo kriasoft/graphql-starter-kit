@@ -22,13 +22,16 @@ function spawnServerProcess() {
 }
 
 // Gracefull shutdown
-process.on('cleanup', () => {
+process.once('cleanup', () => {
   if (server) {
     server.removeListener('exit', spawnServerProcess);
-    server.addListener('exit', () => process.exit(0));
+    server.addListener('exit', () => {
+      server = null;
+      process.exit();
+    });
     server.kill('SIGTERM');
   } else {
-    process.exit(0);
+    process.exit();
   }
 });
 process.on('SIGINT', () => process.emit('cleanup'));
@@ -75,5 +78,8 @@ module.exports = task('run', () => Promise.resolve()
   }))
   // Resolve the promise on exit
   .then(() => new Promise((resolve) => {
-    process.on('exit', () => { resolve(); process.exit(0); });
+    process.once('exit', () => {
+      if (server) server.kill();
+      resolve();
+    });
   })));
