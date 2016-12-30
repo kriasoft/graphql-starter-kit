@@ -25,13 +25,13 @@ meant to be paired with a web and/or mobile application project such as [React S
 ├── /scripts/                   # Build automation scripts
 ├── /src/                       # Node.js application source files
 │   ├── /db/                    # Database access and connection pooling
-│   ├── /passport/              # Passport.js authentication strategies
 │   ├── /routes/                # Express routes, e.g. /login/facebook
 │   ├── /types/                 # GraphQL types with resolve functions
 │   │   ├── /User.js            # User account (id, email, etc.)
 │   │   ├── /Viewer.js          # The top-level GraphQL object type
 │   │   └── /...                # etc.
 │   ├── /app.js                 # Express.js application
+│   ├── /passport.js            # Passport.js authentication strategies
 │   ├── /schema.js              # GraphQL schema
 │   └── /server.js              # Node.js server (entry point)
 ├── /test/                      # Unit, integration and load tests
@@ -39,6 +39,7 @@ meant to be paired with a web and/or mobile application project such as [React S
 ├── .env.example                # Available application settings as a reference
 ├── docker-compose.yml          # Defines Docker services, networks and volumes
 ├── Dockerfile                  # Commands for building a Docker image for production
+├── Dockerfile.dev              # Commands for building a Docker image for development
 ├── package.json                # The list of project dependencies
 └── yarn.lock                   # Fixed versions of all the dependencies
 ```

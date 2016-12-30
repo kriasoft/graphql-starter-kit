@@ -23,7 +23,8 @@
     "pg": "^6.1.2",
     "pg-pool": "^1.6.0",
     "pretty-error": "^2.0.2",
-    "source-map-support": "^0.4.8"
+    "source-map-support": "^0.4.8",
+    "validator": "^6.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -44,7 +45,7 @@
     "chokidar": "^1.6.1",
     "eslint": "^3.12.2",
     "eslint-config-airbnb-base": "^11.0.0",
-    "eslint-plugin-flowtype": "^2.29.1",
+    "eslint-plugin-flowtype": "^2.29.2",
     "eslint-plugin-import": "^2.2.0",
     "flow-bin": "^0.37.4",
     "mocha": "^3.2.0",
