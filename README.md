@@ -7,7 +7,7 @@ GraphQL.
 
 ## Installation
 
-First, install [Yeoman][yo] and `generator-nodejs-api` using [npm](https://www.npmjs.com/) (we assume you have pre-installed [Node.js](https://nodejs.org/) 6+ and [Yarn](https://yarnpkg.com/)).
+First, install [Yeoman][yo] and `generator-nodejs-api` using [npm](https://www.npmjs.com/) (we assume you have pre-installed [Node.js](https://nodejs.org/) 7+).
 
 ```bash
 npm install -g yo
@@ -20,14 +20,31 @@ Then generate your new project:
 mkdir example-api
 cd example-api
 yo nodejs-api
+cp .env.example .env
 ```
 
 Then you can launch your data API server by running `docker-compose up`.
 
 For more information visit https://github.com/kriasoft/nodejs-api-starter
 
+## Contributing
 
-### Related Projects
+Anyone and everyone is welcome to [contribute](https://github.com/kriasoft/nodejs-api-starter/blob/master/CONTRIBUTING.md). Start by checking out the list of
+[open issues](https://github.com/kriasoft/nodejs-api-starter/issues) marked
+[help wanted](https://github.com/kriasoft/nodejs-api-starter/issues?q=label:"help+wanted").
+However, if you decide to get involved, please take a moment to review the [guidelines](https://github.com/kriasoft/nodejs-api-starter/blob/master/CONTRIBUTING.md).
+
+
+## Books and Tutorials
+
+[![Docker in Action](https://images-na.ssl-images-amazon.com/images/I/518L63vGMpL._SL160_.jpg)](http://amzn.to/2hmUrNP)
+[![You Don't Know JS](https://images-na.ssl-images-amazon.com/images/I/B172ZcXnYDS._SL160_.png)](http://amzn.to/2idQ3gL)
+[![JavaScript Ninja](https://images-na.ssl-images-amazon.com/images/I/51tQ+JAczgL._SL160_.jpg)](http://amzn.to/2idDamK)
+[![Effective JavaScript](https://images-na.ssl-images-amazon.com/images/I/51W25NBDLQL._SL160_.jpg)](http://amzn.to/2idMZBq)
+[![NodeSchool.io](http://koistya.github.io/files/nodeschool.jpg)](https://nodeschool.io/)
+
+
+## Related Projects
 
 * [GraphQL.js](https://github.com/graphql/graphql-js) — The JavaScript reference implementation for [GraphQL](http://graphql.org/)
 * [React Starter Kit](https://github.com/kriasoft/react-starter-kit) — Isomorphic web app boilerplate (React, Node.js, Babel, Webpack, CSS Modules)
@@ -35,15 +52,15 @@ For more information visit https://github.com/kriasoft/nodejs-api-starter
 * [Membership Database](https://github.com/membership/membership.db) — SQL schema boilerplate for user accounts, profiles, roles, and auth claims
 
 
-### Support
+## Support
 
-* [#react-starter-kit](http://stackoverflow.com/questions/tagged/react-starter-kit) on Stack Overflow — Questions and answers
-* [#react-starter-kit](https://gitter.im/kriasoft/react-starter-kit) on Gitter — Watch announcements, share ideas and feedback
-* [GitHub Issues](https://github.com/kriasoft/graphql-starter-kit/issues) — Check open issues, send feature requests
+* [#nodejs-api-starter](http://stackoverflow.com/questions/tagged/nodejs-api-starter) on Stack Overflow — Questions and answers
+* [#nodejs-api-starter](https://gitter.im/kriasoft/nodejs-api-starter) on Gitter — Watch announcements, share ideas and feedback
+* [GitHub Issues](https://github.com/kriasoft/nodejs-api-starter/issues) — Check open issues, send feature requests
 * [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya) or [HackHands](https://hackhands.com/koistya/) — Private consulting
 
 
-### License
+## License
 
 Copyright © 2016-present Kriasoft, LLC. This source code is licensed under the MIT
 license found in the [LICENSE.txt](https://github.com/kriasoft/graphql-starter-kit/blob/master/LICENSE.txt)
