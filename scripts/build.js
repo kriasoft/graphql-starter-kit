@@ -20,11 +20,10 @@ module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promi
   // Clean up the output directory
   rimraf.sync('build/*', { nosort: true, dot: true });
 
-  const watcher = chokidar.watch(
-    ['src', 'package.json', 'yarn.lock', '.env', 'migrations', 'scripts']);
+  const watcher = chokidar.watch(['src', 'package.json', 'yarn.lock', '.env']);
   watcher.on('all', (event, src) => {
-    // Reload the app if .env file has changed (in watch mode)
-    if (src === '.env') {
+    // Reload the app if .env or package.json file has changed (in watch mode)
+    if (src === '.env' || src === 'package.json' || src === 'yarn.lock') {
       if (ready && onComplete) onComplete();
       return;
     }
@@ -58,18 +57,7 @@ module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promi
             fs.writeFileSync(dest, data, 'utf8');
             console.log(src, '->', dest);
             if (map) fs.writeFileSync(`${dest}.map`, JSON.stringify(map), 'utf8');
-          } else if (src === 'package.json') {
-            const pkg = require('../package.json'); // eslint-disable-line global-require
-            fs.writeFileSync('build/package.json', JSON.stringify({
-              name: pkg.name,
-              version: pkg.version,
-              private: pkg.private,
-              engines: pkg.engines,
-              dependencies: pkg.dependencies,
-              scripts: pkg.scripts,
-            }, null, '  '), 'utf8');
-            console.log(src, '->', dest);
-          } else {
+          } else if (src.startsWith('src')) {
             const data = fs.readFileSync(src, 'utf8');
             fs.writeFileSync(dest, data, 'utf8');
             console.log(src, '->', dest);
@@ -97,10 +85,8 @@ module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promi
     resolve();
   });
 
-  process.on('exit', () => {
+  process.once('exit', () => {
     watcher.close();
     resolve();
   });
-
-  process.once('SIGINT', () => process.exit(0));
 }));

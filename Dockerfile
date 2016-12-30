@@ -4,10 +4,10 @@ FROM node:7.3.0-alpine
 WORKDIR /usr/src/app
 
 # Copy application files
-COPY build .
+COPY . .
 
 # Install Yarn and Node.js dependencies
-RUN npm install yarn --global --no-progress --silent --depth 0 \
-    && yarn install --production --no-progress
+RUN npm install yarn --global --no-progress --silent --depth 0 && \
+    yarn install --production --no-progress
 
-CMD [ "node", "server.js" ]
+CMD [ "node", "build/server.js" ]
