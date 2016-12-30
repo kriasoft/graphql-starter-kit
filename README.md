@@ -9,7 +9,7 @@ meant to be paired with a web and/or mobile application project such as [React S
 
 ✓ Cross-platform, develope on macOS, Windows or Linux inside a [Docker][docker] container<br>
 ✓ No development dependencies except for [Docker][docker] v1.12.5 or neweer<br>
-✓ Authentication and authorization via [Passport.js][passport] (see [`src/passport`](./src/passport))<br>
+✓ Authentication and authorization via [Passport.js][passport] (see [`src/passport.js`](./src/passport.js))<br>
 ✓ Session and cache management with [Redis][redis] (see [stop using JWT for sessions](http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/))<br>
 ✓ [PostgreSQL][pg] database schema boilerplate and migration tools (see [`scripts`](./scripts), [`migrations`](./migrations))<br>
 ✓ [GraphQL][gql] boilerplate, everything needed to get started building a [GraphQL][gql] API endpoint<br>
