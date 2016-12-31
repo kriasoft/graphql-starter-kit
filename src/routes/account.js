@@ -69,8 +69,10 @@ loginProviders.forEach(({ provider, options }) => {
           if (loginErr) {
             res.redirect(`${baseURL}/login?error=${encodeURIComponent(loginErr.message)}&code=500`);
           } else if (baseURL) {
+            // eslint-disable-next-line prefer-template
             res.redirect(`${returnURL}${returnURL.includes('?') ? '&' : '?'}sessionID=${req.session.id}` +
-              `${info ? `&info=${encodeURIComponent(info)}` : ''}`);
+              (req.session.cookie.originalMaxAge ? `&maxAge=${req.session.cookie.originalMaxAge}` : '') +
+              (info ? `&info=${encodeURIComponent(info)}` : ''));
           } else {
             req.flash('info', info);
             res.redirect(returnURL);
