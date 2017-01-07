@@ -10,17 +10,16 @@
 /* @flow */
 
 import app from './app';
-import pool from './db/pool';
+import db from './db';
+import redis from './redis';
 
 const server = app.listen(process.env.PORT, () => {
   process.stdout.write(`Node.js API server is listening on http://localhost:${String(process.env.PORT)}/\n`);
 });
 
-// Gracefull shutdown
+// Graceful shutdown
 process.once('SIGTERM', () => {
-  let count = 2;
-  pool.end().then(() => { count -= 1; if (count === 0) process.exit(); });
-  server.close(() => { count -= 1; if (count === 0) process.exit(); });
+  server.close(() => db.destroy(() => redis.quit(() => process.exit())));
 });
 
 export default server;

@@ -9,12 +9,15 @@
 
 /* @flow */
 
-import * as users from './users';
-import * as userLogins from './userLogins';
-import * as userClaims from './userClaims';
+import knex from 'knex';
 
-export default {
-  users,
-  userLogins,
-  userClaims,
-};
+const db = knex({
+  client: 'pg',
+  connection: process.env.DATABASE_URL,
+  migrations: {
+    tableName: 'migrations',
+  },
+  debug: process.env.DATABASE_DEBUG === 'true',
+});
+
+export default db;

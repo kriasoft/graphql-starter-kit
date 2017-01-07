@@ -9,17 +9,5 @@
 
 /* @flow */
 
-import { GraphQLObjectType } from 'graphql';
-import User from './User';
-
-export default new GraphQLObjectType({
-  name: 'Viewer',
-  fields: {
-    me: {
-      type: User,
-      resolve(root, args, { user }) {
-        return user;
-      },
-    },
-  },
-});
+export { default as Article } from './Article';
+export { default as User } from './User';

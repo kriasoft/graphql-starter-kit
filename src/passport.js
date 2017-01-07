@@ -11,14 +11,14 @@
 /* eslint-disable global-require, no-param-reassign, no-underscore-dangle */
 
 import passport from 'passport';
-import db from './db';
+import User from './models/User';
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  db.users.findById(id).then(user => done(null, user), done);
+  User.findOne({ id }).then(user => done(null, user || null), done);
 });
 
 const strategies = [
@@ -75,9 +75,12 @@ strategies.forEach(({ name, provider, Strategy, options, readProfile }) => {
   }, async (req, accessToken, refreshToken, profile, done) => {
     try {
       const { email } = readProfile(profile);
-      const accessTokenClaim = `urn:${provider}:access_token`;
-      const refreshTokenClaim = `urn:${provider}:refresh_token`;
-      let user = await db.users.findByLogin(provider, profile.id);
+      const claims = [
+        { type: `urn:${provider}:access_token`, value: accessToken },
+        { type: `urn:${provider}:refresh_token`, value: refreshToken },
+      ];
+
+      let user = await User.findOneByLogin(provider, profile.id);
 
       if (req.user) {
         if (user && req.user.id === user.id) {
@@ -86,22 +89,18 @@ strategies.forEach(({ name, provider, Strategy, options, readProfile }) => {
           req.app.locals.error = `There is already a ${name} account that belongs to you. Sign in with that account or delete it, then link it with your current account.`;
           done();
         } else {
-          await db.userLogins.create(req.user.id, provider, profile.id);
-          await db.userClaims.createOrUpdate(req.user.id, accessTokenClaim, accessToken);
-          await db.userClaims.createOrUpdate(req.user.id, refreshTokenClaim, refreshToken);
+          await User.setClaims(req.user.id, provider, profile.id, claims);
           req.app.locals.info = `${name} account has been linked.`;
-          done(null, await db.users.findById(req.user.id));
+          done(null, await User.findOne('id', req.user.id));
         }
       } else if (user) {
         done(null, user);
-      } else if (await db.users.any(email)) {
+      } else if (await User.any({ email })) {
         req.app.locals.error = `There is already an account using this email address. Sign in to that account and link it with ${name} manually from Account Settings.`;
         done();
       } else {
-        user = await db.users.create(email);
-        await db.userLogins.create(user.id, provider, profile.id);
-        await db.userClaims.createOrUpdate(user.id, accessTokenClaim, accessToken);
-        await db.userClaims.createOrUpdate(user.id, refreshTokenClaim, refreshToken);
+        user = await User.create({ email });
+        await User.setClaims(user.id, provider, profile.id, claims);
         done(null, user);
       }
     } catch (err) {
