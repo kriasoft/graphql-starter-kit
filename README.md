@@ -14,7 +14,7 @@ meant to be paired with a web and/or mobile application project such as [React S
 ✓ [PostgreSQL][pg] database schema boilerplate and migration tools (see [`scripts`](./scripts), [`migrations`](./migrations))<br>
 ✓ [GraphQL][gql] boilerplate, everything needed to get started building a [GraphQL][gql] API endpoint<br>
 ✓ The exact same process is used to build the app for production and build for running/testing locally<br>
-✓ **24/7 community support** on [Gitter][gitter] + **perimum support** on [Skype][skype] ([schedule a session](https://calendly.com/koistya/30min))<br>
+✓ **24/7** community support on [Gitter][gitter] + *perimum support* on [Skype][skype] ([book a session](https://calendly.com/koistya))<br>
 
 
 ## Directory Layout
