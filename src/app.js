@@ -13,6 +13,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import redis from './redis';
 import connectRedis from 'connect-redis';
 import flash from 'express-flash';
 import expressGraphQL from 'express-graphql';
@@ -29,7 +30,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
-  store: new (connectRedis(session))({url: process.env.REDIS_URL}),
+  store: new (connectRedis(session))({client: redis}),
   name: 'sid',
   resave: true,
   saveUninitialized: true,
