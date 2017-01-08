@@ -1,2 +1,2 @@
-FROM node:7.3.0-alpine
+FROM node:7.4.0-alpine
 RUN npm install yarn --global --no-progress --silent --depth 0
