@@ -12,8 +12,8 @@
 import { GraphQLObjectType } from 'graphql';
 import { connectionArgs, connectionDefinitions, connectionFromPromisedArray } from 'graphql-relay';
 import Article from '../models/Article';
-import UserType from './UserType';
 import ArticleType from './ArticleType';
+import UserType from './UserType';
 
 const articles = connectionDefinitions({ name: 'Article', nodeType: ArticleType });
 

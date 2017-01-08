@@ -10,8 +10,8 @@
 /* @flow */
 
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
-import ViewerType from './types/ViewerType';
 import Node from './types/Node';
+import ViewerType from './types/ViewerType';
 
 export default new GraphQLSchema({
   query: new GraphQLObjectType({

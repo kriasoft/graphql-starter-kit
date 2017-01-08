@@ -11,7 +11,8 @@
 
 import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
 import Article from '../models/Article';
-import ArticleType from '../types/ArticleType';
+
+/* eslint-disable global-require */
 
 const { nodeInterface, nodeField } = nodeDefinitions(
   (globalId) => {
@@ -25,7 +26,7 @@ const { nodeInterface, nodeField } = nodeDefinitions(
   },
   (obj) => {
     if (obj instanceof Article) {
-      return ArticleType;
+      return require('./ArticleType').default;
     }
 
     return null;

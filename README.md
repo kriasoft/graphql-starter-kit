@@ -7,13 +7,14 @@ meant to be paired with a web and/or mobile application project such as [React S
 
 ## Features
 
-✓ Cross-platform, develope on macOS, Windows or Linux inside a [Docker][docker] container<br>
+✓ Cross-platform development on macOS, Windows or Linux inside [Docker][docker]<br>
 ✓ No development dependencies except for [Docker][docker] v1.12.5 or neweer<br>
 ✓ Authentication and authorization via [Passport.js][passport] (see [`src/passport.js`](./src/passport.js))<br>
 ✓ Session and cache management with [Redis][redis] (see [stop using JWT for sessions](http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/))<br>
 ✓ [PostgreSQL][pg] database schema boilerplate and migration tools (see [`scripts`](./scripts), [`migrations`](./migrations))<br>
 ✓ [GraphQL][gql] boilerplate, everything needed to get started building a [GraphQL][gql] API endpoint<br>
 ✓ The exact same process is used to build the app for production and build for running/testing locally<br>
+✓ **24/7 community support** on [Gitter][gitter] + **perimum support** on [Skype][skype] ([schedule a session](https://calendly.com/koistya/30min))<br>
 
 
 ## Directory Layout
@@ -24,14 +25,17 @@ meant to be paired with a web and/or mobile application project such as [React S
 ├── /migrations/                # Database schema migrations
 ├── /scripts/                   # Build automation scripts
 ├── /src/                       # Node.js application source files
-│   ├── /db/                    # Database access and connection pooling
+│   ├── /models/                # Data access models, e.g. User.create({ email })
 │   ├── /routes/                # Express routes, e.g. /login/facebook
 │   ├── /types/                 # GraphQL types with resolve functions
-│   │   ├── /User.js            # User account (id, email, etc.)
-│   │   ├── /Viewer.js          # The top-level GraphQL object type
+│   │   ├── /Node.js            # Relay's "node" definitions
+│   │   ├── /UserType.js        # User account (id, email, etc.)
+│   │   ├── /ViewerType.js      # The top-level GraphQL object type
 │   │   └── /...                # etc.
 │   ├── /app.js                 # Express.js application
+│   ├── /db.js                  # Database access and connection pooling (via Knex)
 │   ├── /passport.js            # Passport.js authentication strategies
+│   ├── /redis.js               # Redis client
 │   ├── /schema.js              # GraphQL schema
 │   └── /server.js              # Node.js server (entry point)
 ├── /test/                      # Unit, integration and load tests
@@ -127,6 +131,7 @@ However, if you decide to get involved, please take a moment to review the [guid
 ## Related Projects
 
 * [GraphQL.js](https://github.com/graphql/graphql-js) — The JavaScript reference implementation for [GraphQL](http://graphql.org/)
+* [DataLoader](https://github.com/facebook/dataloader) — Batching and caching for GraphQL data access layer
 * [React Starter Kit](https://github.com/kriasoft/react-starter-kit) — Isomorphic web app boilerplate (React, Node.js, Babel, Webpack, CSS Modules)
 * [React Static Boilerplate](https://github.com/kriasoft/react-static-boilerplate) — Single-page application (SPA) starter kit (React, Redux, Webpack, Firebase)
 * [Membership Database](https://github.com/membership/membership.db) — SQL schema boilerplate for user accounts, profiles, roles, and auth claims
@@ -137,7 +142,7 @@ However, if you decide to get involved, please take a moment to review the [guid
 * [#nodejs-api-starter](http://stackoverflow.com/questions/tagged/nodejs-api-starter) on Stack Overflow — Questions and answers
 * [#nodejs-api-starter](https://gitter.im/kriasoft/nodejs-api-starter) on Gitter — Watch announcements, share ideas and feedback
 * [GitHub Issues](https://github.com/kriasoft/nodejs-api-starter/issues) — Check open issues, send feature requests
-* [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya) or [HackHands](https://hackhands.com/koistya/) — Private consulting
+* [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya), [HackHands](https://hackhands.com/koistya/) or [Skype][skype] — Private consulting and customization requests
 
 
 ## License
@@ -170,4 +175,5 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [vsdebug]: https://code.visualstudio.com/Docs/editor/debugging
 [passport]: http://passportjs.org/
 [redis]: https://redis.io/
-
+[gitter]: https://gitter.im/kriasoft/nodejs-api-starter
+[skype]: https://hatscripts.com/addskype?koistya
