@@ -15,16 +15,9 @@ const task = require('./task');
 let build;
 let server;
 
-// Run `node build/server.js` on a background thread
-function spawnServerProcess() {
-  const args = process.env.NODE_DEBUG === 'true' ? ['--inspect', '--no-lazy'] : [];
-  server = cp.spawn('node', [...args, 'server.js'], { cwd: './build', stdio: 'inherit' });
-}
-
 // Gracefull shutdown
 process.once('cleanup', () => {
   if (server) {
-    server.removeListener('exit', spawnServerProcess);
     server.addListener('exit', () => {
       server = null;
       process.exit();
@@ -67,12 +60,13 @@ module.exports = task('run', () => Promise.resolve()
   .then(() => build({
     watch: true,
     onComplete() {
-      if (server) {
-        server.removeListener('exit', spawnServerProcess);
-        server.addListener('exit', spawnServerProcess);
-        server.kill();
+      if (!server) {
+        // Launch `node build/server.js` on a background thread
+        server = cp.spawn('node',
+          [...(process.env.NODE_DEBUG === 'true' ? ['--inspect', '--no-lazy'] : []), 'server.js'],
+          { cwd: './build', stdio: ['inherit', 'inherit', 'inherit', 'ipc'] });
       } else {
-        spawnServerProcess();
+        server.send('reload');
       }
     },
   }))

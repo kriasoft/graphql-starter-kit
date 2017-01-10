@@ -14,6 +14,11 @@ const babel = require('babel-core');
 const chokidar = require('chokidar');
 const task = require('./task');
 
+const delay100ms = (timeout => (callback) => {
+  if (timeout) clearTimeout(timeout);
+  timeout = setTimeout(callback, 100); // eslint-disable-line no-param-reassign
+})();
+
 module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promise((resolve) => {
   let ready = false;
 
@@ -24,7 +29,7 @@ module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promi
   watcher.on('all', (event, src) => {
     // Reload the app if .env or package.json file has changed (in watch mode)
     if (src === '.env' || src === 'package.json' || src === 'yarn.lock') {
-      if (ready && onComplete) onComplete();
+      if (ready && onComplete) delay100ms(onComplete);
       return;
     }
 
@@ -62,12 +67,13 @@ module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promi
             fs.writeFileSync(dest, data, 'utf8');
             console.log(src, '->', dest);
           }
-          if (ready && onComplete) onComplete();
+          if (ready && onComplete) delay100ms(onComplete);
           break;
 
         // Remove directory if it was removed from the source folder
         case 'unlinkDir':
           if (fs.existsSync(dest)) fs.rmdirSync(dest);
+          if (ready && onComplete) onComplete();
           break;
 
         default:
