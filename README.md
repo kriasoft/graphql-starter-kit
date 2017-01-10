@@ -4,16 +4,16 @@
 backends with [Node.js][node], [JavaScript][js] (via [Babel][babel]) and [GraphQL][gql]. It's
 meant to be paired with a web and/or mobile application project such as [React Starter Kit][rsk].
 
+#### :bulb: Actively maintained with support from <a href="https://rollbar.com/?utm_source=reactstartkit(github)&utm_medium=link&utm_campaign=reactstartkit(github)"><img src="https://koistya.github.io/files/rollbar-247x48.png" height="24" align="top" /></a> <a href="https://localizejs.com/?cid=802&utm_source=rsk"><img src="https://koistya.github.io/files/localize-221x48.png" height="24" align="top" /></a>
+
 
 ## Features
 
-✓ Cross-platform development on macOS, Windows or Linux inside [Docker][docker]<br>
-✓ No development dependencies except for [Docker][docker] v1.12.5 or neweer<br>
-✓ Authentication and authorization via [Passport.js][passport] (see [`src/passport.js`](./src/passport.js))<br>
-✓ Session and cache management with [Redis][redis] (see [stop using JWT for sessions](http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/))<br>
+✓ Cross-platform development on macOS, Windows or Linux inside [Docker][docker], single dev dependency<br>
+✓ [GraphQL][gql] boilerplate, everything needed to get started building a [GraphQL][gql] API endpoint / gateway<br>
 ✓ [PostgreSQL][pg] database schema boilerplate and migration tools (see [`scripts`](./scripts), [`migrations`](./migrations))<br>
-✓ [GraphQL][gql] boilerplate, everything needed to get started building a [GraphQL][gql] API endpoint<br>
-✓ The exact same process is used to build the app for production and build for running/testing locally<br>
+✓ Authentication and authorization via [Passport.js][passport] (see [`src/passport.js`](./src/passport.js), [`src/routes/account.js`](./src/routes/account.js))<br>
+✓ Session and cache management with [Redis][redis] and [DataLoader][loader] (see [stop using JWT for sessions](http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/))<br>
 ✓ **24/7** community support on [Gitter][gitter] + *perimum support* on [Skype][skype] ([book a session](https://calendly.com/koistya))<br>
 
 
@@ -100,6 +100,19 @@ debugger][vsdebug] to `127.0.0.1:9229` (see [`.vscode/launch.json`](https://gist
 for [VS Code][code] as an example).
 
 
+## Keeping Up-to-Date
+
+If you keep the original Git history after clonning this repo, you can always fetch and merge
+the recent updates back into your project by running:
+
+```bash
+git checkout master
+git fetch nodejs-api-starter
+git merge nodejs-api-starter/master
+docker-compose up
+```
+
+
 ## Deployment
 
 Customize the deployment script found in `scripts/publish.js` on macOS/Linux or convert it to
@@ -175,5 +188,6 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [vsdebug]: https://code.visualstudio.com/Docs/editor/debugging
 [passport]: http://passportjs.org/
 [redis]: https://redis.io/
+[loader]: https://github.com/facebook/dataloader
 [gitter]: https://gitter.im/kriasoft/nodejs-api-starter
 [skype]: https://hatscripts.com/addskype?koistya
