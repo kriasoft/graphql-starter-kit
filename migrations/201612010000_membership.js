@@ -15,7 +15,10 @@ module.exports.up = async (db) => {
   await db.raw('CREATE EXTENSION IF NOT EXISTS "hstore"');
 
   await db.schema.createTable('users', (table) => {
-    table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
+    // UUID v1mc reduces the negative side effect of using random primary keys
+    // with respect to keyspace fragmentation on disk for the tables because it's time based
+    // https://www.postgresql.org/docs/current/static/uuid-ossp.html
+    table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary(); // using uuid_generate_v1mc() as v1mc is time-based, which is better for keyspace fragmentation on disk for tables.
     table.string('email').unique();
     table.boolean('email_confirmed').notNullable().defaultTo(false);
     table.string('password_hash', 100);
