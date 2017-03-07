@@ -23,7 +23,7 @@ services:
   postgres:
     image: postgres:9.6.1-alpine
     restart: always
-    read_only: true
+    read_only: false
     tmpfs:
       - /run/postgresql
       - /tmp
@@ -34,7 +34,7 @@ services:
   redis:
     image: redis:3.2.6-alpine
     restart: always
-    read_only: true
+    read_only: false
     volumes:
       - redis:/data
 
