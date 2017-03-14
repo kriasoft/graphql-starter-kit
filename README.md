@@ -43,7 +43,6 @@ meant to be paired with a web and/or mobile application project such as [React S
 ├── .env.example                # Available application settings as a reference
 ├── docker-compose.yml          # Defines Docker services, networks and volumes
 ├── Dockerfile                  # Commands for building a Docker image for production
-├── Dockerfile.dev              # Commands for building a Docker image for development
 ├── package.json                # The list of project dependencies
 └── yarn.lock                   # Fixed versions of all the dependencies
 ```
@@ -51,7 +50,7 @@ meant to be paired with a web and/or mobile application project such as [React S
 
 ## Getting Started
 
-Make sure that you have [Docker][docker] v1.12.5 or newer installed plus a good text editor or IDE
+Make sure that you have [Docker][docker] v17 or newer installed plus a good text editor or IDE
 ([VS Code][code], [WebStorm][wstorm] or another), clone the repo and launch the app with [Docker
 Compose][compose]:
 
@@ -182,7 +181,7 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [do]: https://m.do.co/c/eef302dbae9f
 [code]: https://code.visualstudio.com/
 [wstorm]: https://www.jetbrains.com/webstorm/
-[docker]: https://www.docker.com/products/docker
+[docker]: https://www.docker.com/community-edition
 [compose]: https://docs.docker.com/compose/
 [v8debug]: https://chromedevtools.github.io/debugger-protocol-viewer/v8/
 [vsdebug]: https://code.visualstudio.com/Docs/editor/debugging

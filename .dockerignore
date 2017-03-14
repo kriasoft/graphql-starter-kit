@@ -7,6 +7,5 @@ test
 CONTRIBUTING.md
 docker-compose.yml
 Dockerfile
-Dockerfile.dev
 LICENSE.txt
 README.md

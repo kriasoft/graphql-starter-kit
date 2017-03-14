@@ -1,15 +1,24 @@
+dist: trusty
 sudo: required
-
 language: generic
 
-services:
-  - docker
+env:
+  - DOCKER_COMPOSE_VERSION: 1.11.2
 
-cache:
-  directories:
-    - node_modules
+cache: yarn
 
 before_install:
+  # Install the latest version of Docker
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get -qq update
+  - sudo apt-get install -qqy docker-ce
+  # Install Docker Compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+before_script:
   - cp .env.example .env
   - docker-compose up -d
   - docker-compose logs -f api | while read line; do
