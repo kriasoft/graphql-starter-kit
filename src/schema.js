@@ -19,7 +19,8 @@ export default new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
     fields: {
-      node: Node.field,
+      node: Node.nodeField,
+      nodes: Node.nodesField,
       viewer: {
         type: ViewerType,
         resolve() {

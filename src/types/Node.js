@@ -14,7 +14,7 @@ import Article from '../models/Article';
 
 /* eslint-disable global-require */
 
-const { nodeInterface, nodeField } = nodeDefinitions(
+const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
   (globalId) => {
     const { type, id } = fromGlobalId(globalId);
 
@@ -35,5 +35,6 @@ const { nodeInterface, nodeField } = nodeDefinitions(
 
 export default {
   interface: nodeInterface,
-  field: nodeField,
+  nodeField,
+  nodesField,
 };
