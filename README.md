@@ -4,6 +4,7 @@
 authoring data API backends with Docker, Node.js, JavaScript (ES2017+ via Babel), PostgreSQL and
 GraphQL.
 
+#### This project is maintained with support from <a href="https://rollbar.com/?utm_source=reactstartkit(github)&utm_medium=link&utm_campaign=reactstartkit(github)"><img src="https://koistya.github.io/files/rollbar-247x48.png" height="24" align="top" /></a> <a href="https://localizejs.com/?cid=802&utm_source=rsk"><img src="https://koistya.github.io/files/localize-221x48.png" height="24" align="top" /></a>
 
 ## Installation
 
@@ -20,10 +21,9 @@ Then generate your new project:
 mkdir example-api
 cd example-api
 yo nodejs-api
-cp .env.example .env
 ```
 
-Then you can launch your data API server by running `docker-compose up`.
+And finally, launch your data API server by running `docker-compose up`.
 
 For more information visit https://github.com/kriasoft/nodejs-api-starter
 
@@ -47,6 +47,7 @@ However, if you decide to get involved, please take a moment to review the [guid
 ## Related Projects
 
 * [GraphQL.js](https://github.com/graphql/graphql-js) — The JavaScript reference implementation for [GraphQL](http://graphql.org/)
+* [DataLoader](https://github.com/facebook/dataloader) — Batching and caching for GraphQL data access layer
 * [React Starter Kit](https://github.com/kriasoft/react-starter-kit) — Isomorphic web app boilerplate (React, Node.js, Babel, Webpack, CSS Modules)
 * [React Static Boilerplate](https://github.com/kriasoft/react-static-boilerplate) — Single-page application (SPA) starter kit (React, Redux, Webpack, Firebase)
 * [Membership Database](https://github.com/membership/membership.db) — SQL schema boilerplate for user accounts, profiles, roles, and auth claims
@@ -57,7 +58,7 @@ However, if you decide to get involved, please take a moment to review the [guid
 * [#nodejs-api-starter](http://stackoverflow.com/questions/tagged/nodejs-api-starter) on Stack Overflow — Questions and answers
 * [#nodejs-api-starter](https://gitter.im/kriasoft/nodejs-api-starter) on Gitter — Watch announcements, share ideas and feedback
 * [GitHub Issues](https://github.com/kriasoft/nodejs-api-starter/issues) — Check open issues, send feature requests
-* [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya) or [HackHands](https://hackhands.com/koistya/) — Private consulting
+* [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya), [HackHands](https://hackhands.com/koistya/) or [Skype][skype] — Private consulting and customization requests
 
 
 ## License

@@ -7,7 +7,7 @@ var glob = require('glob');
 module.exports = yeoman.Base.extend({
   greeting: function () {
     this.log(yosay(
-      'Welcome to the ' + chalk.red('GraphQL Starter Kit') + ' generator!'
+      'Welcome to the ' + chalk.red('Node.js API Starter') + ' generator!'
     ));
   },
 
