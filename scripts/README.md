@@ -32,11 +32,11 @@ which describe the way how to get to the new state and how to revert the changes
 back to the old state.
 
 ```bash
-node --harmony scripts/db version         # Print database schema version
-node --harmony scripts/db migrate         # Migrate database schema to the latest version
-node --harmony scripts/db migrate:undo    # Rollback the latest migration
-node --harmony scripts/db migration       # Create a new migration from the template
-node --harmony scripts/db seed            # Import reference data
+node scripts/db version         # Print database schema version
+node scripts/db migrate         # Migrate database schema to the latest version
+node scripts/db migrate:undo    # Rollback the latest migration
+node scripts/db migration       # Create a new migration from the template
+node scripts/db seed            # Import reference data
 ```
 
 For more information on how use migrations reffer to [Knex documentation][knex].

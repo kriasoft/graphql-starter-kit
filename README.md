@@ -4,7 +4,7 @@
 backends with [Node.js][node], [JavaScript][js] (via [Babel][babel]) and [GraphQL][gql]. It's
 meant to be paired with a web and/or mobile application project such as [React Starter Kit][rsk].
 
-#### :bulb: Actively maintained with support from <a href="https://rollbar.com/?utm_source=reactstartkit(github)&utm_medium=link&utm_campaign=reactstartkit(github)"><img src="https://koistya.github.io/files/rollbar-247x48.png" height="24" align="top" /></a> <a href="https://localizejs.com/?cid=802&utm_source=rsk"><img src="https://koistya.github.io/files/localize-221x48.png" height="24" align="top" /></a>
+#### This project is maintained with support from <a href="https://rollbar.com/?utm_source=reactstartkit(github)&utm_medium=link&utm_campaign=reactstartkit(github)"><img src="https://koistya.github.io/files/rollbar-247x48.png" height="24" align="top" /></a> <a href="https://localizejs.com/?cid=802&utm_source=rsk"><img src="https://koistya.github.io/files/localize-221x48.png" height="24" align="top" /></a>
 
 
 ## Features
@@ -62,7 +62,7 @@ cp .env.example .env            # Copy environment variables from the template: 
 docker-compose up               # Launch Docker containers with the Node.js API app running inside
 ```
 
-The API server must become available at [http://localhost:5000/](http://localhost:5000/)
+The API server must become available at [http://localhost:5000/graphql](http://localhost:5000/graphql)
 ([live demo][demo]).
 
 Once the docker container named `api` is started, the Docker engine executes `node scripts/run.js`

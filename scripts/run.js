@@ -54,7 +54,7 @@ try {
 module.exports = task('run', () => Promise.resolve()
   // Migrate database schema to the latest version
   .then(() => {
-    cp.spawnSync('node', ['--harmony', 'scripts/db.js', 'migrate'], { stdio: 'inherit' });
+    cp.spawnSync('node', ['scripts/db.js', 'migrate'], { stdio: 'inherit' });
   })
   // Compile and launch the app in watch mode, restart it after each rebuild
   .then(() => build({

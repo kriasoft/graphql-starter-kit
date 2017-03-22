@@ -62,11 +62,11 @@
     "test:watch": "mocha test/unit --compilers js:babel-register --reporter min --watch",
     "build": "node scripts/build.js",
     "build:watch": "node scripts/build.js --watch",
-    "db:version": "node --harmony scripts/db.js version",
-    "db:migrate": "node --harmony scripts/db.js migrate",
-    "db:migrate:undo": "node --harmony scripts/db.js migrate:undo",
-    "db:migration": "node --harmony scripts/db.js migration",
-    "db:seed": "node --harmony scripts/db.js seed",
+    "db:version": "node scripts/db.js version",
+    "db:migrate": "node scripts/db.js migrate",
+    "db:migrate:undo": "node scripts/db.js migrate:undo",
+    "db:migration": "node scripts/db.js migration",
+    "db:seed": "node scripts/db.js seed",
     "deploy": "/bin/sh scripts/publish.sh",
     "start": "node scripts/run.js"
   }
