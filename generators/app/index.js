@@ -25,7 +25,6 @@ module.exports = yeoman.Base.extend({
     for (var i = 0; i < files.length; i++) {
       this.copy(files[i], files[i]);
     }
-    this.copy('.env.example', '.env');
     this.write(
       this.destinationPath('.gitignore'),
       '# Include your project-specific ignores in this file\n' +
@@ -33,6 +32,7 @@ module.exports = yeoman.Base.extend({
       'build\n' +
       'node_modules\n' +
       'npm-debug.log\n' +
+      'yarn-error.log\n' +
       '.env\n'
     );
   },
