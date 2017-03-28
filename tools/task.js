@@ -10,7 +10,7 @@
 /*
  * Minimalistic script runner. Usage example:
  *
- *     node scripts/db.js migrate
+ *     node tools/db.js migrate
  *     Starting 'db:migrate'...
  *     Finished 'db:migrate' in 25ms
  */

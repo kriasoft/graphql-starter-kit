@@ -2,22 +2,56 @@ version: '3'
 
 services:
 
+  # Nginx web server acting as a reverse proxy for "web" and "api" services
+  nginx:
+    image: nginx:1.11.10-alpine
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/log/nginx
+      - /var/run
+    depends_on:
+      - api
+    ports:
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - ./config/nginx-snippets:/etc/nginx/snippets:ro
+      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  # Data API and authentication/authorization
   api:
-    image: node:7.7.2-alpine
+    image: node:7.7.4-alpine
+    hostname: api
     restart: always
-    env_file: .env
-    links:
+    depends_on:
       - postgres
       - redis
+    environment:
+      - NODE_DEBUG=false
+      - FRONTEND_HOST_WHITELIST=localhost
+      - DATABASE_URL=postgres://postgres@postgres:5432/dev
+      - DATABASE_DEBUG=false
+      - REDIS_URL=redis://redis:6379/0
+      - SESSION_SECRET=wZjwhFtzQsd7r87W6AZw45Sm
+      - FACEBOOK_ID=1821424564802638
+      - FACEBOOK_SECRET=2339bdf25f236a42fc3a18280bf455e8
+      - GOOGLE_ID=xxxxx.apps.googleusercontent.com
+      - GOOGLE_SECRET=xxxxx
+      - TWITTER_KEY=xxxxx
+      - TWITTER_SECRET=xxxxx
+    expose:
+      - "8080"
     ports:
-      - $PORT:$PORT
-      - '127.0.0.1:9229:9229' # V8 inspector
+      - "127.0.0.1:9229:9229" # V8 inspector
     volumes:
       - yarn:/root/.cache/yarn
       - ./:/usr/src/app
+    user: node
     working_dir: /usr/src/app
-    command: node scripts/run.js
+    command: node tools/run.js
 
+  # SQL and document data storage
   postgres:
     image: postgres:9.6.2-alpine
     restart: always
@@ -27,16 +61,18 @@ services:
       - /var/run/postgresql
     volumes:
       - postgres:/var/lib/postgresql/data
-      - ./scripts/postgres-init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./config/postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
 
+  # Distributed in-memory cache
   redis:
     image: redis:3.2.8-alpine
     restart: always
     read_only: true
     volumes:
       - redis:/data
+    user: redis
 
 volumes:
-  yarn:
   postgres:
   redis:
+  yarn:

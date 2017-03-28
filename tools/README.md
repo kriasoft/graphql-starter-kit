@@ -1,4 +1,4 @@
-# Automation Scripts
+# Build Automation Tools
 
 The `*.js` scripts in this folder are intended to be used from inside the running `api` Docker
 container. First, make sure that all the required Docker containers are running:
@@ -13,8 +13,8 @@ Then open a new terminal session from inside the `api` container by running:
 docker-compose exec api /bin/sh
 ```
 
-From this shell you must be able to execute `scripts/*.js` files directly or by using
-[`yarn run`][yarnrun]. Alternatively, execute any command directly on a running container with:
+From this shell you must be able to execute `tools/*.js` files directly or by using
+[`yarn run`][yarnrun]. Alternatively, execute any command directly inside a running container with:
 
 ```bash
 docker-compose exec api <command>
@@ -32,11 +32,11 @@ which describe the way how to get to the new state and how to revert the changes
 back to the old state.
 
 ```bash
-node scripts/db version         # Print database schema version
-node scripts/db migrate         # Migrate database schema to the latest version
-node scripts/db migrate:undo    # Rollback the latest migration
-node scripts/db migration       # Create a new migration from the template
-node scripts/db seed            # Import reference data
+node tools/db version           # Print database schema version
+node tools/db migrate           # Migrate database schema to the latest version
+node tools/db migrate:undo      # Rollback the latest migration
+node tools/db migration         # Create a new migration from the template
+node tools/db seed              # Import reference data
 ```
 
 For more information on how use migrations reffer to [Knex documentation][knex].
@@ -45,14 +45,14 @@ For more information on how use migrations reffer to [Knex documentation][knex].
 ### [`build.js`](./build.js) — compilation
 
 ```bash
-node scripts/build              # Compile the app into the ./build folder
+node tools/build                # Compile the app into the ./build folder
 ```
 
 
 ### [`run.js`](./run.js) — launching for testing/debugging
 
 ```bash
-node scripts/run                # Compile the app and launch Node.js server with "live reload"
+node tools/run                  # Compile the app and launch Node.js server with "live reload"
 ```
 
 This script will also execute `yarn install` in case some of the Node.js dependencies are missing.
@@ -61,7 +61,7 @@ This script will also execute `yarn install` in case some of the Node.js depende
 ### [`publish.sh`](./publish.sh) — deployment
 
 ```bash
-/bin/sh scripts/publish.sh      # Compile the app, build a Docker image and deploy it
+/bin/sh tools/publish.sh        # Compile the app, build a Docker image and deploy it
 ```
 
 

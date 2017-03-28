@@ -11,7 +11,7 @@ const fs = require('fs');
 const knex = require('knex');
 const task = require('./task');
 
-// The list of available commands, e.g. node scripts/db.js migrate:undo
+// The list of available commands, e.g. node tools/db.js migrate:undo
 const commands = ['version', 'migrate', 'migrate:undo', 'migration', 'seed'];
 const command = process.argv[2];
 

@@ -8,7 +8,7 @@
  */
 
 /* @flow */
-/* eslint-disable global-require, no-console, no-confusing-arrow */
+/* eslint-disable global-require, no-console */
 
 let db;
 let app;
@@ -16,13 +16,16 @@ let redis;
 let server;
 let reload = Promise.resolve();
 
+const port = process.env.PORT || 8080;
+const host = process.env.HOSTNAME || '0.0.0.0';
+
 // Launch Node.js server
 const launch = (callback) => {
   db = require('./db').default;
   app = require('./app').default;
   redis = require('./redis').default;
-  server = app.listen(process.env.PORT, () => {
-    console.log(`Node.js API server is listening on http://localhost:${String(process.env.PORT)}/`);
+  server = app.listen(port, host, () => {
+    console.log(`Node.js API server is listening on http://${host}:${port}/`);
     if (callback) callback();
   });
 };
@@ -44,7 +47,7 @@ process.once('SIGTERM', () => shutDown().then(() => process.exit()));
 if (process.channel) {
   // Prevent exiting the process in development mode
   process.on('uncaughtException', handleError);
-  // Restart the server on code changes (see scripts/run.js)
+  // Restart the server on code changes (see tools/run.js)
   process.on('message', (message) => {
     if (message === 'reload') {
       reload = reload.then(() => shutDown()).then(() => {
