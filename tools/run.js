@@ -44,7 +44,7 @@ try {
     const Module = require('module');
     const m = new Module();
     // eslint-disable-next-line
-    m._compile(fs.readFileSync('./scripts/build.js', 'utf8'), path.resolve('./scripts/build.js'));
+    m._compile(fs.readFileSync('./tools/build.js', 'utf8'), path.resolve('./tools/build.js'));
   } catch (error) { } // eslint-disable-line
 
   // Reload dependencies
@@ -54,7 +54,7 @@ try {
 module.exports = task('run', () => Promise.resolve()
   // Migrate database schema to the latest version
   .then(() => {
-    cp.spawnSync('node', ['scripts/db.js', 'migrate'], { stdio: 'inherit' });
+    cp.spawnSync('node', ['tools/db.js', 'migrate'], { stdio: 'inherit' });
   })
   // Compile and launch the app in watch mode, restart it after each rebuild
   .then(() => build({

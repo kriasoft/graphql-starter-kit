@@ -11,7 +11,7 @@ meant to be paired with a web and/or mobile application project such as [React S
 
 ✓ Cross-platform development on macOS, Windows or Linux inside [Docker][docker], single dev dependency<br>
 ✓ [GraphQL][gql] boilerplate, everything needed to get started building a [GraphQL][gql] API endpoint / gateway<br>
-✓ [PostgreSQL][pg] database schema boilerplate and migration tools (see [`scripts`](./scripts), [`migrations`](./migrations))<br>
+✓ [PostgreSQL][pg] database schema boilerplate and migration tools (see [`tools`](./tools), [`migrations`](./migrations))<br>
 ✓ Authentication and authorization via [Passport.js][passport] (see [`src/passport.js`](./src/passport.js), [`src/routes/account.js`](./src/routes/account.js))<br>
 ✓ Session and cache management with [Redis][redis] and [DataLoader][loader] (see [stop using JWT for sessions](http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/))<br>
 ✓ **24/7** community support on [Gitter][gitter] + *premium support* on [Skype][skype] ([book a session](https://calendly.com/koistya))<br>
@@ -22,8 +22,8 @@ meant to be paired with a web and/or mobile application project such as [React S
 ```bash
 .
 ├── /build/                     # The compiled output (via Babel)
+├── /config/                    # Configuration files (for Docker containers etc.)
 ├── /migrations/                # Database schema migrations
-├── /scripts/                   # Build automation scripts
 ├── /src/                       # Node.js application source files
 │   ├── /models/                # Data access models, e.g. User.create({ email })
 │   ├── /routes/                # Express routes, e.g. /login/facebook
@@ -39,8 +39,7 @@ meant to be paired with a web and/or mobile application project such as [React S
 │   ├── /schema.js              # GraphQL schema
 │   └── /server.js              # Node.js server (entry point)
 ├── /test/                      # Unit, integration and load tests
-├── .env                        # Application settings for the dev environment
-├── .env.example                # Available application settings as a reference
+├── /tools/                     # Build automation scripts and utilities
 ├── docker-compose.yml          # Defines Docker services, networks and volumes
 ├── Dockerfile                  # Commands for building a Docker image for production
 ├── package.json                # The list of project dependencies
@@ -57,18 +56,17 @@ Compose][compose]:
 ```bash
 git clone -o nodejs-api-starter -b master --single-branch \
    https://github.com/kriasoft/nodejs-api-starter.git example-api
-cd example-api
-cp .env.example .env            # Copy environment variables from the template: '.env.example' -> '.env'
+cd example-api                  # Change current directory to the newly created one
 docker-compose up               # Launch Docker containers with the Node.js API app running inside
 ```
 
-The API server must become available at [http://localhost:5000/graphql](http://localhost:5000/graphql)
+The API server must become available at [http://localhost:8080/graphql](http://localhost:8080/graphql)
 ([live demo][demo]).
 
-Once the docker container named `api` is started, the Docker engine executes `node scripts/run.js`
+Once the docker container named `api` is started, the Docker engine executes `node tools/run.js`
 command that installs Node.js dependencies, migrates database schema to the latest version,
 compiles Node.js app from source files (see [`src`](./src)) and launches it with "live reload"
-on port `5000` (see [`.env`](.env.example)).
+on port `8080`.
 
 In order to open a new terminal session from inside the `api` Docker container run:
 
@@ -77,7 +75,7 @@ docker-compose exec api /bin/sh
 ```
 
 From this shell you can run automation scripts such as `yarn test`, `yarn run db:migrate` etc.
-Find the full list of scripts available inside the [`scripts`](./scripts) folder and
+Find the full list of scripts available inside the [`tools`](./tools) folder and
 the [`package.json`](./package.json) file.
 
 
@@ -94,8 +92,8 @@ yarn run test:watch             # Run unit tests in watch mode
 ## Debugging
 
 In order to run the app with [V8 inspector][v8debug] enabled, simply set `NODE_DEBUG=true` flag in
-the [`.env`](.env.example) file, restart the app (`docker-compose up`) and [attach your
-debugger][vsdebug] to `127.0.0.1:9229` (see [`.vscode/launch.json`](https://gist.github.com/koistya/421ea3e0139225b27f909e98202a34de)
+the [`docker-compose.yml`](docker-compose.yml) file, restart the app (`docker-compose up`) and
+[attach your debugger][vsdebug] to `127.0.0.1:9229` (see [`.vscode/launch.json`](https://gist.github.com/koistya/421ea3e0139225b27f909e98202a34de)
 for [VS Code][code] as an example).
 
 
@@ -114,11 +112,11 @@ docker-compose up
 
 ## Deployment
 
-Customize the deployment script found in `scripts/publish.js` on macOS/Linux or convert it to
+Customize the deployment script found in `tools/publish.sh` on macOS/Linux or convert it to
 `publish.cmd` on Windows. Then whenever you need to deploy your app to a remote server simply run:
 
 ```bash
-/bin/sh scripts/publish.sh      # or, `scripts/publish.cmd` on Windows
+/bin/sh tools/publish.sh        # or, `tools/publish.cmd` on Windows
 ```
 
 Not sure where to deploy your app? [DigitalOcean][do] is a great choice in many cases (get [$10 credit][do])

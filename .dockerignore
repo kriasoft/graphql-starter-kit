@@ -1,5 +1,5 @@
+config
 node_modules
-scripts/postgres-init.sh
 scripts/publish.sh
 scripts/README.md
 src

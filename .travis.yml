@@ -19,7 +19,6 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 before_script:
-  - cp .env.example .env
   - docker-compose up -d
   - docker-compose logs -f api | while read line; do
       echo $line;
