@@ -10,21 +10,26 @@
 /* @flow */
 /* eslint-disable no-param-reassign */
 
+import URL from 'url';
 import passport from 'passport';
 import validator from 'validator';
 import { Router } from 'express';
 
+// http://localhost:3000/some/page => http://localhost:3000
+function getOrigin(url) {
+  return (x => `${String(x.protocol)}//${String(x.host)}`)(URL.parse(url));
+}
+
 /**
  * '/about' => `false`
- * 'http://localhost:3000/about' => `true` (but only if this domain name is whitelisted)
+ * 'http://localhost:3000/about' => `true` (but only if its origin is whitelisted)
  */
 function isValidReturnURL(value) {
+  const whitelist = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [];
   return validator.isURL(value, {
     require_protocol: true,
     protocols: ['http', 'https'],
-    host_whitelist: process.env.FRONTEND_HOST_WHITELIST ?
-      process.env.FRONTEND_HOST_WHITELIST.split(',').map(x => x.trim()) : ['localhost'],
-  });
+  }) && whitelist.includes(getOrigin(value));
 }
 
 /**

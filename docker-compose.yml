@@ -4,7 +4,7 @@ services:
 
   # Nginx web server acting as a reverse proxy for "web" and "api" services
   nginx:
-    image: nginx:1.11.10-alpine
+    image: nginx:1.11.12-alpine
     read_only: true
     tmpfs:
       - /var/cache/nginx
@@ -23,14 +23,13 @@ services:
   api:
     image: node:7.7.4-alpine
     hostname: api
-    restart: always
     depends_on:
-      - postgres
+      - db
       - redis
     environment:
       - NODE_DEBUG=false
-      - FRONTEND_HOST_WHITELIST=localhost
-      - DATABASE_URL=postgres://postgres@postgres:5432/dev
+      - CORS_ORIGIN=http://localhost:3001,http://localhost:3000
+      - DATABASE_URL=postgres://postgres@db:5432/dev
       - DATABASE_DEBUG=false
       - REDIS_URL=redis://redis:6379/0
       - SESSION_SECRET=wZjwhFtzQsd7r87W6AZw45Sm
@@ -43,7 +42,7 @@ services:
     expose:
       - "8080"
     ports:
-      - "127.0.0.1:9229:9229" # V8 inspector
+      - "127.0.0.1:9229:9229" # V8 inspector (when NODE_DEBUG=true)
     volumes:
       - yarn:/root/.cache/yarn
       - ./:/usr/src/app
@@ -51,28 +50,26 @@ services:
     working_dir: /usr/src/app
     command: node tools/run.js
 
-  # SQL and document data storage
-  postgres:
+  # SQL and document data store
+  db:
     image: postgres:9.6.2-alpine
-    restart: always
     read_only: true
     tmpfs:
       - /tmp
       - /var/run/postgresql
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
       - ./config/postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
 
   # Distributed in-memory cache
   redis:
     image: redis:3.2.8-alpine
-    restart: always
     read_only: true
     volumes:
       - redis:/data
     user: redis
 
 volumes:
-  postgres:
+  db:
   redis:
   yarn:

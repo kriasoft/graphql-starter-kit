@@ -26,7 +26,14 @@ const app = express();
 
 app.set('trust proxy', 'loopback');
 
-app.use(cors());
+app.use(cors({
+  origin(origin, cb) {
+    const whitelist = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [];
+    cb(null, whitelist.includes(origin));
+  },
+  credentials: true,
+}));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({

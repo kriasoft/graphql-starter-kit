@@ -1,9 +1,9 @@
 config
 node_modules
-scripts/publish.sh
-scripts/README.md
 src
 test
+tools/publish.sh
+tools/README.md
 CONTRIBUTING.md
 docker-compose.yml
 Dockerfile
