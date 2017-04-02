@@ -21,7 +21,7 @@ services:
 
   # Data API and authentication/authorization
   api:
-    image: node:7.7.4-alpine
+    image: node:7.8.0-alpine
     hostname: api
     depends_on:
       - db
