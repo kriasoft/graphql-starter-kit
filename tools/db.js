@@ -50,7 +50,8 @@ module.exports = task('db', async () => {
         await db.migrate.rollback(config);
         break;
       case 'seed':
-        console.error('Not yet implemented.');
+        db = knex(config);
+        await db.seed.run(config);
         break;
       default:
         db = knex(config);
