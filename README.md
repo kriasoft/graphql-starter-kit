@@ -23,8 +23,11 @@ meant to be paired with a web and/or mobile application project such as [React S
 .
 ├── /build/                     # The compiled output (via Babel)
 ├── /config/                    # Configuration files (for Docker containers etc.)
+├── /locales/                   # Localization resources (i18n)
 ├── /migrations/                # Database schema migrations
+├── /seeds/                     # Scripts with reference/sample data
 ├── /src/                       # Node.js application source files
+│   ├── /emails/                # Handlebar templates for sending transactional email
 │   ├── /models/                # Data access models, e.g. User.create({ email })
 │   ├── /routes/                # Express routes, e.g. /login/facebook
 │   ├── /types/                 # GraphQL types with resolve functions
