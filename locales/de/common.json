@@ -1,6 +1,6 @@
 {
-  "Welcome, guest!": "Willkommener Gast!",
-  "Welcome, {{user}}!": "Willkommener {{user}}!",
-  "sign in": "eintragen",
+  "Welcome, guest!": "Willkommen Gast!",
+  "Welcome, {{user}}!": "Willkommen {{user}}!",
+  "sign in": "einloggen",
   "log out": "ausloggen"
 }
