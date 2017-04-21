@@ -23,9 +23,8 @@ cp.spawnSync('docker-compose', ['run', '--rm', 'api', '/bin/sh', '-c', 'yarn ins
 cp.spawnSync('docker', ['build', '--no-cache', '--tag', pkg.name, '.'], { stdio: 'inherit' });
 const ssh = cp.spawn('ssh', ['-C', host, 'docker', 'load'], { stdio: ['pipe', 'inherit', 'inherit'] });
 const docker = cp.spawn('docker', ['save', pkg.name], { stdio: ['inherit', ssh.stdin, 'inherit'] });
-docker.on('exit', () => {
-  ssh.stdin.end(() => {
-    cp.spawnSync('ssh', ['-C', host, 'docker-compose', '-f', composeFile, 'up', '-d'], { stdio: 'inherit' });
-    cp.spawnSync('ssh', ['-C', host, 'docker', 'image', 'prune', '-a', '-f'], { stdio: 'inherit' });
-  });
+docker.on('exit', () => { ssh.stdin.end(); });
+ssh.on('exit', () => {
+  cp.spawnSync('ssh', ['-C', host, 'docker-compose', '-f', composeFile, 'up', '-d'], { stdio: 'inherit' });
+  cp.spawnSync('ssh', ['-C', host, 'docker', 'image', 'prune', '-a', '-f'], { stdio: 'inherit' });
 });
