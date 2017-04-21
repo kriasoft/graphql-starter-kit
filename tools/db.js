@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * Node.js API Starter Kit (https://reactstarter.com/nodejs)
  *

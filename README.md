@@ -115,11 +115,11 @@ docker-compose up
 
 ## Deployment
 
-Customize the deployment script found in `tools/publish.sh` on macOS/Linux or convert it to
-`publish.cmd` on Windows. Then whenever you need to deploy your app to a remote server simply run:
+Customize the deployment script found in `tools/publish.js` if needed. Then whenever you need to
+deploy your app to a remote server simply run:
 
 ```bash
-/bin/sh tools/publish.sh        # or, `tools/publish.cmd` on Windows
+node tools/publish <host>       # where <host> is the name of your web server (see ~/.ssh/config)
 ```
 
 Not sure where to deploy your app? [DigitalOcean][do] is a great choice in many cases (get [$10 credit][do])

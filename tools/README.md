@@ -58,11 +58,14 @@ node tools/run                  # Compile the app and launch Node.js server with
 This script will also execute `yarn install` in case some of the Node.js dependencies are missing.
 
 
-### [`publish.sh`](./publish.sh) — deployment
+### [`publish.js`](./publish.js) — deployment
 
 ```bash
-/bin/sh tools/publish.sh        # Compile the app, build a Docker image and deploy it
+node tools/publish <host>       # Compile the app, build a Docker image and deploy it
 ```
+
+..where `<host>` is the host name of the web server from your SSH configuration file
+(`~/.ssh/config`).
 
 
 [yarnrun]: https://yarnpkg.com/en/docs/cli/run
