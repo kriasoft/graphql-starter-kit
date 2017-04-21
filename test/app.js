@@ -37,7 +37,7 @@ describe('generator-graphql-server:app', function () {
       'tools/.eslintrc',
       'tools/build.js',
       'tools/db.js',
-      'tools/publish.sh',
+      'tools/publish.js',
       'tools/README.md',
       'tools/run.js',
       'tools/task.js',
