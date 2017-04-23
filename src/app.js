@@ -22,6 +22,7 @@ import i18nextMiddleware, { LanguageDetector } from 'i18next-express-middleware'
 import i18nextBackend from 'i18next-node-fs-backend';
 import expressGraphQL from 'express-graphql';
 import PrettyError from 'pretty-error';
+import { printSchema } from 'graphql';
 import email from './email';
 import redis from './redis';
 import passport from './passport';
@@ -73,6 +74,10 @@ app.use(flash());
 
 app.use(accountRoutes);
 
+app.get('/graphql/schema', (req, res) => {
+  res.type('text/plain').send(printSchema(schema));
+});
+
 app.use('/graphql', expressGraphQL(req => ({
   schema,
   context: {
@@ -90,7 +95,7 @@ if (process.env.NODE_ENV !== 'production') {
     res.send(message.html);
   });
 
-  // A route for testing authorization/authentication
+  // A route for testing authentication/authorization
   app.get('/', (req, res) => {
     if (req.user) {
       res.send(`<p>${req.t('Welcome, {{user}}!', { user: req.user.email })} (<a href="javascript:fetch('/login/clear', { method: 'POST', credentials: 'include' }).then(() => window.location = '/')">${req.t('log out')}</a>)</p>`);
