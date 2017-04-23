@@ -8,41 +8,15 @@
  */
 
 /* @flow */
-/* eslint-disable no-param-reassign */
 
 import URL from 'url';
 import passport from 'passport';
 import validator from 'validator';
 import { Router } from 'express';
 
-// http://localhost:3000/some/page => http://localhost:3000
-function getOrigin(url) {
-  return (x => `${String(x.protocol)}//${String(x.host)}`)(URL.parse(url));
-}
-
-/**
- * '/about' => `false`
- * 'http://localhost:3000/about' => `true` (but only if its origin is whitelisted)
- */
-function isValidReturnURL(value) {
-  const whitelist = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [];
-  return validator.isURL(value, {
-    require_protocol: true,
-    protocols: ['http', 'https'],
-  }) && whitelist.includes(getOrigin(value));
-}
-
-/**
- * '/about' => ''
- * 'http://localhost:3000/about' => 'http://localhost:3000'
- */
-function getBaseURL(returnURL) {
-  if (!returnURL || returnURL[0] === '/') return '';
-  const result = returnURL.match(/^https?:\/\/[^\\/]+/i);
-  return result ? result[0] : '';
-}
-
 const router = new Router();
+
+// External login providers. Also see src/passport.js.
 const loginProviders = [
   {
     provider: 'facebook',
@@ -58,54 +32,58 @@ const loginProviders = [
   },
 ];
 
+// '/about' => ''
+// http://localhost:3000/some/page => http://localhost:3000
+function getOrigin(url: string) {
+  if (!url || url.startsWith('/')) return '';
+  return (x => `${String(x.protocol)}//${String(x.host)}`)(URL.parse(url));
+}
+
+// '/about' => `true` (all relative URL paths are allowed)
+// 'http://localhost:3000/about' => `true` (but only if its origin is whitelisted)
+function isValidReturnURL(url: string) {
+  if (url.startsWith('/')) return true;
+  const whitelist = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [];
+  return validator.isURL(url, { require_protocol: true, protocols: ['http', 'https'] })
+    && whitelist.includes(getOrigin(url));
+}
+
+// Generates a URL for redirecting a user to upon successfull authentication.
+// It is intended to support cross-domain authentication in development mode.
+// For example, a user goes to http://localhost:3000/login (frontend) to sign in,
+// then he's being redirected to http://localhost:8080/login/facebook (backend),
+// Passport.js redirects the user to Facebook, which redirects the user back to
+// http://localhost:8080/login/facebook/return and finally, user is being redirected
+// to http://localhost:3000/?sessionID=xxx where front-end middleware can save that
+// session ID into cookie (res.cookie.sid = req.query.sessionID).
+function getSuccessRedirect(req) {
+  const url = req.query.return || req.body.return || '/';
+  if (!isValidReturnURL(url)) return '/';
+  if (!getOrigin(url)) return url;
+  return `${url}${url.includes('?') ? '&' : '?'}sessionID=${req.cookies.sid}${
+    req.session.cookie.originalMaxAge ? `&maxAge=${req.session.cookie.originalMaxAge}` : ''}`;
+}
+
+// Registers route handlers for the external login providers
 loginProviders.forEach(({ provider, options }) => {
-  router.get(`/login/${provider}/return`, (req, res, next) => {
-    passport.authenticate(provider, (err, user) => {
-      const returnURL = req.session.returnURL || '/';
-      const baseURL = getBaseURL(returnURL);
-      const { error, info } = req.app.locals;
+  router.get(`/login/${provider}`,
+    (req, res, next) => { req.session.returnTo = getSuccessRedirect(req); next(); },
+    passport.authenticate(provider, { failureFlash: true, ...options }));
 
-      if (err) {
-        res.redirect(`${baseURL}/login?error=${encodeURIComponent(err.message)}&code=500`);
-      } else if (!user) {
-        res.redirect(`${baseURL}/login${error ? `?error=${encodeURIComponent(error)}` : ''}`);
-      } else {
-        req.login(user, (loginErr) => {
-          if (loginErr) {
-            res.redirect(`${baseURL}/login?error=${encodeURIComponent(loginErr.message)}&code=500`);
-          } else if (baseURL) {
-            // eslint-disable-next-line prefer-template
-            res.redirect(`${returnURL}${returnURL.includes('?') ? '&' : '?'}sessionID=${req.session.id}` +
-              (req.session.cookie.originalMaxAge ? `&maxAge=${req.session.cookie.originalMaxAge}` : '') +
-              (info ? `&info=${encodeURIComponent(info)}` : ''));
-          } else {
-            req.flash('info', info);
-            res.redirect(returnURL);
-          }
-        });
-      }
-    })(req, res, next);
-  });
-
-  router.get([`/login/${provider}`, `/login/${provider}/*`], (req, res, next) => {
-    const returnURL = decodeURIComponent(req.path.substr(`/login/${provider}/`.length));
-    req.session.returnURL = isValidReturnURL(returnURL) ? returnURL : `/${returnURL}`;
-    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-    res.header('Expires', '-1');
-    res.header('Pragma', 'no-cache');
-    passport.authenticate(provider, options)(req, res, next);
-  });
+  router.get(`/login/${provider}/return`, (req, res, next) =>
+    passport.authenticate(provider, {
+      successReturnToOrRedirect: true,
+      failureFlash: true,
+      failureRedirect: `${getOrigin(req.session.returnTo)}/login`,
+    })(req, res, next));
 });
 
-router.all(['/logout', '/logout/*'], (req, res) => {
-  const returnURL = decodeURIComponent(req.path.substr(8));
-  req.logout();
+// Remove the `user` object from the session. Example:
+//   fetch('/login/clear', { method: 'POST', credentials: 'include' })
+//     .then(() => window.location = '/')
+router.post('/login/clear', (req, res) => { req.logout(); res.status(200).send('OK'); });
 
-  if (isValidReturnURL(returnURL)) {
-    res.redirect(`${getBaseURL(returnURL)}/logout`);
-  } else {
-    res.redirect('/');
-  }
-});
+// Allows to fetch the last login error(s) (which is usefull for single-page apps)
+router.post('/login/error', (req, res) => { res.send({ errors: req.flash('error') }); });
 
 export default router;
