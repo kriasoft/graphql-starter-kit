@@ -13,7 +13,7 @@ import app from '../../src/app';
 
 chai.use(chaiHttp);
 
-describe('types/ViewerType', () => {
+describe('query.me', () => {
   it('.me must be null if user is not authenticated', (done) => {
     chai.request(app)
       .post('/graphql')
