@@ -10,21 +10,36 @@
 /* @flow */
 
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
-import Node from './types/Node';
-import ViewerType from './types/ViewerType';
+import { connectionArgs, connectionDefinitions, connectionFromPromisedArray } from 'graphql-relay';
+import { nodeField, nodesField } from './types/Node';
+import Article from './models/Article';
+import ArticleType from './types/ArticleType';
+import UserType from './types/UserType';
 
-// In order to make it work with Relay 0.x, all the top-level
-// fields are placed inside the "viewer" field
 export default new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
     fields: {
-      node: Node.nodeField,
-      nodes: Node.nodesField,
-      viewer: {
-        type: ViewerType,
-        resolve() {
-          return Object.create(null);
+      node: nodeField,
+      nodes: nodesField,
+      me: {
+        type: UserType,
+        resolve(root, args, { user }) {
+          return user;
+        },
+      },
+      articles: {
+        type: connectionDefinitions({
+          name: 'ArticleConnection',
+          nodeType: ArticleType,
+        }).connectionType,
+        description: 'Featured articles',
+        args: connectionArgs,
+        resolve(root, args, { loader }) {
+          return connectionFromPromisedArray(Article.find().then(items => items.map((x) => {
+            loader.articles.prime(x.id, x);
+            return x;
+          })), args);
         },
       },
     },

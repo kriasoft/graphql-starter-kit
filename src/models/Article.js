@@ -9,22 +9,19 @@
 
 /* @flow */
 
-import DataLoader from 'dataloader';
 import fetch from 'node-fetch';
 import redis from '../redis';
 
-const DATA_URI = 'https://gist.githubusercontent.com/koistya/a32919e847531320675764e7308b796a/raw/articles.json';
-
-let loader;
 let lastFetchTime = 0;
+const DATA_URI = 'https://gist.githubusercontent.com/koistya/a32919e847531320675764e7308b796a/raw/articles.json';
 
 // returns [ { id: 1, title: '...', author: '...', url: '...' }, ... ]
 async function fetchArticles() {
   lastFetchTime = Date.now();
   const data = await fetch(DATA_URI).then(x => x.json());
   await redis.msetAsync(data.reduce((acc, val, idx) =>
-    [...acc, `articles:${data.length - idx}`, JSON.stringify(val)], []));
-  return data.map((x, i) => ({ id: data.length - i, ...x }));
+    [...acc, `articles:${data.length - idx}`, JSON.stringify({ id: data.length - idx, ...val })], []));
+  return data;
 }
 
 class Article {
@@ -33,29 +30,34 @@ class Article {
   author: string;
   url: string;
 
-  static async find() {
+  constructor(props: any) {
+    Object.assign(this, props);
+  }
+
+  static async find(): Promise<Article[]> {
     const keys = await redis.keysAsync('articles:*');
     const data = keys.length ?
-      (await redis.mgetAsync(keys)).map((x, i) => ({ id: keys[i], ...JSON.parse(x) })) :
+      (await redis.mgetAsync(keys)).map(x => JSON.parse(x)) :
       (await fetchArticles());
 
     // Update cache in the background if it's older than 10 minutes
     if (Date.now() - lastFetchTime > 600000) fetchArticles();
 
-    return data.map(x => Object.assign(new Article(), x));
+    return data.map(x => new Article(x));
   }
 
-  static load(keys) {
-    return loader.load(keys);
+  static findOneById(id: number): Promise<Article> {
+    return redis.getAsync(`articles:${id}`).then(x => x && new Article(JSON.parse(x)));
+  }
+
+  static async findByIds(ids: number[]): Promise<Article[]> {
+    if (!lastFetchTime) await fetchArticles();
+    return redis.mgetAsync(ids.map(id => `articles:${id}`))
+      .then(data => data.map((x, i) => {
+        if (!x) throw new Error(`Cannot find an article with ID ${ids[i]}`);
+        return new Article(JSON.parse(x));
+      }));
   }
 }
-
-loader = new DataLoader(keys => Promise.resolve()
-  .then(() => lastFetchTime ? null : fetchArticles()) // eslint-disable-line no-confusing-arrow
-  .then(() => redis.mgetAsync(keys.map(x => `articles:${x}`)))
-  .then(data => data.map((x, i) => {
-    if (x) return Object.assign(new Article(), x, { id: keys[i] });
-    throw new Error(`Cannot find an article with ID ${keys[i]}`);
-  })));
 
 export default Article;

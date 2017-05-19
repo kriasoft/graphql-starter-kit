@@ -23,6 +23,7 @@ import i18nextBackend from 'i18next-node-fs-backend';
 import expressGraphQL from 'express-graphql';
 import PrettyError from 'pretty-error';
 import { printSchema } from 'graphql';
+import DataLoader from './DataLoader';
 import email from './email';
 import redis from './redis';
 import passport from './passport';
@@ -81,7 +82,9 @@ app.get('/graphql/schema', (req, res) => {
 app.use('/graphql', expressGraphQL(req => ({
   schema,
   context: {
+    t: req.t,
     user: req.user,
+    loader: DataLoader.create(),
   },
   graphiql: process.env.NODE_ENV !== 'production',
   pretty: process.env.NODE_ENV !== 'production',

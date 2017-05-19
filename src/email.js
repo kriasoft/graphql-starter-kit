@@ -38,14 +38,16 @@ function loadTemplate(filename) {
   return handlebars.template(m.exports);
 }
 
-fs.readdirSync(baseDir).forEach((name) => {
-  if (fs.statSync(`${baseDir}/${name}`).isDirectory()) {
-    templates.set(name, {
-      subject: loadTemplate(`${baseDir}/${name}/subject.js`),
-      html: loadTemplate(`${baseDir}/${name}/html.js`),
-    });
-  }
-});
+if (process.env.NODE_ENV !== 'test') {
+  fs.readdirSync(baseDir).forEach((name) => {
+    if (fs.statSync(`${baseDir}/${name}`).isDirectory()) {
+      templates.set(name, {
+        subject: loadTemplate(`${baseDir}/${name}/subject.js`),
+        html: loadTemplate(`${baseDir}/${name}/html.js`),
+      });
+    }
+  });
+}
 
 /**
  * Usage example:

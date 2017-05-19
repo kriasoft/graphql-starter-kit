@@ -11,27 +11,59 @@
 
 import db from '../db';
 
-class User {
+const fields = [
+  'id',
+  'email',
+];
 
-  static findOne(...args) {
-    return db.table('users').where(...args).first('id', 'email');
+class User {
+  id: string;
+  email: string;
+
+  constructor(props: any) {
+    Object.assign(this, props);
+  }
+
+  static find(...args) {
+    return db.table('users')
+      .where(...(args.length ? args : [{}]))
+      .select(...fields)
+      .then(rows => rows.map(x => new User(x)));
+  }
+
+  static findByIds(ids: string[]): Promise<User[]> {
+    return db.table('users')
+      .whereIn('id', ids)
+      .select(...fields)
+      .then(rows => ids.map((id) => {
+        const row = rows.find(x => x.id === id);
+        return row && new User(row);
+      }));
+  }
+
+  static findOne(...args): Promise<User> {
+    return db.table('users')
+      .where(...(args.length ? args : [{}]))
+      .first(...fields)
+      .then(x => x && new User(x));
   }
 
   static findOneByLogin(provider: string, key: string) {
     return db.table('users')
       .leftJoin('user_logins', 'users.id', 'user_logins.user_id')
       .where({ 'user_logins.name': provider, 'user_logins.key': key })
-      .first('id', 'email');
+      .first(...fields)
+      .then(x => x && new User(x));
   }
 
-  static any(...args) {
-    return db.raw('SELECT EXISTS ?', db.table('users').where(...args).select(db.raw('1')))
+  static any(...args): boolean {
+    return db.raw('SELECT EXISTS ?', db.table('users').where(...(args.length ? args : [{}])).select(db.raw('1')))
       .then(x => x.rows[0].exists);
   }
 
   static create(user) {
     return db.table('users')
-      .insert(user, ['id', 'email']).then(x => x[0]);
+      .insert(user, fields).then(x => new User(x[0]));
   }
 
   static setClaims(userId, provider, providerKey, claims) {

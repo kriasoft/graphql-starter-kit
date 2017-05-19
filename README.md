@@ -33,10 +33,11 @@ meant to be paired with a web and/or mobile application project such as [React S
 │   ├── /types/                 # GraphQL types with resolve functions
 │   │   ├── /Node.js            # Relay's "node" definitions
 │   │   ├── /UserType.js        # User account (id, email, etc.)
-│   │   ├── /ViewerType.js      # The top-level GraphQL object type
 │   │   └── /...                # etc.
 │   ├── /app.js                 # Express.js application
+│   ├── /DataLoader.js          # Data access utility for GraphQL /w batching and caching
 │   ├── /db.js                  # Database access and connection pooling (via Knex)
+│   ├── /email.js               # Client utility for sending transactional email
 │   ├── /passport.js            # Passport.js authentication strategies
 │   ├── /redis.js               # Redis client
 │   ├── /schema.js              # GraphQL schema
@@ -152,19 +153,15 @@ However, if you decide to get involved, please take a moment to review the [guid
 
 ## Support
 
-* [#nodejs-api-starter](http://stackoverflow.com/questions/tagged/nodejs-api-starter) on Stack Overflow — Questions and answers
 * [#nodejs-api-starter](https://gitter.im/kriasoft/nodejs-api-starter) on Gitter — Watch announcements, share ideas and feedback
-* [GitHub Issues](https://github.com/kriasoft/nodejs-api-starter/issues) — Check open issues, send feature requests
-* [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya), [HackHands](https://hackhands.com/koistya/) or [Skype][skype] — Private consulting and customization requests
+* [GitHub Issues](https://github.com/kriasoft/nodejs-api-starter/issues) — Check open issues, send bug reports feature requests
+* [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya) or [Skype][skype] — Private consulting and customization requests
 
 
 ## License
 
-Copyright © 2016-present Kriasoft, LLC. This source code is licensed under the MIT
-license found in the [LICENSE.txt](https://github.com/kriasoft/nodejs-api-starter/blob/master/LICENSE.txt)
-file. The documentation to the project is licensed under the
-[CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/) license.
-
+Copyright © 2016-present Kriasoft. This source code is licensed under the MIT license found in the
+[LICENSE.txt](https://github.com/kriasoft/nodejs-api-starter/blob/master/LICENSE.txt) file.
 
 ---
 Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [blog](https://medium.com/@tarkus)) and [contributors](https://github.com/kriasoft/nodejs-api-starter/graphs/contributors)
@@ -190,4 +187,4 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [redis]: https://redis.io/
 [loader]: https://github.com/facebook/dataloader
 [gitter]: https://gitter.im/kriasoft/nodejs-api-starter
-[skype]: https://hatscripts.com/addskype?koistya
+[skype]: https://calendly.com/koistya

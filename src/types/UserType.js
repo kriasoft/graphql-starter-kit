@@ -9,17 +9,22 @@
 
 /* @flow */
 
-import { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLString } from 'graphql';
+import { GraphQLObjectType, GraphQLString } from 'graphql';
+import { globalIdField } from 'graphql-relay';
+import { nodeInterface } from './Node';
 
 export default new GraphQLObjectType({
   name: 'User',
+
   fields: {
-    id: {
-      type: new GraphQLNonNull(GraphQLID),
-    },
+    id: globalIdField(),
 
     email: {
       type: GraphQLString,
     },
   },
+
+  interfaces: [
+    nodeInterface,
+  ],
 });

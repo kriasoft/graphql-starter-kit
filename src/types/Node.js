@@ -11,6 +11,7 @@
 
 import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
 import Article from '../models/Article';
+import User from '../models/User';
 
 /* eslint-disable global-require */
 
@@ -18,13 +19,20 @@ const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
   (globalId) => {
     const { type, id } = fromGlobalId(globalId);
 
-    if (type === 'Article') {
-      return Article.load(id);
+    switch (type) {
+      case 'User':
+        return User.findOne({ id });
+      case 'Article':
+        return Article.findOneById(Number(id));
+      default:
+        return null;
     }
-
-    return null;
   },
   (obj) => {
+    if (obj instanceof User) {
+      return require('./UserType').default;
+    }
+
     if (obj instanceof Article) {
       return require('./ArticleType').default;
     }
@@ -33,8 +41,4 @@ const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
   },
 );
 
-export default {
-  interface: nodeInterface,
-  nodeField,
-  nodesField,
-};
+export { nodeInterface, nodeField, nodesField };

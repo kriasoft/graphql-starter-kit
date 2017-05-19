@@ -11,14 +11,14 @@
 
 import { GraphQLObjectType, GraphQLString } from 'graphql';
 import { globalIdField } from 'graphql-relay';
-import Node from './Node';
+import { nodeInterface } from './Node';
 
 export default new GraphQLObjectType({
   name: 'Article',
   description: 'Featured article',
 
   fields: {
-    id: globalIdField('Article'),
+    id: globalIdField(),
 
     title: {
       type: GraphQLString,
@@ -34,6 +34,6 @@ export default new GraphQLObjectType({
   },
 
   interfaces: [
-    Node.interface,
+    nodeInterface,
   ],
 });
