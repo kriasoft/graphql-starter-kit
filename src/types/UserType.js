@@ -15,6 +15,7 @@ import { nodeInterface } from './Node';
 
 export default new GraphQLObjectType({
   name: 'User',
+  interfaces: [nodeInterface],
 
   fields: {
     id: globalIdField(),
@@ -26,8 +27,4 @@ export default new GraphQLObjectType({
       },
     },
   },
-
-  interfaces: [
-    nodeInterface,
-  ],
 });
