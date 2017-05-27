@@ -68,9 +68,10 @@ module.exports.up = async (db) => {
   });
 
   await db.schema.createTable('points', (table) => {
+    table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
     table.uuid('story_id').references('id').inTable('stories').onDelete('CASCADE').onUpdate('CASCADE');
     table.uuid('comment_id').references('id').inTable('comments').onDelete('CASCADE').onUpdate('CASCADE');
-    table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
+    table.primary(['user_id', 'story_id', 'comment_id']);
   });
 };
 
