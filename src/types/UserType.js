@@ -21,6 +21,9 @@ export default new GraphQLObjectType({
 
     email: {
       type: GraphQLString,
+      resolve(parent, args, { user }) {
+        return user && parent.id === user.id ? parent.email : null;
+      },
     },
   },
 

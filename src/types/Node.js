@@ -8,35 +8,22 @@
  */
 
 /* @flow */
+/* eslint-disable global-require, no-underscore-dangle */
 
 import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
-import Article from '../models/Article';
-import User from '../models/User';
-
-/* eslint-disable global-require */
 
 const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
-  (globalId) => {
+  (globalId, context) => {
     const { type, id } = fromGlobalId(globalId);
 
-    switch (type) {
-      case 'User':
-        return User.findOne({ id });
-      case 'Article':
-        return Article.findOneById(Number(id));
-      default:
-        return null;
-    }
+    if (type === 'User') return context.users.load(id);
+    if (type === 'Story') return context.stories.load(id);
+
+    return null;
   },
   (obj) => {
-    if (obj instanceof User) {
-      return require('./UserType').default;
-    }
-
-    if (obj instanceof Article) {
-      return require('./ArticleType').default;
-    }
-
+    if (obj.__type === 'User') return require('./UserType').default;
+    if (obj.__type === 'Story') return require('./StoryType').default;
     return null;
   },
 );

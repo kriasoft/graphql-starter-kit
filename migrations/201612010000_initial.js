@@ -27,7 +27,7 @@ module.exports.up = async (db) => {
     table.string('phone_number', 50);
     table.boolean('phone_number_confirmed').notNullable().defaultTo(false);
     table.boolean('two_factor_enabled').notNullable().defaultTo(false);
-    table.timestamp('lockout_end', 'without time zone');
+    table.timestamp('lockout_end');
     table.boolean('lockout_enabled').notNullable().defaultTo(false);
     table.smallint('access_failed_count').notNullable().defaultTo(0);
   });
@@ -35,25 +35,49 @@ module.exports.up = async (db) => {
   await db.schema.createTable('user_logins', (table) => {
     table.string('name', 50).notNullable();
     table.string('key', 100).notNullable();
-    table.uuid('user_id').notNullable()
-      .references('id').inTable('users')
-      .onDelete('CASCADE')
-      .onUpdate('CASCADE');
+    table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
     table.primary(['name', 'key']);
   });
 
   await db.schema.createTable('user_claims', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
-    table.uuid('user_id').notNullable()
-      .references('id').inTable('users')
-      .onDelete('CASCADE')
-      .onUpdate('CASCADE');
+    table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
     table.string('type');
     table.string('value', 400);
+  });
+
+  await db.schema.createTable('stories', (table) => {
+    table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
+    table.uuid('author_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
+    table.string('title', 80).notNullable();
+    table.string('url', 200);
+    table.string('text', 2000);
+    table.integer('points_count').notNullable().defaultTo(0);
+    table.integer('comments_count').notNullable().defaultTo(0);
+    table.timestamps(false, true);
+  });
+
+  await db.schema.createTable('comments', (table) => {
+    table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
+    table.uuid('story_id').notNullable().references('id').inTable('stories').onDelete('CASCADE').onUpdate('CASCADE');
+    table.uuid('parent_id').references('id').inTable('comments').onDelete('CASCADE').onUpdate('CASCADE');
+    table.uuid('author_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
+    table.integer('points_count').notNullable().defaultTo(0);
+    table.string('text', 2000);
+    table.timestamps(false, true);
+  });
+
+  await db.schema.createTable('points', (table) => {
+    table.uuid('story_id').references('id').inTable('stories').onDelete('CASCADE').onUpdate('CASCADE');
+    table.uuid('comment_id').references('id').inTable('comments').onDelete('CASCADE').onUpdate('CASCADE');
+    table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
   });
 };
 
 module.exports.down = async (db) => {
+  await db.schema.dropTableIfExists('points');
+  await db.schema.dropTableIfExists('comments');
+  await db.schema.dropTableIfExists('stories');
   await db.schema.dropTableIfExists('user_claims');
   await db.schema.dropTableIfExists('user_logins');
   await db.schema.dropTableIfExists('users');

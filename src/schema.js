@@ -10,10 +10,11 @@
 /* @flow */
 
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
-import { connectionArgs, connectionDefinitions, connectionFromPromisedArray } from 'graphql-relay';
+import { connectionArgs, connectionDefinitions, connectionFromArray } from 'graphql-relay';
 import { nodeField, nodesField } from './types/Node';
-import Article from './models/Article';
-import ArticleType from './types/ArticleType';
+
+import db from './db';
+import StoryType from './types/StoryType';
 import UserType from './types/UserType';
 
 export default new GraphQLSchema({
@@ -22,24 +23,25 @@ export default new GraphQLSchema({
     fields: {
       node: nodeField,
       nodes: nodesField,
+
       me: {
         type: UserType,
-        resolve(root, args, { user }) {
-          return user;
+        resolve(root, args, { user, users }) {
+          return user && users.load(user.id);
         },
       },
-      articles: {
+
+      stories: {
         type: connectionDefinitions({
-          name: 'ArticleConnection',
-          nodeType: ArticleType,
+          name: 'StoryConnection',
+          nodeType: StoryType,
         }).connectionType,
-        description: 'Featured articles',
+        description: 'Stories',
         args: connectionArgs,
-        resolve(root, args, { loader }) {
-          return connectionFromPromisedArray(Article.find().then(items => items.map((x) => {
-            loader.articles.prime(x.id, x);
-            return x;
-          })), args);
+        async resolve(root, args) {
+          const stories = await db.table('stories').select('*')
+            .then(rows => rows.map(x => Object.assign(x, { __type: 'Story' })));
+          return connectionFromArray(stories, args);
         },
       },
     },

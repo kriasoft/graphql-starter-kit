@@ -84,7 +84,7 @@ app.use('/graphql', expressGraphQL(req => ({
   context: {
     t: req.t,
     user: req.user,
-    loader: DataLoader.create(),
+    ...DataLoader.create(),
   },
   graphiql: process.env.NODE_ENV !== 'production',
   pretty: process.env.NODE_ENV !== 'production',

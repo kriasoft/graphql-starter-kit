@@ -11,16 +11,27 @@
 /* eslint-disable global-require */
 
 import DataLoader from 'dataloader';
-import Article from './models/Article';
-import User from './models/User';
+import db from './db';
+
+// Appends type information to a data row, e.g. { id: 1 } => { __type: 'User', id: 1 };
+function appendType(row: ?any, type: string) {
+  // eslint-disable-next-line no-param-reassign, no-underscore-dangle
+  if (row) row.__type = type;
+  return row;
+}
+
+// Ensures that the order of rows matches the order of the keys
+function normalize(type: string, keys: Array<number|string>, rows: Array<any>) {
+  return keys.map(key => appendType(rows.find(x => x.id === key), type));
+}
 
 /**
  * Data access utility to be used with GraphQL resolve() functions. For example:
  *
  *   new GraphQLObjectType({
  *     ...
- *     resolve(post, args, { loader }) {
- *       return loader.users.load(post.authorId);
+ *     resolve(post, args, { users }) {
+ *       return users.load(post.author_id);
  *     }
  *   })
  *
@@ -28,7 +39,14 @@ import User from './models/User';
  */
 export default {
   create: () => ({
-    users: new DataLoader(keys => User.findByIds(keys)),
-    articles: new DataLoader(keys => Article.findByIds(keys)),
+    users: new DataLoader(keys => db.table('users')
+      .whereIn('id', keys)
+      .select('*')
+      .then(normalize.bind(null, 'User', keys))),
+
+    stories: new DataLoader(keys => db.table('stories')
+      .whereIn('id', keys)
+      .select('*')
+      .then(normalize.bind(null, 'Story', keys))),
   }),
 };
