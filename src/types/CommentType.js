@@ -13,15 +13,29 @@ import { GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLInt, GraphQLStri
 import { globalIdField } from 'graphql-relay';
 import { nodeInterface } from './Node';
 
-import CommentType from './CommentType';
+import StoryType from './StoryType';
 import UserType from './UserType';
 
-export default new GraphQLObjectType({
-  name: 'Story',
+const CommentType = new GraphQLObjectType({
+  name: 'Comment',
   interfaces: [nodeInterface],
 
-  fields: {
+  fields: () => ({
     id: globalIdField(),
+
+    story: {
+      type: new GraphQLNonNull(StoryType),
+      resolve(parent, args, { stories }) {
+        return stories.load(parent.story_id);
+      },
+    },
+
+    parent: {
+      type: new GraphQLNonNull(CommentType),
+      resolve(parent, args, { comments }) {
+        return comments.load(parent.parent_id);
+      },
+    },
 
     author: {
       type: new GraphQLNonNull(UserType),
@@ -30,36 +44,21 @@ export default new GraphQLObjectType({
       },
     },
 
-    title: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
-
-    url: {
-      type: GraphQLString,
+    comments: {
+      type: new GraphQLList(CommentType),
+      resolve(parent, args, { commentsByParent }) {
+        return commentsByParent.load(parent.id);
+      },
     },
 
     text: {
       type: GraphQLString,
     },
 
-    comments: {
-      type: new GraphQLList(CommentType),
-      resolve(parent, args, { commentsByStory }) {
-        return commentsByStory.load(parent.id);
-      },
-    },
-
     pointsCount: {
       type: new GraphQLNonNull(GraphQLInt),
       resolve(parent) {
         return parent.points_count;
-      },
-    },
-
-    commentsCount: {
-      type: new GraphQLNonNull(GraphQLInt),
-      resolve(parent) {
-        return parent.comments_count;
       },
     },
 
@@ -76,5 +75,7 @@ export default new GraphQLObjectType({
         return parent.updated_at;
       },
     },
-  },
+  }),
 });
+
+export default CommentType;

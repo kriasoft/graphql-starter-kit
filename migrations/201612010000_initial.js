@@ -62,8 +62,8 @@ module.exports.up = async (db) => {
     table.uuid('story_id').notNullable().references('id').inTable('stories').onDelete('CASCADE').onUpdate('CASCADE');
     table.uuid('parent_id').references('id').inTable('comments').onDelete('CASCADE').onUpdate('CASCADE');
     table.uuid('author_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
-    table.integer('points_count').notNullable().defaultTo(0);
     table.string('text', 2000);
+    table.integer('points_count').notNullable().defaultTo(0);
     table.timestamps(false, true);
   });
 

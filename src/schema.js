@@ -33,10 +33,9 @@ export default new GraphQLSchema({
 
       stories: {
         type: connectionDefinitions({
-          name: 'StoryConnection',
+          name: 'Story',
           nodeType: StoryType,
         }).connectionType,
-        description: 'Stories',
         args: connectionArgs,
         async resolve(root, args) {
           const stories = await db.table('stories').select('*')
