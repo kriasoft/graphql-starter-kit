@@ -8,6 +8,7 @@
  */
 
 /* @flow */
+/* eslint-disable global-require */
 
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 import { connectionArgs, connectionDefinitions, connectionFromArray } from 'graphql-relay';
@@ -43,6 +44,13 @@ export default new GraphQLSchema({
           return connectionFromArray(stories, args);
         },
       },
+    },
+  }),
+
+  mutation: new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+      ...require('./mutations/story').default,
     },
   }),
 });
