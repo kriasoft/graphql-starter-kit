@@ -31,16 +31,6 @@ class User {
       .then(rows => rows.map(x => new User(x)));
   }
 
-  static findByIds(ids: string[]): Promise<User[]> {
-    return db.table('users')
-      .whereIn('id', ids)
-      .select(...fields)
-      .then(rows => ids.map((id) => {
-        const row = rows.find(x => x.id === id);
-        return row && new User(row);
-      }));
-  }
-
   static findOne(...args): Promise<User> {
     return db.table('users')
       .where(...(args.length ? args : [{}]))

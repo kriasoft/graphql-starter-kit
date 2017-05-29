@@ -15,16 +15,16 @@ import { nodeInterface } from './Node';
 
 export default new GraphQLObjectType({
   name: 'User',
+  interfaces: [nodeInterface],
 
   fields: {
     id: globalIdField(),
 
     email: {
       type: GraphQLString,
+      resolve(parent, args, { user }) {
+        return user && parent.id === user.id ? parent.email : null;
+      },
     },
   },
-
-  interfaces: [
-    nodeInterface,
-  ],
 });

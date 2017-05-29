@@ -84,10 +84,16 @@ app.use('/graphql', expressGraphQL(req => ({
   context: {
     t: req.t,
     user: req.user,
-    loader: DataLoader.create(),
+    ...DataLoader.create(),
   },
   graphiql: process.env.NODE_ENV !== 'production',
   pretty: process.env.NODE_ENV !== 'production',
+  formatError: error => ({
+    message: error.message,
+    state: error.originalError && error.originalError.state,
+    locations: error.locations,
+    path: error.path,
+  }),
 })));
 
 // The following routes are intended to be used in development mode only
