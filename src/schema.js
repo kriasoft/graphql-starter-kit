@@ -51,6 +51,7 @@ export default new GraphQLSchema({
     name: 'Mutation',
     fields: {
       ...require('./mutations/story').default,
+      ...require('./mutations/comment').default,
     },
   }),
 });
