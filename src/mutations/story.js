@@ -86,7 +86,11 @@ const createStory = mutationWithClientMutationId({
   async mutateAndGetPayload(input, context) {
     const { stories } = context;
     const { data, errors } = validate(input, context);
-    if (errors.length) throw new ValidationError(errors);
+
+    if (errors.length) {
+      throw new ValidationError(errors);
+    }
+
     const rows = await db.table('stories').insert(data).returning('id');
     return stories.load(rows[0]).then(story => ({ story }));
   },
