@@ -73,7 +73,7 @@
     "db:migrate:undo": "node tools/db.js migrate:undo",
     "db:migration": "node tools/db.js migration",
     "db:seed": "node tools/db.js seed",
-    "deploy": "/bin/sh tools/publish.sh",
+    "deploy": "node tools/publish.js",
     "start": "node tools/run.js"
   }
 }
