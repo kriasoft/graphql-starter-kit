@@ -10,10 +10,6 @@
 // Create database schema for storing user accounts, logins and authentication claims/tokens
 // Source https://github.com/membership/membership.db
 module.exports.up = async (db) => {
-  // PostgreSQL extensions (may require superuser or database owner priveleges)
-  await db.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
-  await db.raw('CREATE EXTENSION IF NOT EXISTS "hstore"');
-
   await db.schema.createTable('users', (table) => {
     // UUID v1mc reduces the negative side effect of using random primary keys
     // with respect to keyspace fragmentation on disk for the tables because it's time based
