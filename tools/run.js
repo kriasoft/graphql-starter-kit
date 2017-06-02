@@ -11,19 +11,21 @@
 const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
+const pkg = require('../package.json');
 const task = require('./task');
 
 let build;
 let server;
 
+const serverQueue = [];
+const isDebug = process.execArgv.includes('--inspect');
+
 // Gracefull shutdown
 process.once('cleanup', () => {
   if (server) {
-    server.addListener('exit', () => {
-      server = null;
-      process.exit();
-    });
+    server.addListener('exit', () => process.exit());
     server.kill('SIGTERM');
+    serverQueue.forEach(x => x.kill());
   } else {
     process.exit();
   }
@@ -32,7 +34,7 @@ process.on('SIGINT', () => process.emit('cleanup'));
 process.on('SIGTERM', () => process.emit('cleanup'));
 
 // Ensure that Node.js modules were installed,
-// at least those required to build and launch the app
+// at least those required to build the app
 try {
   build = require('./build');
 } catch (err) {
@@ -52,6 +54,29 @@ try {
   build = require('./build');
 }
 
+// Launch `node build/server.js` on a background thread
+function spawnServer() {
+  return cp.spawn('node',
+    [
+      // Pre-load application dependencies to improve "hot reload" restart time
+      ...Object.keys(pkg.dependencies).reduce((requires, val) => requires.concat(['--require', val]), []),
+      // If the parent Node.js process is running in debug (inspect) mode,
+      // launch a debugger for Express.js app on the next port
+      ...process.execArgv,
+      ...process.execArgv.reduce((result, arg) => {
+        const match = arg.match(/^--(?:inspect|debug)-port=(\S+:|)(\d+)$/);
+        return match ? [`--inspect-port=${match[1]}${Number(match[2]) + 1}`] : result;
+      }, isDebug ? ['--inspect-port=9230'] : []),
+      '--no-lazy',
+      // Enable "hot reload", it only works when debugger is off
+      ...(isDebug ? ['./server.js'] : [
+        '--eval',
+        'process.stdin.on("data", data => { if (data.toString() === "load") require("./server.js"); });',
+      ]),
+    ],
+    { cwd: './build', stdio: ['pipe', 'inherit', 'inherit'], timeout: 3000 });
+}
+
 module.exports = task('run', () => Promise.resolve()
   // Migrate database schema to the latest version
   .then(() => {
@@ -61,13 +86,13 @@ module.exports = task('run', () => Promise.resolve()
   .then(() => build({
     watch: true,
     onComplete() {
-      if (!server) {
-        // Launch `node build/server.js` on a background thread
-        server = cp.spawn('node',
-          [...(process.env.NODE_DEBUG === 'true' ? ['--inspect', '--no-lazy'] : []), 'server.js'],
-          { cwd: './build', stdio: ['inherit', 'inherit', 'inherit', 'ipc'] });
+      if (server) server.kill('SIGTERM');
+      if (isDebug) {
+        server = spawnServer();
       } else {
-        server.send('reload');
+        server = serverQueue.splice(0, 1)[0] || spawnServer();
+        server.stdin.write('load'); // this works faster than IPC
+        while (serverQueue.length < 3) serverQueue.push(spawnServer());
       }
     },
   }))

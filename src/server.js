@@ -8,57 +8,35 @@
  */
 
 /* @flow */
-/* eslint-disable global-require, no-console */
+/* eslint-disable no-console, no-shadow */
 
-let db;
-let app;
-let redis;
-let server;
-let reload = Promise.resolve();
+import app from './app';
+import db from './db';
+import redis from './redis';
 
 const port = process.env.PORT || 8080;
 const host = process.env.HOSTNAME || '0.0.0.0';
 
 // Launch Node.js server
-const launch = (callback) => {
-  db = require('./db').default;
-  app = require('./app').default;
-  redis = require('./redis').default;
-  server = app.listen(port, host, () => {
-    console.log(`Node.js API server is listening on http://${host}:${port}/`);
-    if (callback) callback();
-  });
-};
+const server = app.listen(port, host, () => {
+  console.log(`Node.js API server is listening on http://${host}:${port}/`);
+});
 
-// Shutdown Node.js server and database clients
-const shutDown = () => Promise.resolve()
-  .then(() => server && new Promise(resolve => server.close(resolve)))
-  .then(() => Promise.all([
-    () => db && db.destroy(),
-    () => redis && new Promise(resolve => redis.quit(resolve)),
-  ]));
-
-const handleError = err => console.error(err.stack);
-
-// Graceful shutdown
-process.once('SIGTERM', () => shutDown().then(() => process.exit()));
-
-// In development mode the app is launched with an IPC channel
-if (process.channel) {
-  // Prevent exiting the process in development mode
-  process.on('uncaughtException', handleError);
-  // Restart the server on code changes (see tools/run.js)
-  process.on('message', (message) => {
-    if (message === 'reload') {
-      reload = reload.then(() => shutDown()).then(() => {
-        Object.keys(require.cache).forEach((key) => {
-          if (key.indexOf('node_modules') === -1) delete require.cache[key];
-        });
-        return new Promise(resolve => launch(resolve)).catch(handleError);
-      });
-    }
-  });
-  process.on('disconnect', () => process.emit('SIGTERM'));
+// Shutdown Node.js app gracefully
+function handleExit(options, err) {
+  if (options.cleanup) {
+    const actions = [server.close, db.destroy, redis.quit];
+    actions.forEach((close, i) => {
+      try {
+        close(() => { if (i === actions.length - 1) process.exit(); });
+      } catch (err) { if (i === actions.length - 1) process.exit(); }
+    });
+  }
+  if (err) console.log(err.stack);
+  if (options.exit) process.exit();
 }
 
-launch();
+process.on('exit', handleExit.bind(null, { cleanup: true }));
+process.on('SIGINT', handleExit.bind(null, { exit: true }));
+process.on('SIGTERM', handleExit.bind(null, { exit: true }));
+process.on('uncaughtException', handleExit.bind(null, { exit: true }));

@@ -27,7 +27,6 @@ services:
       - db
       - redis
     environment:
-      - NODE_DEBUG=false
       - CORS_ORIGIN=http://localhost:3001,http://localhost:3000
       - DATABASE_URL=postgres://postgres@db:5432/dev
       - DATABASE_DEBUG=false
