@@ -16,9 +16,9 @@ module.exports.up = async (db) => {
     // with respect to keyspace fragmentation on disk for the tables because it's time based
     // https://www.postgresql.org/docs/current/static/uuid-ossp.html
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
-    table.string('email').notNullable();
-    table.boolean('email_verified').notNullable().defaultTo(false);
     table.string('display_name', 100);
+    table.jsonb('emails').notNullable().defaultTo('[]');
+    table.string('image_url', 200);
     table.timestamps(false, true);
   });
 
