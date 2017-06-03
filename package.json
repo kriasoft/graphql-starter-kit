@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "engines": {
-    "node": ">=7.8",
-    "npm": ">=4.2"
+    "node": ">=8.0",
+    "npm": ">=5.0"
   },
   "dependencies": {
     "bluebird": "^3.5.0",

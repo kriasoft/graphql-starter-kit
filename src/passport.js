@@ -8,105 +8,130 @@
  */
 
 /* @flow */
-/* eslint-disable global-require, no-param-reassign, no-underscore-dangle */
+/* eslint-disable no-param-reassign, no-underscore-dangle */
 
 import passport from 'passport';
-import User from './models/User';
+import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
+import { Strategy as FacebookStrategy } from 'passport-facebook';
+import { Strategy as TwitterStrategy } from 'passport-twitter';
+
+import db from './db';
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, { id: user.id, email: user.email });
 });
 
-passport.deserializeUser((id, done) => {
-  User.findOne({ id }).then(user => done(null, user || null), done);
+passport.deserializeUser((user, done) => {
+  done(null, user);
 });
 
-const strategies = [
-  {
-    name: 'Facebook',
-    provider: 'facebook',
-    Strategy: require('passport-facebook').Strategy,
-    options: {
-      clientID: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET,
-      profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
-    },
-    readProfile(profile) {
-      return {
-        email: profile._json.email,
-      };
-    },
-  },
-  {
-    name: 'Google',
-    provider: 'google',
-    Strategy: require('passport-google-oauth').OAuth2Strategy,
-    options: {
-      clientID: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
-    },
-    readProfile(profile) {
-      return {
-        email: profile.emails[0].value,
-      };
-    },
-  },
-  {
-    name: 'Twitter',
-    provider: 'twitter',
-    Strategy: require('passport-twitter').Strategy,
-    options: {
-      consumerKey: process.env.TWITTER_KEY,
-      consumerSecret: process.env.TWITTER_SECRET,
-    },
-    readProfile(profile) {
-      return {
-        email: `${profile.username}@twitter.com`,
-      };
-    },
-  },
-];
+// Creates or updates the external login credentials
+// and returns the currently authenticated user.
+async function createLogin(req, provider, profile, tokens) {
+  if (typeof profile.email === 'undefined' || !profile.email) throw new Error('profile.email is missing.');
+  if (typeof profile.email_verified !== 'boolean') throw new Error('profile.email_verified is missing.');
 
-strategies.forEach(({ name, provider, Strategy, options, readProfile }) => {
-  passport.use(new Strategy({
-    ...options,
-    callbackURL: `/login/${provider}/return`,
-    passReqToCallback: true,
-  }, async (req, accessToken, refreshToken, profile, done) => {
-    try {
-      const { email } = readProfile(profile);
-      const claims = [
-        { type: `urn:${provider}:access_token`, value: accessToken },
-        { type: `urn:${provider}:refresh_token`, value: refreshToken },
-      ];
+  let user;
 
-      let user = await User.findOneByLogin(provider, profile.id);
+  if (req.user) {
+    user = await db.table('users').where({ id: req.user.id }).first();
+  }
 
-      if (req.user) {
-        if (user && req.user.id === user.id) {
-          done(null, user);
-        } else if (user) {
-          req.app.locals.error = `There is already a ${name} account that belongs to you. Sign in with that account or delete it, then link it with your current account.`;
-          done();
-        } else {
-          await User.setClaims(req.user.id, provider, profile.id, claims);
-          req.app.locals.info = `${name} account has been linked.`;
-          done(null, await User.findOne('id', req.user.id));
-        }
-      } else if (user) {
-        done(null, user);
-      } else if (await User.any({ email })) {
-        req.app.locals.error = `There is already an account using this email address. Sign in to that account and link it with ${name} manually from Account Settings.`;
-        done();
-      } else {
-        user = await User.create({ email });
-        await User.setClaims(user.id, provider, profile.id, claims);
-        done(null, user);
-      }
-    } catch (err) {
-      done(err);
+  if (!user) {
+    user = await db.table('logins')
+      .innerJoin('users', 'users.id', 'logins.user_id')
+      .where({ 'logins.provider': provider, 'logins.id': profile.id })
+      .first('users.*');
+    if (!user && profile.email_verified) {
+      user = await db.table('users')
+        .where({ email: profile.email, email_verified: true })
+        .first();
     }
-  }));
-});
+  }
+
+  if (!user) {
+    user = (await db.table('users')
+      .insert({
+        email: profile.email,
+        email_verified: profile.email_verified,
+        display_name: profile.display_name,
+      })
+      .returning('*'))[0];
+  }
+
+  const loginKeys = { user_id: user.id, provider, id: profile.id };
+  const login = await db.table('logins').where(loginKeys).first();
+
+  if (login) {
+    await db.table('logins').where(loginKeys).update({
+      tokens: JSON.stringify(tokens),
+      profile: JSON.stringify(profile._json),
+      username: profile.username,
+      updated_at: db.raw('CURRENT_TIMESTAMP'),
+    });
+  } else {
+    await db.table('logins').insert({
+      ...loginKeys,
+      username: profile.username,
+      tokens: JSON.stringify(tokens),
+      profile: JSON.stringify(profile._json),
+    });
+  }
+
+  return user;
+}
+
+// https://github.com/jaredhanson/passport-google-oauth2
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_ID,
+  clientSecret: process.env.GOOGLE_SECRET,
+  callbackURL: '/login/google/return',
+  passReqToCallback: true,
+}, async (req, accessToken, refreshToken, profile, done) => {
+  try {
+    profile.email = profile._json.email;
+    profile.email_verified = true;
+    const user = await createLogin(req, 'google', profile, { accessToken, refreshToken });
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+}));
+
+// https://github.com/jaredhanson/passport-facebook
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_ID,
+  clientSecret: process.env.FACEBOOK_SECRET,
+  profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
+  callbackURL: '/login/facebook/return',
+  passReqToCallback: true,
+}, async (req, accessToken, refreshToken, profile, done) => {
+  try {
+    profile.email = profile.emails[0].value;
+    profile.email_verified = true;
+    profile.display_name = `${profile._json.first_name} ${profile._json.last_name}`;
+    const user = await createLogin(req, 'facebook', profile, { accessToken, refreshToken });
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+}));
+
+// https://github.com/jaredhanson/passport-twitter
+passport.use(new TwitterStrategy({
+  consumerKey: process.env.TWITTER_KEY,
+  consumerSecret: process.env.TWITTER_SECRET,
+  callbackURL: '/login/twitter/return',
+  passReqToCallback: true,
+}, async (req, token, tokenSecret, profile, done) => {
+  try {
+    profile.email = profile._json.email || `${profile.username}@twitter.com`;
+    profile.email_verified = !!profile._json.email;
+    const user = await createLogin(req, 'twitter', profile, { token, tokenSecret });
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+}));
 
 export default passport;

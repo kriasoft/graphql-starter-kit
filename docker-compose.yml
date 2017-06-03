@@ -4,7 +4,7 @@ services:
 
   # Nginx web server acting as a reverse proxy for "web" and "api" services
   nginx:
-    image: nginx:1.11.13-alpine
+    image: nginx:1.13.1-alpine
     read_only: true
     tmpfs:
       - /var/cache/nginx
@@ -21,7 +21,7 @@ services:
 
   # Data API and authentication/authorization
   api:
-    image: node:7.10.0-alpine
+    image: node:8.0.0-alpine
     hostname: api
     depends_on:
       - db

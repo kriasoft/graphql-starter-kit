@@ -14,7 +14,8 @@ const faker = require('faker');
 module.exports.seed = async (db) => {
   // Create 10 random website users (as an example)
   const users = Array.from({ length: 10 }).map(() => ({
-    email: faker.internet.email(),
+    email: faker.internet.email().toLowerCase(),
+    display_name: faker.name.findName(),
   }));
 
   await Promise.all(users.map(user =>
