@@ -64,8 +64,8 @@
   "scripts": {
     "lint": "eslint src test tools migrations",
     "check": "flow check",
-    "test": "NODE_ENV=test mocha test/unit --compilers js:babel-register",
-    "test:watch": "NODE_ENV=test mocha test/unit --compilers js:babel-register --reporter min --watch",
+    "test": "NODE_ENV=test mocha --compilers js:babel-register",
+    "test:watch": "NODE_ENV=test mocha --compilers js:babel-register --reporter min --watch",
     "build": "node tools/build.js",
     "build:watch": "node tools/build.js --watch",
     "db:version": "node tools/db.js version",

@@ -28,7 +28,6 @@ meant to be paired with a web and/or mobile application project such as [React S
 ├── /seeds/                     # Scripts with reference/sample data
 ├── /src/                       # Node.js application source files
 │   ├── /emails/                # Handlebar templates for sending transactional email
-│   ├── /models/                # Data access models, e.g. User.create({ email })
 │   ├── /mutations/             # GraphQL mutations, e.g. createStory(), updateStory()
 │   ├── /routes/                # Express routes, e.g. /login/facebook
 │   ├── /types/                 # GraphQL types with resolve functions
