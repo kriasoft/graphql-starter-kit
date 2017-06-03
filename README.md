@@ -4,7 +4,7 @@
 authoring data API backends with Docker, Node.js, JavaScript (ES2017+ via Babel), PostgreSQL and
 GraphQL.
 
-#### This project is maintained with support from <a href="https://rollbar.com/?utm_source=reactstartkit(github)&utm_medium=link&utm_campaign=reactstartkit(github)"><img src="https://koistya.github.io/files/rollbar-247x48.png" height="24" align="top" /></a> <a href="https://localizejs.com/?cid=802&utm_source=rsk"><img src="https://koistya.github.io/files/localize-221x48.png" height="24" align="top" /></a>
+#### This project is maintained with support from <a href="https://rollbar.com/?utm_source=reactstartkit(github)&utm_medium=link&utm_campaign=reactstartkit(github)"><img src="https://koistya.github.io/files/rollbar-247x48.png" height="24" align="top" /></a> <a href="https://x-team.com/?utm_source=reactstarterkit&utm_medium=github-link&utm_campaign=reactstarterkit-june"><img src="https://koistya.github.io/files/xteam-168x48.png" height="24" align="top" /></a><sup><a href="https://x-team.com/join/?utm_source=reactstarterkit&utm_medium=github-link&utm_campaign=reactstarterkit-june">Hiring</a></sup>
 
 ## Installation
 
@@ -43,7 +43,6 @@ However, if you decide to get involved, please take a moment to review the [guid
 [![Effective JavaScript](https://images-na.ssl-images-amazon.com/images/I/51W25NBDLQL._SL160_.jpg)](http://amzn.to/2idMZBq)
 [![NodeSchool.io](http://koistya.github.io/files/nodeschool.jpg)](https://nodeschool.io/)
 
-
 ## Related Projects
 
 * [GraphQL.js](https://github.com/graphql/graphql-js) — The JavaScript reference implementation for [GraphQL](http://graphql.org/)
@@ -55,18 +54,15 @@ However, if you decide to get involved, please take a moment to review the [guid
 
 ## Support
 
-* [#nodejs-api-starter](http://stackoverflow.com/questions/tagged/nodejs-api-starter) on Stack Overflow — Questions and answers
 * [#nodejs-api-starter](https://gitter.im/kriasoft/nodejs-api-starter) on Gitter — Watch announcements, share ideas and feedback
-* [GitHub Issues](https://github.com/kriasoft/nodejs-api-starter/issues) — Check open issues, send feature requests
-* [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya), [HackHands](https://hackhands.com/koistya/) or [Skype][skype] — Private consulting and customization requests
+* [GitHub Issues](https://github.com/kriasoft/nodejs-api-starter/issues) — Check open issues, send bug reports feature requests
+* [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya) or [Skype][skype] — Private consulting and customization requests
 
 
 ## License
 
-Copyright © 2016-present Kriasoft, LLC. This source code is licensed under the MIT
-license found in the [LICENSE.txt](https://github.com/kriasoft/graphql-starter-kit/blob/master/LICENSE.txt)
-file. The documentation to the project is licensed under the
-[CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/) license.
+Copyright © 2016-present Kriasoft. This source code is licensed under the MIT license found in the
+[LICENSE.txt](https://github.com/kriasoft/nodejs-api-starter/blob/master/LICENSE.txt) file.
 
 
 ---
