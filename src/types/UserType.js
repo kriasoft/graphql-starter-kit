@@ -9,8 +9,10 @@
 
 /* @flow */
 
-import { GraphQLObjectType, GraphQLString } from 'graphql';
+import { GraphQLObjectType, GraphQLList, GraphQLString } from 'graphql';
 import { globalIdField } from 'graphql-relay';
+
+import EmailType from './EmailType';
 import { nodeInterface } from './Node';
 
 export default new GraphQLObjectType({
@@ -20,17 +22,24 @@ export default new GraphQLObjectType({
   fields: {
     id: globalIdField(),
 
-    email: {
-      type: GraphQLString,
-      resolve(parent, args, { user }) {
-        return user && parent.id === user.id ? parent.email : null;
-      },
-    },
-
     displayName: {
       type: GraphQLString,
       resolve(parent) {
         return parent.display_name;
+      },
+    },
+
+    imageUrl: {
+      type: GraphQLString,
+      resolve(parent) {
+        return parent.image_url;
+      },
+    },
+
+    emails: {
+      type: new GraphQLList(EmailType),
+      resolve(parent, args, { user }) {
+        return user && parent.id === user.id ? parent.emails : null;
       },
     },
   },

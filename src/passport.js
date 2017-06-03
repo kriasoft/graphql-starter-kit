@@ -18,7 +18,12 @@ import { Strategy as TwitterStrategy } from 'passport-twitter';
 import db from './db';
 
 passport.serializeUser((user, done) => {
-  done(null, { id: user.id, displayName: user.displayName, emails: user.emails, imageUrl: user.imageUrl });
+  done(null, {
+    id: user.id,
+    displayName: user.displayName,
+    imageUrl: user.imageUrl,
+    emails: user.emails,
+  });
 });
 
 passport.deserializeUser((user, done) => {
@@ -81,8 +86,8 @@ async function login(req, provider, profile, tokens) {
   return {
     id: user.id,
     displayName: user.display_name,
-    emails: user.emails,
     imageUrl: user.image_url,
+    emails: user.emails,
   };
 }
 

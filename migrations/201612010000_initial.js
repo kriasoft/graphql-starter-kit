@@ -17,8 +17,8 @@ module.exports.up = async (db) => {
     // https://www.postgresql.org/docs/current/static/uuid-ossp.html
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.string('display_name', 100);
-    table.jsonb('emails').notNullable().defaultTo('[]');
     table.string('image_url', 200);
+    table.jsonb('emails').notNullable().defaultTo('[]');
     table.timestamps(false, true);
   });
 
