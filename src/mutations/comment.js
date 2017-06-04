@@ -33,7 +33,7 @@ function validate(input, { t, user }) {
 
   if (typeof input.text === 'undefined' || input.text.trim() !== '') {
     errors.push({ key: 'text', message: t('The comment field cannot be empty.') });
-  } else if (!validator.isLength(input.url, { min: 20, max: 2000 })) {
+  } else if (!validator.isLength(input.text, { min: 20, max: 2000 })) {
     errors.push({ key: 'text', message: t('The comment must be between 20 and 2000 characters long.') });
   } else {
     data.text = input.text;
