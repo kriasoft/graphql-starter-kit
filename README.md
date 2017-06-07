@@ -82,6 +82,11 @@ From this shell you can run automation scripts such as `yarn test`, `yarn run db
 Find the full list of scripts available inside the [`tools`](./tools) folder and
 the [`package.json`](./package.json) file.
 
+In order to open a postgres shell, run the following:
+
+```bash
+docker-compose exec db psql -U postgres
+```
 
 ## Testing
 
