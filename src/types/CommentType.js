@@ -57,8 +57,8 @@ const CommentType = new GraphQLObjectType({
 
     pointsCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve(parent) {
-        return parent.points_count;
+      resolve(parent, args, { commentPointsCount }) {
+        return commentPointsCount.load(parent.id);
       },
     },
 

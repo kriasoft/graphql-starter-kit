@@ -51,15 +51,15 @@ export default new GraphQLObjectType({
 
     pointsCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve(parent) {
-        return parent.points_count;
+      resolve(parent, args, { storyPointsCount }) {
+        return storyPointsCount.load(parent.id);
       },
     },
 
     commentsCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve(parent) {
-        return parent.comments_count;
+      resolve(parent, args, { storyCommentsCount }) {
+        return storyCommentsCount.load(parent.id);
       },
     },
 

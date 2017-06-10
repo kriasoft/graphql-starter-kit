@@ -52,16 +52,4 @@ module.exports.seed = async (db) => {
     db.table('comments').insert(comment).returning('id')
       .then(rows => db.table('comments').where('id', '=', rows[0]).first('*'))
       .then(row => Object.assign(comment, row))));
-
-  // Update counters
-  await db.raw(`
-    WITH counted AS (
-      SELECT story_id, COUNT(*) AS comments_count
-      FROM comments
-      GROUP BY story_id
-    )
-    UPDATE stories
-    SET comments_count = c.comments_count
-    FROM counted c
-    WHERE c.story_id = stories.id`);
 };
