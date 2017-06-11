@@ -10,8 +10,8 @@
 /* @flow */
 /* eslint-disable global-require */
 
-import { GraphQLSchema, GraphQLObjectType } from 'graphql';
-import { connectionArgs, connectionDefinitions, connectionFromArray } from 'graphql-relay';
+import { GraphQLSchema, GraphQLObjectType, GraphQLNonNull, GraphQLInt } from 'graphql';
+import { connectionDefinitions, forwardConnectionArgs, connectionFromArraySlice, cursorToOffset } from 'graphql-relay';
 import { nodeField, nodesField } from './types/Node';
 
 import db from './db';
@@ -36,12 +36,31 @@ export default new GraphQLSchema({
         type: connectionDefinitions({
           name: 'Story',
           nodeType: StoryType,
+          connectionFields: {
+            totalCount: { type: new GraphQLNonNull(GraphQLInt) },
+          },
         }).connectionType,
-        args: connectionArgs,
+        args: forwardConnectionArgs,
         async resolve(root, args) {
-          const stories = await db.table('stories').select('*')
-            .then(rows => rows.map(x => Object.assign(x, { __type: 'Story' })));
-          return connectionFromArray(stories, args);
+          const limit = typeof args.first === 'undefined' ? '10' : args.first;
+          const offset = args.after ? cursorToOffset(args.after) + 1 : 0;
+
+          const [data, totalCount] = await Promise.all([
+            db.table('stories')
+              .orderBy('created_at', 'desc')
+              .limit(limit).offset(offset)
+              .then(rows => rows.map(x => Object.assign(x, { __type: 'Story' }))),
+            db.table('stories')
+              .count().then(x => x[0].count),
+          ]);
+
+          return {
+            ...connectionFromArraySlice(data, args, {
+              sliceStart: offset,
+              arrayLength: totalCount,
+            }),
+            totalCount,
+          };
         },
       },
     },
