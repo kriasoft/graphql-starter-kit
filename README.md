@@ -181,7 +181,7 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [babel]: http://babeljs.io/
 [gql]: http://graphql.org/
 [yarn]: https://yarnpkg.com
-[demo]: https://reactstarter.com/graphql
+[demo]: https://graphql-demo.kriasoft.com/
 [pg]: https://www.postgresql.org/
 [do]: https://m.do.co/c/eef302dbae9f
 [code]: https://code.visualstudio.com/
