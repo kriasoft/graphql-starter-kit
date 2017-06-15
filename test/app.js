@@ -18,13 +18,13 @@ describe('generator-graphql-server:app', function () {
       'config/postgres-initdb.sh',
       'migrations/201612010000_initial.js',
       'src/routes/account.js',
-      'src/types/Node.js',
-      'src/types/UserType.js',
+      'src/schema/Node.js',
+      'src/schema/UserType.js',
+      'src/schema/index.js',
       'src/app.js',
       'src/db.js',
       'src/passport.js',
       'src/redis.js',
-      'src/schema.js',
       'src/server.js',
       'test/query.me.spec.js',
       'test/.eslintrc',
@@ -47,8 +47,7 @@ describe('generator-graphql-server:app', function () {
       'Dockerfile',
       'LICENSE.txt',
       'package.json',
-      'README.md',
-      'yarn.lock'
+      'README.md'
     ]);
   });
 });
