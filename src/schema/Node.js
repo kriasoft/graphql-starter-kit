@@ -12,7 +12,7 @@
 
 import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
 
-const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
+const { nodeInterface, nodeField: node, nodesField: nodes } = nodeDefinitions(
   (globalId, context) => {
     const { type, id } = fromGlobalId(globalId);
 
@@ -31,4 +31,4 @@ const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
   },
 );
 
-export { nodeInterface, nodeField, nodesField };
+export { nodeInterface, node, nodes };

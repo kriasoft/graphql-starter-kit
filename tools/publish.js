@@ -27,7 +27,7 @@ Options:
   process.exit();
 }
 
-cp.spawnSync('docker-compose', ['run', '--rm', 'api', '/bin/sh', '-c', 'yarn install; yarn run build'], { stdio: 'inherit' });
+cp.spawnSync('docker-compose', ['run', '--rm', '--no-deps', 'api', '/bin/sh', '-c', 'yarn install; yarn run build'], { stdio: 'inherit' });
 cp.spawnSync('docker', ['build', '--no-cache', '--tag', pkg.name, '.'], { stdio: 'inherit' });
 const ssh = cp.spawn('ssh', ['-C', host, 'docker', 'load'], { stdio: ['pipe', 'inherit', 'inherit'] });
 const docker = cp.spawn('docker', ['save', pkg.name], { stdio: ['inherit', ssh.stdin, 'inherit'] });

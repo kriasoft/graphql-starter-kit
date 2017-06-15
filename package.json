@@ -57,7 +57,7 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-flowtype": "^2.34.0",
     "eslint-plugin-import": "^2.3.0",
-    "flow-bin": "^0.47.0",
+    "flow-bin": "^0.48.0",
     "mocha": "^3.4.2",
     "rimraf": "^2.6.1"
   },

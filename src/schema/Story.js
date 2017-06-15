@@ -10,12 +10,51 @@
 /* @flow */
 
 import validator from 'validator';
-import { GraphQLNonNull, GraphQLID, GraphQLString } from 'graphql';
-import { fromGlobalId, mutationWithClientMutationId } from 'graphql-relay';
+import { GraphQLNonNull, GraphQLID, GraphQLString, GraphQLInt } from 'graphql';
+import {
+  fromGlobalId,
+  connectionDefinitions,
+  forwardConnectionArgs,
+  connectionFromArraySlice,
+  cursorToOffset,
+  mutationWithClientMutationId,
+} from 'graphql-relay';
 
 import db from '../db';
-import StoryType from '../types/StoryType';
+import StoryType from './StoryType';
 import ValidationError from './ValidationError';
+
+export const stories = {
+  type: connectionDefinitions({
+    name: 'Story',
+    nodeType: StoryType,
+    connectionFields: {
+      totalCount: { type: new GraphQLNonNull(GraphQLInt) },
+    },
+  }).connectionType,
+  args: forwardConnectionArgs,
+  async resolve(root, args) {
+    const limit = typeof args.first === 'undefined' ? '10' : args.first;
+    const offset = args.after ? cursorToOffset(args.after) + 1 : 0;
+
+    const [data, totalCount] = await Promise.all([
+      db.table('stories')
+        .orderBy('created_at', 'desc')
+        .limit(limit).offset(offset)
+        .then(rows => rows.map(x => Object.assign(x, { __type: 'Story' }))),
+      db.table('stories')
+        .count().then(x => x[0].count),
+    ]);
+
+    return {
+      ...connectionFromArraySlice(data, args, {
+        sliceStart: offset,
+        arrayLength: totalCount,
+      }),
+      totalCount,
+    };
+  },
+};
 
 const inputFields = {
   title: {
@@ -79,12 +118,11 @@ function validate(input, { t, user }) {
   return { data, errors };
 }
 
-const createStory = mutationWithClientMutationId({
+export const createStory = mutationWithClientMutationId({
   name: 'CreateStory',
   inputFields,
   outputFields,
   async mutateAndGetPayload(input, context) {
-    const { stories } = context;
     const { data, errors } = validate(input, context);
 
     if (errors.length) {
@@ -92,11 +130,11 @@ const createStory = mutationWithClientMutationId({
     }
 
     const rows = await db.table('stories').insert(data).returning('id');
-    return stories.load(rows[0]).then(story => ({ story }));
+    return context.stories.load(rows[0]).then(story => ({ story }));
   },
 });
 
-const updateStory = mutationWithClientMutationId({
+export const updateStory = mutationWithClientMutationId({
   name: 'UpdateStory',
   inputFields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
@@ -104,7 +142,7 @@ const updateStory = mutationWithClientMutationId({
   },
   outputFields,
   async mutateAndGetPayload(input, context) {
-    const { t, user, stories } = context;
+    const { t, user } = context;
     const { type, id } = fromGlobalId(input.id);
 
     if (type !== 'Story') {
@@ -127,12 +165,7 @@ const updateStory = mutationWithClientMutationId({
     data.updated_at = db.raw('CURRENT_TIMESTAMP');
 
     await db.table('stories').where('id', '=', id).update(data);
-    await stories.clear(id);
-    return stories.load(id).then(x => ({ story: x }));
+    await context.stories.clear(id);
+    return context.stories.load(id).then(x => ({ story: x }));
   },
 });
-
-export default {
-  createStory,
-  updateStory,
-};

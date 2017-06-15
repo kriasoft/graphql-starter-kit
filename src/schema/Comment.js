@@ -14,7 +14,7 @@ import { GraphQLNonNull, GraphQLID, GraphQLString } from 'graphql';
 import { fromGlobalId, mutationWithClientMutationId } from 'graphql-relay';
 
 import db from '../db';
-import CommentType from '../types/CommentType';
+import CommentType from './CommentType';
 import ValidationError from './ValidationError';
 
 const outputFields = {
@@ -42,7 +42,7 @@ function validate(input, { t, user }) {
   return { data, errors };
 }
 
-const createComment = mutationWithClientMutationId({
+export const createComment = mutationWithClientMutationId({
   name: 'CreateComment',
   inputFields: {
     storyId: {
@@ -85,7 +85,7 @@ const createComment = mutationWithClientMutationId({
   },
 });
 
-const updateComment = mutationWithClientMutationId({
+export const updateComment = mutationWithClientMutationId({
   name: 'UpdateComment',
   inputFields: {
     id: {
@@ -124,8 +124,3 @@ const updateComment = mutationWithClientMutationId({
     return comments.load(id).then(x => ({ comment: x }));
   },
 });
-
-export default {
-  createComment,
-  updateComment,
-};

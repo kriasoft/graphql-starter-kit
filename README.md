@@ -31,26 +31,25 @@ meant to be paired with a web and/or mobile application project such as [React S
 ├── /seeds/                     # Scripts with reference/sample data
 ├── /src/                       # Node.js application source files
 │   ├── /emails/                # Handlebar templates for sending transactional email
-│   ├── /mutations/             # GraphQL mutations, e.g. createStory(), updateStory()
 │   ├── /routes/                # Express routes, e.g. /login/facebook
-│   ├── /types/                 # GraphQL types with resolve functions
+│   ├── /schema/                # GraphQL schema, types, fields and mutations
 │   │   ├── /Node.js            # Relay's "node" definitions
-│   │   ├── /UserType.js        # User account (id, email, etc.)
-│   │   └── /...                # etc.
+│   │   ├── /User.js            # User related top-level fields and mutations
+│   │   ├── /UserType.js        # User type, representing a user account (id, emails, etc.)
+│   │   ├── /...                # etc.
+│   │   └── /index.js           # Exports GraphQL schema object
 │   ├── /app.js                 # Express.js application
-│   ├── /DataLoader.js          # Data access utility for GraphQL /w batching and caching
+│   ├── /DataLoaders.js         # Data access utility for GraphQL /w batching and caching
 │   ├── /db.js                  # Database access and connection pooling (via Knex)
 │   ├── /email.js               # Client utility for sending transactional email
 │   ├── /passport.js            # Passport.js authentication strategies
 │   ├── /redis.js               # Redis client
-│   ├── /schema.js              # GraphQL schema
 │   └── /server.js              # Node.js server (entry point)
 ├── /test/                      # Unit, integration and load tests
 ├── /tools/                     # Build automation scripts and utilities
 ├── docker-compose.yml          # Defines Docker services, networks and volumes
 ├── Dockerfile                  # Commands for building a Docker image for production
-├── package.json                # The list of project dependencies
-└── yarn.lock                   # Fixed versions of all the dependencies
+└── package.json                # The list of project dependencies
 ```
 
 
