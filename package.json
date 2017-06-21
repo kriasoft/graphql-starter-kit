@@ -2,10 +2,6 @@
   "name": "api",
   "version": "0.0.0",
   "private": true,
-  "engines": {
-    "node": ">=8.1.0",
-    "npm": ">=5.0.3"
-  },
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
@@ -18,7 +14,7 @@
     "express-graphql": "^0.6.6",
     "express-session": "^1.15.3",
     "faker": "^4.1.0",
-    "graphql": "^0.10.1",
+    "graphql": "^0.10.3",
     "graphql-relay": "^0.5.2",
     "handlebars": "^4.0.10",
     "handlebars-layouts": "^3.1.4",
@@ -33,8 +29,8 @@
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
     "passport-twitter": "^1.0.4",
-    "pg": "^6.2.4",
-    "pretty-error": "^2.1.0",
+    "pg": "^6.3.1",
+    "pretty-error": "^2.1.1",
     "redis": "^2.7.1",
     "source-map-support": "^0.4.15",
     "validator": "^7.0.0"
@@ -73,6 +69,10 @@
     "db:migrate:undo": "node tools/db.js migrate:undo",
     "db:migration": "node tools/db.js migration",
     "db:seed": "node tools/db.js seed",
+    "docker:install": "docker-compose run --rm --no-deps api yarn install",
+    "docker:upgrade": "docker-compose run --rm --no-deps api yarn upgrade",
+    "docker:test": "docker-compose run api yarn test",
+    "docker:test:watch": "docker-compose run api yarn test:watch",
     "deploy": "node tools/publish.js",
     "start": "node tools/run.js"
   }
