@@ -17,7 +17,7 @@ const composeFile = '/usr/src/app/docker-compose.yml';
 if (!host) {
   console.log(`Usage:
 
-  node tools/deploy.js <host>
+  node tools/publish.js <host>
 
 Options:
 
