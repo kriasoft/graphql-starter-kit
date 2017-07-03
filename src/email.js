@@ -38,17 +38,6 @@ function loadTemplate(filename) {
   return handlebars.template(m.exports);
 }
 
-if (process.env.NODE_ENV !== 'test') {
-  fs.readdirSync(baseDir).forEach((name) => {
-    if (fs.statSync(`${baseDir}/${name}`).isDirectory()) {
-      templates.set(name, {
-        subject: loadTemplate(`${baseDir}/${name}/subject.js`),
-        html: loadTemplate(`${baseDir}/${name}/html.js`),
-      });
-    }
-  });
-}
-
 /**
  * Usage example:
  *
@@ -66,6 +55,17 @@ export default {
    * @param {object} context Context variables.
    */
   render(name: string, context: any = {}) {
+    if (!templates.size) {
+      fs.readdirSync(baseDir).forEach((template) => {
+        if (fs.statSync(`${baseDir}/${template}`).isDirectory()) {
+          templates.set(template, {
+            subject: loadTemplate(`${baseDir}/${template}/subject.js`),
+            html: loadTemplate(`${baseDir}/${template}/html.js`),
+          });
+        }
+      });
+    }
+
     const template = templates.get(name);
 
     if (!template) {

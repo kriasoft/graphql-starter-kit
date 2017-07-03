@@ -64,6 +64,7 @@ git clone -o nodejs-api-starter -b master --single-branch \
    https://github.com/kriasoft/nodejs-api-starter.git example-api
 cd example-api                  # Change current directory to the newly created one
 docker-compose up               # Launch Docker containers with the Node.js API app running inside
+yarn docker-db-seed             # Seed the database with test data
 ```
 
 The API server must become available at [http://localhost:8080/graphql](http://localhost:8080/graphql)
@@ -74,30 +75,31 @@ command that installs Node.js dependencies, migrates database schema to the late
 compiles Node.js app from source files (see [`src`](./src)) and launches it with "live reload"
 on port `8080`.
 
-In order to open a new terminal session from inside the `api` Docker container run:
+If you need to manually rollback and re-apply the latest database migration file, run the following:
 
 ```bash
-docker-compose exec api /bin/sh
+yarn docker-db-rollback         # Rollbacks the latest migration
+yarn docker-db-migrate          # Migrates database to the latest version (see /migrates folder)
+yarn docker-db-seed             # Seeds database with test data (see /seeds folder)
 ```
 
-From this shell you can run automation scripts such as `yarn test`, `yarn run db:migrate` etc.
-Find the full list of scripts available inside the [`tools`](./tools) folder and
-the [`package.json`](./package.json) file.
-
-In order to open a Postgres shell, run the following:
+In order to open a PostgreSQL shell, run the following:
 
 ```bash
 docker-compose exec db psql <db> -U postgres
 ```
 
+For the full list of automation scripts available in this project, please reffer to "scripts"
+section in the [`package.json`](./package.json) file and the [`tools`](./tools) folder.
+
 
 ## Testing
 
 ```bash
-yarn run lint                   # Find problematic patterns in code
-yarn run check                  # Check source code for type errors
-yarn run test                   # Run unit tests once
-yarn run test:watch             # Run unit tests in watch mode
+yarn lint                       # Find problematic patterns in code
+yarn check                      # Check source code for type errors
+yarn docker-test                # Run unit tests once inside a Docker container
+yarn docker-test-watch          # Run unit tests in watch mode inside a Docker container
 ```
 
 

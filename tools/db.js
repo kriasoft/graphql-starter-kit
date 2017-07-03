@@ -12,8 +12,8 @@ const fs = require('fs');
 const knex = require('knex');
 const task = require('./task');
 
-// The list of available commands, e.g. node tools/db.js migrate:undo
-const commands = ['version', 'migrate', 'migrate:undo', 'migration', 'seed'];
+// The list of available commands, e.g. node tools/db.js rollback
+const commands = ['version', 'migrate', 'rollback', 'migration', 'seed'];
 const command = process.argv[2];
 
 const config = {
@@ -46,7 +46,7 @@ module.exports = task('db', async () => {
       case 'migration':
         fs.writeFileSync(`migrations/${version}_${process.argv[3] || 'new'}.js`, template, 'utf8');
         break;
-      case 'migrate:undo':
+      case 'rollback':
         db = knex(config);
         await db.migrate.rollback(config);
         break;

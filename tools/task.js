@@ -11,13 +11,13 @@
  * Minimalistic script runner. Usage example:
  *
  *     node tools/db.js migrate
- *     Starting 'db:migrate'...
- *     Finished 'db:migrate' in 25ms
+ *     Starting 'db-migrate'...
+ *     Finished 'db-migrate' in 25ms
  */
 
 function run(task, action, ...args) {
   const command = process.argv[2];
-  const taskName = command && !command.startsWith('-') ? `${task}:${command}` : task;
+  const taskName = command && !command.startsWith('-') ? `${task}-${command}` : task;
   const start = new Date();
   process.stdout.write(`Starting '${taskName}'...\n`);
   return Promise.resolve().then(() => action(...args)).then(() => {

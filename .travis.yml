@@ -3,7 +3,7 @@ sudo: required
 language: generic
 
 env:
-  - DOCKER_COMPOSE_VERSION: 1.11.2
+  - DOCKER_COMPOSE_VERSION: 1.14.0
 
 cache: yarn
 
