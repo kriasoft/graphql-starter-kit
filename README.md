@@ -83,7 +83,13 @@ yarn docker-db-migrate          # Migrates database to the latest version (see /
 yarn docker-db-seed             # Seeds database with test data (see /seeds folder)
 ```
 
-In order to open a PostgreSQL shell, run the following:
+In order to open a shell from inside the running "api" container, run the following:
+
+```bash
+docker-compose exec api /bin/sh
+```
+
+Similarly, if you need to open a PostgreSQL shell ([psql][psql]), execute this command:
 
 ```bash
 docker-compose exec db psql <db> -U postgres
@@ -187,6 +193,7 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [yarn]: https://yarnpkg.com
 [demo]: https://graphql-demo.kriasoft.com/
 [pg]: https://www.postgresql.org/
+[psql]: https://www.postgresql.org/docs/current/static/app-psql.html
 [do]: https://m.do.co/c/eef302dbae9f
 [code]: https://code.visualstudio.com/
 [wstorm]: https://www.jetbrains.com/webstorm/
