@@ -1,21 +1,23 @@
-# Node.js API Starter Kit &nbsp; <a href="https://gitter.im/kriasoft/nodejs-api-starter"><img src="https://img.shields.io/gitter/room/kriasoft/nodejs-api-starter.js.svg" width="102" height="20"></a> <a href="https://github.com/kriasoft/nodejs-api-starter/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/nodejs-api-starter.svg?style=social&label=Star&maxAge=3600" height="20"></a> <a href="https://twitter.com/ReactStarter"><img src="https://img.shields.io/twitter/follow/ReactStarter.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
+# Node.js API Starter Kit &nbsp; <a href="https://github.com/kriasoft/nodejs-api-starter/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/nodejs-api-starter.svg?style=social&label=Star&maxAge=3600" height="20"></a> <a href="https://twitter.com/ReactStarter"><img src="https://img.shields.io/twitter/follow/ReactStarter.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
 
-[Node.js API Starter Kit][nodejskit] is a boilerplate and tooling for authoring **data API**
-backends with [Node.js][node], [JavaScript][js] (via [Babel][babel]) and [GraphQL][gql]. It's
-meant to be paired with a web and/or mobile application project such as [React Starter Kit][rsk].
+Boilerplate and tooling for authoring **data API** backends with **[Node.js][node]** and
+**[GraphQL][gql]**. It's meant to be paired with a web and/or mobile application project such as
+[React Starter Kit][rsk].
 
 #### This project is maintained with support from <a href="https://rollbar.com/?utm_source=reactstartkit(github)&utm_medium=link&utm_campaign=reactstartkit(github)"><img src="https://koistya.github.io/files/rollbar-247x48.png" height="24" align="top" /></a> <a href="https://x-team.com/?utm_source=reactstarterkit&utm_medium=github-link&utm_campaign=reactstarterkit-june"><img src="https://koistya.github.io/files/xteam-168x48.png" height="24" align="top" /></a><sup><a href="https://x-team.com/join/?utm_source=reactstarterkit&utm_medium=github-link&utm_campaign=reactstarterkit-june">Hiring</a></sup>
 
-
-## Features
-
-✓ Cross-platform development on macOS, Windows or Linux inside [Docker][docker], single dev dependency<br>
-✓ [GraphQL][gql] boilerplate, everything needed to get started building a [GraphQL][gql] API endpoint / gateway<br>
+✓ Cross-platform development on macOS, Windows or Linux inside [Docker][docker]<br>
+✓ [GraphQL][gql] boilerplate, everything needed to get started building a [GraphQL][gql] API service or gateway<br>
 ✓ [PostgreSQL][pg] database schema boilerplate and migration tools (see [`tools`](./tools), [`migrations`](./migrations))<br>
 ✓ Authentication and authorization via [Passport.js][passport] (see [`src/passport.js`](./src/passport.js), [`src/routes/account.js`](./src/routes/account.js))<br>
 ✓ Session and cache management with [Redis][redis] and [DataLoader][loader] (see [stop using JWT for sessions](http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/))<br>
+✓ Email templates for sending transactional email (see [`src/emails`](./src/emails), [`src/email.js`](./src/email.js))<br>
 ✓ **24/7** community support on [Gitter][gitter] + *premium support* on [Skype][skype] ([book a session](https://calendly.com/koistya))<br>
 
+
+---
+
+This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support][gitter]).
 
 <p align="center"><a href="https://graphql-demo.kriasoft.com"><img src="http://koistya.github.io/files/nodejs-api-starter-demo.png" width="600" alt="GraphQL Demo" /><br><sup>https://graphql-demo.kriasoft.com</sup></a></p>
 
@@ -48,29 +50,35 @@ meant to be paired with a web and/or mobile application project such as [React S
 ├── /test/                      # Unit, integration and load tests
 ├── /tools/                     # Build automation scripts and utilities
 ├── docker-compose.yml          # Defines Docker services, networks and volumes
+├── docker-compose.override.yml # Overrides per developer environment (not under source control)
 ├── Dockerfile                  # Commands for building a Docker image for production
 └── package.json                # The list of project dependencies
 ```
 
 
+## Prerequisites
+
+* [Docker][docker] Community Edition v17 or higher
+* [VS Code][code] editor (preferred) + EditorConfig, ESLint and Flow plug-ins. Note that the Flow
+Language Support plugin for VSCode requires setting `"javascript.validate.enable": false` flag in
+the workspace configuration.
+
+
 ## Getting Started
 
-Make sure that you have [Docker][docker] v17 or newer installed plus a good text editor or IDE
-([VS Code][code], [WebStorm][wstorm] or another), clone the repo and launch the app with [Docker
-Compose][compose]:
+Just clone the repo and run `docker-compose up`:
 
 ```bash
-git clone -o nodejs-api-starter -b master --single-branch \
-   https://github.com/kriasoft/nodejs-api-starter.git example-api
+git clone https://github.com/kriasoft/nodejs-api-starter.git example-api
 cd example-api                  # Change current directory to the newly created one
 docker-compose up               # Launch Docker containers with the Node.js API app running inside
-yarn docker-db-seed             # Seed the database with test data
+yarn docker-db-seed             # Seed the database with some test data
 ```
 
 The API server must become available at [http://localhost:8080/graphql](http://localhost:8080/graphql)
 ([live demo][demo]).
 
-Once the docker container named `api` is started, the Docker engine executes `node tools/run.js`
+Once the Docker container named `api` is started, the Docker engine executes `node tools/run.js`
 command that installs Node.js dependencies, migrates database schema to the latest version,
 compiles Node.js app from source files (see [`src`](./src)) and launches it with "live reload"
 on port `8080`.
@@ -83,7 +91,7 @@ yarn docker-db-migrate          # Migrates database to the latest version (see /
 yarn docker-db-seed             # Seeds database with test data (see /seeds folder)
 ```
 
-In order to open a shell from inside the running "api" container, run the following:
+In order to open a shell from inside the running "api" container, run:
 
 ```bash
 docker-compose exec api /bin/sh
@@ -124,11 +132,15 @@ If you keep the original Git history after clonning this repo, you can always fe
 the recent updates back into your project by running:
 
 ```bash
+git remote add nodejs-api-starter https://github.com/kriasoft/nodejs-api-starter.git
 git checkout master
 git fetch nodejs-api-starter
 git merge nodejs-api-starter/master
 docker-compose up
 ```
+
+*NOTE: Try to merge as soon as the new changes land on the master branch in Node.js API Starter
+repository, otherwise your project may diverse too much from the base/upstream repo.*
 
 
 ## Deployment
@@ -166,13 +178,6 @@ However, if you decide to get involved, please take a moment to review the [guid
 * [React Starter Kit](https://github.com/kriasoft/react-starter-kit) — Isomorphic web app boilerplate (React, Node.js, Babel, Webpack, CSS Modules)
 * [React Static Boilerplate](https://github.com/kriasoft/react-static-boilerplate) — Single-page application (SPA) starter kit (React, Redux, Webpack, Firebase)
 * [Membership Database](https://github.com/membership/membership.db) — SQL schema boilerplate for user accounts, profiles, roles, and auth claims
-
-
-## Support
-
-* [#nodejs-api-starter](https://gitter.im/kriasoft/nodejs-api-starter) on Gitter — Watch announcements, share ideas and feedback
-* [GitHub Issues](https://github.com/kriasoft/nodejs-api-starter/issues) — Check open issues, send bug reports feature requests
-* [@koistya](https://twitter.com/koistya) on [Codementor](https://www.codementor.io/koistya) or [Skype][skype] — Private consulting and customization requests
 
 
 ## License
