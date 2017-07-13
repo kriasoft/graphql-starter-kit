@@ -44,8 +44,11 @@ function getOrigin(url: string) {
 function isValidReturnURL(url: string) {
   if (url.startsWith('/')) return true;
   const whitelist = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [];
-  return validator.isURL(url, { require_protocol: true, protocols: ['http', 'https'] })
-    && whitelist.includes(getOrigin(url));
+  return validator.isURL(url, {
+    require_tld: false,
+    require_protocol: true,
+    protocols: ['http', 'https'],
+  }) && whitelist.includes(getOrigin(url));
 }
 
 // Generates a URL for redirecting a user to upon successfull authentication.

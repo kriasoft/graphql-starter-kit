@@ -59,9 +59,7 @@ This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support
 ## Prerequisites
 
 * [Docker][docker] Community Edition v17 or higher
-* [VS Code][code] editor (preferred) + EditorConfig, ESLint and Flow plug-ins. Note that the Flow
-Language Support plugin for VSCode requires setting `"javascript.validate.enable": false` flag in
-the workspace configuration.
+* [VS Code][code] editor (preferred) + Project Snippets, EditorConfig, ESLint and Flow plug-ins.
 
 
 ## Getting Started

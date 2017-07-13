@@ -1,0 +1,8 @@
+{
+  "javascript.validate.enable": false,
+  "vsicons.presets.angular": false,
+  "search.exclude": {
+    "**/build": true,
+    "**/node_modules": true
+  }
+}
