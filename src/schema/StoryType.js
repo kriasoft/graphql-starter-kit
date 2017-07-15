@@ -44,8 +44,8 @@ export default new GraphQLObjectType({
 
     comments: {
       type: new GraphQLList(CommentType),
-      resolve(parent, args, { commentsByStory }) {
-        return commentsByStory.load(parent.id);
+      resolve(parent, args, { commentsByStoryId }) {
+        return commentsByStoryId.load(parent.id);
       },
     },
 

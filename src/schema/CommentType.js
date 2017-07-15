@@ -46,8 +46,8 @@ const CommentType = new GraphQLObjectType({
 
     comments: {
       type: new GraphQLList(CommentType),
-      resolve(parent, args, { commentsByParent }) {
-        return commentsByParent.load(parent.id);
+      resolve(parent, args, { commentsByParentId }) {
+        return commentsByParentId.load(parent.id);
       },
     },
 
