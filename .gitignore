@@ -10,4 +10,5 @@ docker-compose.override.yml
 # Editors and IDEs
 .vscode/*
 !.vscode/snippets
+!.vscode/launch.json
 !.vscode/settings.json

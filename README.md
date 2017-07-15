@@ -118,10 +118,9 @@ yarn docker-test-watch          # Run unit tests in watch mode inside a Docker c
 ## Debugging
 
 In order to run the app with [V8 inspector][v8debug] enabled, simply replace `node tools/run.js`
-with `node --inspect tools/run.js` in either [`docker-compose.yml`](docker-compose.yml) file, or
-even better in `docker-compose.override.yml`. Then restart the app (`docker-compose up`) and
-[attach your debugger][vsdebug] to `127.0.0.1:9230` (see [`.vscode/launch.json`](https://gist.github.com/koistya/421ea3e0139225b27f909e98202a34de)
-for [VS Code][code] as an example).
+with `node --inspect=0.0.0.0:9229 tools/run.js` in either [`docker-compose.yml`](docker-compose.yml)
+file or, even better, in `docker-compose.override.yml`. Then restart the app (`docker-compose up`) and
+[attach your debugger][vsdebug] to `127.0.0.1:9230` (see [`.vscode/launch.json`](./vscode/launch.json)).
 
 
 ## Keeping Up-to-Date
