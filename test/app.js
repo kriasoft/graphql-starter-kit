@@ -12,6 +12,9 @@ describe('generator-graphql-server:app', function () {
 
   it('creates files', function () {
     assert.file([
+      '.vscode/snippets/javascript.json',
+      '.vscode/launch.json',
+      '.vscode/settings.json',
       'config/nginx-snippets/proxy-params.conf',
       'config/nginx-snippets/ssl-params.conf',
       'config/nginx.conf',
