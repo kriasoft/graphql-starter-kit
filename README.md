@@ -125,7 +125,7 @@ file or, even better, in `docker-compose.override.yml`. Then restart the app (`d
 
 ## Keeping Up-to-Date
 
-If you keep the original Git history after clonning this repo, you can always fetch and merge
+If you keep the original Git history after cloning this repo, you can always fetch and merge
 the recent updates back into your project by running:
 
 ```bash
