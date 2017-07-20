@@ -75,7 +75,7 @@ module.exports = task('build', ({ watch = false, onComplete } = {}) => new Promi
           if (src.startsWith('src') && src.endsWith('.js')) {
             const { code, map } = babel.transformFileSync(src, {
               sourceMaps: true,
-              sourceFileName: path.relative('./build', src),
+              sourceFileName: path.relative(path.dirname(`build${src.substr(3)}`), src),
             });
             // Enable source maps
             const data = (src === 'src/server.js' ?
