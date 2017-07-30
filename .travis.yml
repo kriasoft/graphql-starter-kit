@@ -14,9 +14,8 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -qqy docker-ce
   # Install Docker Compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+  - sudo chmod +x /usr/local/bin/docker-compose
 
 before_script:
   - docker-compose up -d
