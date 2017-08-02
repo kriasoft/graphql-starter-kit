@@ -1,0 +1,37 @@
+# Javascript Node CircleCI 2.0 configuration file
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: kriasoft/node-ci:8.2.1-alpine
+        environment:
+          - CORS_ORIGIN=http://localhost:3001,http://localhost:3000
+          - DATABASE_URL=postgres://postgres@localhost:5432/dev
+          - REDIS_URL=redis://localhost:6379/0
+          - SESSION_SECRET=wZjwhFtzQsd7r87W6AZw45Sm
+          - FACEBOOK_ID=1821424564802638
+          - FACEBOOK_SECRET=2339bdf25f236a42fc3a18280bf455e8
+          - GOOGLE_ID=xxxxx.apps.googleusercontent.com
+          - GOOGLE_SECRET=xxxxx
+          - TWITTER_KEY=xxxxx
+          - TWITTER_SECRET=xxxxx
+      - image: postgres:9.6.3-alpine
+      - image: redis:4.0.1-alpine
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - setup_remote_docker
+      # Download and cache dependencies
+      - restore_cache:
+          key: yarn-cache-{{ checksum "yarn.lock" }}
+      - run: yarn install --no-progress
+      - save_cache:
+          key: yarn-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      # Run unit tests
+      - run: yarn lint
+      - run: yarn test

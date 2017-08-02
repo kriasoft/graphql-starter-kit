@@ -54,7 +54,7 @@
     "eslint-plugin-flowtype": "^2.35.0",
     "eslint-plugin-import": "^2.7.0",
     "flow-bin": "^0.51.1",
-    "mocha": "^3.4.2",
+    "mocha": "^3.5.0",
     "rimraf": "^2.6.1"
   },
   "scripts": {
