@@ -60,6 +60,8 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
       - ./config/postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+    # ports:
+    #   - "127.0.0.1:5432:5432"
 
   # Distributed in-memory cache
   redis:
