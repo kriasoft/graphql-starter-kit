@@ -63,7 +63,7 @@
     "rimraf": "^2.6.1"
   },
   "lint-staged": {
-    "*.js": ["prettier --write", "git add"]
+    "*.js": ["eslint --fix", "git add"]
   },
   "scripts": {
     "precommit": "lint-staged",

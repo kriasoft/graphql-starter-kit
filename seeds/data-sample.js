@@ -16,9 +16,7 @@ module.exports.seed = async db => {
   const users = Array.from({ length: 10 }).map(() => ({
     display_name: faker.name.findName(),
     image_url: faker.internet.avatar(),
-    emails: JSON.stringify([
-      { email: faker.internet.email().toLowerCase(), verified: false },
-    ]),
+    emails: JSON.stringify([{ email: faker.internet.email().toLowerCase(), verified: false }]),
   }));
 
   await Promise.all(
@@ -36,16 +34,10 @@ module.exports.seed = async db => {
   const stories = Array.from({ length: 500 }).map(() =>
     Object.assign(
       {
-        author_id:
-          users[faker.random.number({ min: 0, max: users.length - 1 })].id,
-        title: faker.lorem
-          .sentence(faker.random.number({ min: 4, max: 7 }))
-          .slice(0, -1)
-          .substr(0, 80),
+        author_id: users[faker.random.number({ min: 0, max: users.length - 1 })].id,
+        title: faker.lorem.sentence(faker.random.number({ min: 4, max: 7 })).slice(0, -1).substr(0, 80),
       },
-      Math.random() > 0.3
-        ? { text: faker.lorem.text() }
-        : { url: faker.internet.url() },
+      Math.random() > 0.3 ? { text: faker.lorem.text() } : { url: faker.internet.url() },
       (date => ({ created_at: date, updated_at: date }))(faker.date.past()),
     ),
   );
@@ -65,10 +57,8 @@ module.exports.seed = async db => {
   const comments = Array.from({ length: 2000 }).map(() =>
     Object.assign(
       {
-        story_id:
-          stories[faker.random.number({ min: 0, max: stories.length - 1 })].id,
-        author_id:
-          users[faker.random.number({ min: 0, max: users.length - 1 })].id,
+        story_id: stories[faker.random.number({ min: 0, max: stories.length - 1 })].id,
+        author_id: users[faker.random.number({ min: 0, max: users.length - 1 })].id,
         text: faker.lorem.sentences(faker.random.number({ min: 1, max: 10 })),
       },
       (date => ({ created_at: date, updated_at: date }))(faker.date.past()),
