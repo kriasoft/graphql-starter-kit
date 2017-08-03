@@ -44,7 +44,11 @@ module.exports = task('db', async () => {
         await db.migrate.currentVersion(config).then(console.log);
         break;
       case 'migration':
-        fs.writeFileSync(`migrations/${version}_${process.argv[3] || 'new'}.js`, template, 'utf8');
+        fs.writeFileSync(
+          `migrations/${version}_${process.argv[3] || 'new'}.js`,
+          template,
+          'utf8',
+        );
         break;
       case 'rollback':
         db = knex(config);

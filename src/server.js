@@ -28,8 +28,12 @@ function handleExit(options, err) {
     const actions = [server.close, db.destroy, redis.quit];
     actions.forEach((close, i) => {
       try {
-        close(() => { if (i === actions.length - 1) process.exit(); });
-      } catch (err) { if (i === actions.length - 1) process.exit(); }
+        close(() => {
+          if (i === actions.length - 1) process.exit();
+        });
+      } catch (err) {
+        if (i === actions.length - 1) process.exit();
+      }
     });
   }
   if (err) console.log(err.stack);

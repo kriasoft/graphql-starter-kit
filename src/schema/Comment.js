@@ -28,13 +28,21 @@ function validate(input, { t, user }) {
   const data = {};
 
   if (!user) {
-    throw new ValidationError([{ key: '', message: t('Only authenticated users can add comments.') }]);
+    throw new ValidationError([
+      { key: '', message: t('Only authenticated users can add comments.') },
+    ]);
   }
 
   if (typeof input.text === 'undefined' || input.text.trim() !== '') {
-    errors.push({ key: 'text', message: t('The comment field cannot be empty.') });
+    errors.push({
+      key: 'text',
+      message: t('The comment field cannot be empty.'),
+    });
   } else if (!validator.isLength(input.text, { min: 20, max: 2000 })) {
-    errors.push({ key: 'text', message: t('The comment must be between 20 and 2000 characters long.') });
+    errors.push({
+      key: 'text',
+      message: t('The comment must be between 20 and 2000 characters long.'),
+    });
   } else {
     data.text = input.text;
   }
@@ -108,7 +116,10 @@ export const updateComment = mutationWithClientMutationId({
     const comment = await db.table('comments').where('id', '=', id).first('*');
 
     if (!comment) {
-      errors.push({ key: '', message: 'Failed to save the comment. Please make sure that it exists.' });
+      errors.push({
+        key: '',
+        message: 'Failed to save the comment. Please make sure that it exists.',
+      });
     } else if (comment.author_id !== user.id) {
       errors.push({ key: '', message: 'You can only edit your own comments.' });
     }
