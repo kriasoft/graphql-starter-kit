@@ -9,9 +9,9 @@
 
 // Create database schema for storing user accounts, logins and authentication claims/tokens
 // Source https://github.com/membership/membership.db
-module.exports.up = async (db) => {
+module.exports.up = async db => {
   // User accounts
-  await db.schema.createTable('users', (table) => {
+  await db.schema.createTable('users', table => {
     // UUID v1mc reduces the negative side effect of using random primary keys
     // with respect to keyspace fragmentation on disk for the tables because it's time based
     // https://www.postgresql.org/docs/current/static/uuid-ossp.html
@@ -23,7 +23,7 @@ module.exports.up = async (db) => {
   });
 
   // External logins with security tokens (e.g. Google, Facebook, Twitter)
-  await db.schema.createTable('logins', (table) => {
+  await db.schema.createTable('logins', table => {
     table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
     table.string('provider', 16).notNullable();
     table.string('id', 36).notNullable();
@@ -34,7 +34,7 @@ module.exports.up = async (db) => {
     table.primary(['provider', 'id']);
   });
 
-  await db.schema.createTable('stories', (table) => {
+  await db.schema.createTable('stories', table => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.uuid('author_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
     table.string('title', 80).notNullable();
@@ -43,13 +43,13 @@ module.exports.up = async (db) => {
     table.timestamps(false, true);
   });
 
-  await db.schema.createTable('story_points', (table) => {
+  await db.schema.createTable('story_points', table => {
     table.uuid('story_id').references('id').inTable('stories').onDelete('CASCADE').onUpdate('CASCADE');
     table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
     table.primary(['story_id', 'user_id']);
   });
 
-  await db.schema.createTable('comments', (table) => {
+  await db.schema.createTable('comments', table => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.uuid('story_id').notNullable().references('id').inTable('stories').onDelete('CASCADE').onUpdate('CASCADE');
     table.uuid('parent_id').references('id').inTable('comments').onDelete('CASCADE').onUpdate('CASCADE');
@@ -58,14 +58,14 @@ module.exports.up = async (db) => {
     table.timestamps(false, true);
   });
 
-  await db.schema.createTable('comment_points', (table) => {
+  await db.schema.createTable('comment_points', table => {
     table.uuid('comment_id').references('id').inTable('comments').onDelete('CASCADE').onUpdate('CASCADE');
     table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
     table.primary(['comment_id', 'user_id']);
   });
 };
 
-module.exports.down = async (db) => {
+module.exports.down = async db => {
   await db.schema.dropTableIfExists('comment_points');
   await db.schema.dropTableIfExists('comments');
   await db.schema.dropTableIfExists('story_points');

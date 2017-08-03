@@ -9,7 +9,13 @@
 
 /* @flow */
 
-import { GraphQLObjectType, GraphQLList, GraphQLNonNull, GraphQLInt, GraphQLString } from 'graphql';
+import {
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLInt,
+  GraphQLString,
+} from 'graphql';
 import { globalIdField } from 'graphql-relay';
 import { nodeInterface } from './Node';
 

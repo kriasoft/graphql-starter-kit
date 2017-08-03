@@ -43,12 +43,16 @@ function getOrigin(url: string) {
 // 'http://localhost:3000/about' => `true` (but only if its origin is whitelisted)
 function isValidReturnURL(url: string) {
   if (url.startsWith('/')) return true;
-  const whitelist = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [];
-  return validator.isURL(url, {
-    require_tld: false,
-    require_protocol: true,
-    protocols: ['http', 'https'],
-  }) && whitelist.includes(getOrigin(url));
+  const whitelist = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',')
+    : [];
+  return (
+    validator.isURL(url, {
+      require_tld: false,
+      require_protocol: true,
+      protocols: ['http', 'https'],
+    }) && whitelist.includes(getOrigin(url))
+  );
 }
 
 // Generates a URL for redirecting a user to upon successfull authentication.
@@ -63,30 +67,43 @@ function getSuccessRedirect(req) {
   const url = req.query.return || req.body.return || '/';
   if (!isValidReturnURL(url)) return '/';
   if (!getOrigin(url)) return url;
-  return `${url}${url.includes('?') ? '&' : '?'}sessionID=${req.cookies.sid}${
-    req.session.cookie.originalMaxAge ? `&maxAge=${req.session.cookie.originalMaxAge}` : ''}`;
+  return `${url}${url.includes('?') ? '&' : '?'}sessionID=${req.cookies
+    .sid}${req.session.cookie.originalMaxAge
+    ? `&maxAge=${req.session.cookie.originalMaxAge}`
+    : ''}`;
 }
 
 // Registers route handlers for the external login providers
 loginProviders.forEach(({ provider, options }) => {
-  router.get(`/login/${provider}`,
-    (req, res, next) => { req.session.returnTo = getSuccessRedirect(req); next(); },
-    passport.authenticate(provider, { failureFlash: true, ...options }));
+  router.get(
+    `/login/${provider}`,
+    (req, res, next) => {
+      req.session.returnTo = getSuccessRedirect(req);
+      next();
+    },
+    passport.authenticate(provider, { failureFlash: true, ...options }),
+  );
 
   router.get(`/login/${provider}/return`, (req, res, next) =>
     passport.authenticate(provider, {
       successReturnToOrRedirect: true,
       failureFlash: true,
       failureRedirect: `${getOrigin(req.session.returnTo)}/login`,
-    })(req, res, next));
+    })(req, res, next),
+  );
 });
 
 // Remove the `user` object from the session. Example:
 //   fetch('/login/clear', { method: 'POST', credentials: 'include' })
 //     .then(() => window.location = '/')
-router.post('/login/clear', (req, res) => { req.logout(); res.status(200).send('OK'); });
+router.post('/login/clear', (req, res) => {
+  req.logout();
+  res.status(200).send('OK');
+});
 
 // Allows to fetch the last login error(s) (which is usefull for single-page apps)
-router.post('/login/error', (req, res) => { res.send({ errors: req.flash('error') }); });
+router.post('/login/error', (req, res) => {
+  res.send({ errors: req.flash('error') });
+});
 
 export default router;

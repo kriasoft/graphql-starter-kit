@@ -22,7 +22,7 @@ const { nodeInterface, nodeField: node, nodesField: nodes } = nodeDefinitions(
 
     return null;
   },
-  (obj) => {
+  obj => {
     if (obj.__type === 'User') return require('./UserType').default;
     if (obj.__type === 'Story') return require('./StoryType').default;
     if (obj.__type === 'Comment') return require('./CommentType').default;

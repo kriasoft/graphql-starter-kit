@@ -9,7 +9,12 @@
 
 /* @flow */
 
-import { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLBoolean } from 'graphql';
+import {
+  GraphQLObjectType,
+  GraphQLNonNull,
+  GraphQLString,
+  GraphQLBoolean,
+} from 'graphql';
 
 export default new GraphQLObjectType({
   name: 'Email',
