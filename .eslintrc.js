@@ -7,23 +7,19 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+// http://eslint.org/docs/user-guide/configuring
+// https://github.com/prettier/prettier#eslint
 module.exports = {
-  parser: 'babel-eslint',
-  extends: [
-    'airbnb-base',
-    'prettier',
-  ],
-  plugins: [
-    'flowtype',
-    'prettier'
-  ],
+  parser: "babel-eslint",
+  extends: ["airbnb-base", "prettier"],
+  plugins: ["flowtype", "prettier"],
   rules: {
-    'prettier/prettier': [
-      'error',
+    "prettier/prettier": [
+      "error",
       {
         singleQuote: true,
-        trailingComma: 'all',
-      },
+        trailingComma: "all"
+      }
     ]
   }
-}
+};

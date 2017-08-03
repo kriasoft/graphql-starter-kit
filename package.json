@@ -56,11 +56,20 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-prettier": "^2.1.2",
     "flow-bin": "^0.51.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.2",
     "mocha": "^3.5.0",
     "prettier": "^1.5.3",
     "rimraf": "^2.6.1"
   },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "scripts": {
+    "precommit": "lint-staged",
     "lint": "eslint src test tools migrations seeds",
     "check": "flow check",
     "test": "mocha --compilers js:babel-register",

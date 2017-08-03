@@ -59,7 +59,9 @@ This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support
 ## Prerequisites
 
 * [Docker][docker] Community Edition v17 or higher
-* [VS Code][code] editor (preferred) + Project Snippets, EditorConfig, ESLint and Flow plug-ins.
+* [VS Code][code] editor (preferred) + [Project Snippets][vcsnippets],
+  [EditorConfig][vceditconfig], [ESLint][vceslint], [Flow][vcflow], and [Prettier][vcprettier]
+  plug-ins.
 
 
 ## Getting Started
@@ -198,7 +200,11 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [psql]: https://www.postgresql.org/docs/current/static/app-psql.html
 [do]: https://m.do.co/c/eef302dbae9f
 [code]: https://code.visualstudio.com/
-[wstorm]: https://www.jetbrains.com/webstorm/
+[vcsnippets]: https://marketplace.visualstudio.com/items?itemName=rebornix.project-snippets
+[vceditconfig]: https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig
+[vceslint]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+[vcflow]: https://marketplace.visualstudio.com/items?itemName=flowtype.flow-for-vscode
+[vcprettier]: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 [docker]: https://www.docker.com/community-edition
 [compose]: https://docs.docker.com/compose/
 [v8debug]: https://chromedevtools.github.io/debugger-protocol-viewer/v8/
