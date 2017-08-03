@@ -67,7 +67,7 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "lint": "eslint src test tools migrations seeds",
+    "lint": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" .",
     "check": "flow check",
     "test": "mocha --compilers js:babel-register",
     "test-watch": "mocha --compilers js:babel-register --reporter min --watch",
