@@ -29,7 +29,7 @@
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
     "passport-twitter": "^1.0.4",
-    "pg": "^7.0.2",
+    "pg": "^7.1.0",
     "pretty-error": "^2.1.1",
     "redis": "^2.7.1",
     "source-map-support": "^0.4.15",
@@ -63,7 +63,10 @@
     "rimraf": "^2.6.1"
   },
   "lint-staged": {
-    "*.js": ["eslint --fix", "git add"]
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "scripts": {
     "precommit": "lint-staged",
