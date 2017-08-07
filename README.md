@@ -2,7 +2,7 @@
 
 Boilerplate and tooling for authoring **data API** backends with **[Node.js][node]** and
 **[GraphQL][gql]**. It's meant to be paired with a web and/or mobile application project such as
-[React Starter Kit][rsk].
+[React Starter Kit][rsk] or [React Static Boilerplate][rsb].
 
 #### This project is maintained with support from <a href="https://rollbar.com/?utm_source=reactstartkit(github)&utm_medium=link&utm_campaign=reactstartkit(github)"><img src="https://koistya.github.io/files/rollbar-247x48.png" height="24" align="top" /></a> <a href="https://x-team.com/?utm_source=reactstarterkit&utm_medium=github-link&utm_campaign=reactstarterkit-june"><img src="https://koistya.github.io/files/xteam-168x48.png" height="24" align="top" /></a><sup><a href="https://x-team.com/join/?utm_source=reactstarterkit&utm_medium=github-link&utm_campaign=reactstarterkit-june">Hiring</a></sup>
 
@@ -190,6 +190,7 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 
 [nodejskit]: https://github.com/kriasoft/nodejs-api-starter
 [rsk]: https://github.com/kriasoft/react-starter-kit
+[rsb]: https://github.com/kriasoft/react-static-boilerplate
 [node]: https://nodejs.org
 [js]: https://developer.mozilla.org/docs/Web/JavaScript
 [babel]: http://babeljs.io/
