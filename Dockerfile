@@ -7,6 +7,6 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Install Node.js dependencies
-RUN yarn install --production --no-progress
+RUN yarn install --production --no-progress && yarn cache clean
 
 CMD [ "node", "build/server.js" ]
