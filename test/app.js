@@ -12,6 +12,7 @@ describe('generator-graphql-server:app', function () {
 
   it('creates files', function () {
     assert.file([
+      '.circleci/config.yml',
       '.vscode/snippets/javascript.json',
       '.vscode/launch.json',
       '.vscode/settings.json',
@@ -41,11 +42,10 @@ describe('generator-graphql-server:app', function () {
       '.babelrc',
       '.dockerignore',
       '.editorconfig',
-      '.eslintrc',
+      '.eslintrc.js',
       '.flowconfig',
       '.gitattributes',
       '.gitignore',
-      '.travis.yml',
       'docker-compose.yml',
       'Dockerfile',
       'LICENSE.txt',

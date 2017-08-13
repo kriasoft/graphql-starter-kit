@@ -1,6 +1,6 @@
 {
   "name": "generator-nodejs-api",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "description": "Node.js API Starter Kit built with Docker, Node.js, JavaScript (ES6, ES2015+ via Babel), PostgreSQL and GraphQL",
   "repository": "kriasoft/nodejs-api-starter",
   "author": "Kriasoft <hello@kriasoft.com> (https://www.kriasoft.com)",
