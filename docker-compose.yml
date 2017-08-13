@@ -21,7 +21,7 @@ services:
 
   # Data API and authentication/authorization
   api:
-    image: node:8.2.1-alpine
+    image: node:8.3.0-alpine
     hostname: api
     depends_on:
       - db
@@ -52,7 +52,7 @@ services:
 
   # SQL and document data store
   db:
-    image: postgres:9.6.3-alpine
+    image: postgres:9.6.4-alpine
     read_only: true
     tmpfs:
       - /tmp
