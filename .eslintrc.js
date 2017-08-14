@@ -21,5 +21,6 @@ module.exports = {
         trailingComma: 'all',
       },
     ],
+    'flowtype/define-flow-type': 1
   },
 };
