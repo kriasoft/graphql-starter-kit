@@ -14,7 +14,7 @@ import UserType from './UserType';
 
 export const me = {
   type: UserType,
-  resolve(root, args, { user, users }) {
-    return user && users.load(user.id);
+  resolve(root, args, { user, userById }) {
+    return user && userById.load(user.id);
   },
 };

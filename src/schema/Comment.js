@@ -65,7 +65,7 @@ export const createComment = mutationWithClientMutationId({
   },
   outputFields,
   async mutateAndGetPayload(input, context) {
-    const { t, user, comments } = context;
+    const { t, user, commentById } = context;
     const { data, errors } = validate(input, context);
 
     if (errors.length) {
@@ -89,7 +89,7 @@ export const createComment = mutationWithClientMutationId({
     data.story_id = storyId;
     data.author_id = user.id;
     const rows = await db.table('comments').insert(data).returning('id');
-    return comments.load(rows[0]).then(comment => ({ comment }));
+    return commentById.load(rows[0]).then(comment => ({ comment }));
   },
 });
 
@@ -105,7 +105,7 @@ export const updateComment = mutationWithClientMutationId({
   },
   outputFields,
   async mutateAndGetPayload(input, context) {
-    const { t, user, comments } = context;
+    const { t, user, commentById } = context;
     const { type, id } = fromGlobalId(input.id);
 
     if (type !== 'Comment') {
@@ -131,7 +131,6 @@ export const updateComment = mutationWithClientMutationId({
     data.updated_at = db.raw('CURRENT_TIMESTAMP');
 
     await db.table('comments').where('id', '=', id).update(data);
-    await comments.clear(id);
-    return comments.load(id).then(x => ({ comment: x }));
+    return commentById.load(id).then(x => ({ comment: x }));
   },
 });

@@ -41,12 +41,13 @@ This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support
 │   │   ├── /...                # etc.
 │   │   └── /index.js           # Exports GraphQL schema object
 │   ├── /app.js                 # Express.js application
-│   ├── /DataLoaders.js         # Data access utility for GraphQL /w batching and caching
+│   ├── /Context.js             # Data loaders and other context-specific stuff
 │   ├── /db.js                  # Database access and connection pooling (via Knex)
 │   ├── /email.js               # Client utility for sending transactional email
 │   ├── /passport.js            # Passport.js authentication strategies
 │   ├── /redis.js               # Redis client
-│   └── /server.js              # Node.js server (entry point)
+│   ├── /server.js              # Node.js server (entry point)
+│   └── /utils.js               # Utility functions (mapTo, mapToMany etc.)
 ├── /test/                      # Unit, integration and load tests
 ├── /tools/                     # Build automation scripts and utilities
 ├── docker-compose.yml          # Defines Docker services, networks and volumes

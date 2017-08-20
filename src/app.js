@@ -29,9 +29,9 @@ import { printSchema } from 'graphql';
 import email from './email';
 import redis from './redis';
 import passport from './passport';
-import schema from './schema';
-import DataLoaders from './DataLoaders';
 import accountRoutes from './routes/account';
+import schema from './schema';
+import Context from './Context';
 
 i18next.use(LanguageDetector).use(i18nextBackend).init({
   preload: ['en', 'de'],
@@ -118,11 +118,7 @@ app.use(
   '/graphql',
   expressGraphQL(req => ({
     schema,
-    context: {
-      t: req.t,
-      user: req.user,
-      ...DataLoaders.create(),
-    },
+    context: new Context(req),
     graphiql: process.env.NODE_ENV !== 'production',
     pretty: process.env.NODE_ENV !== 'production',
     formatError: error => ({

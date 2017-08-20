@@ -153,7 +153,7 @@ export const createStory = mutationWithClientMutationId({
     }
 
     const rows = await db.table('stories').insert(data).returning('id');
-    return context.stories.load(rows[0]).then(story => ({ story }));
+    return context.storyById.load(rows[0]).then(story => ({ story }));
   },
 });
 
@@ -191,7 +191,6 @@ export const updateStory = mutationWithClientMutationId({
     data.updated_at = db.raw('CURRENT_TIMESTAMP');
 
     await db.table('stories').where('id', '=', id).update(data);
-    await context.stories.clear(id);
-    return context.stories.load(id).then(x => ({ story: x }));
+    return context.storyById.load(id).then(x => ({ story: x }));
   },
 });

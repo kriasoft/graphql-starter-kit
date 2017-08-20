@@ -31,8 +31,8 @@ export default new GraphQLObjectType({
 
     author: {
       type: new GraphQLNonNull(UserType),
-      resolve(parent, args, { users }) {
-        return users.load(parent.author_id);
+      resolve(parent, args, { userById }) {
+        return userById.load(parent.author_id);
       },
     },
 

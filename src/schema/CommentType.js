@@ -31,22 +31,22 @@ const CommentType = new GraphQLObjectType({
 
     story: {
       type: new GraphQLNonNull(StoryType),
-      resolve(parent, args, { stories }) {
-        return stories.load(parent.story_id);
+      resolve(parent, args, { storyById }) {
+        return storyById.load(parent.story_id);
       },
     },
 
     parent: {
       type: new GraphQLNonNull(CommentType),
-      resolve(parent, args, { comments }) {
-        return comments.load(parent.parent_id);
+      resolve(parent, args, { commentById }) {
+        return commentById.load(parent.parent_id);
       },
     },
 
     author: {
       type: new GraphQLNonNull(UserType),
-      resolve(parent, args, { users }) {
-        return users.load(parent.author_id);
+      resolve(parent, args, { userById }) {
+        return userById.load(parent.author_id);
       },
     },
 

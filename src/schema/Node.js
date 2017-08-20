@@ -16,9 +16,9 @@ const { nodeInterface, nodeField: node, nodesField: nodes } = nodeDefinitions(
   (globalId, context) => {
     const { type, id } = fromGlobalId(globalId);
 
-    if (type === 'User') return context.users.load(id);
-    if (type === 'Story') return context.stories.load(id);
-    if (type === 'Comment') return context.comments.load(id);
+    if (type === 'User') return context.userById.load(id);
+    if (type === 'Story') return context.storyById.load(id);
+    if (type === 'Comment') return context.commentById.load(id);
 
     return null;
   },
