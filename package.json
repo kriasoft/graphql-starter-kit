@@ -89,6 +89,7 @@
     "docker-db-version": "docker-compose exec api yarn db-version",
     "docker-db-migrate": "docker-compose exec api yarn db-migrate",
     "docker-db-rollback": "docker-compose exec api yarn db-rollback",
+    "docker-db-migration": "docker-compose exec api yarn db-migration",
     "docker-db-seed": "docker-compose exec api yarn db-seed",
     "deploy": "node tools/publish.js",
     "start": "node tools/run.js"
