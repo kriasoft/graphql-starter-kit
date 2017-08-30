@@ -16,10 +16,6 @@ describe('generator-graphql-server:app', function () {
       '.vscode/snippets/javascript.json',
       '.vscode/launch.json',
       '.vscode/settings.json',
-      'config/nginx-snippets/proxy-params.conf',
-      'config/nginx-snippets/ssl-params.conf',
-      'config/nginx.conf',
-      'config/postgres-initdb.sh',
       'migrations/201612010000_initial.js',
       'src/routes/account.js',
       'src/schema/Node.js',
@@ -50,7 +46,8 @@ describe('generator-graphql-server:app', function () {
       'Dockerfile',
       'LICENSE.txt',
       'package.json',
-      'README.md'
+      'README.md',
+      'postgres-initdb.sh'
     ]);
   });
 });
