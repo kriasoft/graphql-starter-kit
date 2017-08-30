@@ -23,4 +23,6 @@ docker-compose.yml
 docker-compose.override.yml
 Dockerfile
 LICENSE.txt
+postgres-initdb.sh
 README.md
+yarn-error.log

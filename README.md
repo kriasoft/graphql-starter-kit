@@ -1,18 +1,11 @@
 # Node.js API Starter Kit &nbsp; <a href="https://github.com/kriasoft/nodejs-api-starter/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/nodejs-api-starter.svg?style=social&label=Star&maxAge=3600" height="20"></a> <a href="https://twitter.com/ReactStarter"><img src="https://img.shields.io/twitter/follow/ReactStarter.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
 
 Boilerplate and tooling for authoring **data API** backends with **[Node.js][node]** and
-**[GraphQL][gql]**. It's meant to be paired with a web and/or mobile application project such as
-[React Starter Kit][rsk] or [React Static Boilerplate][rsb].
+**[GraphQL][gql]**. It is best suited for developing a **GraphQL API** endpoint as a standalone
+(micro)service ([demo][demo]), backing up web front-ends and/or mobile apps (see [React Starter
+Kit][rsk], [React Static Boilerplate][rsb] etc). Please, visit our [sponsors](https://www.paypal.me/koistya):
 
-#### This project is maintained with support from <a href="https://rollbar.com/?utm_source=reactstartkit(github)&utm_medium=link&utm_campaign=reactstartkit(github)"><img src="https://koistya.github.io/files/rollbar-247x48.png" height="24" align="top" /></a> <a href="https://x-team.com/?utm_source=reactstarterkit&utm_medium=github-link&utm_campaign=reactstarterkit-june"><img src="https://koistya.github.io/files/xteam-168x48.png" height="24" align="top" /></a><sup><a href="https://x-team.com/join/?utm_source=reactstarterkit&utm_medium=github-link&utm_campaign=reactstarterkit-june">Hiring</a></sup>
-
-✓ Cross-platform development on macOS, Windows or Linux inside [Docker][docker]<br>
-✓ [GraphQL][gql] boilerplate, everything needed to get started building a [GraphQL][gql] API service or gateway<br>
-✓ [PostgreSQL][pg] database schema boilerplate and migration tools (see [`tools`](./tools), [`migrations`](./migrations))<br>
-✓ Authentication and authorization via [Passport.js][passport] (see [`src/passport.js`](./src/passport.js), [`src/routes/account.js`](./src/routes/account.js))<br>
-✓ Session and cache management with [Redis][redis] and [DataLoader][loader] (see [stop using JWT for sessions](http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/))<br>
-✓ Email templates for sending transactional email (see [`src/emails`](./src/emails), [`src/email.js`](./src/email.js))<br>
-✓ **24/7** community support on [Gitter][gitter] + *premium support* on [Skype][skype] ([book a session](https://calendly.com/koistya))<br>
+<p align="center"><a href="https://rollbar.com/?utm_source=reactstartkit(github)&utm_medium=link&utm_campaign=reactstartkit(github)"><img src="https://koistya.github.io/files/rollbar-247x48.png" height="24" align="top" /></a> <a href="https://x-team.com/?utm_source=reactstarterkit&utm_medium=github-link&utm_campaign=reactstarterkit-june"><img src="https://koistya.github.io/files/xteam-168x48.png" height="24" align="top" /></a><sup><a href="https://x-team.com/join/?utm_source=reactstarterkit&utm_medium=github-link&utm_campaign=reactstarterkit-june">Hiring</a></sup></p>
 
 
 ---
@@ -24,12 +17,12 @@ This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support
 
 ## Tech Stack
 
-* [Docker][docker], [Node.js][node], [Yarn][yarn], [JavaScript][js], [Babel][babel], [Flow][flow] — core platform and dev tools
+* [Docker][docker], [Node.js][node], [Yarn][yarn], [JavaScript][js], [Babel][babel], [Flow][flow], [Prettier][prettier] — core platform and dev tools
 * [Express][express], [Passport.js][passport], [session][session], [flash][flash], [cors][cors] etc. — common HTTP-server features
 * [GraphQL.js][gqljs], [GraphQL.js Relay][gqlrelay], [DataLoader][loader], [validator][validator] — [GraphQL][gql] schema and API endpoint
 * [PostgreSQL][pg], [Redis][redis], [Knex][knex], [pg][nodepg] — SQL, document, key/value data store and data acess
-* [Nodemailer][mailer], [Handlebars][hbs], [Juice][juice] - transactional email and email templates /w layout support
-* [I18next][i18next] - localizations and translations
+* [Nodemailer][mailer], [Handlebars][hbs], [Juice][juice] — transactional email and email templates /w layout support
+* [I18next][i18next], [I18next Middleware][i18nextmid], [I18next Backend][i18nextback] — localization and translations
 
 ## Directory Layout
 
@@ -172,13 +165,12 @@ Anyone and everyone is welcome to [contribute](CONTRIBUTING.md). Start by checki
 However, if you decide to get involved, please take a moment to review the [guidelines](CONTRIBUTING.md).
 
 
-## Books and Tutorials
+## Reference Articles
 
-[![Docker in Action](https://images-na.ssl-images-amazon.com/images/I/518L63vGMpL._SL160_.jpg)](http://amzn.to/2hmUrNP)
-[![You Don't Know JS](https://images-na.ssl-images-amazon.com/images/I/B172ZcXnYDS._SL160_.png)](http://amzn.to/2idQ3gL)
-[![JavaScript Ninja](https://images-na.ssl-images-amazon.com/images/I/51tQ+JAczgL._SL160_.jpg)](http://amzn.to/2idDamK)
-[![Effective JavaScript](https://images-na.ssl-images-amazon.com/images/I/51W25NBDLQL._SL160_.jpg)](http://amzn.to/2idMZBq)
-[![NodeSchool.io](http://koistya.github.io/files/nodeschool.jpg)](https://nodeschool.io/)
+* [Stop using JWT for sesstions](http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/)
+  ([part 2](http://cryto.net/~joepie91/blog/2016/06/19/stop-using-jwt-for-sessions-part-2-why-your-solution-doesnt-work/))
+  by [Sven Slootweg](https://github.com/joepie91)
+
 
 ## Related Projects
 
@@ -205,6 +197,7 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [js]: https://developer.mozilla.org/docs/Web/JavaScript
 [babel]: http://babeljs.io/
 [flow]: https://flow.org/
+[prettier]: https://prettier.io/
 [gql]: http://graphql.org/
 [gqljs]: https://github.com/graphql/graphql-js
 [gqlrelay]: https://github.com/graphql/graphql-relay-js
@@ -237,5 +230,6 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [hbs]: http://handlebarsjs.com/
 [juice]: https://github.com/Automattic/juice
 [i18next]: https://www.i18next.com/
+[i18nextmid]: https://github.com/i18next/i18next-express-middleware
+[i18nextback]: https://github.com/i18next/i18next-node-fs-backend
 [gitter]: https://gitter.im/kriasoft/nodejs-api-starter
-[skype]: https://calendly.com/koistya
