@@ -44,7 +44,10 @@ export const stories = {
         .limit(limit)
         .offset(offset)
         .then(rows => rows.map(x => Object.assign(x, { __type: 'Story' }))),
-      db.table('stories').count().then(x => x[0].count),
+      db
+        .table('stories')
+        .count()
+        .then(x => x[0].count),
     ]);
 
     return {
@@ -152,7 +155,10 @@ export const createStory = mutationWithClientMutationId({
       throw new ValidationError(errors);
     }
 
-    const rows = await db.table('stories').insert(data).returning('id');
+    const rows = await db
+      .table('stories')
+      .insert(data)
+      .returning('id');
     return context.storyById.load(rows[0]).then(story => ({ story }));
   },
 });
@@ -173,7 +179,10 @@ export const updateStory = mutationWithClientMutationId({
     }
 
     const { data, errors } = validate(input, context);
-    const story = await db.table('stories').where('id', '=', id).first('*');
+    const story = await db
+      .table('stories')
+      .where('id', '=', id)
+      .first('*');
 
     if (!story) {
       errors.push({
@@ -190,7 +199,10 @@ export const updateStory = mutationWithClientMutationId({
 
     data.updated_at = db.raw('CURRENT_TIMESTAMP');
 
-    await db.table('stories').where('id', '=', id).update(data);
+    await db
+      .table('stories')
+      .where('id', '=', id)
+      .update(data);
     return context.storyById.load(id).then(x => ({ story: x }));
   },
 });

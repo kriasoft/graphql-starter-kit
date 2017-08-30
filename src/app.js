@@ -33,18 +33,24 @@ import accountRoutes from './routes/account';
 import schema from './schema';
 import Context from './Context';
 
-i18next.use(LanguageDetector).use(i18nextBackend).init({
-  preload: ['en', 'de'],
-  ns: ['common', 'email'],
-  fallbackNS: 'common',
-  detection: {
-    lookupCookie: 'lng',
-  },
-  backend: {
-    loadPath: path.resolve(__dirname, '../locales/{{lng}}/{{ns}}.json'),
-    addPath: path.resolve(__dirname, '../locales/{{lng}}/{{ns}}.missing.json'),
-  },
-});
+i18next
+  .use(LanguageDetector)
+  .use(i18nextBackend)
+  .init({
+    preload: ['en', 'de'],
+    ns: ['common', 'email'],
+    fallbackNS: 'common',
+    detection: {
+      lookupCookie: 'lng',
+    },
+    backend: {
+      loadPath: path.resolve(__dirname, '../locales/{{lng}}/{{ns}}.json'),
+      addPath: path.resolve(
+        __dirname,
+        '../locales/{{lng}}/{{ns}}.missing.json',
+      ),
+    },
+  });
 
 const app = express();
 

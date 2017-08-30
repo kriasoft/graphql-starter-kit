@@ -2,23 +2,6 @@ version: '3'
 
 services:
 
-  # Nginx web server acting as a reverse proxy for "web" and "api" services
-  nginx:
-    image: nginx:1.13.3-alpine
-    read_only: true
-    tmpfs:
-      - /var/cache/nginx
-      - /var/log/nginx
-      - /var/run
-    depends_on:
-      - api
-    ports:
-      - "8080:80"
-      - "8443:443"
-    volumes:
-      - ./config/nginx-snippets:/etc/nginx/snippets:ro
-      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-
   # Data API and authentication/authorization
   api:
     image: node:8.4.0-alpine
@@ -27,7 +10,7 @@ services:
       - db
       - redis
     environment:
-      - CORS_ORIGIN=http://localhost:3001,http://localhost:3000
+      - CORS_ORIGIN=http://localhost:3000,http://localhost:3001
       - DATABASE_URL=postgres://postgres@db:5432/dev
       - DATABASE_DEBUG=false
       - REDIS_URL=redis://redis:6379/0
@@ -38,9 +21,8 @@ services:
       - GOOGLE_SECRET=xxxxx
       - TWITTER_KEY=xxxxx
       - TWITTER_SECRET=xxxxx
-    expose:
-      - "8080"
     ports:
+      - "8080"
       - "127.0.0.1:9229:9229" # V8 inspector for tools/run.js
       - "127.0.0.1:9230:9230" # V8 inspector for src/server.js
     volumes:
@@ -59,9 +41,9 @@ services:
       - /var/run/postgresql
     volumes:
       - db:/var/lib/postgresql/data
-      - ./config/postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+      - ./postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
     # ports:
-    #   - "127.0.0.1:5432:5432"
+    #   - "127.0.0.1:5432:5432" # you can override it via docker-compose.override.yml
 
   # Distributed in-memory cache
   redis:

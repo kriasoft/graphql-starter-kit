@@ -25,7 +25,12 @@ module.exports.seed = async db => {
         .table('users')
         .insert(user)
         .returning('id')
-        .then(rows => db.table('users').where('id', '=', rows[0]).first('*'))
+        .then(rows =>
+          db
+            .table('users')
+            .where('id', '=', rows[0])
+            .first('*'),
+        )
         .then(row => Object.assign(user, row)),
     ),
   );
@@ -35,7 +40,10 @@ module.exports.seed = async db => {
     Object.assign(
       {
         author_id: users[faker.random.number({ min: 0, max: users.length - 1 })].id,
-        title: faker.lorem.sentence(faker.random.number({ min: 4, max: 7 })).slice(0, -1).substr(0, 80),
+        title: faker.lorem
+          .sentence(faker.random.number({ min: 4, max: 7 }))
+          .slice(0, -1)
+          .substr(0, 80),
       },
       Math.random() > 0.3 ? { text: faker.lorem.text() } : { url: faker.internet.url() },
       (date => ({ created_at: date, updated_at: date }))(faker.date.past()),
@@ -48,7 +56,12 @@ module.exports.seed = async db => {
         .table('stories')
         .insert(story)
         .returning('id')
-        .then(rows => db.table('stories').where('id', '=', rows[0]).first('*'))
+        .then(rows =>
+          db
+            .table('stories')
+            .where('id', '=', rows[0])
+            .first('*'),
+        )
         .then(row => Object.assign(story, row)),
     ),
   );
@@ -71,7 +84,12 @@ module.exports.seed = async db => {
         .table('comments')
         .insert(comment)
         .returning('id')
-        .then(rows => db.table('comments').where('id', '=', rows[0]).first('*'))
+        .then(rows =>
+          db
+            .table('comments')
+            .where('id', '=', rows[0])
+            .first('*'),
+        )
         .then(row => Object.assign(comment, row)),
     ),
   );

@@ -36,7 +36,10 @@ async function login(req, provider, profile, tokens) {
   let user;
 
   if (req.user) {
-    user = await db.table('users').where({ id: req.user.id }).first();
+    user = await db
+      .table('users')
+      .where({ id: req.user.id })
+      .first();
   }
 
   if (!user) {
@@ -96,12 +99,15 @@ async function login(req, provider, profile, tokens) {
       profile: JSON.stringify(profile._json),
     });
   } else {
-    await db.table('logins').where(loginKeys).update({
-      username: profile.username,
-      tokens: JSON.stringify(tokens),
-      profile: JSON.stringify(profile._json),
-      updated_at: db.raw('CURRENT_TIMESTAMP'),
-    });
+    await db
+      .table('logins')
+      .where(loginKeys)
+      .update({
+        username: profile.username,
+        tokens: JSON.stringify(tokens),
+        profile: JSON.stringify(profile._json),
+        updated_at: db.raw('CURRENT_TIMESTAMP'),
+      });
   }
 
   return {

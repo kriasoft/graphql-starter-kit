@@ -22,12 +22,20 @@ This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support
 <p align="center"><a href="https://graphql-demo.kriasoft.com"><img src="http://koistya.github.io/files/nodejs-api-starter-demo.png" width="600" alt="GraphQL Demo" /><br><sup>https://graphql-demo.kriasoft.com</sup></a></p>
 
 
+## Tech Stack
+
+* [Docker][docker], [Node.js][node], [Yarn][yarn], [JavaScript][js], [Babel][babel], [Flow][flow] — core platform and dev tools
+* [Express][express], [Passport.js][passport], [session][session], [flash][flash], [cors][cors] etc. — common HTTP-server features
+* [GraphQL.js][gqljs], [GraphQL.js Relay][gqlrelay], [DataLoader][loader], [validator][validator] — [GraphQL][gql] schema and API endpoint
+* [PostgreSQL][pg], [Redis][redis], [Knex][knex], [pg][nodepg] — SQL, document, key/value data store and data acess
+* [Nodemailer][mailer], [Handlebars][hbs], [Juice][juice] - transactional email and email templates /w layout support
+* [I18next][i18next] - localizations and translations
+
 ## Directory Layout
 
 ```bash
 .
 ├── /build/                     # The compiled output (via Babel)
-├── /config/                    # Configuration files (for Docker containers etc.)
 ├── /locales/                   # Localization resources (i18n)
 ├── /migrations/                # Database schema migrations
 ├── /seeds/                     # Scripts with reference/sample data
@@ -53,7 +61,8 @@ This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support
 ├── docker-compose.yml          # Defines Docker services, networks and volumes
 ├── docker-compose.override.yml # Overrides per developer environment (not under source control)
 ├── Dockerfile                  # Commands for building a Docker image for production
-└── package.json                # The list of project dependencies
+├── package.json                # The list of project dependencies
+└── postgres-initdb.sh          # Configuration script for the PostgreSQL Docker container
 ```
 
 
@@ -195,10 +204,18 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [node]: https://nodejs.org
 [js]: https://developer.mozilla.org/docs/Web/JavaScript
 [babel]: http://babeljs.io/
+[flow]: https://flow.org/
 [gql]: http://graphql.org/
+[gqljs]: https://github.com/graphql/graphql-js
+[gqlrelay]: https://github.com/graphql/graphql-relay-js
 [yarn]: https://yarnpkg.com
 [demo]: https://graphql-demo.kriasoft.com/
+[express]: http://expressjs.com/
+[session]: https://github.com/expressjs/session
+[flash]: https://github.com/expressjs/flash
+[cors]: https://github.com/expressjs/cors
 [pg]: https://www.postgresql.org/
+[nodepg]: https://github.com/brianc/node-postgres
 [psql]: https://www.postgresql.org/docs/current/static/app-psql.html
 [do]: https://m.do.co/c/eef302dbae9f
 [code]: https://code.visualstudio.com/
@@ -213,6 +230,12 @@ Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [bl
 [vsdebug]: https://code.visualstudio.com/Docs/editor/debugging
 [passport]: http://passportjs.org/
 [redis]: https://redis.io/
+[knex]: http://knexjs.org/
 [loader]: https://github.com/facebook/dataloader
+[validator]: https://github.com/chriso/validator.js
+[mailer]: https://nodemailer.com/
+[hbs]: http://handlebarsjs.com/
+[juice]: https://github.com/Automattic/juice
+[i18next]: https://www.i18next.com/
 [gitter]: https://gitter.im/kriasoft/nodejs-api-starter
 [skype]: https://calendly.com/koistya

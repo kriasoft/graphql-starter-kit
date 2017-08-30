@@ -88,7 +88,10 @@ export const createComment = mutationWithClientMutationId({
 
     data.story_id = storyId;
     data.author_id = user.id;
-    const rows = await db.table('comments').insert(data).returning('id');
+    const rows = await db
+      .table('comments')
+      .insert(data)
+      .returning('id');
     return commentById.load(rows[0]).then(comment => ({ comment }));
   },
 });
@@ -113,7 +116,10 @@ export const updateComment = mutationWithClientMutationId({
     }
 
     const { data, errors } = validate(input, context);
-    const comment = await db.table('comments').where('id', '=', id).first('*');
+    const comment = await db
+      .table('comments')
+      .where('id', '=', id)
+      .first('*');
 
     if (!comment) {
       errors.push({
@@ -130,7 +136,10 @@ export const updateComment = mutationWithClientMutationId({
 
     data.updated_at = db.raw('CURRENT_TIMESTAMP');
 
-    await db.table('comments').where('id', '=', id).update(data);
+    await db
+      .table('comments')
+      .where('id', '=', id)
+      .update(data);
     return commentById.load(id).then(x => ({ comment: x }));
   },
 });

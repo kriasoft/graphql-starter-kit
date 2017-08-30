@@ -1,13 +1,5 @@
 {
   "rules": {
-    "newline-per-chained-call": "off",
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true,
-        "trailingComma": "all",
-        "printWidth": 120
-      }
-    ]
+    "newline-per-chained-call": "off"
   }
 }
