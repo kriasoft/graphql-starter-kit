@@ -37,9 +37,9 @@ const CommentType = new GraphQLObjectType({
     },
 
     parent: {
-      type: new GraphQLNonNull(CommentType),
+      type: CommentType,
       resolve(parent, args, { commentById }) {
-        return commentById.load(parent.parent_id);
+        return parent.parent_id && commentById.load(parent.parent_id);
       },
     },
 
