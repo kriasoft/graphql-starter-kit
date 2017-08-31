@@ -38,8 +38,8 @@ export default new GraphQLObjectType({
 
     emails: {
       type: new GraphQLList(EmailType),
-      resolve(parent, args, { user }) {
-        return user && parent.id === user.id ? parent.emails : null;
+      resolve(user, args, { emailsByUserId }) {
+        return emailsByUserId.load(user.id);
       },
     },
   },

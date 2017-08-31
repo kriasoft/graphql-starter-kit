@@ -45,6 +45,22 @@ class Context {
       .then(mapTo(keys, x => x.id, 'User')),
   );
 
+  emailById = new DataLoader(keys =>
+    db
+      .table('emails')
+      .whereIn('id', keys)
+      .select()
+      .then(mapTo(keys, x => x.id, 'Email')),
+  );
+
+  emailsByUserId = new DataLoader(keys =>
+    db
+      .table('emails')
+      .whereIn('user_id', keys)
+      .select()
+      .then(mapToMany(keys, x => x.user_id, 'Email')),
+  );
+
   storyById = new DataLoader(keys =>
     db
       .table('stories')
