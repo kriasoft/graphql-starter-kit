@@ -16,7 +16,6 @@ module.exports.seed = async db => {
   const users = Array.from({ length: 10 }).map(() => ({
     display_name: faker.name.findName(),
     image_url: faker.internet.avatar(),
-    emails: JSON.stringify([{ email: faker.internet.email().toLowerCase(), verified: false }]),
   }));
 
   await Promise.all(
@@ -29,7 +28,16 @@ module.exports.seed = async db => {
           db
             .table('users')
             .where('id', '=', rows[0])
-            .first('*'),
+            .first()
+            .then(u =>
+              db
+                .table('emails')
+                .insert({
+                  user_id: u.id,
+                  email: faker.internet.email().toLowerCase(),
+                })
+                .then(() => u),
+            ),
         )
         .then(row => Object.assign(user, row)),
     ),
@@ -60,7 +68,7 @@ module.exports.seed = async db => {
           db
             .table('stories')
             .where('id', '=', rows[0])
-            .first('*'),
+            .first(),
         )
         .then(row => Object.assign(story, row)),
     ),
@@ -88,7 +96,7 @@ module.exports.seed = async db => {
           db
             .table('comments')
             .where('id', '=', rows[0])
-            .first('*'),
+            .first(),
         )
         .then(row => Object.assign(comment, row)),
     ),
