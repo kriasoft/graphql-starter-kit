@@ -1,5 +1,10 @@
 {
+  "extends": ["airbnb-base"],
+  "plugins": ["flowtype"],
   "rules": {
-    "newline-per-chained-call": "off"
+    "arrow-parens": "off",
+    "newline-per-chained-call": "off",
+    "no-console": "off",
+    "prettier/prettier": "off"
   }
 }
