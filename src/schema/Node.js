@@ -17,6 +17,7 @@ const { nodeInterface, nodeField: node, nodesField: nodes } = nodeDefinitions(
     const { type, id } = fromGlobalId(globalId);
 
     if (type === 'User') return context.userById.load(id);
+    if (type === 'Email') return context.emailById.load(id);
     if (type === 'Story') return context.storyById.load(id);
     if (type === 'Comment') return context.commentById.load(id);
 
@@ -24,6 +25,7 @@ const { nodeInterface, nodeField: node, nodesField: nodes } = nodeDefinitions(
   },
   obj => {
     if (obj.__type === 'User') return require('./UserType').default;
+    if (obj.__type === 'Email') return require('./EmailType').default;
     if (obj.__type === 'Story') return require('./StoryType').default;
     if (obj.__type === 'Comment') return require('./CommentType').default;
 

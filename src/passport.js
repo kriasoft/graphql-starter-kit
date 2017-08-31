@@ -22,7 +22,6 @@ passport.serializeUser((user, done) => {
     id: user.id,
     displayName: user.displayName,
     imageUrl: user.imageUrl,
-    emails: user.emails,
   });
 });
 
@@ -56,12 +55,12 @@ async function login(req, provider, profile, tokens) {
     ) {
       user = await db
         .table('users')
-        .where(
-          'emails',
-          '@>',
-          JSON.stringify([{ email: profile.emails[0].value, verified: true }]),
-        )
-        .first();
+        .innerJoin('emails', 'emails.user_id', 'users.id')
+        .where({
+          'emails.email': profile.emails[0].value,
+          'emails.verified': true,
+        })
+        .first('users.*');
     }
   }
 
@@ -70,18 +69,22 @@ async function login(req, provider, profile, tokens) {
       .table('users')
       .insert({
         display_name: profile.displayName,
-        emails: JSON.stringify(
-          (profile.emails || []).map(x => ({
-            email: x.value,
-            verified: x.verified || false,
-          })),
-        ),
         image_url:
           profile.photos && profile.photos.length
             ? profile.photos[0].value
             : null,
       })
       .returning('*'))[0];
+
+    if (profile.emails && profile.emails.length) {
+      await db.table('emails').insert(
+        profile.emails.map(x => ({
+          user_id: user.id,
+          email: x.value,
+          verified: x.verified || false,
+        })),
+      );
+    }
   }
 
   const loginKeys = { user_id: user.id, provider, id: profile.id };
@@ -114,7 +117,6 @@ async function login(req, provider, profile, tokens) {
     id: user.id,
     displayName: user.display_name,
     imageUrl: user.image_url,
-    emails: user.emails,
   };
 }
 
