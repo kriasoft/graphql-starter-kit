@@ -26,7 +26,7 @@ module.exports.up = async db => {
   await db.schema.createTable('emails', table => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
-    table.string('email', 100);
+    table.string('email', 100).notNullable();
     table.boolean('verified').notNullable().defaultTo(false);
     table.boolean('primary').notNullable().defaultTo(false);
     table.timestamps(false, true);
