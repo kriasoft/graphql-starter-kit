@@ -3,7 +3,6 @@
 .git
 .idea
 .vscode
-config
 node_modules
 src
 test
@@ -17,11 +16,14 @@ tools/README.md
 .flowconfig
 .gitattributes
 .gitignore
+binding.cc
+binding.gyp
 CONTRIBUTING.md
 deploy.sh
 docker-compose.yml
 docker-compose.override.yml
 Dockerfile
+Dockerfile.dev
 LICENSE.txt
 postgres-initdb.sh
 README.md

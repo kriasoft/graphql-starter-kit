@@ -48,8 +48,11 @@ try {
     const Module = require('module');
     const m = new Module();
     // eslint-disable-next-line
-    m._compile(fs.readFileSync('./tools/build.js', 'utf8'), path.resolve('./tools/build.js'));
-  } catch (error) { } // eslint-disable-line
+    m._compile(
+      fs.readFileSync('./tools/build.js', 'utf8'),
+      path.resolve('./tools/build.js'),
+    );
+  } catch (error) {} // eslint-disable-line
 
   // Reload dependencies
   build = require('./build');
@@ -60,6 +63,7 @@ function spawnServer() {
   return cp.spawn(
     'node',
     [
+      '--napi-modules',
       // Pre-load application dependencies to improve "hot reload" restart time
       ...Object.keys(pkg.dependencies).reduce(
         (requires, val) => requires.concat(['--require', val]),

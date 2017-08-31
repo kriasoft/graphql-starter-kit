@@ -10,7 +10,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const rimraf = require('rimraf');
+const del = require('del');
 const babel = require('babel-core');
 const chokidar = require('chokidar');
 const handlebars = require('handlebars');
@@ -50,7 +50,10 @@ module.exports = task(
       let ready = false;
 
       // Clean up the output directory
-      rimraf.sync('build/*', { nosort: true, dot: true });
+      del.sync(
+        ['build/**', '!build', '!build/Release', '!build/Release/*.node'],
+        { dot: true },
+      );
 
       let watcher = chokidar.watch([
         'locales',
@@ -65,11 +68,14 @@ module.exports = task(
           return;
         }
 
-        // Skip files starting with a dot, e.g. .DS_Store, .eslintrc etc.
-        if (path.basename(src)[0] === '.') return;
-
-        // Skip unit tests
-        if (src.includes('__tests__') || src.endsWith('.test.js')) return;
+        if (
+          path.basename(src)[0] === '.' ||
+          src.includes('__tests__') ||
+          src.endsWith('.test.js') ||
+          src.endsWith('.cc')
+        ) {
+          return;
+        }
 
         // Get destination file name, e.g. src/app.js (src) -> build/app.js (dest)
         const dest = src.startsWith('src')

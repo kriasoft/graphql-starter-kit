@@ -1,0 +1,4 @@
+FROM node:8.4.0-alpine
+
+# If you have native dependencies, you'll need extra tools
+RUN apk add --no-cache make g++ python2 libsodium-dev && npm install -g node-gyp

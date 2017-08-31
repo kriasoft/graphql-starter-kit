@@ -19,6 +19,7 @@ module.exports.up = async db => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.string('display_name', 100);
     table.string('image_url', 200);
+    table.string('password_hash', 128);
     table.timestamps(false, true);
   });
 
