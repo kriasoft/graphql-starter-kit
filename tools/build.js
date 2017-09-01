@@ -68,6 +68,9 @@ module.exports = task(
         // Skip files starting with a dot, e.g. .DS_Store, .eslintrc etc.
         if (path.basename(src)[0] === '.') return;
 
+        // Skip unit tests
+        if (src.includes('__tests__') || src.endsWith('.test.js')) return;
+
         // Get destination file name, e.g. src/app.js (src) -> build/app.js (dest)
         const dest = src.startsWith('src')
           ? `build/${path.relative('src', src)}`
