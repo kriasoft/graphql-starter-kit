@@ -38,5 +38,19 @@
       "},"
     ],
     "description": "GraphQL Field"
+  },
+  "Test": {
+    "prefix": "test",
+    "body": [
+      "/* eslint-env jest */",
+      "",
+      "describe('${1:namespace}', () => {",
+      "  test('${2:test}', () => {",
+      "    expect(${3:expect})$0;",
+      "  });",
+      "});",
+      ""
+    ],
+    "description": "Test Script"
   }
 }
