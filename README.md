@@ -33,6 +33,7 @@ This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support
 ├── /migrations/                # Database schema migrations
 ├── /seeds/                     # Scripts with reference/sample data
 ├── /src/                       # Node.js application source files
+│   ├── /__tests__/             # Unit tests (Jest)
 │   ├── /emails/                # Handlebar templates for sending transactional email
 │   ├── /routes/                # Express routes, e.g. /login/facebook
 │   ├── /schema/                # GraphQL schema, types, fields and mutations
@@ -49,7 +50,6 @@ This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support
 │   ├── /redis.js               # Redis client
 │   ├── /server.js              # Node.js server (entry point)
 │   └── /utils.js               # Utility functions (mapTo, mapToMany etc.)
-├── /test/                      # Unit, integration and load tests
 ├── /tools/                     # Build automation scripts and utilities
 ├── docker-compose.yml          # Defines Docker services, networks and volumes
 ├── docker-compose.override.yml # Overrides per developer environment (not under source control)
@@ -118,6 +118,8 @@ yarn check                      # Check source code for type errors
 yarn docker-test                # Run unit tests once inside a Docker container
 yarn docker-test-watch          # Run unit tests in watch mode inside a Docker container
 ```
+
+For more information visit http://facebook.github.io/jest/
 
 
 ## Debugging

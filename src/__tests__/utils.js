@@ -9,7 +9,7 @@
 
 /* eslint-env jest */
 
-import { mapTo } from '../utils';
+import { mapTo, mapToMany, mapToValues } from '../utils';
 
 describe('utils', () => {
   test('mapTo()', () => {
@@ -17,9 +17,24 @@ describe('utils', () => {
       { id: 2, name: 'b' },
       { id: 1, name: 'a' },
     ]);
-    expect(result).toEqual([
-      { __type: 'Test', id: 1, name: 'a' },
-      { __type: 'Test', id: 2, name: 'b' },
+    expect(result).toMatchSnapshot();
+  });
+
+  test('mapToMany()', () => {
+    const result = mapToMany([1, 2], x => x.id, 'Test')([
+      { id: 2, name: 'b' },
+      { id: 1, name: 'a' },
+      { id: 1, name: 'c' },
     ]);
+    expect(result).toMatchSnapshot();
+  });
+
+  test('mapToValues()', () => {
+    const result = mapToValues([1, 2, 3], x => x.id, x => x.name)([
+      { id: 2, name: 'b' },
+      { id: 1, name: 'a' },
+      { id: 3, name: 'c' },
+    ]);
+    expect(result).toMatchSnapshot();
   });
 });

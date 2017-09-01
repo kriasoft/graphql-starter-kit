@@ -76,7 +76,7 @@
       "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" --fix .",
     "check": "flow check",
     "test": "jest",
-    "test-watch": "mocha --compilers js:babel-register --reporter min --watch",
+    "test-watch": "jest --reporter min --watch",
     "build": "node tools/build.js",
     "build-watch": "node tools/build.js --watch",
     "db-version": "node tools/db.js version",
