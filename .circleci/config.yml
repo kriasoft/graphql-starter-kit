@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: kriasoft/node-ci:8.4.0-alpine
+      - image: kriasoft/node-ci@sha256:2507124182d14e1e9e9c85d1b3c129d681184f14d494ec7375b648218f15f987
         environment:
           - CORS_ORIGIN=http://localhost:3001,http://localhost:3000
           - DATABASE_URL=postgres://postgres@localhost:5432/dev
@@ -18,12 +18,13 @@ jobs:
           - GOOGLE_SECRET=xxxxx
           - TWITTER_KEY=xxxxx
           - TWITTER_SECRET=xxxxx
-      - image: postgres:9.6.4-alpine
+      - image: postgres:9.6.5-alpine
       - image: redis:4.0.1-alpine
     working_directory: ~/repo
     steps:
       - checkout
       - setup_remote_docker
+      - run: apk add --no-cache libsodium-dev
       # Download and cache dependencies
       - restore_cache:
           key: yarn-cache-{{ checksum "yarn.lock" }}
