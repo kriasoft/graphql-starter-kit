@@ -65,6 +65,7 @@ async function login(req, provider, profile, tokens) {
   }
 
   if (!user) {
+    // eslint-disable-next-line prefer-destructuring
     user = (await db
       .table('users')
       .insert({

@@ -9,7 +9,13 @@
 
 /* eslint-env jest */
 
-import { mapTo, mapToMany, mapToValues } from '../utils';
+import {
+  mapTo,
+  mapToMany,
+  mapToValues,
+  passwordHash,
+  passwordVerify,
+} from '../';
 
 describe('utils', () => {
   test('mapTo()', () => {
@@ -36,5 +42,20 @@ describe('utils', () => {
       { id: 3, name: 'c' },
     ]);
     expect(result).toMatchSnapshot();
+  });
+
+  test('passwordHash()', async () => {
+    const hash = await passwordHash('Passw0rd');
+    expect(hash).toBeDefined();
+    expect(hash).toMatch(/^\$argon2i\$.*/);
+  });
+
+  test('passwordVerify()', async () => {
+    const hash =
+      '$argon2i$v=19$m=32768,t=4,p=1$/N3vumg47o4EfbdB5FZ5xQ$utzaQCjEKmBTW1g1+50KUOgsRdUmRhNI1TfuxA8X9qU';
+    const result1 = await passwordVerify('Passw0rd', hash);
+    const result2 = await passwordVerify('wrong-pass', hash);
+    expect(result1).toBe(true);
+    expect(result2).toBe(false);
   });
 });

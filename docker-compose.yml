@@ -4,7 +4,9 @@ services:
 
   # Data API and authentication/authorization
   api:
-    image: node:8.4.0-alpine
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
     hostname: api
     depends_on:
       - db
@@ -34,7 +36,7 @@ services:
 
   # SQL and document data store
   db:
-    image: postgres:9.6.4-alpine
+    image: postgres:9.6.5-alpine
     read_only: true
     tmpfs:
       - /tmp
