@@ -3,9 +3,9 @@
     {
       "target_name": "native",
       "sources": [
-        "src/utils/password_hash.cc",
-        "src/utils/password_verify.cc",
-        "binding.cc"
+        "src/utils/password_hash.cpp",
+        "src/utils/password_verify.cpp",
+        "binding.cpp"
       ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")",
