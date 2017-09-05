@@ -28,7 +28,7 @@ services:
       - "127.0.0.1:9229:9229" # V8 inspector for tools/run.js
       - "127.0.0.1:9230:9230" # V8 inspector for src/server.js
     volumes:
-      - yarn:/home/node/.cache/yarn
+      - yarn:/usr/src/.yarn
       - ./:/usr/src/app
     command: node tools/run.js # or, `node --inspect=0.0.0.0:9229 tools/run.js`
 
