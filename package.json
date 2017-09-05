@@ -24,7 +24,7 @@
     "i18next": "^9.0.0",
     "i18next-express-middleware": "^1.0.5",
     "i18next-node-fs-backend": "^1.0.0",
-    "jest": "^20.0.4",
+    "jest": "^21.0.1",
     "juice": "^4.1.1",
     "knex": "^0.13.0",
     "node-addon-api": "^0.6.3",
@@ -44,7 +44,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
-    "babel-jest": "^20.0.3",
+    "babel-jest": "^21.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
@@ -62,7 +62,7 @@
     "eslint-plugin-prettier": "^2.2.0",
     "flow-bin": "^0.54.0",
     "husky": "^0.14.3",
-    "lint-staged": "^4.0.4",
+    "lint-staged": "^4.1.0",
     "prettier": "^1.6.1"
   },
   "jest": {
