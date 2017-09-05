@@ -122,6 +122,14 @@ class Context {
       .select('comments.id', db.raw('count(comment_points.comment_id)'))
       .then(mapToValues(keys, x => x.id, x => x.count)),
   );
+
+  /*
+   * Authenticatinon and permissions.
+   */
+
+  ensureIsAuthenticated() {
+    if (!this.user) throw new Error('Anonymous access is denied.');
+  }
 }
 
 export default Context;
