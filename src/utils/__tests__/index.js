@@ -9,6 +9,7 @@
 
 /* eslint-env jest */
 
+import fs from 'fs';
 import {
   mapTo,
   mapToMany,
@@ -44,18 +45,20 @@ describe('utils', () => {
     expect(result).toMatchSnapshot();
   });
 
-  test('passwordHash()', async () => {
-    const hash = await passwordHash('Passw0rd');
-    expect(hash).toBeDefined();
-    expect(hash).toMatch(/^\$argon2i\$.*/);
-  });
+  if (fs.existsSync('/.dockerenv')) {
+    test('passwordHash()', async () => {
+      const hash = await passwordHash('Passw0rd');
+      expect(hash).toBeDefined();
+      expect(hash).toMatch(/^\$argon2i\$.*/);
+    });
 
-  test('passwordVerify()', async () => {
-    const hash =
-      '$argon2i$v=19$m=32768,t=4,p=1$/N3vumg47o4EfbdB5FZ5xQ$utzaQCjEKmBTW1g1+50KUOgsRdUmRhNI1TfuxA8X9qU';
-    const result1 = await passwordVerify('Passw0rd', hash);
-    const result2 = await passwordVerify('wrong-pass', hash);
-    expect(result1).toBe(true);
-    expect(result2).toBe(false);
-  });
+    test('passwordVerify()', async () => {
+      const hash =
+        '$argon2i$v=19$m=32768,t=4,p=1$/N3vumg47o4EfbdB5FZ5xQ$utzaQCjEKmBTW1g1+50KUOgsRdUmRhNI1TfuxA8X9qU';
+      const result1 = await passwordVerify('Passw0rd', hash);
+      const result2 = await passwordVerify('wrong-pass', hash);
+      expect(result1).toBe(true);
+      expect(result2).toBe(false);
+    });
+  }
 });

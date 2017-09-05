@@ -8,11 +8,7 @@
  */
 
 /* @flow */
-
-import bindings from 'bindings';
-
-// Native bindings for 3rd party libraries. See src/native/*.cc
-const native = bindings('native');
+/* eslint-disable global-require */
 
 /*
  * Helper functions for data loaders (src/Context.js)
@@ -52,7 +48,7 @@ export function mapToValues(keys, keyFn, valueFn, rows) {
 
 export function passwordHash(password: string) {
   return new Promise((resolve, reject) => {
-    native.passwordHash(
+    require('bindings')('native').passwordHash(
       password,
       (err, hash) => (err ? reject(err) : resolve(hash)),
     );
@@ -61,7 +57,7 @@ export function passwordHash(password: string) {
 
 export function passwordVerify(password: string, hash: string) {
   return new Promise((resolve, reject) => {
-    native.passwordVerify(
+    require('bindings')('native').passwordVerify(
       password,
       hash,
       (err, verified) => (err ? reject(err) : resolve(verified)),
