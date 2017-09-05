@@ -1,4 +1,11 @@
 FROM node:8.4.0-alpine
 
+# Set a working directory
+WORKDIR /usr/src/app
+
 # If you have native dependencies, you'll need extra tools
-RUN apk add --no-cache make g++ python2 libsodium-dev && npm install -g node-gyp
+RUN apk add --no-cache make g++ python2 libsodium-dev && \
+    npm install -g node-gyp
+
+# Run the container under "node" user by default
+USER node
