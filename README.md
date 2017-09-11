@@ -109,6 +109,9 @@ docker-compose exec db psql <db> -U postgres
 For the full list of automation scripts available in this project, please reffer to "scripts"
 section in the [`package.json`](./package.json) file and the [`tools`](./tools) folder.
 
+### Windows 10 setup tutorial
+* Video: https://youtu.be/IV4IsYyfdKI <br />
+* Text+images: https://medium.com/@daveyedwards/how-to-setup-kriasofts-nodejs-api-starter-on-windows-10-a092d6e34882
 
 ## Testing
 
