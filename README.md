@@ -109,9 +109,6 @@ docker-compose exec db psql <db> -U postgres
 For the full list of automation scripts available in this project, please reffer to "scripts"
 section in the [`package.json`](./package.json) file and the [`tools`](./tools) folder.
 
-### Windows 10 setup tutorial
-* Video: https://youtu.be/IV4IsYyfdKI <br />
-* Text+images: https://medium.com/@daveyedwards/how-to-setup-kriasofts-nodejs-api-starter-on-windows-10-a092d6e34882
 
 ## Testing
 
@@ -170,12 +167,13 @@ Anyone and everyone is welcome to [contribute](CONTRIBUTING.md). Start by checki
 However, if you decide to get involved, please take a moment to review the [guidelines](CONTRIBUTING.md).
 
 
-## Reference Articles
+## Reference Articles and Tutorials
 
 * [Stop using JWT for sesstions](http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/)
   ([part 2](http://cryto.net/~joepie91/blog/2016/06/19/stop-using-jwt-for-sessions-part-2-why-your-solution-doesnt-work/))
   by [Sven Slootweg](https://github.com/joepie91)
 * [How to Safely Store Your Users' Passwords](https://paragonie.com/blog/2016/02/how-safely-store-password-in-2016) by [P.I.E.](https://paragonie.com/)
+* [How to set up Node.js API Starter on Windows 10](https://medium.com/@daveyedwards/how-to-setup-kriasofts-nodejs-api-starter-on-windows-10-a092d6e34882) ([video](https://youtu.be/IV4IsYyfdKI)) by [Davey Edwards](https://twitter.com/daveyedwards)
 
 
 ## Related Projects
