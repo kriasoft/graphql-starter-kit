@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: kriasoft/node-ci@sha256:2507124182d14e1e9e9c85d1b3c129d681184f14d494ec7375b648218f15f987
+      - image: kriasoft/node-ci:8.5.0-alpine
         environment:
           - CORS_ORIGIN=http://localhost:3001,http://localhost:3000
           - DATABASE_URL=postgres://postgres@localhost:5432/dev
