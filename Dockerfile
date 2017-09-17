@@ -14,4 +14,4 @@ RUN apk add --no-cache libsodium && \
 # Run the container under "node" user by default
 USER node
 
-CMD [ "node", "--napi-modules", "build/server.js" ]
+CMD [ "node", "--napi-modules", "/usr/src/app/build/server.js" ]
