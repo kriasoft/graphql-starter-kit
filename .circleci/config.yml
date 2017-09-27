@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: kriasoft/node-ci:8.5.0-alpine
+      - image: kriasoft/node-ci:8.6.0-alpine
         environment:
           - CORS_ORIGIN=http://localhost:3001,http://localhost:3000
           - DATABASE_URL=postgres://postgres@localhost:5432/dev
@@ -19,7 +19,7 @@ jobs:
           - TWITTER_KEY=xxxxx
           - TWITTER_SECRET=xxxxx
       - image: postgres:9.6.5-alpine
-      - image: redis:4.0.1-alpine
+      - image: redis:4.0.2-alpine
     working_directory: ~/repo
     steps:
       - checkout

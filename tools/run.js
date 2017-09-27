@@ -63,7 +63,6 @@ function spawnServer() {
   return cp.spawn(
     'node',
     [
-      '--napi-modules',
       // Pre-load application dependencies to improve "hot reload" restart time
       ...Object.keys(pkg.dependencies).reduce(
         (requires, val) => requires.concat(['--require', val]),
