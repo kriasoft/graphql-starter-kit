@@ -140,6 +140,8 @@ git remote add nodejs-api-starter https://github.com/kriasoft/nodejs-api-starter
 git checkout master
 git fetch nodejs-api-starter
 git merge nodejs-api-starter/master
+docker-compose build --no-cache
+docker-compose run --rm --no-deps api yarn
 docker-compose up
 ```
 
