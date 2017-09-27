@@ -47,7 +47,7 @@ services:
 
   # Distributed in-memory cache
   redis:
-    image: redis:4.0.1-alpine
+    image: redis:4.0.2-alpine
     read_only: true
     volumes:
       - redis:/data
