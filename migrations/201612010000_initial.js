@@ -83,7 +83,7 @@ module.exports.down = async db => {
   await db.schema.dropTableIfExists('story_points');
   await db.schema.dropTableIfExists('stories');
   await db.schema.dropTableIfExists('logins');
-  await db.schmea.dropTableIfExists('emails');
+  await db.schema.dropTableIfExists('emails');
   await db.schema.dropTableIfExists('users');
 };
 
