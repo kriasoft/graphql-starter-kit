@@ -18,7 +18,7 @@ jobs:
           - GOOGLE_SECRET=xxxxx
           - TWITTER_KEY=xxxxx
           - TWITTER_SECRET=xxxxx
-      - image: postgres:9.6.5-alpine
+      - image: postgres:10.0-alpine
       - image: redis:4.0.2-alpine
     working_directory: ~/repo
     steps:
