@@ -55,7 +55,7 @@ This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support
 ├── docker-compose.yml          # Defines Docker services, networks and volumes
 ├── docker-compose.override.yml # Overrides per developer environment (not under source control)
 ├── Dockerfile                  # Commands for building a Docker image for production
-├── package.json                # The list of project dependencies
+├── package.json                # List of project dependencies
 └── postgres-initdb.sh          # Configuration script for the PostgreSQL Docker container
 ```
 
