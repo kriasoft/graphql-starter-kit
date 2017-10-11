@@ -24,7 +24,7 @@ const loginProviders = [
   },
   {
     provider: 'google',
-    options: { scope: 'profile email' },
+    options: { scope: 'profile email', accessType: 'offline' },
   },
   {
     provider: 'twitter',
