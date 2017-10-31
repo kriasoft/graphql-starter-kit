@@ -8,28 +8,41 @@
  */
 
 /* @flow */
-/* eslint-disable global-require, no-underscore-dangle */
+/* eslint-disable global-require */
 
 import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
+import { assignType, getType } from '../utils';
 
 const { nodeInterface, nodeField: node, nodesField: nodes } = nodeDefinitions(
   (globalId, context) => {
     const { type, id } = fromGlobalId(globalId);
 
-    if (type === 'User') return context.userById.load(id);
-    if (type === 'Email') return context.emailById.load(id);
-    if (type === 'Story') return context.storyById.load(id);
-    if (type === 'Comment') return context.commentById.load(id);
-
-    return null;
+    switch (type) {
+      case 'User':
+        return context.userById.load(id).then(assignType('User'));
+      case 'Email':
+        return context.emailById.load(id).then(assignType('Email'));
+      case 'Story':
+        return context.storyById.load(id).then(assignType('Story'));
+      case 'Comment':
+        return context.storyById.load(id).then(assignType('Comment'));
+      default:
+        return null;
+    }
   },
   obj => {
-    if (obj.__type === 'User') return require('./UserType').default;
-    if (obj.__type === 'Email') return require('./EmailType').default;
-    if (obj.__type === 'Story') return require('./StoryType').default;
-    if (obj.__type === 'Comment') return require('./CommentType').default;
-
-    return null;
+    switch (getType(obj)) {
+      case 'User':
+        return require('./UserType').default;
+      case 'Email':
+        return require('./EmailType').default;
+      case 'Story':
+        return require('./StoryType').default;
+      case 'Comment':
+        return require('./CommentType').default;
+      default:
+        return null;
+    }
   },
 );
 

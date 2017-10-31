@@ -33,7 +33,7 @@ export const stories = {
     },
   }).connectionType,
   args: forwardConnectionArgs,
-  async resolve(root, args) {
+  async resolve(root, args, { storyById }) {
     const limit = typeof args.first === 'undefined' ? '10' : args.first;
     const offset = args.after ? cursorToOffset(args.after) + 1 : 0;
 
@@ -43,7 +43,10 @@ export const stories = {
         .orderBy('created_at', 'desc')
         .limit(limit)
         .offset(offset)
-        .then(rows => rows.map(x => Object.assign(x, { __type: 'Story' }))),
+        .then(rows => {
+          rows.forEach(x => storyById.prime(x.id, x));
+          return rows;
+        }),
       db
         .table('stories')
         .count()

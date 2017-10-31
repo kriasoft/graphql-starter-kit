@@ -8,38 +8,56 @@
  */
 
 /* @flow */
-/* eslint-disable global-require */
 
 /*
  * Helper functions for data loaders (src/Context.js)
  * -------------------------------------------------------------------------- */
 
-// Appends type information to an object, e.g. { id: 1 } => { __type: 'User', id: 1 };
-export function assignType(obj: any, type: string) {
-  // eslint-disable-next-line no-param-reassign, no-underscore-dangle
-  obj.__type = type;
-  return obj;
+export function assignType(type: string) {
+  return (obj: any) => {
+    // eslint-disable-next-line no-underscore-dangle, no-param-reassign
+    if (obj) obj.__type = type;
+    return obj;
+  };
 }
 
-export function mapTo(keys, keyFn, type, rows) {
-  if (!rows) return mapTo.bind(null, keys, keyFn, type);
-  const group = new Map(keys.map(key => [key, null]));
-  rows.forEach(row => group.set(keyFn(row), assignType(row, type)));
-  return Array.from(group.values());
+export function getType(obj: any) {
+  // eslint-disable-next-line no-underscore-dangle
+  return obj ? obj.__type : undefined;
 }
 
-export function mapToMany(keys, keyFn, type, rows) {
-  if (!rows) return mapToMany.bind(null, keys, keyFn, type);
-  const group = new Map(keys.map(key => [key, []]));
-  rows.forEach(row => group.get(keyFn(row)).push(assignType(row, type)));
-  return Array.from(group.values());
+export function mapTo(
+  keys: Array<string | number>,
+  keyFn: any => string | number,
+) {
+  return (rows: Array<any>) => {
+    const group = new Map(keys.map(key => [key, null]));
+    rows.forEach(row => group.set(keyFn(row), row));
+    return Array.from(group.values());
+  };
 }
 
-export function mapToValues(keys, keyFn, valueFn, rows) {
-  if (!rows) return mapToValues.bind(null, keys, keyFn, valueFn);
-  const group = new Map(keys.map(key => [key, null]));
-  rows.forEach(row => group.set(keyFn(row), valueFn(row)));
-  return Array.from(group.values());
+export function mapToMany(
+  keys: Array<string | number>,
+  keyFn: any => string | number,
+) {
+  return (rows: Array<any>) => {
+    const group = new Map(keys.map(key => [key, []]));
+    rows.forEach(row => group.get(keyFn(row)).push(row));
+    return Array.from(group.values());
+  };
+}
+
+export function mapToValues(
+  keys: Array<string | number>,
+  keyFn: any => string | number,
+  valueFn: any => any,
+) {
+  return (rows: Array<any>) => {
+    const group = new Map(keys.map(key => [key, null]));
+    rows.forEach(row => group.set(keyFn(row), valueFn(row)));
+    return Array.from(group.values());
+  };
 }
 
 /*
@@ -48,6 +66,7 @@ export function mapToValues(keys, keyFn, valueFn, rows) {
 
 export function passwordHash(password: string) {
   return new Promise((resolve, reject) => {
+    // eslint-disable-next-line global-require
     require('bindings')('native').passwordHash(
       password,
       (err, hash) => (err ? reject(err) : resolve(hash)),
@@ -57,6 +76,7 @@ export function passwordHash(password: string) {
 
 export function passwordVerify(password: string, hash: string) {
   return new Promise((resolve, reject) => {
+    // eslint-disable-next-line global-require
     require('bindings')('native').passwordVerify(
       password,
       hash,

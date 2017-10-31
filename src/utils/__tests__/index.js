@@ -11,6 +11,8 @@
 
 import fs from 'fs';
 import {
+  assignType,
+  getType,
   mapTo,
   mapToMany,
   mapToValues,
@@ -19,8 +21,29 @@ import {
 } from '../';
 
 describe('utils', () => {
+  test('assignType()', () => {
+    const obj = {};
+    const result1 = assignType('Test')(obj);
+    const result2 = assignType('Test')(null);
+    const result3 = assignType('Test')(undefined);
+    // eslint-disable-next-line no-underscore-dangle
+    expect(obj.__type).toBe('Test');
+    expect(result1).toEqual(obj);
+    expect(result2).toBeNull();
+    expect(result3).toBeUndefined();
+  });
+
+  test('getType()', () => {
+    const result1 = getType({ __type: 'Test' });
+    const result2 = getType({});
+    const result3 = getType(undefined);
+    expect(result1).toBe('Test');
+    expect(result2).toBeUndefined();
+    expect(result3).toBeUndefined();
+  });
+
   test('mapTo()', () => {
-    const result = mapTo([1, 2], x => x.id, 'Test')([
+    const result = mapTo([1, 2], x => x.id)([
       { id: 2, name: 'b' },
       { id: 1, name: 'a' },
     ]);
@@ -28,7 +51,7 @@ describe('utils', () => {
   });
 
   test('mapToMany()', () => {
-    const result = mapToMany([1, 2], x => x.id, 'Test')([
+    const result = mapToMany([1, 2], x => x.id)([
       { id: 2, name: 'b' },
       { id: 1, name: 'a' },
       { id: 1, name: 'c' },

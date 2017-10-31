@@ -42,7 +42,7 @@ class Context {
       .table('users')
       .whereIn('id', keys)
       .select()
-      .then(mapTo(keys, x => x.id, 'User')),
+      .then(mapTo(keys, x => x.id)),
   );
 
   emailById = new DataLoader(keys =>
@@ -50,7 +50,7 @@ class Context {
       .table('emails')
       .whereIn('id', keys)
       .select()
-      .then(mapTo(keys, x => x.id, 'Email')),
+      .then(mapTo(keys, x => x.id)),
   );
 
   emailsByUserId = new DataLoader(keys =>
@@ -58,7 +58,7 @@ class Context {
       .table('emails')
       .whereIn('user_id', keys)
       .select()
-      .then(mapToMany(keys, x => x.user_id, 'Email')),
+      .then(mapToMany(keys, x => x.user_id)),
   );
 
   storyById = new DataLoader(keys =>
@@ -66,7 +66,7 @@ class Context {
       .table('stories')
       .whereIn('id', keys)
       .select()
-      .then(mapTo(keys, x => x.id, 'Story')),
+      .then(mapTo(keys, x => x.id)),
   );
 
   storyCommentsCount = new DataLoader(keys =>
@@ -94,7 +94,7 @@ class Context {
       .table('comments')
       .whereIn('id', keys)
       .select()
-      .then(mapTo(keys, x => x.id, 'Comment')),
+      .then(mapTo(keys, x => x.id)),
   );
 
   commentsByStoryId = new DataLoader(keys =>
@@ -102,7 +102,7 @@ class Context {
       .table('comments')
       .whereIn('story_id', keys)
       .select()
-      .then(mapToMany(keys, x => x.story_id, 'Comment')),
+      .then(mapToMany(keys, x => x.story_id)),
   );
 
   commentsByParentId = new DataLoader(keys =>
@@ -110,7 +110,7 @@ class Context {
       .table('comments')
       .whereIn('parent_id', keys)
       .select()
-      .then(mapToMany(keys, x => x.parent_id, 'Comment')),
+      .then(mapToMany(keys, x => x.parent_id)),
   );
 
   commentPointsCount = new DataLoader(keys =>
