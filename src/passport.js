@@ -145,19 +145,25 @@ passport.use(
 );
 
 // https://github.com/jaredhanson/passport-facebook
+// https://developers.facebook.com/docs/facebook-login/permissions/
 passport.use(
   new FacebookStrategy(
     {
       clientID: process.env.FACEBOOK_ID,
       clientSecret: process.env.FACEBOOK_SECRET,
       profileFields: [
+        'id',
+        'cover',
         'name',
-        'email',
-        'picture',
+        'age_range',
         'link',
+        'gender',
         'locale',
+        'picture',
         'timezone',
+        'updated_time',
         'verified',
+        'email',
       ],
       callbackURL: '/login/facebook/return',
       passReqToCallback: true,
