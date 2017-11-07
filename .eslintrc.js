@@ -7,6 +7,10 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+const fs = require('fs');
+
+const prettierOptions = JSON.parse(fs.readFileSync('./.prettierrc', 'utf8'));
+
 // http://eslint.org/docs/user-guide/configuring
 // https://github.com/prettier/prettier#eslint
 module.exports = {
@@ -14,13 +18,7 @@ module.exports = {
   extends: ['airbnb-base', 'prettier'],
   plugins: ['flowtype', 'prettier'],
   rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        trailingComma: 'all',
-      },
-    ],
+    'prettier/prettier': ['error', prettierOptions],
     'flowtype/define-flow-type': 1,
   },
 };

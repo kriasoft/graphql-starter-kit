@@ -68,10 +68,11 @@ function getSuccessRedirect(req) {
   const url = req.query.return || req.body.return || '/';
   if (!isValidReturnURL(url)) return '/';
   if (!getOrigin(url)) return url;
-  return `${url}${url.includes('?') ? '&' : '?'}sessionID=${req.cookies
-    .sid}${req.session.cookie.originalMaxAge
-    ? `&maxAge=${req.session.cookie.originalMaxAge}`
-    : ''}`;
+  return `${url}${url.includes('?') ? '&' : '?'}sessionID=${req.cookies.sid}${
+    req.session.cookie.originalMaxAge
+      ? `&maxAge=${req.session.cookie.originalMaxAge}`
+      : ''
+  }`;
 }
 
 // Registers route handlers for the external login providers
