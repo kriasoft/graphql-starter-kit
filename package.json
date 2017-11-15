@@ -2,9 +2,7 @@
   "name": "api",
   "version": "0.0.0",
   "private": true,
-  "gypfile": true,
   "dependencies": {
-    "bindings": "^1.3.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
@@ -27,7 +25,6 @@
     "jest": "^21.2.1",
     "juice": "^4.2.2",
     "knex": "^0.14.0",
-    "node-addon-api": "^1.0.0",
     "node-fetch": "^1.7.3",
     "nodemailer": "^4.3.1",
     "passport": "^0.4.0",
@@ -62,15 +59,15 @@
     "eslint-plugin-prettier": "^2.3.1",
     "flow-bin": "^0.59.0",
     "husky": "^0.14.3",
-    "lint-staged": "^4.3.0",
+    "lint-staged": "^5.0.0",
     "prettier": "^1.8.2"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/tools/jest.setup.js"
   },
   "lint-staged": {
-    "*.js": ["eslint --fix", "git add --force"],
-    "*.{json,gyp}": ["prettier --parser json --write", "git add --force"]
+    "*.js": ["eslint --no-ignore --fix", "git add --force"],
+    "*.json": ["prettier --write", "git add --force"]
   },
   "scripts": {
     "precommit": "lint-staged",
@@ -78,8 +75,7 @@
     "fix":
       "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" --fix .",
     "check": "flow check",
-    "test": "node --no-warnings node_modules/.bin/jest",
-    "test-watch": "node --no-warnings node_modules/.bin/jest --watch",
+    "test": "jest",
     "build": "node tools/build.js",
     "build-watch": "node tools/build.js --watch",
     "db-version": "node tools/db.js version",
