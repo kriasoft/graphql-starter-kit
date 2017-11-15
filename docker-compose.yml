@@ -6,7 +6,8 @@ services:
   api:
     build:
       context: ./
-      dockerfile: Dockerfile.dev
+      args:
+        NODE_ENV: "development"
     hostname: api
     depends_on:
       - db
@@ -29,7 +30,16 @@ services:
       - "127.0.0.1:9230:9230" # V8 inspector for src/server.js
     volumes:
       - yarn:/home/node/.cache/yarn
-      - ./:/usr/src/app
+      - ./build:/usr/src/app/build
+      - ./locales:/usr/src/app/locales
+      - ./migrations:/usr/src/app/migrations
+      - ./seeds:/usr/src/app/seeds
+      - ./src:/usr/src/app/src
+      - ./tools:/usr/src/app/tools
+      - ./.babelrc:/usr/src/app/.babelrc
+      - ./.eslintrc.js:/usr/src/app/.eslintrc.js
+      - ./package.json:/usr/src/app/package.json
+      - ./yarn.lock:/usr/src/app/yarn.lock
     command: node tools/run.js # or, `node --inspect=0.0.0.0:9229 tools/run.js`
 
   # SQL and document data store
@@ -42,8 +52,8 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
       - ./postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
-    # ports:
-    #   - "127.0.0.1:5432:5432" # you can override it via docker-compose.override.yml
+    ports:
+      - "127.0.0.1:5432:5432" # you can override it via docker-compose.override.yml
 
   # Distributed in-memory cache
   redis:

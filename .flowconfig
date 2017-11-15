@@ -1,7 +1,9 @@
 [ignore]
 .*/build/.*
-.*/config/.*
 .*/coverage/.*
+.*/locales/.*
+.*/migrations/.*
+.*/seeds/.*
 .*/tools/.*
 
 [options]
