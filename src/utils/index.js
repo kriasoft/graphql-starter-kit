@@ -59,28 +59,3 @@ export function mapToValues(
     return Array.from(group.values());
   };
 }
-
-/*
- * Hash/verify user passwords using Argon2i algorithm
- * -------------------------------------------------------------------------- */
-
-export function passwordHash(password: string) {
-  return new Promise((resolve, reject) => {
-    // eslint-disable-next-line global-require
-    require('bindings')('native').passwordHash(
-      password,
-      (err, hash) => (err ? reject(err) : resolve(hash)),
-    );
-  });
-}
-
-export function passwordVerify(password: string, hash: string) {
-  return new Promise((resolve, reject) => {
-    // eslint-disable-next-line global-require
-    require('bindings')('native').passwordVerify(
-      password,
-      hash,
-      (err, verified) => (err ? reject(err) : resolve(verified)),
-    );
-  });
-}

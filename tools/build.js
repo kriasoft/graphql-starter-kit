@@ -50,10 +50,7 @@ module.exports = task(
       let ready = false;
 
       // Clean up the output directory
-      del.sync(
-        ['build/**', '!build', '!build/Release', '!build/Release/*.node'],
-        { dot: true },
-      );
+      del.sync(['build/**', '!build'], { dot: true });
 
       let watcher = chokidar.watch([
         'locales',
@@ -71,8 +68,7 @@ module.exports = task(
         if (
           path.basename(src)[0] === '.' ||
           src.includes('__tests__') ||
-          src.endsWith('.test.js') ||
-          src.endsWith('.cc')
+          src.endsWith('.test.js')
         ) {
           return;
         }
