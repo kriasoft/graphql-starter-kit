@@ -4,15 +4,17 @@ services:
 
   # Data API and authentication/authorization
   api:
+    image: api
     build:
       context: ./
       args:
-        NODE_ENV: "development"
+        NODE_ENV: development
     hostname: api
     depends_on:
       - db
       - redis
     environment:
+      - CI=$CI
       - CORS_ORIGIN=http://localhost:3000,http://localhost:3001
       - DATABASE_URL=postgres://postgres@db:5432/dev
       - DATABASE_DEBUG=false
@@ -38,6 +40,8 @@ services:
       - ./tools:/usr/src/app/tools
       - ./.babelrc:/usr/src/app/.babelrc
       - ./.eslintrc.js:/usr/src/app/.eslintrc.js
+      - ./.gitignore:/usr/src/app/.gitignore
+      - ./.prettierrc:/usr/src/app/.prettierrc
       - ./package.json:/usr/src/app/package.json
       - ./yarn.lock:/usr/src/app/yarn.lock
     command: node tools/run.js # or, `node --inspect=0.0.0.0:9229 tools/run.js`

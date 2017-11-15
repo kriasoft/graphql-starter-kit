@@ -11,20 +11,6 @@ jobs:
       docker_layer_caching: true
     steps:
       - checkout
-      - run:
-          name: Build
-          command: docker-compose up --build
-          background: true
-      - run:
-          name: Test
-          command: |
-            curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/
-            docker-compose exec api yarn lint
-            docker-compose exec api yarn test
-      - run:
-          name: Deploy
-          command: |
-            docker build \
-              --tag api:latest \
-              --build-arg NODE_ENV=production .
-            # docker push ...
+      - run: docker-compose build --build-arg NODE_ENV=test api
+      - run: mkdir -m 777 build && docker-compose run api sh -c 'yarn lint && yarn test --forceExit && yarn build'
+      - run: docker build --tag api:latest --tag api:$CIRCLE_BUILD_NUM --build-arg NODE_ENV=production .

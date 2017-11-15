@@ -1,6 +1,6 @@
 FROM node:8.9.1-alpine
 
-ARG NODE_ENV
+ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
 
 # Set a working directory
@@ -14,22 +14,27 @@ WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 RUN set -ex; \
   if [ "$NODE_ENV" = "production" ]; then \
-  yarn install --no-cache --no-progress --frozen-lockfile --production; \
+  yarn install --no-cache --frozen-lockfile --production; \
+  elif [ "$NODE_ENV" = "test" ]; then \
+  touch yarn-error.log; \
+  mkdir -m 777 build; \
+  yarn install --no-cache --frozen-lockfile; \
+  chown -R node:node build node_modules package.json yarn.lock yarn-error.log; \
   else \
   touch yarn-error.log; \
-  mkdir -p /home/node/.cache/yarn node_modules; \
-  chown -R node:node /home/node/.cache/yarn node_modules yarn-error.log; \
-  chmod 777 /home/node/.cache/yarn node_modules yarn-error.log; \
+  mkdir -p -m 777 build node_modules /home/node/.cache/yarn; \
+  chown -R node:node build node_modules package.json yarn.lock yarn-error.log /home/node/.cache/yarn; \
   fi;
-
-# Run the container under "node" user by default
-USER node
 
 # Copy application files
 COPY tools ./tools/
 COPY migrations ./migrations/
 COPY seeds ./seeds/
 COPY locales ./locales/
-COPY build ./build/
+# Attempts to copy "build" folder even if it doesn't exist
+COPY .env build* ./build/
+
+# Run the container under "node" user by default
+USER node
 
 CMD [ "node", "build/server.js" ]

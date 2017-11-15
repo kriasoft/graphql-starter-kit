@@ -75,8 +75,7 @@
     "fix":
       "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" --fix .",
     "check": "flow check",
-    "test": "node --no-warnings node_modules/.bin/jest",
-    "test-watch": "node --no-warnings node_modules/.bin/jest --watch",
+    "test": "jest",
     "build": "node tools/build.js",
     "build-watch": "node tools/build.js --watch",
     "db-version": "node tools/db.js version",
