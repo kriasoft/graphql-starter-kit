@@ -48,7 +48,7 @@ services:
 
   # SQL and document data store
   db:
-    image: postgres:9.6.5-alpine
+    image: postgres:9.6.6-alpine
     read_only: true
     tmpfs:
       - /tmp
