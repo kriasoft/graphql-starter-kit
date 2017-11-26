@@ -21,6 +21,7 @@ import { nodeInterface } from './Node';
 
 import CommentType from './CommentType';
 import UserType from './UserType';
+import type Context from '../Context';
 
 export default new GraphQLObjectType({
   name: 'Story',
@@ -31,7 +32,7 @@ export default new GraphQLObjectType({
 
     author: {
       type: new GraphQLNonNull(UserType),
-      resolve(parent, args, { userById }) {
+      resolve(parent, args, { userById }: Context) {
         return userById.load(parent.author_id);
       },
     },
@@ -50,21 +51,21 @@ export default new GraphQLObjectType({
 
     comments: {
       type: new GraphQLList(CommentType),
-      resolve(parent, args, { commentsByStoryId }) {
+      resolve(parent, args, { commentsByStoryId }: Context) {
         return commentsByStoryId.load(parent.id);
       },
     },
 
     pointsCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve(parent, args, { storyPointsCount }) {
+      resolve(parent, args, { storyPointsCount }: Context) {
         return storyPointsCount.load(parent.id);
       },
     },
 
     commentsCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve(parent, args, { storyCommentsCount }) {
+      resolve(parent, args, { storyCommentsCount }: Context) {
         return storyCommentsCount.load(parent.id);
       },
     },

@@ -43,7 +43,3 @@ export default new GraphQLSchema({
 * `EmailType`
 * `StoryType`
 * `UserType`
-
-## Utility Classes
-
-* `ValidationError`

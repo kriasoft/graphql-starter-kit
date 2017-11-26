@@ -13,6 +13,7 @@
 import app from './app';
 import db from './db';
 import redis from './redis';
+import errors from './errors';
 
 const port = process.env.PORT || 8080;
 const host = process.env.HOSTNAME || '0.0.0.0';
@@ -36,7 +37,7 @@ function handleExit(options, err) {
       }
     });
   }
-  if (err) console.log(err.stack);
+  if (err) errors.report(err);
   if (options.exit) process.exit();
 }
 

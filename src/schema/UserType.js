@@ -14,6 +14,7 @@ import { globalIdField } from 'graphql-relay';
 
 import EmailType from './EmailType';
 import { nodeInterface } from './Node';
+import type Context from '../Context';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -38,7 +39,7 @@ export default new GraphQLObjectType({
 
     emails: {
       type: new GraphQLList(EmailType),
-      resolve(parent, args, { user, emailsByUserId }) {
+      resolve(parent, args, { user, emailsByUserId }: Context) {
         return parent.id === user.id ? emailsByUserId.load(parent.id) : null;
       },
     },
