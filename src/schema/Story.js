@@ -22,7 +22,8 @@ import {
 
 import db from '../db';
 import StoryType from './StoryType';
-import ValidationError from './ValidationError';
+import { ValidationError } from '../errors';
+import type Context from '../Context';
 
 export const stories = {
   type: connectionDefinitions({
@@ -33,7 +34,7 @@ export const stories = {
     },
   }).connectionType,
   args: forwardConnectionArgs,
-  async resolve(root, args, { storyById }) {
+  async resolve(root: any, args: any, { storyById }: Context) {
     const limit = typeof args.first === 'undefined' ? '10' : args.first;
     const offset = args.after ? cursorToOffset(args.after) + 1 : 0;
 

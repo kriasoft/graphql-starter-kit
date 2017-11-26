@@ -15,7 +15,7 @@ import { fromGlobalId, mutationWithClientMutationId } from 'graphql-relay';
 
 import db from '../db';
 import CommentType from './CommentType';
-import ValidationError from './ValidationError';
+import { ValidationError } from '../errors';
 
 const outputFields = {
   story: {

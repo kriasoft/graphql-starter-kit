@@ -9,16 +9,17 @@
 
 /* @flow */
 
-import { GraphQLError } from 'graphql';
+// TODO: Log the error to Google Stackdriver, Rollbar etc.
+function report(error: Error) {
+  // eslint-disable-next-line no-console
+  console.error(error);
+}
 
-type StateError = {
-  key: string,
-  message: string,
-};
-
-export default class ValidationError extends GraphQLError {
+export class ValidationError extends Error {
+  code = 400;
   state: any;
-  constructor(errors: Array<StateError>) {
+
+  constructor(errors: []) {
     super('The request is invalid.');
     this.state = errors.reduce((result, error) => {
       if (Object.prototype.hasOwnProperty.call(result, error.key)) {
@@ -33,3 +34,15 @@ export default class ValidationError extends GraphQLError {
     }, {});
   }
 }
+
+export class UnauthorizedError extends Error {
+  code = 401;
+  message = this.message || 'Anonymous access is denied.';
+}
+
+export class ForbiddenError extends Error {
+  code = 403;
+  message = this.message || 'Access is denied.';
+}
+
+export default { report };
