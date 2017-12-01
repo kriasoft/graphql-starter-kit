@@ -40,7 +40,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.2",
+    "babel-eslint": "^8.0.3",
     "babel-jest": "^21.2.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-export-extensions": "^6.22.0",
@@ -51,29 +51,34 @@
     "babel-register": "^6.26.0",
     "chokidar": "^1.7.0",
     "del": "3.0.0",
-    "eslint": "^4.12.0",
+    "eslint": "^4.12.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-prettier": "^2.3.1",
-    "flow-bin": "^0.59.0",
+    "flow-bin": "^0.60.0",
     "husky": "^0.14.3",
-    "lint-staged": "^5.0.0",
+    "lint-staged": "^6.0.0",
     "prettier": "^1.8.2"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/tools/jest.setup.js"
   },
   "lint-staged": {
-    "*.js": ["eslint --no-ignore --fix", "git add --force"],
-    "*.json": ["prettier --write", "git add --force"]
+    "*.js": [
+      "eslint --no-ignore --fix",
+      "git add --force"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add --force"
+    ]
   },
   "scripts": {
     "precommit": "lint-staged",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" .",
-    "fix":
-      "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" --fix .",
+    "fix": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" --fix .",
     "check": "flow check",
     "test": "jest",
     "build": "node tools/build.js",
