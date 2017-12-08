@@ -8,13 +8,10 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-const fs = require('fs');
-const path = require('path');
 const cp = require('child_process');
 const pkg = require('../package.json');
 const task = require('./task');
 
-let build;
 let server;
 let debugPort = '9230';
 
@@ -34,29 +31,10 @@ process.once('cleanup', () => {
 process.on('SIGINT', () => process.emit('cleanup'));
 process.on('SIGTERM', () => process.emit('cleanup'));
 
-// Ensure that Node.js modules were installed,
-// at least those required to build the app
-try {
-  build = require('./build');
-} catch (err) {
-  if (err.code !== 'MODULE_NOT_FOUND') throw err;
-  // Install Node.js modules with Yarn
-  cp.spawnSync('yarn', ['install', '--no-progress'], { stdio: 'inherit' });
+// Install Node.js modules with Yarn
+cp.spawnSync('yarn', ['install', '--no-progress'], { stdio: 'inherit' });
 
-  // Clear Module's internal cache
-  try {
-    const Module = require('module');
-    const m = new Module();
-    // eslint-disable-next-line
-    m._compile(
-      fs.readFileSync('./tools/build.js', 'utf8'),
-      path.resolve('./tools/build.js'),
-    );
-  } catch (error) {} // eslint-disable-line
-
-  // Reload dependencies
-  build = require('./build');
-}
+const build = require('./build');
 
 // Launch `node build/server.js` on a background thread
 function spawnServer() {
