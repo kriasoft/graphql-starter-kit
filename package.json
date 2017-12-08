@@ -16,7 +16,7 @@
     "express-session": "^1.15.6",
     "faker": "^4.1.0",
     "graphql": "^0.11.7",
-    "graphql-relay": "^0.5.3",
+    "graphql-relay": "^0.5.4",
     "handlebars": "^4.0.11",
     "handlebars-layouts": "^3.1.4",
     "i18next": "^10.2.1",
@@ -26,7 +26,7 @@
     "juice": "^4.2.2",
     "knex": "^0.14.2",
     "node-fetch": "^1.7.3",
-    "nodemailer": "^4.4.0",
+    "nodemailer": "^4.4.1",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
@@ -57,10 +57,10 @@
     "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-prettier": "^2.3.1",
-    "flow-bin": "^0.60.0",
+    "flow-bin": "^0.60.1",
     "husky": "^0.14.3",
     "lint-staged": "^6.0.0",
-    "prettier": "^1.8.2"
+    "prettier": "^1.9.1"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/tools/jest.setup.js"
