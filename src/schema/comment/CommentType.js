@@ -1,7 +1,5 @@
 /**
- * Node.js API Starter Kit (https://reactstarter.com/nodejs)
- *
- * Copyright © 2016-present Kriasoft, LLC. All rights reserved.
+ * Copyright © 2016-present Kriasoft.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -17,11 +15,11 @@ import {
   GraphQLString,
 } from 'graphql';
 import { globalIdField } from 'graphql-relay';
-import { nodeInterface } from './Node';
 
-import StoryType from './StoryType';
-import UserType from './UserType';
-import type Context from '../Context';
+import { nodeInterface } from '../node';
+import StoryType from '../story/StoryType';
+import UserType from '../user/UserType';
+import type Context from '../../Context';
 
 const CommentType = new GraphQLObjectType({
   name: 'Comment',
@@ -32,29 +30,29 @@ const CommentType = new GraphQLObjectType({
 
     story: {
       type: new GraphQLNonNull(StoryType),
-      resolve(parent, args, { storyById }: Context) {
-        return storyById.load(parent.story_id);
+      resolve(parent, args, ctx: Context) {
+        return ctx.storyById.load(parent.story_id);
       },
     },
 
     parent: {
       type: CommentType,
-      resolve(parent, args, { commentById }: Context) {
-        return parent.parent_id && commentById.load(parent.parent_id);
+      resolve(parent, args, ctx: Context) {
+        return parent.parent_id && ctx.commentById.load(parent.parent_id);
       },
     },
 
     author: {
       type: new GraphQLNonNull(UserType),
-      resolve(parent, args, { userById }: Context) {
-        return userById.load(parent.author_id);
+      resolve(parent, args, ctx: Context) {
+        return ctx.userById.load(parent.author_id);
       },
     },
 
     comments: {
       type: new GraphQLList(CommentType),
-      resolve(parent, args, { commentsByParentId }: Context) {
-        return commentsByParentId.load(parent.id);
+      resolve(parent, args, ctx: Context) {
+        return ctx.commentsByParentId.load(parent.id);
       },
     },
 
@@ -64,8 +62,8 @@ const CommentType = new GraphQLObjectType({
 
     pointsCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve(parent, args, { commentPointsCount }: Context) {
-        return commentPointsCount.load(parent.id);
+      resolve(parent, args, ctx: Context) {
+        return ctx.commentPointsCount.load(parent.id);
       },
     },
 

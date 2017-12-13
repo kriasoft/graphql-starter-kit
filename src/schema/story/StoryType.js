@@ -1,7 +1,5 @@
 /**
- * Node.js API Starter Kit (https://reactstarter.com/nodejs)
- *
- * Copyright © 2016-present Kriasoft, LLC. All rights reserved.
+ * Copyright © 2016-present Kriasoft.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -17,11 +15,11 @@ import {
   GraphQLString,
 } from 'graphql';
 import { globalIdField } from 'graphql-relay';
-import { nodeInterface } from './Node';
 
-import CommentType from './CommentType';
-import UserType from './UserType';
-import type Context from '../Context';
+import UserType from '../user/UserType';
+import CommentType from '../comment/CommentType';
+import { nodeInterface } from '../node';
+import type Context from '../../Context';
 
 export default new GraphQLObjectType({
   name: 'Story',
@@ -32,8 +30,8 @@ export default new GraphQLObjectType({
 
     author: {
       type: new GraphQLNonNull(UserType),
-      resolve(parent, args, { userById }: Context) {
-        return userById.load(parent.author_id);
+      resolve(parent, args, ctx: Context) {
+        return ctx.userById.load(parent.author_id);
       },
     },
 
@@ -51,22 +49,22 @@ export default new GraphQLObjectType({
 
     comments: {
       type: new GraphQLList(CommentType),
-      resolve(parent, args, { commentsByStoryId }: Context) {
-        return commentsByStoryId.load(parent.id);
+      resolve(parent, args, ctx: Context) {
+        return ctx.commentsByStoryId.load(parent.id);
       },
     },
 
     pointsCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve(parent, args, { storyPointsCount }: Context) {
-        return storyPointsCount.load(parent.id);
+      resolve(parent, args, ctx: Context) {
+        return ctx.storyPointsCount.load(parent.id);
       },
     },
 
     commentsCount: {
       type: new GraphQLNonNull(GraphQLInt),
-      resolve(parent, args, { storyCommentsCount }: Context) {
-        return storyCommentsCount.load(parent.id);
+      resolve(parent, args, ctx: Context) {
+        return ctx.storyCommentsCount.load(parent.id);
       },
     },
 

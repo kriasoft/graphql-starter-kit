@@ -34,15 +34,9 @@ This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support
 ├── /migrations/                # Database schema migrations
 ├── /seeds/                     # Scripts with reference/sample data
 ├── /src/                       # Node.js application source files
-│   ├── /__tests__/             # Unit tests (Jest)
 │   ├── /emails/                # Handlebar templates for sending transactional email
 │   ├── /routes/                # Express routes, e.g. /login/facebook
-│   ├── /schema/                # GraphQL schema, types, fields and mutations
-│   │   ├── /Node.js            # Relay's "node" definitions
-│   │   ├── /User.js            # User related top-level fields and mutations
-│   │   ├── /UserType.js        # User type, representing a user account (id, emails, etc.)
-│   │   ├── /...                # etc.
-│   │   └── /index.js           # Exports GraphQL schema object
+│   ├── /schema/                # GraphQL schema type definitions
 │   ├── /utils/                 # Utility functions (mapTo, mapToMany etc.)
 │   ├── /app.js                 # Express.js application
 │   ├── /Context.js             # Data loaders and other context-specific stuff
@@ -51,7 +45,8 @@ This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support
 │   ├── /errors.js              # Custom errors and error reporting
 │   ├── /passport.js            # Passport.js authentication strategies
 │   ├── /redis.js               # Redis client
-│   └── /server.js              # Node.js server (entry point)
+│   ├── /server.js              # Node.js server (entry point)
+│   └── /types.js               # Flow type definitions
 ├── /tools/                     # Build automation scripts and utilities
 ├── docker-compose.yml          # Defines Docker services, networks and volumes
 ├── docker-compose.override.yml # Overrides per developer environment (not under source control)
@@ -77,7 +72,6 @@ Just clone the repo and run `docker-compose up`:
 git clone https://github.com/kriasoft/nodejs-api-starter.git example-api
 cd example-api                  # Change current directory to the newly created one
 docker-compose up               # Launch Docker containers with the Node.js API app running inside
-yarn docker-db-seed             # Seed the database with some test data
 ```
 
 The API server must become available at [http://localhost:8080/graphql](http://localhost:8080/graphql)
