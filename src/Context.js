@@ -1,7 +1,5 @@
 /**
- * Node.js API Starter Kit (https://reactstarter.com/nodejs)
- *
- * Copyright © 2016-present Kriasoft, LLC. All rights reserved.
+ * Copyright © 2016-present Kriasoft.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -24,8 +22,11 @@ class Context {
 
   constructor(request: Request) {
     this.request = request;
-    this.user = request.user;
     this.t = request.t;
+  }
+
+  get user(): any {
+    return this.request.user;
   }
 
   /*

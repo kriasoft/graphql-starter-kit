@@ -35,7 +35,7 @@
     "pretty-error": "^2.1.1",
     "redis": "^2.8.0",
     "source-map-support": "^0.5.0",
-    "validator": "^9.1.2"
+    "validator": "^9.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -51,16 +51,16 @@
     "babel-register": "^6.26.0",
     "chokidar": "^1.7.0",
     "del": "3.0.0",
-    "eslint": "^4.12.1",
+    "eslint": "^4.13.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-flowtype": "^2.39.1",
+    "eslint-plugin-flowtype": "^2.40.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-prettier": "^2.3.1",
-    "flow-bin": "^0.60.1",
+    "flow-bin": "^0.61.0",
     "husky": "^0.14.3",
     "lint-staged": "^6.0.0",
-    "prettier": "^1.9.1"
+    "prettier": "^1.9.2"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/tools/jest.setup.js"

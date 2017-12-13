@@ -1,7 +1,5 @@
 /**
- * Node.js API Starter Kit (https://reactstarter.com/nodejs)
- *
- * Copyright © 2016-present Kriasoft, LLC. All rights reserved.
+ * Copyright © 2016-present Kriasoft.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -25,7 +23,7 @@ import i18nextMiddleware, {
 import i18nextBackend from 'i18next-node-fs-backend';
 import expressGraphQL from 'express-graphql';
 import PrettyError from 'pretty-error';
-import { printSchema, GraphQLError } from 'graphql';
+import { printSchema } from 'graphql';
 
 import email from './email';
 import redis from './redis';
@@ -129,7 +127,7 @@ app.use(
     context: new Context(req),
     graphiql: process.env.NODE_ENV !== 'production',
     pretty: process.env.NODE_ENV !== 'production',
-    formatError: (error: GraphQLError) => {
+    formatError: (error: any) => {
       errors.report(error.originalError || error);
       return {
         message: error.message,

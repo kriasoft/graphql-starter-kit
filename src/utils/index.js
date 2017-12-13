@@ -1,7 +1,5 @@
 /**
- * Node.js API Starter Kit (https://reactstarter.com/nodejs)
- *
- * Copyright © 2016-present Kriasoft, LLC. All rights reserved.
+ * Copyright © 2016-present Kriasoft.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -43,7 +41,7 @@ export function mapToMany(
 ) {
   return (rows: Array<any>) => {
     const group = new Map(keys.map(key => [key, []]));
-    rows.forEach(row => group.get(keyFn(row)).push(row));
+    rows.forEach(row => (group.get(keyFn(row)) || []).push(row));
     return Array.from(group.values());
   };
 }

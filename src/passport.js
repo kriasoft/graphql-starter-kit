@@ -1,7 +1,5 @@
 /**
- * Node.js API Starter Kit (https://reactstarter.com/nodejs)
- *
- * Copyright © 2016-present Kriasoft, LLC. All rights reserved.
+ * Copyright © 2016-present Kriasoft.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -65,8 +63,7 @@ async function login(req, provider, profile, tokens) {
   }
 
   if (!user) {
-    // eslint-disable-next-line prefer-destructuring
-    user = (await db
+    [user] = await db
       .table('users')
       .insert({
         display_name: profile.displayName,
@@ -75,12 +72,12 @@ async function login(req, provider, profile, tokens) {
             ? profile.photos[0].value
             : null,
       })
-      .returning('*'))[0];
+      .returning('*');
 
     if (profile.emails && profile.emails.length) {
       await db.table('emails').insert(
         profile.emails.map(x => ({
-          user_id: user.id,
+          user_id: user && user.id,
           email: x.value,
           verified: x.verified || false,
         })),

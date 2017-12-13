@@ -8,3 +8,4 @@
 
 [options]
 esproposal.export_star_as=enable
+unsafe.enable_getters_and_setters=true
