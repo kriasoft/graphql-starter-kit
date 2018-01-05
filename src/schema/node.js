@@ -24,7 +24,7 @@ export const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
       case 'Story':
         return context.storyById.load(id).then(assignType('Story'));
       case 'Comment':
-        return context.storyById.load(id).then(assignType('Comment'));
+        return context.commentById.load(id).then(assignType('Comment'));
       default:
         return null;
     }
