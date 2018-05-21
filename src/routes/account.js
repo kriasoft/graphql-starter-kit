@@ -81,7 +81,11 @@ loginProviders.forEach(({ provider, options }) => {
       req.session.returnTo = getSuccessRedirect(req);
       next();
     },
-    passport.authenticate(provider, { failureFlash: true, ...options }),
+    passport.authenticate(provider, {
+      failureFlash: true,
+      prompt: 'select_account',
+      ...options,
+    }),
   );
 
   router.get(`/login/${provider}/return`, (req, res, next) =>
