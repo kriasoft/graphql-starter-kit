@@ -20,7 +20,7 @@ This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support
 * [Docker][docker], [Node.js][node], [Yarn][yarn], [JavaScript][js], [Babel][babel], [Flow][flow], [Prettier][prettier] — core platform and dev tools
 * [Express][express], [Passport.js][passport], [session][session], [flash][flash], [cors][cors] etc. — common HTTP-server features
 * [GraphQL.js][gqljs], [GraphQL.js Relay][gqlrelay], [DataLoader][loader], [validator][validator] — [GraphQL][gql] schema and API endpoint
-* [PostgreSQL][pg], [Redis][redis], [Knex][knex], [pg][nodepg] — SQL, document, key/value data store; data acess and migrations
+* [PostgreSQL][pg], [Redis][redis], [Knex][knex], [pg][nodepg] — SQL, document, key/value data store; data access and migrations
 * [Nodemailer][mailer], [Handlebars][hbs], [Juice][juice] — transactional email and email templates /w layout support
 * [I18next][i18next], [I18next Middleware][i18nextmid], [I18next Backend][i18nextback] — localization and translations
 * [Jest][jest] - unit and snapshot testing
@@ -102,7 +102,7 @@ Similarly, if you need to open a PostgreSQL shell ([psql][psql]), execute this c
 docker-compose exec db psql <db> -U postgres
 ```
 
-For the full list of automation scripts available in this project, please reffer to "scripts"
+For the full list of automation scripts available in this project, please refer to "scripts"
 section in the [`package.json`](./package.json) file and the [`tools`](./tools) folder.
 
 
