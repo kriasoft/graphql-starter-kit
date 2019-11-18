@@ -10,7 +10,7 @@ Kit][rsk], [React Static Boilerplate][rsb] etc). Please, visit our [sponsors](ht
 
 ---
 
-This project was bootstraped with [Node.js API Starter Kit][nodejskit] ([support][gitter]).
+This project was bootstrapped with [Node.js API Starter Kit][nodejskit] ([support][gitter]).
 
 <p align="center"><a href="https://graphql-demo.kriasoft.com"><img src="http://koistya.github.io/files/nodejs-api-starter-demo.png" width="600" alt="GraphQL Demo" /><br><sup>https://graphql-demo.kriasoft.com</sup></a></p>
 
