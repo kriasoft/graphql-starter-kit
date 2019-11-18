@@ -149,7 +149,7 @@ const outputFields = {
   },
 };
 
-export const sigup = mutationWithClientMutationId({
+export const signup = mutationWithClientMutationId({
   name: 'Signup',
   inputFields,
   outputFields,
