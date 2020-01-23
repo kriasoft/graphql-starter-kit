@@ -1,11 +1,9 @@
 {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "flow.useNPMPackagedFlow": true,
-  "javascript.format.enable": false,
-  "javascript.validate.enable": false,
-  "vsicons.presets.angular": false,
+  "eslint.packageManager": "yarn",
+  "prettier.packageManager": "yarn",
   "search.exclude": {
-    "**/.idea": true,
     "**/build": true,
     "**/node_modules": true,
     "**/yarn-error.log": true,

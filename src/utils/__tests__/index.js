@@ -32,7 +32,10 @@ describe('utils', () => {
   });
 
   test('mapTo()', () => {
-    const result = mapTo([1, 2], x => x.id)([
+    const result = mapTo(
+      [1, 2],
+      x => x.id,
+    )([
       { id: 2, name: 'b' },
       { id: 1, name: 'a' },
     ]);
@@ -40,7 +43,10 @@ describe('utils', () => {
   });
 
   test('mapToMany()', () => {
-    const result = mapToMany([1, 2], x => x.id)([
+    const result = mapToMany(
+      [1, 2],
+      x => x.id,
+    )([
       { id: 2, name: 'b' },
       { id: 1, name: 'a' },
       { id: 1, name: 'c' },
@@ -49,7 +55,11 @@ describe('utils', () => {
   });
 
   test('mapToValues()', () => {
-    const result = mapToValues([1, 2, 3], x => x.id, x => x.name)([
+    const result = mapToValues(
+      [1, 2, 3],
+      x => x.id,
+      x => x.name,
+    )([
       { id: 2, name: 'b' },
       { id: 1, name: 'a' },
       { id: 3, name: 'c' },
