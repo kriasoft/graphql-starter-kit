@@ -1,22 +1,28 @@
 /**
- * Copyright © 2016-present Kriasoft.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
+ * ESLint Configuration
+ * http://eslint.org/docs/user-guide/configuring
+ * https://prettier.io/docs/en/integrating-with-linters.html#eslint
+ * https://github.com/kriasoft/nodejs-api-starter
+ * Copyright © 2016-present Kriasoft | MIT License
  */
-
-const fs = require('fs');
-
-const prettierOptions = JSON.parse(fs.readFileSync('./.prettierrc', 'utf8'));
-
-// http://eslint.org/docs/user-guide/configuring
-// https://github.com/prettier/prettier#eslint
 module.exports = {
-  parser: 'babel-eslint',
-  extends: ['airbnb-base', 'prettier'],
-  plugins: ['flowtype', 'prettier'],
-  rules: {
-    'prettier/prettier': ['error', prettierOptions],
-    'flowtype/define-flow-type': 1,
+  parser: '@typescript-eslint/parser',
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
+    'prettier',
+  ],
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module',
   },
+  overrides: [
+    {
+      files: ['migrations/*.ts', 'seeds/*.ts', 'scripts/*.ts'],
+      extends: 'eslint:recommended',
+      parserOptions: {
+        sourceType: 'module',
+      },
+    },
+  ],
 };
