@@ -1,0 +1,21 @@
+type Mutation
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+type Query {
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+
+  # Fetches objects given their IDs
+  nodes(
+    # The IDs of objects
+    ids: [ID!]!
+  ): [Node]!
+}
