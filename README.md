@@ -44,8 +44,6 @@ This project was bootstrapped with [Node.js API Starter Kit](https://github.com/
 │   ├── /mutations/             # GraphQL API mutations
 │   ├── /queries/               # GraphQL API query fields
 │   ├── /types/                 # GraphQL custom types
-│   ├── /emails/                # Handlebar templates for sending transactional email
-│   ├── /routes/                # Express routes, e.g. /login/facebook
 │   ├── /utils/                 # Utility functions (mapTo, mapToMany etc.)
 │   ├── /auth.js                # Authentication middleware
 │   ├── /context.ts             # Data loaders and other context-specific stuff
@@ -66,7 +64,7 @@ This project was bootstrapped with [Node.js API Starter Kit](https://github.com/
 
 ## Prerequisites
 
-* [Node.js][node] v10 or higher, [Yarn][yarn] package manager
+* [Node.js][node] v10 or higher + [Yarn][yarn] package manager
 * [PostgreSQL][pg] (can be local or remote instance, e.g. Google Cloud SQL)
 * Optionally [VS Code][code] editor with [Project Snippets][vcsnippets],
   [EditorConfig][vceditconfig], [ESLint][vceslint], and [Prettier][vcprettier]
@@ -146,7 +144,7 @@ For more information refer to the [Deployment](https://github.com/kriasoft/nodej
 guide in the project's Wiki.
 
 
-## Debugging
+## How to Debug
 
 Use `yarn start-debug` instead of `yarn start` then attach VS Code debugger to the running
 instance of the app.

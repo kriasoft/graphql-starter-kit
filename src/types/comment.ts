@@ -14,7 +14,6 @@ import {
 } from 'graphql';
 
 import { UserType } from './user';
-import { StoryType } from './story';
 import { nodeInterface } from '../node';
 import { dateField } from '../fields';
 import { Context } from '../context';
@@ -25,13 +24,6 @@ export const CommentType: GraphQLObjectType = new GraphQLObjectType<any, Context
 
   fields: () => ({
     id: globalIdField(),
-
-    story: {
-      type: new GraphQLNonNull(StoryType),
-      resolve(self, args, ctx) {
-        return ctx.storyById.load(self.story_id);
-      },
-    },
 
     parent: {
       type: CommentType,

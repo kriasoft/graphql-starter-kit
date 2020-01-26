@@ -8,6 +8,7 @@ import fs from 'fs';
 import dotenv from 'dotenv';
 import graphql from 'express-graphql';
 import { printSchema } from 'graphql';
+import { express as voyager } from 'graphql-voyager/middleware';
 import express, { Router, Request, Response } from 'express';
 
 dotenv.config({ path: '.env' });
@@ -21,6 +22,11 @@ const port = process.env.PORT || 8080;
 export const api = Router();
 
 api.use(auth);
+
+if (process.env.APP_ENV !== 'production') {
+  api.use('/graphql/model', voyager({ endpointUrl: '/graphql' }));
+}
+
 api.use(
   '/graphql',
   graphql(req => ({
@@ -46,7 +52,7 @@ if (process.env.NODE_ENV !== 'production') {
 
   app.use(api);
   app.get('/', (req: Request, res: Response) => {
-    res.redirect('/api');
+    res.redirect('/graphql');
   });
 
   app.listen(port, () => {

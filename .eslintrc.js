@@ -24,5 +24,11 @@ module.exports = {
         sourceType: 'module',
       },
     },
+    {
+      files: ['knexfile.ts'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off'
+      }
+    }
   ],
 };
