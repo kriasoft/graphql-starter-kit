@@ -13,7 +13,7 @@ import {
 } from 'graphql-relay';
 
 import db from '../db';
-import { countField } from '../utils';
+import { countField } from '../fields';
 import { UserType } from '../types';
 
 export const me = {

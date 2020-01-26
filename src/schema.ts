@@ -10,18 +10,23 @@ import * as queries from './queries';
 import * as mutations from './mutations';
 import { nodeField, nodesField } from './node';
 
+delete queries.__esModule;
+delete mutations.__esModule;
+
 export default new GraphQLSchema({
   query: new GraphQLObjectType({
-    name: 'Query',
+    name: 'Root',
+    description: 'The top-level API',
+
     fields: {
       node: nodeField,
       nodes: nodesField,
-      // ...queries,
+      ...queries,
     },
   }),
 
   mutation: new GraphQLObjectType({
     name: 'Mutation',
-    fields: {}, //mutations,
+    fields: mutations,
   }),
 });

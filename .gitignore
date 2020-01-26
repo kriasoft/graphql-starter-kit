@@ -12,6 +12,7 @@ yarn-error.log*
 
 # Testing
 /coverage
+__snapshots__
 
 # Configuration overrides
 .env.local
