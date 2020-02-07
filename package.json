@@ -20,7 +20,7 @@
     "faker": "^4.1.0",
     "graphql": "^15.0.0-rc.1",
     "graphql-relay": "^0.6.0",
-    "graphql-voyager": "^1.0.0-rc.28",
+    "graphql-voyager": "^1.0.0-rc.29",
     "idx": "^2.5.6",
     "knex": "^0.20.8",
     "moment-timezone": "^0.5.27",
