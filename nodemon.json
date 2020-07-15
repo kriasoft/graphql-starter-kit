@@ -1,4 +1,0 @@
-{
-  "ext": "ts,json",
-  "exec": "babel-node -x .ts -r ./knexfile.ts"
-}

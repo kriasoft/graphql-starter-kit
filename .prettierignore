@@ -1,5 +1,4 @@
-build
-node_modules
-package.json
-README.md
+.yarn/
+api/lib/
+.pnp.js
 tsconfig.json
