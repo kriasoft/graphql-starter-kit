@@ -1,0 +1,13 @@
+{
+  "name": "env",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "Kriasoft (https://github.com/kriasoft)",
+  "main": "index.cjs",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "minimist": "^1.2.5"
+  },
+  "private": true
+}

@@ -1,0 +1,28 @@
+{
+  "name": "db",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "Kriasoft (https://github.com/kriasoft)",
+  "scripts": {
+    "version": "knex migrate:currentVersion",
+    "change": "knex migrate:make",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
+    "seed": "knex seed:run",
+    "reset": "node ./scripts/reset",
+    "backup": "node ./scripts/backup",
+    "restore": "node ./scripts/restore",
+    "repl": "node --experimental-repl-await ./scripts/repl",
+    "psql": "node ./scripts/psql"
+  },
+  "devDependencies": {
+    "env": "workspace:*",
+    "faker": "^4.1.0",
+    "knex": "^0.21.2",
+    "minimist": "^1.2.5",
+    "nanoid": "^3.1.10",
+    "pg": "^8.3.0",
+    "prettier": "^2.0.5"
+  },
+  "private": true
+}

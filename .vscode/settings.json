@@ -1,12 +1,36 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "eslint.packageManager": "yarn",
-  "prettier.packageManager": "yarn",
+  "editor.tabSize": 2,
+  "eslint.nodePath": ".yarn/sdks",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "files.associations": {
+    ".env.**": "dotenv"
+  },
   "search.exclude": {
-    "**/build": true,
-    "**/node_modules": true,
-    "**/yarn-error.log": true,
-    "**/yarn.lock": true
-  }
+    "**/lib/": true,
+    "yarn-error.log": true,
+    "yarn.lock": true
+  },
+  "cSpell.ignoreWords": [
+    "abcdefghijklmnopqrstuvwxyz",
+    "corejs",
+    "dataloader",
+    "jsonb",
+    "knexfile",
+    "pgdatabase",
+    "pgdebug",
+    "pghost",
+    "pgpassword",
+    "pgsslcert",
+    "pgsslkey",
+    "pgsslmode",
+    "pgsslrootcert",
+    "pguser",
+    "pnpify",
+    "postgres",
+    "psql"
+  ]
 }
