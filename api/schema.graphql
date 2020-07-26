@@ -1,0 +1,189 @@
+schema {
+  query: Root
+  mutation: Mutation
+}
+
+# The top-level API
+type Root {
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+
+  # Fetches objects given their IDs
+  nodes(
+    # The IDs of objects
+    ids: [ID!]!
+  ): [Node]!
+  me: User
+  user(username: String!): User
+  users(after: String, first: Int): UserConnection
+  story(slug: String!): Story
+  stories: [Story]
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+type User implements Node {
+  # The ID of an object
+  id: ID!
+  username: String!
+  email: String
+  displayName: String
+  photoURL: String
+  timeZone: String
+  identities: [Identity]
+  isAdmin: Boolean
+  createdAt(format: String): String
+  updatedAt(format: String): String
+  lastLoginAt(format: String): String
+}
+
+type Identity {
+  # The ID of an object
+  id: ID!
+  provider: AuthenticationProvider
+  providerId: String
+  email: String
+  displayName: String
+  photoURL: String
+  profileURL: String
+}
+
+enum AuthenticationProvider {
+  GOOGLE
+  TWITTER
+  FACEBOOK
+}
+
+# A connection to a list of items.
+type UserConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [UserEdge]
+  totalCount: Int!
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+# An edge in a connection.
+type UserEdge {
+  # The item at the end of the edge
+  node: User
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type Story implements Node {
+  # The ID of an object
+  id: ID!
+  author: User!
+  slug: String!
+  title: String!
+  text(truncate: Int): String!
+  isURL: Boolean!
+  comments: [Comment]
+  pointsCount: Int!
+  pointGiven: Boolean!
+  commentsCount: Int!
+  createdAt(format: String): String
+  updatedAt(format: String): String
+}
+
+type Comment implements Node {
+  # The ID of an object
+  id: ID!
+  parent: Comment
+  author: User!
+  comments: [Comment]
+  text: String
+  pointsCount: Int!
+  createdAt(format: String): String
+  updatedAt(format: String): String
+}
+
+type Mutation {
+  # Updates a user.
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+
+  # Deletes a user.
+  deleteUser(input: DeleteUserInput!): DeleteUserPayload
+
+  # Creates or updates a story.
+  upsertStory(input: UpsertStoryInput!): UpsertStoryPayload
+
+  # Marks the story as "liked".
+  likeStory(input: LikeStoryInput!): LikeStoryPayload
+}
+
+type UpdateUserPayload {
+  user: User
+  clientMutationId: String
+}
+
+input UpdateUserInput {
+  id: ID!
+  username: String
+  email: String
+  displayName: String
+  photoURL: String
+  timeZone: String
+  isAdmin: Boolean
+  validateOnly: Boolean
+  clientMutationId: String
+}
+
+type DeleteUserPayload {
+  deletedUserId: String
+  clientMutationId: String
+}
+
+input DeleteUserInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type UpsertStoryPayload {
+  story: Story
+  clientMutationId: String
+}
+
+input UpsertStoryInput {
+  id: ID
+  title: String
+  text: String
+  approved: Boolean
+  validateOnly: Boolean
+  clientMutationId: String
+}
+
+type LikeStoryPayload {
+  story: Story
+  clientMutationId: String
+}
+
+input LikeStoryInput {
+  id: ID!
+  clientMutationId: String
+}
