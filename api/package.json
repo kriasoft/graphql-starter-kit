@@ -37,7 +37,7 @@
     "pretty-error": "^2.1.1",
     "slugify": "^1.4.5",
     "source-map-support": "^0.5.19",
-    "uuid": "^8.2.0",
+    "uuid": "^8.3.0",
     "validator": "^13.1.1"
   },
   "devDependencies": {
