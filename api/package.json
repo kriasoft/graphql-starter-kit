@@ -58,7 +58,7 @@
     "@types/moment-timezone": "^0.5.13",
     "@types/uuid": "^8.0.0",
     "@types/validator": "^13.1.0",
-    "@typescript-eslint/eslint-plugin": "^3.7.0",
+    "@typescript-eslint/eslint-plugin": "^3.7.1",
     "@typescript-eslint/parser": "^3.7.0",
     "babel-jest": "^26.1.0",
     "babel-plugin-idx": "^2.4.0",
