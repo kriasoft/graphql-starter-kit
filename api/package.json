@@ -65,7 +65,7 @@
     "env": "workspace:*",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
-    "jest": "^26.1.0",
+    "jest": "^26.2.1",
     "minimist": "^1.2.5",
     "nodemon": "^2.0.4",
     "typescript": "3.9.7"
