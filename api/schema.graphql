@@ -124,6 +124,12 @@ type Comment implements Node {
 }
 
 type Mutation {
+  # Authenticates user with a Firebase ID token.
+  signIn(idToken: String!): SignInPayload
+
+  # Removes the authentication cookie.
+  signOut: String
+
   # Updates a user.
   updateUser(input: UpdateUserInput!): UpdateUserPayload
 
@@ -135,6 +141,10 @@ type Mutation {
 
   # Marks the story as "liked".
   likeStory(input: LikeStoryInput!): LikeStoryPayload
+}
+
+type SignInPayload {
+  me: User
 }
 
 type UpdateUserPayload {
