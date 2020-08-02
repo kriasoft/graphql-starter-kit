@@ -6,11 +6,17 @@
   "main": "lib/index.js",
   "scripts": {
     "start": "nodemon ./src",
-    "start:debug": "nodemon --inspect ./src",
+    "start-debug": "nodemon --inspect ./src",
     "test": "jest",
     "build": "babel ./src -x .ts --out-dir lib --delete-dir-on-start --verbose",
     "update-schema": "babel-node -x .ts ./scripts/update-schema",
-    "update-types": "babel-node -x .ts ./scripts/update-types"
+    "update-types": "babel-node -x .ts ./scripts/update-types",
+    "api:start": "yarn workspace api start",
+    "api:start-debug": "yarn workspace api start-debug",
+    "api:test": "yarn workspace api test",
+    "api:build": "yarn workspace api build",
+    "api:update-schema": "yarn workspace api update-schema",
+    "api:update-types": "yarn workspace api update-types"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.2.2",

@@ -11,21 +11,7 @@
   "scripts": {
     "start": "yarn workspaces foreach -ip run start",
     "g:lint": "cd $INIT_CWD && eslint --cache",
-    "g:format": "CONFIG=\"$(pwd)/package.json\" IGNORE=\"$(pwd)/.prettierignore\" && cd $INIT_CWD && prettier --config \"$CONFIG\" --ignore-path \"$IGNORE\"",
-    "db:version": "yarn workspace db version",
-    "db:change": "yarn workspace db change",
-    "db:migrate": "yarn workspace db migrate",
-    "db:rollback": "yarn workspace db rollback",
-    "db:seed": "yarn workspace db seed",
-    "db:reset": "yarn workspace db reset",
-    "db:backup": "yarn workspace db backup",
-    "db:restore": "yarn workspace db restore",
-    "db:repl": "yarn workspace db repl",
-    "db:psql": "yarn workspace db psql",
-    "api:start": "yarn workspace api start",
-    "api:build": "yarn workspace api build",
-    "api:update-schema": "yarn workspace api update-schema",
-    "api:update-types": "yarn workspace api update-types"
+    "g:format": "CONFIG=\"$(pwd)/package.json\" IGNORE=\"$(pwd)/.prettierignore\" && cd $INIT_CWD && prettier --config \"$CONFIG\" --ignore-path \"$IGNORE\""
   },
   "dependencies": {
     "@babel/cli": "^7.10.5",
