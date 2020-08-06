@@ -4,7 +4,6 @@
 </h1>
 
 <p align="center">
-  <img src="https://api.dependabot.com/badges/status?host=github&repo=kriasoft/nodejs-api-starter" alt="Dependabot" height="20" />
   <a href="https://discord.com/invite/bSsv7XM"><img src="https://img.shields.io/badge/chat-discord-kriasoft.svg?logo=discord&style=flat" height="20"></a>
   <a href="https://patreon.com/koistya"><img src="https://img.shields.io/badge/donate-patreon-kriasoft.svg?logo=patreon&style=flat" height="20"></a>
   <a href="https://github.com/kriasoft/nodejs-api-starter/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/nodejs-api-starter.svg?style=social&label=Star&maxAge=3600" height="20"></a>

@@ -1,7 +1,7 @@
 /**
- * REPL shell for Knex.js. Usage:
+ * Resets database to its initial state (for local development). Usage:
  *
- *   yarn db [--env=#0]
+ *   yarn db:reset [--env=#0]
  *
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
@@ -19,8 +19,7 @@ Promise.resolve()
   // Drop and re-create the database
   .then(() => db.raw(`DROP DATABASE IF EXISTS "${process.env.PGDATABASE}"`))
   .then(() => db.raw(`CREATE DATABASE "${process.env.PGDATABASE}"`))
-  .catch(() => Promise.resolve())
-  .then(() => db.destroy())
+  .finally(() => db.destroy())
 
   // Migrate database to the latest version
   .then(() => {
