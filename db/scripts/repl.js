@@ -1,7 +1,7 @@
 /**
  * REPL shell for Knex.js. Usage:
  *
- *   yarn repl [--env=#0]
+ *   yarn db:repl [--env=#0]
  *
  * @see https://knexjs.org/#Builder
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
