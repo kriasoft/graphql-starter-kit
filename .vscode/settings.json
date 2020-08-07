@@ -18,6 +18,7 @@
     "abcdefghijklmnopqrstuvwxyz",
     "corejs",
     "dataloader",
+    "datname",
     "jsonb",
     "knexfile",
     "pgdatabase",

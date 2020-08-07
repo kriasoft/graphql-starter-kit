@@ -26,6 +26,7 @@
     "db:psql": "yarn workspace db psql"
   },
   "devDependencies": {
+    "cross-spawn": "*",
     "env": "workspace:*",
     "faker": "^4.1.0",
     "knex": "^0.21.2",

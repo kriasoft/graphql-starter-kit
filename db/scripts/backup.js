@@ -9,6 +9,7 @@
 const fs = require("fs");
 const path = require("path");
 const readline = require("readline");
+const spawn = require("cross-spawn");
 const cp = require("child_process");
 const { EOL } = require("os");
 
@@ -16,7 +17,7 @@ const { EOL } = require("os");
 require("env");
 
 // Get the list of database tables
-let cmd = cp.spawnSync(
+let cmd = spawn.sync(
   "psql",
   [
     "--no-align",

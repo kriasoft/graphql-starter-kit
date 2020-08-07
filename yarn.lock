@@ -4055,7 +4055,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:7.0.3, cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2":
+"cross-spawn@npm:*, cross-spawn@npm:7.0.3, cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -4182,6 +4182,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "db@workspace:db"
   dependencies:
+    cross-spawn: "*"
     env: "workspace:*"
     faker: ^4.1.0
     knex: ^0.21.2
