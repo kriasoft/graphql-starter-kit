@@ -8,7 +8,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const cp = require("child_process");
+const spawn = require("cross-spawn");
 
 // Load environment variables (PGHOST, PGUSER, etc.)
 require("env");
@@ -28,7 +28,7 @@ if (!file) {
 
 console.log(`Restoring ${file} to ${PGDATABASE} (${ENV})...`);
 
-cp.spawn(
+spawn(
   "psql",
   [
     "--file",

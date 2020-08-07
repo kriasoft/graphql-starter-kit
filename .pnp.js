@@ -5129,6 +5129,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./db/",
           "packageDependencies": [
             ["db", "workspace:db"],
+            ["cross-spawn", "npm:7.0.3"],
             ["env", "workspace:env"],
             ["faker", "npm:4.1.0"],
             ["knex", "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:0.21.2"],
