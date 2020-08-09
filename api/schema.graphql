@@ -37,28 +37,10 @@ type User implements Node {
   displayName: String
   photoURL: String
   timeZone: String
-  identities: [Identity]
-  isAdmin: Boolean
+  admin: Boolean
   createdAt(format: String): String
   updatedAt(format: String): String
   lastLoginAt(format: String): String
-}
-
-type Identity {
-  # The ID of an object
-  id: ID!
-  provider: AuthenticationProvider
-  providerId: String
-  email: String
-  displayName: String
-  photoURL: String
-  profileURL: String
-}
-
-enum AuthenticationProvider {
-  GOOGLE
-  TWITTER
-  FACEBOOK
 }
 
 # A connection to a list of items.
@@ -116,9 +98,7 @@ type Comment implements Node {
   id: ID!
   parent: Comment
   author: User!
-  comments: [Comment]
   text: String
-  pointsCount: Int!
   createdAt(format: String): String
   updatedAt(format: String): String
 }
@@ -157,9 +137,9 @@ input UpdateUserInput {
   username: String
   email: String
   displayName: String
-  photoURL: String
+  photo: String
   timeZone: String
-  isAdmin: Boolean
+  admin: Boolean
   validateOnly: Boolean
   clientMutationId: String
 }

@@ -4,15 +4,23 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-export function assignType(type: string) {
-  return (obj?: any) => {
-    // eslint-disable-next-line no-underscore-dangle, no-param-reassign
-    if (obj) obj.__type = type;
+interface Entity {
+  __type?: string;
+}
+
+export function assignType<T extends Record<string, unknown>>(type: string) {
+  return (obj?: T | null): T | null | undefined => {
+    if (obj) {
+      Object.defineProperty(obj, "__type", {
+        configurable: false,
+        enumerable: false,
+        value: type,
+      });
+    }
     return obj;
   };
 }
 
-export function getType(obj: any) {
-  // eslint-disable-next-line no-underscore-dangle
-  return obj ? obj.__type : undefined;
+export function getType(obj: unknown): string | undefined {
+  return obj ? (obj as { __type: string }).__type : undefined;
 }

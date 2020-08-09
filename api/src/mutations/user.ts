@@ -12,7 +12,8 @@ import {
   GraphQLBoolean,
 } from "graphql";
 
-import db from "../db";
+import db, { User } from "../db";
+import { Context } from "../context";
 import { UserType } from "../types";
 import { fromGlobalId } from "../utils";
 
@@ -25,9 +26,9 @@ export const updateUser = mutationWithClientMutationId({
     username: { type: GraphQLString },
     email: { type: GraphQLString },
     displayName: { type: GraphQLString },
-    photoURL: { type: GraphQLString },
+    photo: { type: GraphQLString },
     timeZone: { type: GraphQLString },
-    isAdmin: { type: GraphQLBoolean },
+    admin: { type: GraphQLBoolean },
     validateOnly: { type: GraphQLBoolean },
   },
 
@@ -35,30 +36,25 @@ export const updateUser = mutationWithClientMutationId({
     user: { type: UserType },
   },
 
-  async mutateAndGetPayload(input, ctx) {
+  async mutateAndGetPayload(input, ctx: Context) {
     const id = fromGlobalId(input.id, "User");
 
     // Check permissions
-    ctx.ensureAuthorized((user) => user.id === id || user.isAdmin);
+    ctx.ensureAuthorized((user) => user.id === id || user.admin);
 
-    function usernameAvailable(username) {
-      return db
-        .table("users")
-        .where({ username })
-        .whereNot({ id })
-        .select(1)
-        .then((x) => !x.length);
-    }
+    const usernameAvailable = await db
+      .table("users")
+      .where({ username: input.username.trim() })
+      .whereNot({ id })
+      .select(db.raw("1"))
+      .then((x) => !x.length);
 
     // Validate and sanitize user input
-    const data = await ctx.validate(
-      input,
-      "update",
-    )((x) =>
+    const data = ctx.validate(input, (x) =>
       x
         .field("username", { trim: true })
         .isLength({ min: 1, max: 50 })
-        .is(usernameAvailable, "That username is taken. Try another.")
+        .is(() => usernameAvailable, "That username is taken. Try another.")
 
         .field("email")
         .isLength({ max: 100 })
@@ -67,15 +63,18 @@ export const updateUser = mutationWithClientMutationId({
         .field("displayName", { as: "display_name", trim: true })
         .isLength({ min: 1, max: 100 })
 
-        .field("photoURL", { as: "photo_url" })
+        .field("photo", { as: "photo" })
         .isLength({ max: 250 })
         .isURL()
 
         .field("timeZone", { as: "time_zone" })
         .isLength({ max: 50 })
 
-        .field("isAdmin", { as: "is_admin" })
-        .is(() => ctx.user.isAdmin, "Only admins can change this field."),
+        .field("admin", { as: "admin" })
+        .is(
+          () => Boolean(ctx.user?.admin),
+          "Only admins can change this field.",
+        ),
     );
 
     if (input.validateOnly) {
@@ -86,7 +85,7 @@ export const updateUser = mutationWithClientMutationId({
 
     if (Object.keys(data).length) {
       [user] = await db
-        .table("users")
+        .table<User>("users")
         .where({ id })
         .update({ ...data, updated_at: db.fn.now() })
         .returning("*");
@@ -110,9 +109,9 @@ export const deleteUser = mutationWithClientMutationId({
     },
   },
 
-  async mutateAndGetPayload(input, ctx) {
+  async mutateAndGetPayload(input, ctx: Context) {
     // Check permissions
-    ctx.ensureAuthorized((user) => user.isAdmin);
+    ctx.ensureAuthorized((user) => user.admin);
 
     const id = fromGlobalId(input.id, "User");
 

@@ -7,158 +7,122 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
+import validator from "validator";
 import isEmail from "validator/lib/isEmail";
 import isLength from "validator/lib/isLength";
 import isURL from "validator/lib/isURL";
 import textTrim from "validator/lib/trim";
 import { fromGlobalId } from "graphql-relay";
 
-function isEmpty(value) {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+interface FieldConfig<T extends Record<string, any>, V> {
+  as?: keyof T;
+  alias?: string;
+  trim?: boolean | string;
+  transform?: (value: V) => any;
+  type?: string;
+}
+
+interface Status {
+  valid: boolean;
+  message?: string;
+}
+
+function isEmpty(value: string | null | undefined): boolean {
   return typeof value === "undefined" || value === null || value === "";
 }
 
-export class Validator {
-  errors = [];
-  states = [];
+export class Validator<T extends Record<string, any>> {
+  readonly data: Record<string, any> = {};
+  readonly errors: { key: string; message: string }[] = [];
 
-  constructor(input, mode, onError) {
+  private readonly input: T;
+  private validate: (cb: (value: any, field: string) => Status) => this = () =>
+    this;
+
+  constructor(input: T) {
     this.input = input;
-    this.mode = mode || "create";
-    this.onError = onError;
-
-    if (!(this.mode === "create" || this.mode === "update")) {
-      throw new Error(`The "${mode}" validation mode is not supported.`);
-    }
   }
 
   /**
-   * Initialized a new state for the field.
+   * Initializes a new field validator.
    */
-  field(key, { as, alias, trim, transform, type } = {}) {
-    const name = alias || key;
-    let value = this.input[key];
+  field(key: keyof T, config: FieldConfig<T, T[typeof key]> = {}): this {
+    let value = this.input[key] as any;
 
-    if (value && trim) {
-      value = textTrim(value, trim === true ? undefined : trim);
+    if (value && config.trim) {
+      value = textTrim(value, config.trim === true ? undefined : config.trim);
     }
 
-    if (value && transform) {
-      value = transform(value);
+    if (value && config.transform) {
+      value = config.transform(value);
     }
 
-    if (value && type) {
+    if (value && config.type) {
       const globalId = fromGlobalId(value);
 
-      if (globalId.type !== type) {
+      if (globalId.type !== config.type) {
         throw new Error(
-          `Expected an ID of type '${type}' but got '${globalId.type}'.`,
+          `Expected an ID of type '${config.type}' but got '${globalId.type}'.`,
         );
       }
 
       value = globalId.id;
     }
 
-    this.state = {
-      key,
-      as,
-      name,
-      value,
-      promise: undefined,
-      addError: (message) =>
+    this.validate = (cb: (value: any, field: string) => Status): this => {
+      const { valid, message } = cb(value, (config.as || key) as string);
+
+      if (!valid) {
         this.errors.push({
-          key,
-          message: message || `The ${name} field is invalid.`,
-        }),
-    };
-    this.states.push(this.state);
-    return this;
-  }
-
-  isRequired(message) {
-    if (
-      (((this.input.validateOnly === true || this.mode === "update") &&
-        this.state.value !== undefined) ||
-        this.mode === "create") &&
-      !this.state.value
-    ) {
-      this.state.addError(
-        message || `The ${this.state.name} field cannot be empty.`,
-      );
-    }
-    return this;
-  }
-
-  isEmail(options, message) {
-    if (!isEmpty(this.state.value) && !isEmail(this.state.value, options)) {
-      this.state.addError(message || "The email address is invalid.");
-    }
-    return this;
-  }
-
-  isLength(options, message) {
-    if (!isEmpty(this.state.value) && !isLength(this.state.value, options)) {
-      if (options && options.min && options.max) {
-        this.state.addError(
-          message ||
-            `The ${this.state.name} field must be between ${options.min} and ${options.max} characters long.`,
-        );
-      } else if (options && options.max) {
-        this.state.addError(
-          message ||
-            `The ${this.state.name} field must be up to ${options.max} characters long.`,
-        );
-      } else {
-        this.state.addError(message);
-      }
-    }
-    return this;
-  }
-
-  isURL(options, message) {
-    if (!isEmpty(this.state.value) && !isURL(this.state.value, options)) {
-      this.state.addError(message);
-    }
-    return this;
-  }
-
-  is(check, message) {
-    this.state.promise = (
-      this.state.promise || Promise.resolve(this.state)
-    ).then((state) =>
-      isEmpty(state.value)
-        ? state
-        : Promise.resolve()
-            .then(() => check(state.value, message))
-            .then((isValid) => {
-              if (!isValid) state.addError(message);
-              return state;
-            })
-            .catch((err) => {
-              state.addError(err.message);
-              return Promise.resolve(state);
-            }),
-    );
-    return this;
-  }
-
-  validate() {
-    const done = (states) => {
-      if (this.errors.length && this.onError) {
-        this.onError(this.errors);
+          key: key as string,
+          message: message || "Invalid value.",
+        });
       }
 
-      return states
-        .filter((x) => x.value !== undefined)
-        .reduce((acc, state) => {
-          acc[state.as || state.key] = state.value;
-          return acc;
-        }, {});
+      return this;
     };
 
-    return this.states.some((x) => x.promise)
-      ? Promise.all(
-          this.states.map((x) => x.promise || Promise.resolve(x)),
-        ).then(done)
-      : done(this.states);
+    return this;
   }
+
+  isRequired = (message?: string): this =>
+    this.validate((value, field) => ({
+      valid: isEmpty(value),
+      message: message || `The ${field} field cannot be empty.`,
+    }));
+
+  isRequiredIf = (check: boolean, message?: string): this =>
+    this.validate((value, field) => ({
+      valid: check === true ? isEmpty(value) : true,
+      message: message || `The ${field} field cannot be empty.`,
+    }));
+
+  isEmail = (options?: validator.IsEmailOptions, message?: string): this =>
+    this.validate((value) => ({
+      valid: !isEmpty(value) && isEmail(value, options),
+      message: message || "The email address is invalid.",
+    }));
+
+  isLength = (options?: validator.IsLengthOptions, message?: string): this =>
+    this.validate((value, field) => ({
+      valid: !isEmpty(value) && isLength(value, options),
+      message: message
+        ? message
+        : options?.min && options?.max
+        ? `The ${field} field must be between ${options.min} and ${options.max} characters long.`
+        : options?.max
+        ? `The ${field} field must be up to ${options.max} characters long.`
+        : `Invalid length.`,
+    }));
+
+  isURL = (options?: validator.IsURLOptions, message?: string): this =>
+    this.validate((value) => ({
+      valid: !isEmpty(value) && isURL(value, options),
+      message: message || "The URL is invalid.",
+    }));
+
+  is = (check: (value: any) => boolean, message?: string): this =>
+    this.validate((value) => ({ valid: check(value), message }));
 }

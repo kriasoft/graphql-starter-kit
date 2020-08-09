@@ -4,19 +4,25 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-import { GraphQLList, GraphQLNonNull, GraphQLString } from "graphql";
+import {
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLString,
+  GraphQLFieldConfig,
+} from "graphql";
 
 import db from "../db";
+import { Context } from "../context";
 import { StoryType } from "../types";
 
-export const story = {
+export const story: GraphQLFieldConfig<unknown, Context> = {
   type: StoryType,
 
   args: {
     slug: { type: new GraphQLNonNull(GraphQLString) },
   },
 
-  async resolve(root, { slug }, ctx) {
+  async resolve(root, { slug }) {
     let story = await db.table("stories").where({ slug }).first();
 
     // Attempts to find a story by partial ID contained in the slug.
@@ -34,7 +40,7 @@ export const story = {
   },
 };
 
-export const stories = {
+export const stories: GraphQLFieldConfig<unknown, Context> = {
   type: new GraphQLList(StoryType),
 
   resolve(self, args, ctx) {

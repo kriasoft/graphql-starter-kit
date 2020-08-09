@@ -15,13 +15,14 @@ import {
   GraphQLString,
 } from "graphql";
 
+import { Story } from "../db";
 import { UserType } from "./user";
 import { CommentType } from "./comment";
 import { nodeInterface } from "../node";
 import { dateField } from "../fields";
 import { Context } from "../context";
 
-export const StoryType = new GraphQLObjectType<any, Context, any>({
+export const StoryType = new GraphQLObjectType<Story, Context>({
   name: "Story",
   interfaces: [nodeInterface],
 
@@ -49,7 +50,7 @@ export const StoryType = new GraphQLObjectType<any, Context, any>({
         truncate: { type: GraphQLInt },
       },
       resolve(self, args) {
-        return args.truncate
+        return args.truncate && self.text
           ? truncate(self.text, { length: args.truncate })
           : self.text;
       },
@@ -90,7 +91,7 @@ export const StoryType = new GraphQLObjectType<any, Context, any>({
       },
     },
 
-    createdAt: dateField((self: any) => self.created_at),
-    updatedAt: dateField((self: any) => self.updated_at),
+    createdAt: dateField((self) => self.created_at),
+    updatedAt: dateField((self) => self.updated_at),
   },
 });

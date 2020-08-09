@@ -1,0 +1,21 @@
+# GitHub Actions Workflow
+# https://help.github.com/actions
+
+name: PR
+on: [pull_request]
+env:
+  CI: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install --immutable-cache
+
+      # Analyze code for potential problems
+      - run: yarn prettier --check .
+      - run: yarn eslint --report-unused-disable-directives .
+
+      # Build and test "api"
+      - run: yarn workspace api test
+      - run: yarn workspace api build
