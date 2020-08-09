@@ -2371,6 +2371,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@jest/types", [
+        ["npm:25.5.0", {
+          "packageLocation": "./.yarn/cache/@jest-types-npm-25.5.0-45f0640591-33ad68320e.zip/node_modules/@jest/types/",
+          "packageDependencies": [
+            ["@jest/types", "npm:25.5.0"],
+            ["@types/istanbul-lib-coverage", "npm:2.0.3"],
+            ["@types/istanbul-reports", "npm:1.1.2"],
+            ["@types/yargs", "npm:15.0.5"],
+            ["chalk", "npm:3.0.0"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:26.2.0", {
           "packageLocation": "./.yarn/cache/@jest-types-npm-26.2.0-4643ecb17b-369e0123c9.zip/node_modules/@jest/types/",
           "packageDependencies": [
@@ -2897,6 +2908,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/istanbul-reports", "npm:1.1.2"],
             ["@types/istanbul-lib-coverage", "npm:2.0.3"],
             ["@types/istanbul-lib-report", "npm:3.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/jest", [
+        ["npm:26.0.9", {
+          "packageLocation": "./.yarn/cache/@types-jest-npm-26.0.9-4678777297-5d2b5fb512.zip/node_modules/@types/jest/",
+          "packageDependencies": [
+            ["@types/jest", "npm:26.0.9"],
+            ["jest-diff", "npm:25.5.0"],
+            ["pretty-format", "npm:25.5.0"]
           ],
           "linkType": "HARD",
         }]
@@ -3631,6 +3653,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/express", "npm:4.17.7"],
             ["@types/faker", "npm:4.1.12"],
             ["@types/graphql-relay", "npm:0.6.0"],
+            ["@types/jest", "npm:26.0.9"],
             ["@types/lodash", "npm:4.14.159"],
             ["@types/minimist", "npm:1.2.0"],
             ["@types/moment-timezone", "npm:0.5.13"],
@@ -5427,6 +5450,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["diff-sequences", [
+        ["npm:25.2.6", {
+          "packageLocation": "./.yarn/cache/diff-sequences-npm-25.2.6-d72e0e66bc-332484fc00.zip/node_modules/diff-sequences/",
+          "packageDependencies": [
+            ["diff-sequences", "npm:25.2.6"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:26.0.0", {
           "packageLocation": "./.yarn/cache/diff-sequences-npm-26.0.0-4b8f552043-0b5fdd1803.zip/node_modules/diff-sequences/",
           "packageDependencies": [
@@ -8208,6 +8238,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["jest-diff", [
+        ["npm:25.5.0", {
+          "packageLocation": "./.yarn/cache/jest-diff-npm-25.5.0-dfbc320001-14a2634ecb.zip/node_modules/jest-diff/",
+          "packageDependencies": [
+            ["jest-diff", "npm:25.5.0"],
+            ["chalk", "npm:3.0.0"],
+            ["diff-sequences", "npm:25.2.6"],
+            ["jest-get-type", "npm:25.2.6"],
+            ["pretty-format", "npm:25.5.0"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:26.2.0", {
           "packageLocation": "./.yarn/cache/jest-diff-npm-26.2.0-53558e0750-30942bce9a.zip/node_modules/jest-diff/",
           "packageDependencies": [
@@ -8276,6 +8317,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["jest-get-type", [
+        ["npm:25.2.6", {
+          "packageLocation": "./.yarn/cache/jest-get-type-npm-25.2.6-7abd790493-6051fcb75c.zip/node_modules/jest-get-type/",
+          "packageDependencies": [
+            ["jest-get-type", "npm:25.2.6"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:26.0.0", {
           "packageLocation": "./.yarn/cache/jest-get-type-npm-26.0.0-32f433dd67-df81e05d3e.zip/node_modules/jest-get-type/",
           "packageDependencies": [
@@ -10712,6 +10760,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["pretty-format", [
+        ["npm:25.5.0", {
+          "packageLocation": "./.yarn/cache/pretty-format-npm-25.5.0-9def2180a5-f7cc631d51.zip/node_modules/pretty-format/",
+          "packageDependencies": [
+            ["pretty-format", "npm:25.5.0"],
+            ["@jest/types", "npm:25.5.0"],
+            ["ansi-regex", "npm:5.0.0"],
+            ["ansi-styles", "npm:4.2.1"],
+            ["react-is", "npm:16.13.1"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:26.2.0", {
           "packageLocation": "./.yarn/cache/pretty-format-npm-26.2.0-e5223fbb20-b75917fbcf.zip/node_modules/pretty-format/",
           "packageDependencies": [

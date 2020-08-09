@@ -5,46 +5,50 @@
  */
 
 import moment from "moment-timezone";
-import { GraphQLNonNull, GraphQLString, GraphQLInt } from "graphql";
+import { QueryBuilder } from "knex";
+import {
+  GraphQLFieldConfig,
+  GraphQLInt,
+  GraphQLNonNull,
+  GraphQLString,
+} from "graphql";
+
 import { Context } from "./context";
-
-const dateFieldArgs = {
-  format: { type: GraphQLString },
-};
-
-const dateFieldResolve = (resolve: any, self: any, args: any, ctx: Context) => {
-  let date = resolve(self);
-
-  if (!date) {
-    return null;
-  }
-
-  const timeZone = ctx.user && ctx.user.timeZone;
-
-  if (timeZone) {
-    date = moment(date).tz(timeZone);
-  } else {
-    date = moment(date);
-  }
-
-  return date.format(args.format);
-};
 
 /**
  * Creates the configuration for a date/time field with support of format and
  * time zone.
  */
-export function dateField(resolve: any) {
+export function dateField<TSource>(
+  resolve: (self: TSource) => Date | string | null | undefined,
+): GraphQLFieldConfig<TSource, Context, { format?: string }> {
   return {
     type: GraphQLString,
-    args: dateFieldArgs,
-    resolve: dateFieldResolve.bind(undefined, resolve),
+
+    args: {
+      format: { type: GraphQLString },
+    },
+
+    resolve(self, args, ctx) {
+      const date = resolve(self);
+
+      if (!date) return null;
+
+      const timeZone = ctx.user?.time_zone;
+
+      return timeZone
+        ? moment(date).tz(timeZone).format(args.format)
+        : moment(date).format(args.format);
+    },
   };
 }
 
-export const countField = {
+export const countField: GraphQLFieldConfig<
+  { query: QueryBuilder },
+  Context
+> = {
   type: new GraphQLNonNull(GraphQLInt),
-  resolve(self: any) {
-    return self.query.count().then((x: any) => x[0].count);
+  resolve(self) {
+    return self.query.count().then((x: { count: number }[]) => x[0].count);
   },
 };

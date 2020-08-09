@@ -6,7 +6,7 @@
 
 import { fromGlobalId as parse } from "graphql-relay";
 
-export function fromGlobalId(globalId: string, expectedType: string) {
+export function fromGlobalId(globalId: string, expectedType: string): string {
   const { id, type } = parse(globalId);
 
   if (expectedType && type !== expectedType) {

@@ -7,18 +7,17 @@
 import { globalIdField } from "graphql-relay";
 import {
   GraphQLObjectType,
-  GraphQLList,
   GraphQLNonNull,
   GraphQLString,
   GraphQLBoolean,
 } from "graphql";
 
-import { IdentityType } from "./identity";
+import { User } from "../db";
 import { nodeInterface } from "../node";
 import { dateField } from "../fields";
 import { Context } from "../context";
 
-export const UserType = new GraphQLObjectType<any, Context, any>({
+export const UserType = new GraphQLObjectType<User, Context>({
   name: "User",
   interfaces: [nodeInterface],
 
@@ -32,7 +31,7 @@ export const UserType = new GraphQLObjectType<any, Context, any>({
     email: {
       type: GraphQLString,
       resolve(self, args, ctx) {
-        return ctx.user && (ctx.user.id === self.id || ctx.user.isAdmin)
+        return ctx.user && (ctx.user.id === self.id || ctx.user.admin)
           ? self.email
           : null;
       },
@@ -48,7 +47,7 @@ export const UserType = new GraphQLObjectType<any, Context, any>({
     photoURL: {
       type: GraphQLString,
       resolve(self) {
-        return self.photo_url;
+        return self.photo;
       },
     },
 
@@ -59,24 +58,12 @@ export const UserType = new GraphQLObjectType<any, Context, any>({
       },
     },
 
-    identities: {
-      type: new GraphQLList(IdentityType),
-      resolve(self, args, ctx) {
-        return ctx.identitiesByUserId.load(self.id);
-      },
-    },
-
-    isAdmin: {
+    admin: {
       type: GraphQLBoolean,
-      resolve(self, args, ctx) {
-        return ctx.user && ctx.user.id === self.id
-          ? ctx.user.isAdmin || false
-          : self.is_admin;
-      },
     },
 
-    createdAt: dateField((self: any) => self.created_at),
-    updatedAt: dateField((self: any) => self.updated_at),
-    lastLoginAt: dateField((self: any) => self.last_login_at),
+    createdAt: dateField((self) => self.created_at),
+    updatedAt: dateField((self) => self.updated_at),
+    lastLoginAt: dateField((self) => self.last_login_at),
   },
 });

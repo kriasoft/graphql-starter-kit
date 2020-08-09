@@ -1,36 +1,36 @@
 /**
- * Mapping function to be used with data loaders.
+ * Helper functions that order data records so that they
+ * match the provided keys array.
  *
+ * @see https://github.com/graphql/dataloader
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-type Func<R, K> = (row: R) => K;
-
-export function mapTo<K, R>(keys: ReadonlyArray<K>, keyFn: Func<R, K>) {
-  return (rows: Array<R>) => {
-    const group = new Map<K, R | null>(keys.map((key) => [key, null]));
-    rows.forEach((row) => group.set(keyFn(row), row));
-    return Array.from(group.values());
-  };
-}
-
-export function mapToMany<K, R>(keys: ReadonlyArray<K>, keyFn: Func<R, K>) {
-  return (rows: Array<R>) => {
-    const group = new Map<K, R[]>(keys.map((key) => [key, []]));
-    rows.forEach((row) => (group.get(keyFn(row)) || []).push(row));
-    return Array.from(group.values());
-  };
-}
-
-export function mapToValues<K, R, V>(
+export function mapTo<R, K>(
+  records: ReadonlyArray<R>,
   keys: ReadonlyArray<K>,
-  keyFn: Func<R, K>,
-  valueFn: Func<R, V>,
-  defaultValue = null,
-) {
-  return (rows: Array<R>) => {
-    const group = new Map<K, V | null>(keys.map((key) => [key, defaultValue]));
-    rows.forEach((row) => group.set(keyFn(row), valueFn(row)));
-    return Array.from(group.values());
-  };
+  keyFn: (record: R) => K,
+): Array<R | null> {
+  const map = new Map(records.map((x) => [keyFn(x), x]));
+  return keys.map((key) => map.get(key) || null);
+}
+
+export function mapToMany<R, K>(
+  records: ReadonlyArray<R>,
+  keys: ReadonlyArray<K>,
+  keyFn: (record: R) => K,
+): Array<R[]> {
+  const group = new Map<K, R[]>(keys.map((key) => [key, []]));
+  records.forEach((record) => (group.get(keyFn(record)) || []).push(record));
+  return Array.from(group.values());
+}
+
+export function mapToValues<R, K, V>(
+  records: ReadonlyArray<R>,
+  keys: ReadonlyArray<K>,
+  keyFn: (record: R) => K,
+  valueFn: (record?: R) => V,
+): Array<V> {
+  const map = new Map(records.map((x) => [keyFn(x), x]));
+  return keys.map((key) => valueFn(map.get(key)));
 }

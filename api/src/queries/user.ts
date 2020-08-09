@@ -4,7 +4,7 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-import { GraphQLNonNull, GraphQLString } from "graphql";
+import { GraphQLNonNull, GraphQLString, GraphQLFieldConfig } from "graphql";
 import {
   connectionDefinitions,
   forwardConnectionArgs,
@@ -12,11 +12,12 @@ import {
   cursorToOffset,
 } from "graphql-relay";
 
-import db from "../db";
-import { countField } from "../fields";
+import db, { User } from "../db";
+import { Context } from "../context";
 import { UserType } from "../types";
+import { countField } from "../fields";
 
-export const me = {
+export const me: GraphQLFieldConfig<unknown, Context> = {
   type: UserType,
 
   resolve(root, args, ctx) {
@@ -24,7 +25,7 @@ export const me = {
   },
 };
 
-export const user = {
+export const user: GraphQLFieldConfig<unknown, Context> = {
   type: UserType,
 
   args: {
@@ -36,7 +37,7 @@ export const user = {
   },
 };
 
-export const users = {
+export const users: GraphQLFieldConfig<unknown, Context> = {
   type: connectionDefinitions({
     name: "User",
     nodeType: UserType,
@@ -47,9 +48,9 @@ export const users = {
 
   async resolve(root, args, ctx) {
     // Only admins are allowed to fetch the list of users
-    ctx.ensureAuthorized((user) => user.isAdmin);
+    ctx.ensureAuthorized((user) => user.admin);
 
-    const query = db.table("users");
+    const query = db.table<User>("users");
 
     const limit = args.first === undefined ? 50 : args.first;
     const offset = args.after ? cursorToOffset(args.after) + 1 : 0;

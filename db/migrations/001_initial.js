@@ -22,7 +22,7 @@ module.exports.up = async (/** @type {Knex} */ db) /* prettier-ignore */ => {
     table.string("display_name", 100);
     table.string("photo", 250);
     table.string("time_zone", 50);
-    table.jsonb("claims").notNullable().defaultTo("{}");
+    table.boolean("admin").notNullable().defaultTo(false);
     table.boolean("archived").notNullable().defaultTo(false);
     table.timestamps(false, true);
     table.timestamp("last_login_at");

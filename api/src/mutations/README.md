@@ -57,10 +57,7 @@ ctx.ensureAuthorized((user) => story.author_id === user.id);
 Always validate user and sanitize user input! We use [`validator.js`](https://github.com/validatorjs/validator.js) + a custom helper function `ctx.validate(input)(...)` for that. For example:
 
 ```js
-const data = await ctx.validate(
-  input,
-  id ? "update" : "create",
-)((x) =>
+const data = ctx.validate(input, (x) =>
   x
     .field("title", { trim: true })
     .isRequired()

@@ -74,7 +74,7 @@ export type User = {
   display_name: string | null;
   photo: string | null;
   time_zone: string | null;
-  claims: any;
+  admin: boolean;
   archived: boolean;
   created_at: Date;
   updated_at: Date;

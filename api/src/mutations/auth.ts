@@ -15,11 +15,12 @@ import {
 import { Context } from "../context";
 import { UserType } from "../types";
 
-type SignInArgs = {
+interface SignInArgs {
   idToken: string;
-};
+}
 
-export const signIn: GraphQLFieldConfig<unknown, Context, SignInArgs> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const signIn: GraphQLFieldConfig<unknown, Context, any> = {
   description: "Authenticates user with a Firebase ID token.",
 
   type: new GraphQLObjectType({
@@ -33,12 +34,12 @@ export const signIn: GraphQLFieldConfig<unknown, Context, SignInArgs> = {
     idToken: { type: new GraphQLNonNull(GraphQLString) },
   },
 
-  async resolve(self, args, ctx) {
+  async resolve(self, args: SignInArgs, ctx) {
     return { me: await ctx.signIn(args.idToken) };
   },
 };
 
-export const signOut: GraphQLFieldConfig<unknown, Context, unknown> = {
+export const signOut: GraphQLFieldConfig<unknown, Context> = {
   description: "Removes the authentication cookie.",
   type: GraphQLString,
 

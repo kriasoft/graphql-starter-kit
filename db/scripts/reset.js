@@ -10,31 +10,32 @@ const knex = require("knex");
 const spawn = require("cross-spawn");
 const config = require("../knexfile");
 
-const db = knex({
-  ...config,
-  connection: { ...config.connection, database: "postgres" },
-});
+async function reset() {
+  const db = knex({
+    ...config,
+    connection: { ...config.connection, database: "postgres" },
+  });
 
-Promise.resolve()
   // Drop existing connections
-  .then(() =>
-    db.raw(
-      `
-      SELECT pg_terminate_backend(pg_stat_activity.pid)
+  await db.raw(
+    ` SELECT pg_terminate_backend(pg_stat_activity.pid)
       FROM pg_stat_activity
       WHERE pg_stat_activity.datname = ? AND pid <> pg_backend_pid()`,
-      [process.env.PGDATABASE],
-    ),
-  )
+    [process.env.PGDATABASE],
+  );
 
   // Drop and re-create the database
-  .then(() => db.raw(`DROP DATABASE IF EXISTS ??`, [process.env.PGDATABASE]))
-  .then(() => db.raw(`CREATE DATABASE ??`, [process.env.PGDATABASE]))
-  .finally(() => db.destroy())
+  await db.raw(`DROP DATABASE IF EXISTS ??`, [process.env.PGDATABASE]);
+  await db.raw(`CREATE DATABASE ??`, [process.env.PGDATABASE]);
+  await db.destroy();
 
   // Migrate database to the latest version
-  .then(() => {
-    spawn.sync("yarn", ["knex", "migrate:latest"], { stdio: "inherit" });
-    spawn.sync("yarn", ["knex", "seed:run"], { stdio: "inherit" });
-    spawn.sync("yarn", ["api:update-types"], { stdio: "inherit" });
-  });
+  spawn.sync("yarn", ["knex", "migrate:latest"], { stdio: "inherit" });
+  spawn.sync("yarn", ["knex", "seed:run"], { stdio: "inherit" });
+  spawn.sync("yarn", ["api:update-types"], { stdio: "inherit" });
+}
+
+reset().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
