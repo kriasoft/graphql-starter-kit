@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mapTo() 1`] = `
+Array [
+  Object {
+    "id": 1,
+    "name": "a",
+  },
+  Object {
+    "id": 2,
+    "name": "b",
+  },
+]
+`;
+
+exports[`mapToMany() 1`] = `
+Array [
+  Array [
+    Object {
+      "id": 1,
+      "name": "a",
+    },
+    Object {
+      "id": 1,
+      "name": "c",
+    },
+  ],
+  Array [
+    Object {
+      "id": 2,
+      "name": "b",
+    },
+  ],
+]
+`;
+
+exports[`mapToValues() 1`] = `
+Array [
+  "a",
+  "b",
+  "c",
+  null,
+]
+`;

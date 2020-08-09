@@ -5,23 +5,17 @@
  */
 
 import { globalIdField } from "graphql-relay";
-import {
-  GraphQLObjectType,
-  GraphQLList,
-  GraphQLNonNull,
-  GraphQLInt,
-  GraphQLString,
-} from "graphql";
+import { GraphQLObjectType, GraphQLNonNull, GraphQLString } from "graphql";
 
+import { Comment } from "../db";
 import { UserType } from "./user";
 import { nodeInterface } from "../node";
 import { dateField } from "../fields";
 import { Context } from "../context";
 
 export const CommentType: GraphQLObjectType = new GraphQLObjectType<
-  any,
-  Context,
-  any
+  Comment,
+  Context
 >({
   name: "Comment",
   interfaces: [nodeInterface],
@@ -43,25 +37,11 @@ export const CommentType: GraphQLObjectType = new GraphQLObjectType<
       },
     },
 
-    comments: {
-      type: new GraphQLList(CommentType),
-      resolve(self, args, ctx) {
-        return ctx.commentsByParentId.load(self.id);
-      },
-    },
-
     text: {
       type: GraphQLString,
     },
 
-    pointsCount: {
-      type: new GraphQLNonNull(GraphQLInt),
-      resolve(self, args, ctx) {
-        return ctx.commentPointsCount.load(self.id);
-      },
-    },
-
-    createdAt: dateField((self: any) => self.created_at),
-    updatedAt: dateField((self: any) => self.updated_at),
+    createdAt: dateField((self) => self.created_at),
+    updatedAt: dateField((self) => self.updated_at),
   }),
 });

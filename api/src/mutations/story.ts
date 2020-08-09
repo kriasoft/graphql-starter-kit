@@ -15,7 +15,8 @@ import {
   GraphQLBoolean,
 } from "graphql";
 
-import db from "../db";
+import db, { Story } from "../db";
+import { Context } from "../context";
 import { StoryType } from "../types";
 import { fromGlobalId } from "../utils";
 
@@ -39,14 +40,14 @@ export const upsertStory = mutationWithClientMutationId({
     story: { type: StoryType },
   },
 
-  async mutateAndGetPayload(input, ctx) {
+  async mutateAndGetPayload(input, ctx: Context) {
     const id = input.id ? fromGlobalId(input.id, "Story") : null;
     const newId = uuid.v4();
 
-    let story;
+    let story: Story | undefined;
 
     if (id) {
-      story = await db.table("stories").where({ id }).first();
+      story = await db.table<Story>("stories").where({ id }).first();
 
       if (!story) {
         throw new Error(`Cannot find the story # ${id}.`);
@@ -54,17 +55,14 @@ export const upsertStory = mutationWithClientMutationId({
 
       // Only the author of the story or admins can edit it
       ctx.ensureAuthorized(
-        (user) => story.author_id === user.id || user.isAdmin,
+        (user) => story?.author_id === user.id || user.admin,
       );
     } else {
       ctx.ensureAuthorized();
     }
 
     // Validate and sanitize user input
-    const data = await ctx.validate(
-      input,
-      id ? "update" : "create",
-    )((x) =>
+    const data = ctx.validate(input, (x) =>
       x
         .field("title", { trim: true })
         .isRequired()
@@ -82,7 +80,7 @@ export const upsertStory = mutationWithClientMutationId({
         })
 
         .field("approved")
-        .is(() => ctx.user.isAdmin, "Only admins can approve a story."),
+        .is(() => Boolean(ctx.user?.admin), "Only admins can approve a story."),
     );
 
     if (data.title) {
@@ -91,18 +89,18 @@ export const upsertStory = mutationWithClientMutationId({
 
     if (id && Object.keys(data).length) {
       [story] = await db
-        .table("stories")
+        .table<Story>("stories")
         .where({ id })
         .update({ ...data, updated_at: db.fn.now() })
         .returning("*");
     } else {
       [story] = await db
-        .table("stories")
+        .table<Story>("stories")
         .insert({
           id: newId,
           ...data,
-          author_id: ctx.user.id,
-          approved: ctx.user.isAdmin ? true : false,
+          author_id: ctx.user?.id,
+          approved: ctx.user?.admin ? true : false,
         })
         .returning("*");
     }
@@ -123,14 +121,17 @@ export const likeStory = mutationWithClientMutationId({
     story: { type: StoryType },
   },
 
-  async mutateAndGetPayload(input, ctx) {
+  async mutateAndGetPayload(input, ctx: Context) {
     // Check permissions
     ctx.ensureAuthorized();
 
     const id = fromGlobalId(input.id, "Story");
     const keys = { story_id: id, user_id: ctx.user.id };
 
-    const points = await db.table("story_points").where(keys).select(1);
+    const points = await db
+      .table("story_points")
+      .where(keys)
+      .select(db.raw("1"));
 
     if (points.length) {
       await db.table("story_points").where(keys).del();

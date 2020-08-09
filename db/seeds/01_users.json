@@ -5,7 +5,7 @@
     "email": "hello@tarkus.me",
     "display_name": "Konstantin Tarkus",
     "photo": "https://s3.amazonaws.com/uifaces/faces/twitter/_victa/128.jpg",
-    "claims": { "admin": true },
+    "admin": true,
     "created_at": "2019-10-02T03:19:49.877Z",
     "updated_at": "2019-10-02T03:19:49.877Z",
     "last_login_at": "2019-10-04T19:38:49.771Z"

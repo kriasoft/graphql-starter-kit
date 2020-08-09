@@ -1,14 +1,8 @@
 /**
- * Custom application error types.
+ * Custom application errors.
  *
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
-
-// TODO: Log the error to Google Stackdriver, Rollbar etc.
-function report(error: Error) {
-  // eslint-disable-next-line no-console
-  console.error(error);
-}
 
 export type ValidationErrorEntry = {
   key: string;
@@ -52,5 +46,3 @@ export class ForbiddenError extends Error {
     Object.setPrototypeOf(this, new.target.prototype);
   }
 }
-
-export default { report };

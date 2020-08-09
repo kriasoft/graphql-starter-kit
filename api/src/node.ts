@@ -4,7 +4,7 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-/* eslint-disable global-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 import { nodeDefinitions, fromGlobalId } from "graphql-relay";
 import { assignType, getType } from "./utils";
