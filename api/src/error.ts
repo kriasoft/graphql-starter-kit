@@ -4,31 +4,6 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-export type ValidationErrorEntry = {
-  key: string;
-  message: string;
-};
-
-export class ValidationError extends Error {
-  readonly code = 400;
-  state: { [key: string]: string[] };
-
-  constructor(errors: Array<ValidationErrorEntry>) {
-    super("The request is invalid.");
-    this.state = errors.reduce((result: { [key: string]: string[] }, error) => {
-      if (Object.prototype.hasOwnProperty.call(result, error.key)) {
-        result[error.key].push(error.message);
-      } else {
-        Object.defineProperty(result, error.key, {
-          value: [error.message],
-          enumerable: true,
-        });
-      }
-      return result;
-    }, {});
-  }
-}
-
 export class UnauthorizedError extends Error {
   readonly code = 401;
 

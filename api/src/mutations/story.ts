@@ -4,21 +4,22 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-import uuid from "uuid";
 import slugify from "slugify";
 import validator from "validator";
+import { v4 as uuid } from "uuid";
 import { mutationWithClientMutationId } from "graphql-relay";
 import {
   GraphQLNonNull,
   GraphQLID,
   GraphQLString,
   GraphQLBoolean,
+  GraphQLList,
 } from "graphql";
 
 import db, { Story } from "../db";
 import { Context } from "../context";
 import { StoryType } from "../types";
-import { fromGlobalId } from "../utils";
+import { fromGlobalId, validate } from "../utils";
 
 function slug(text: string) {
   return slugify(text, { lower: true });
@@ -38,11 +39,21 @@ export const upsertStory = mutationWithClientMutationId({
 
   outputFields: {
     story: { type: StoryType },
+    errors: {
+      // TODO: Extract into a custom type.
+      type: new GraphQLNonNull(
+        new GraphQLList(
+          new GraphQLNonNull(
+            new GraphQLList(new GraphQLNonNull(GraphQLString)),
+          ),
+        ),
+      ),
+    },
   },
 
   async mutateAndGetPayload(input, ctx: Context) {
     const id = input.id ? fromGlobalId(input.id, "Story") : null;
-    const newId = uuid.v4();
+    const newId = uuid();
 
     let story: Story | undefined;
 
@@ -62,7 +73,7 @@ export const upsertStory = mutationWithClientMutationId({
     }
 
     // Validate and sanitize user input
-    const data = ctx.validate(input, (x) =>
+    const { data, errors } = validate(input, (x) =>
       x
         .field("title", { trim: true })
         .isRequired()
@@ -83,6 +94,10 @@ export const upsertStory = mutationWithClientMutationId({
         .is(() => Boolean(ctx.user?.admin), "Only admins can approve a story."),
     );
 
+    if (errors.length > 0) {
+      return { errors };
+    }
+
     if (data.title) {
       data.slug = `${slug(data.title)}-${(id || newId).substr(29)}`;
     }
@@ -91,14 +106,17 @@ export const upsertStory = mutationWithClientMutationId({
       [story] = await db
         .table<Story>("stories")
         .where({ id })
-        .update({ ...data, updated_at: db.fn.now() })
+        .update({
+          ...(data as Partial<Story>),
+          updated_at: db.fn.now(),
+        })
         .returning("*");
     } else {
       [story] = await db
         .table<Story>("stories")
         .insert({
           id: newId,
-          ...data,
+          ...(data as Partial<Story>),
           author_id: ctx.user?.id,
           approved: ctx.user?.admin ? true : false,
         })
