@@ -9,3 +9,4 @@ export * from "./map";
 export * from "./relay";
 export * from "./type";
 export * from "./username";
+export * from "./validator";

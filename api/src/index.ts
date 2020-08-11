@@ -42,13 +42,7 @@ api.use(
     pretty: process.env.NODE_ENV !== "production",
     customFormatErrorFn: (err) => {
       console.error(err.originalError || err);
-      return {
-        message: err.message,
-        code: err.originalError?.code,
-        state: err.originalError?.state,
-        locations: err.locations,
-        path: err.path,
-      };
+      return err;
     },
   })),
 );

@@ -16,8 +16,10 @@ import { fromGlobalId } from "graphql-relay";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-interface FieldConfig<T extends Record<string, any>, V> {
-  as?: keyof T;
+interface FieldConfig<As, V> {
+  /** Data key, defaults to input key. */
+  as?: As;
+  /** Field name, defaults to input key. */
   alias?: string;
   trim?: boolean | string;
   transform?: (value: V) => any;
@@ -33,22 +35,31 @@ function isEmpty(value: string | null | undefined): boolean {
   return typeof value === "undefined" || value === null || value === "";
 }
 
-export class Validator<T extends Record<string, any>> {
-  readonly data: Record<string, any> = {};
-  readonly errors: { key: string; message: string }[] = [];
+export class Validator<
+  Input extends Record<string, unknown>,
+  Output extends Record<string, unknown> = {} // eslint-disable-line @typescript-eslint/ban-types
+> {
+  readonly data: Output = {};
+  readonly errors: [/** key */ string, /** message */ string][] = [];
 
-  private readonly input: T;
+  private readonly input: Input;
   private validate: (cb: (value: any, field: string) => Status) => this = () =>
     this;
 
-  constructor(input: T) {
+  constructor(input: Input) {
     this.input = input;
   }
 
   /**
    * Initializes a new field validator.
    */
-  field(key: keyof T, config: FieldConfig<T, T[typeof key]> = {}): this {
+  field<Key extends keyof Input, As extends string | undefined>(
+    key: Key,
+    config: FieldConfig<As, Input[Key]> = {},
+  ): Validator<
+    Input,
+    Record<keyof Output | ([undefined] extends [As] ? Key : As), unknown>
+  > {
     let value = this.input[key] as any;
 
     if (value && config.trim) {
@@ -71,14 +82,13 @@ export class Validator<T extends Record<string, any>> {
       value = globalId.id;
     }
 
+    this.data[config.as || key] = value;
+
     this.validate = (cb: (value: any, field: string) => Status): this => {
       const { valid, message } = cb(value, (config.as || key) as string);
 
       if (!valid) {
-        this.errors.push({
-          key: key as string,
-          message: message || "Invalid value.",
-        });
+        this.errors.push([key as string, message || "Invalid value."]);
       }
 
       return this;
@@ -89,25 +99,25 @@ export class Validator<T extends Record<string, any>> {
 
   isRequired = (message?: string): this =>
     this.validate((value, field) => ({
-      valid: isEmpty(value),
+      valid: !isEmpty(value),
       message: message || `The ${field} field cannot be empty.`,
     }));
 
   isRequiredIf = (check: boolean, message?: string): this =>
     this.validate((value, field) => ({
-      valid: check === true ? isEmpty(value) : true,
+      valid: check === true ? !isEmpty(value) : true,
       message: message || `The ${field} field cannot be empty.`,
     }));
 
   isEmail = (options?: validator.IsEmailOptions, message?: string): this =>
     this.validate((value) => ({
-      valid: !isEmpty(value) && isEmail(value, options),
+      valid: value === undefined ? true : isEmail(value, options),
       message: message || "The email address is invalid.",
     }));
 
   isLength = (options?: validator.IsLengthOptions, message?: string): this =>
     this.validate((value, field) => ({
-      valid: !isEmpty(value) && isLength(value, options),
+      valid: value === undefined ? true : isLength(value, options),
       message: message
         ? message
         : options?.min && options?.max
@@ -119,10 +129,20 @@ export class Validator<T extends Record<string, any>> {
 
   isURL = (options?: validator.IsURLOptions, message?: string): this =>
     this.validate((value) => ({
-      valid: !isEmpty(value) && isURL(value, options),
+      valid: value === undefined ? true : isURL(value, options),
       message: message || "The URL is invalid.",
     }));
 
   is = (check: (value: any) => boolean, message?: string): this =>
-    this.validate((value) => ({ valid: check(value), message }));
+    this.validate((value) => ({
+      valid: value === undefined ? true : check(value),
+      message,
+    }));
+}
+
+export function validate<Input extends Record<string, unknown>, Validation>(
+  input: Input,
+  cb: (config: Validator<Input>) => Validation,
+): Validation {
+  return cb(new Validator(input));
 }
