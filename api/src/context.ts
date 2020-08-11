@@ -8,12 +8,10 @@ import DataLoader from "dataloader";
 import { Request } from "express";
 
 import db, { User, Story, Comment } from "./db";
-import { Validator } from "./validator";
 import { mapTo, mapToMany, mapToValues } from "./utils";
-import { UnauthorizedError, ForbiddenError, ValidationError } from "./error";
+import { UnauthorizedError, ForbiddenError } from "./error";
 
 export class Context {
-  readonly errors: Array<{ key: string; message: string }> = [];
   private readonly req: Request;
 
   constructor(req: Request) {
@@ -49,36 +47,6 @@ export class Context {
 
     if (check && !check(this.req.user)) {
       throw new ForbiddenError();
-    }
-  }
-
-  /*
-   * Validation
-   * ------------------------------------------------------------------------ */
-
-  addError(key: string, message: string): void {
-    this.errors.push({ key, message });
-  }
-
-  validate<Input>(
-    input: Input,
-    config?: (validator: Validator<Input>) => Validator<Input>,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): Record<string, any> | undefined {
-    if (config) {
-      const { data, errors } = config(new Validator(input));
-      errors.forEach((err) => this.addError(err.key, err.message));
-      this.errors.push(...errors);
-
-      if (this.errors.length > 0) {
-        throw new ValidationError(this.errors);
-      }
-
-      return data;
-    }
-
-    if (this.errors.length) {
-      throw new ValidationError(this.errors);
     }
   }
 
