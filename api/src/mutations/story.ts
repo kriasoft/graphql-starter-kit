@@ -41,12 +41,8 @@ export const upsertStory = mutationWithClientMutationId({
     story: { type: StoryType },
     errors: {
       // TODO: Extract into a custom type.
-      type: new GraphQLNonNull(
-        new GraphQLList(
-          new GraphQLNonNull(
-            new GraphQLList(new GraphQLNonNull(GraphQLString)),
-          ),
-        ),
+      type: new GraphQLList(
+        new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLString))),
       ),
     },
   },

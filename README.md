@@ -48,6 +48,11 @@ $ yarn api:start                # Launch Node.js API application
 
 The API server must become available at [http://localhost:8080/graphql](http://localhost:8080/graphql).
 
+## References
+
+- [Yarn 2 (Berry) - Plug'n'play, constraints and workspaces](https://www.youtube.com/watch?v=HUVawJXeHfU) by [@jherr](https://github.com/jherr)
+- [Database change management with Node.js](https://dev.to/koistya/database-change-management-with-node-js-12dk) by [@koistya](https://github.com/koistya)
+
 ## How to Contribute
 
 Anyone and everyone is welcome to [contribute](.github/CONTRIBUTING.md). Start
