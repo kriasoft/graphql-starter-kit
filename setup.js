@@ -52,12 +52,17 @@ const questions = [
         return "Requires a valid domain name.";
       }
 
-      const search = /^(APP_ORIGIN)=.*$/m;
+      const appOrigin = /^(APP_ORIGIN)=.*$/m;
+      const appName = /^(APP_NAME)=.*$/m;
+      const appNameValue = domain
+        .substring(0, domain.lastIndexOf("."))
+        .replace(/\./g, "_");
 
       return (
-        replace("env/.env.prod", search, `$1=https://${domain}`) &&
-        replace("env/.env.test", search, `$1=https://test.${domain}`) &&
-        replace("env/.env.dev", search, `$1=https://dev.${domain}`)
+        replace("env/.env.prod", appOrigin, `$1=https://${domain}`) &&
+        replace("env/.env.test", appOrigin, `$1=https://test.${domain}`) &&
+        replace("env/.env.dev", appOrigin, `$1=https://dev.${domain}`) &&
+        replace("env/.env", appName, `$1=${appNameValue}`)
       );
     },
   },
