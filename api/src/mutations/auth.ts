@@ -5,23 +5,21 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-import {
-  GraphQLFieldConfig,
-  GraphQLNonNull,
-  GraphQLObjectType,
-  GraphQLString,
-} from "graphql";
+import { GraphQLFieldConfig, GraphQLObjectType, GraphQLString } from "graphql";
 
+import db, { User } from "../db";
 import { Context } from "../context";
 import { UserType } from "../types";
 
 interface SignInArgs {
-  idToken: string;
+  idToken?: string;
+  email?: string;
+  password?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const signIn: GraphQLFieldConfig<unknown, Context, any> = {
-  description: "Authenticates user with a Firebase ID token.",
+  description: "Authenticates user with an ID token or email and password.",
 
   type: new GraphQLObjectType({
     name: "SignInPayload",
@@ -31,11 +29,20 @@ export const signIn: GraphQLFieldConfig<unknown, Context, any> = {
   }),
 
   args: {
-    idToken: { type: new GraphQLNonNull(GraphQLString) },
+    idToken: { type: GraphQLString },
+    email: { type: GraphQLString },
+    password: { type: GraphQLString },
   },
 
   async resolve(self, args: SignInArgs, ctx) {
-    return { me: await ctx.signIn(args.idToken) };
+    // TODO:
+    //   Authenticate user with the provided Firebase ID token,
+    //   or username / email and password.
+
+    const user = await db.table<User>("users").where({ id: "wp60xu" }).first();
+    const me = await ctx.signIn(user);
+
+    return { me };
   },
 };
 

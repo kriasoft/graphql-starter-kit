@@ -28,8 +28,8 @@ export class Context {
     return this.req.user;
   }
 
-  signIn(idToken: string): Promise<User | null> {
-    return this.req.signIn(idToken);
+  signIn(user: User | null | undefined): Promise<User | null> {
+    return this.req.signIn(user);
   }
 
   signOut(): void {

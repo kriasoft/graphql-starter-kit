@@ -6,56 +6,67 @@
  */
 
 import cookie from "cookie";
-import firebase from "firebase-admin";
+import jwt from "jsonwebtoken";
 import { RequestHandler, Request, Response } from "express";
 
 import db, { User } from "./db";
 
-async function getUser(req: Request): Promise<User | null> {
-  let user = null;
+const issuer = String(process.env.APP_ORIGIN);
+const audience = String(process.env.APP_NAME);
+const expiresIn = 60 * 60 * 24 * 14; /* 2 weeks */
+const sessionCookieName =
+  process.env.NODE_ENV === "production" ? "id" : `id_${process.env.APP_NAME}`;
 
-  const auth = firebase.auth();
-  const sessionCookie = cookie.parse(req.get("Cookie") || "").session;
+async function getUser(req: Request): Promise<User | null> {
+  const cookies = cookie.parse(req.headers.cookie || "");
+  const sessionCookie = cookies[sessionCookieName];
 
   if (sessionCookie) {
     try {
-      const fbUser = await auth.verifySessionCookie(sessionCookie);
-      user = await db.table("users").where({ id: fbUser.uid }).first();
+      const token = jwt.verify(sessionCookie, String(process.env.JWT_SECRET), {
+        issuer,
+        audience,
+      }) as { sub: string };
+      const user = await db.table("users").where({ id: token.sub }).first();
+      return user || null;
     } catch (err) {
       console.error(err);
     }
   }
 
-  return user;
+  return null;
 }
 
-async function signIn(res: Response, idToken: string): Promise<User | null> {
-  const fbUser = await firebase.auth().verifyIdToken(idToken, true);
-
-  if (!fbUser) {
+async function signIn(
+  res: Response,
+  user: User | null | undefined,
+): Promise<User | null> {
+  if (!user) {
     return null;
   }
 
-  // Allow to sign in only when the provided token is not older than 5 minutes.
-  if (new Date().getTime() / 1000 - fbUser.auth_time > 5 * 60) {
-    throw new Error("Authentication token has expired.");
-  }
-
-  const [user] = await db
-    .table("users")
-    .where({ id: fbUser.uid })
+  [user] = await db
+    .table<User>("users")
+    .where({ id: user.id })
     .update({ last_login_at: db.fn.now() })
     .returning("*");
 
-  const sessionCookie = await firebase.auth().createSessionCookie(idToken, {
-    expiresIn: 1209600000 /* 2 weeks */,
+  if (!user) {
+    return null;
+  }
+
+  const sessionCookie = jwt.sign({}, String(process.env.JWT_SECRET), {
+    issuer,
+    audience,
+    subject: user.id,
+    expiresIn,
   });
 
   res.setHeader(
     "Set-Cookie",
-    cookie.serialize("session", sessionCookie, {
+    cookie.serialize(sessionCookieName, sessionCookie, {
       httpOnly: true,
-      maxAge: 60 * 60 * 24 * 14 /* 2 weeks */,
+      maxAge: expiresIn,
       secure: process.env.NODE_ENV === "production",
     }),
   );
@@ -64,7 +75,7 @@ async function signIn(res: Response, idToken: string): Promise<User | null> {
 }
 
 function signOut(res: Response): void {
-  res.clearCookie("session");
+  res.clearCookie(sessionCookieName);
 }
 
 export const auth: RequestHandler = async (req, res, next) => {
@@ -73,6 +84,8 @@ export const auth: RequestHandler = async (req, res, next) => {
     req.signIn = signIn.bind(undefined, res);
     req.signOut = signOut.bind(undefined, res);
 
+    // In some cases it might be useful to useful to ensure
+    // that API request fails when user has not been
     if (req.query.authorize !== undefined && !req.user) {
       res.status(401);
       res.end();

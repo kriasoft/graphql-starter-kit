@@ -4,7 +4,6 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-import firebase from "firebase-admin";
 import { graphqlHTTP } from "express-graphql";
 import { express as voyager } from "graphql-voyager/middleware";
 import express, { Router, Request, Response } from "express";
@@ -14,14 +13,6 @@ import { schema } from "./schema";
 import { Context } from "./context";
 
 const port = process.env.PORT || 8080;
-
-// Initialize Firebase Admin SDK
-if (
-  process.env.NODE_ENV === "production" ||
-  process.env.GOOGLE_APPLICATION_CREDENTIALS
-) {
-  firebase.initializeApp();
-}
 
 export const api = Router();
 

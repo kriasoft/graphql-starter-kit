@@ -104,8 +104,8 @@ type Comment implements Node {
 }
 
 type Mutation {
-  # Authenticates user with a Firebase ID token.
-  signIn(idToken: String!): SignInPayload
+  # Authenticates user with an ID token or email and password.
+  signIn(idToken: String, email: String, password: String): SignInPayload
 
   # Removes the authentication cookie.
   signOut: String
