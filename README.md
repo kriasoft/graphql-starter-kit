@@ -36,14 +36,14 @@ Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for as
 
 ## Getting Started
 
-Just clone the repo, tweak `.env` files inside of the [`env`](env) package and run `yarn start`:
+Just clone the repo and run `yarn setup` followed by `yarn start`:
 
 ```bash
 $ npx degit https://github.com/kriasoft/nodejs-api-starter example
 $ cd ./example                  # Change current directory to the newly created one
 $ yarn install                  # Install Node.js dependencies
-$ yarn db:reset                 # Initialize a new PostgreSQL database
-$ yarn api:start                # Launch Node.js API application
+$ yarn setup                    # Configure environment variables
+$ yarn start                    # Launch Node.js API application
 ```
 
 The API server must become available at [http://localhost:8080/graphql](http://localhost:8080/graphql).
