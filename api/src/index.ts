@@ -8,11 +8,10 @@ import { graphqlHTTP } from "express-graphql";
 import { express as voyager } from "graphql-voyager/middleware";
 import express, { Router, Request, Response } from "express";
 
+import env from "./env";
 import { auth } from "./auth";
 import { schema } from "./schema";
 import { Context } from "./context";
-
-const port = process.env.PORT || 8080;
 
 export const api = Router();
 
@@ -20,7 +19,7 @@ api.use(auth);
 
 // Generates interactive UML diagram for the API schema
 // https://github.com/APIs-guru/graphql-voyager
-if (process.env.APP_ENV !== "production") {
+if (env.APP_ENV !== "production") {
   api.use("/graphql/model", voyager({ endpointUrl: "/graphql" }));
 }
 
@@ -29,8 +28,8 @@ api.use(
   graphqlHTTP((req) => ({
     schema,
     context: new Context(req as Request),
-    graphiql: process.env.APP_ENV !== "production",
-    pretty: process.env.NODE_ENV !== "production",
+    graphiql: env.APP_ENV !== "production",
+    pretty: !env.isProduction,
     customFormatErrorFn: (err) => {
       console.error(err.originalError || err);
       return err;
@@ -38,7 +37,7 @@ api.use(
   })),
 );
 
-if (process.env.NODE_ENV !== "production") {
+if (!env.isProduction) {
   const app = express();
 
   app.use(api);
@@ -46,7 +45,8 @@ if (process.env.NODE_ENV !== "production") {
     res.redirect("/graphql");
   });
 
-  app.listen(port, () => {
-    console.log(`API listening on http://localhost:${port}/`);
+  app.listen(env.PORT, () => {
+    console.log(`API listening on http://localhost:${env.PORT}/`);
+    require("../scripts/update-schema");
   });
 }

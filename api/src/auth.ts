@@ -9,23 +9,18 @@ import cookie from "cookie";
 import jwt from "jsonwebtoken";
 import { RequestHandler, Request, Response } from "express";
 
+import env from "./env";
 import db, { User } from "./db";
-
-const issuer = String(process.env.APP_ORIGIN);
-const audience = String(process.env.APP_NAME);
-const expiresIn = 60 * 60 * 24 * 14; /* 2 weeks */
-const sessionCookieName =
-  process.env.NODE_ENV === "production" ? "id" : `id_${process.env.APP_NAME}`;
 
 async function getUser(req: Request): Promise<User | null> {
   const cookies = cookie.parse(req.headers.cookie || "");
-  const sessionCookie = cookies[sessionCookieName];
+  const sessionCookie = cookies[env.JWT_COOKIE];
 
   if (sessionCookie) {
     try {
-      const token = jwt.verify(sessionCookie, String(process.env.JWT_SECRET), {
-        issuer,
-        audience,
+      const token = jwt.verify(sessionCookie, env.JWT_SECRET, {
+        issuer: env.APP_ORIGIN,
+        audience: env.APP_NAME,
       }) as { sub: string };
       const user = await db.table("users").where({ id: token.sub }).first();
       return user || null;
@@ -55,19 +50,19 @@ async function signIn(
     return null;
   }
 
-  const sessionCookie = jwt.sign({}, String(process.env.JWT_SECRET), {
-    issuer,
-    audience,
+  const sessionCookie = jwt.sign({}, env.JWT_SECRET, {
+    issuer: env.APP_ORIGIN,
+    audience: env.APP_NAME,
     subject: user.id,
-    expiresIn,
+    expiresIn: env.JWT_EXPIRES,
   });
 
   res.setHeader(
     "Set-Cookie",
-    cookie.serialize(sessionCookieName, sessionCookie, {
+    cookie.serialize(env.JWT_COOKIE, sessionCookie, {
       httpOnly: true,
-      maxAge: expiresIn,
-      secure: process.env.NODE_ENV === "production",
+      maxAge: env.JWT_EXPIRES,
+      secure: env.isProduction,
     }),
   );
 
@@ -75,7 +70,7 @@ async function signIn(
 }
 
 function signOut(res: Response): void {
-  res.clearCookie(sessionCookieName);
+  res.clearCookie(env.JWT_COOKIE);
 }
 
 export const auth: RequestHandler = async (req, res, next) => {
