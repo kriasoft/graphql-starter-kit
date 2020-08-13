@@ -79,8 +79,8 @@ export const auth: RequestHandler = async (req, res, next) => {
     req.signIn = signIn.bind(undefined, res);
     req.signOut = signOut.bind(undefined, res);
 
-    // In some cases it might be useful to useful to ensure
-    // that API request fails when user has not been
+    // In some cases it might be useful to ensure that the API
+    // request fails when the user was not authenticated.
     if (req.query.authorize !== undefined && !req.user) {
       res.status(401);
       res.end();

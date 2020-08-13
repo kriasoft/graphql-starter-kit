@@ -35,7 +35,7 @@ need some help.
 - Local or remote instance of [PostgreSQL](https://www.postgresql.org/) (see [Postgres.app](https://postgresapp.com/), [Google Cloud SQL](https://cloud.google.com/sql))
 - Optionally, [`psql`](https://www.postgresql.org/docs/current/app-psql.html), [`pg_dump`](https://www.postgresql.org/docs/current/app-pgdump.html), [`pg_restore`](https://www.postgresql.org/docs/current/app-pgrestore.html) client utilities (`brew install libpq` [❐](https://stackoverflow.com/a/49689589/82686))
 
-## How to Open the Database
+## How to open the database
 
 You can access the database either by using a terminal window:
 
@@ -50,7 +50,16 @@ connection settings inside of the [`env`](../env) package.
 Optionally pass the `--env=#0` argument with one of the pre-configured
 [environments](../env) — `dev` (default), `local`, `test`, or `prod`.
 
-## How to Migrate Database Schema and Data
+## How to create a new migration
+
+Create a new `.js` file inside of the [`migrations`](./migrations) folder,
+give it a descriptive name prefixed with the migration version number, for
+example `002_products.ts`. Open it in the editor, start typing `migration`
+and hit `TAB` which should insert a VS Code snippet.
+
+<p align="center"><img src="https://user-images.githubusercontent.com/197134/90134661-2aadc000-dd7a-11ea-9e66-4956f517ea95.gif" width="604" height="396" /></p>
+
+## How to migrate database schema and data
 
 ```bash
 $ yarn db:version               # Prints the current schema version to the console
@@ -63,7 +72,7 @@ creating a backup of your existing database, making changes to the existing
 migration file (`migrations/001_initial.ts`), re-apply the migration and restore
 all the data (as opposed to re-seeding).
 
-## How to Re-apply the Latest Migration
+## How to re-apply the latest migration
 
 ```bash
 $ yarn db:rollback              # Rolls back the latest migration
@@ -78,7 +87,7 @@ outstanding migrations and seed files over again by running:
 $ yarn db:reset                 # Re-creates the database; applies migrations and seeds
 ```
 
-## How to Backup and Restore Data
+## How to backup and restore data
 
 ```bash
 $ yarn db:backup                # Exports database data to a backup file

@@ -30,6 +30,7 @@ docker-stack.override.yml
 # Editors and IDEs
 .vscode/*
 !.vscode/snippets
+!.vscode/db.code-snippets
 !.vscode/extensions.json
 !.vscode/launch.json
 !.vscode/settings.json
