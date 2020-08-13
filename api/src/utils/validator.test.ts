@@ -28,7 +28,6 @@ import { validate } from "./validator";
         .isURL(),
     );
 
-    expect(data).toMatchSnapshot();
-    expect(errors).toMatchSnapshot();
+    expect({ data, errors }).toMatchSnapshot();
   });
 });
