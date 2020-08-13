@@ -1,0 +1,47 @@
+{
+  "Database migration": {
+    "scope": "javascript,typescript",
+    "prefix": "migration",
+    "body": [
+      "/**",
+      " * @see https://knexjs.org/#Schema",
+      " * @typedef {import(\"knex\")} Knex",
+      " */",
+      "",
+      "module.exports.up = async (/** @type {Knex} */ db) => {",
+      "  await db.schema.createTable(\"${1:table}\", (table) => {",
+      "    table$0",
+      "    table.boolean(\"archived\").notNullable().defaultTo(false);",
+      "    table.timestamps(false, true);",
+      "  });",
+      "};",
+      "",
+      "module.exports.down = async (/** @type {Knex} */ db) => {",
+      "  await db.schema.dropTableIfExists(\"${1:table}\");",
+      "};",
+      "",
+      "module.exports.configuration = { transaction: true };",
+      ""
+    ]
+  },
+  "Database seed": {
+    "scope": "javascript,typescript",
+    "prefix": "seed",
+    "body": [
+      "/**",
+      " * @see https://knexjs.org/#Builder",
+      " * @typedef {import(\"knex\")} Knex",
+      " */",
+      "",
+      "module.exports.seed = async (/** @type {Knex} */ db) => {",
+      "  const ${1:table} = [",
+      "    $0",
+      "  ];",
+      "",
+      "  await db.table(\"${1:table}\").delete();",
+      "  await db.table(\"${1:table}\").insert(${1:table});",
+      "};",
+      ""
+    ]
+  }
+}
