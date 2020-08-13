@@ -2,56 +2,51 @@
 
 exports[`validate({"email":"err","displayName":"err","website":"err"}) 1`] = `
 Object {
-  "display_name": "err",
-  "email": "err",
-  "website": "err",
+  "data": Object {
+    "display_name": "err",
+    "email": "err",
+    "website": "err",
+  },
+  "errors": Array [
+    Array [
+      "email",
+      "The email address is invalid.",
+    ],
+    Array [
+      "displayName",
+      "Invalid length.",
+    ],
+    Array [
+      "website",
+      "The URL is invalid.",
+    ],
+  ],
 }
-`;
-
-exports[`validate({"email":"err","displayName":"err","website":"err"}) 2`] = `
-Array [
-  Array [
-    "email",
-    "The email address is invalid.",
-  ],
-  Array [
-    "displayName",
-    "Invalid length.",
-  ],
-  Array [
-    "website",
-    "The URL is invalid.",
-  ],
-]
 `;
 
 exports[`validate({"email":"test@example.com","displayName":"test","website":"https://example.com"}) 1`] = `
 Object {
-  "display_name": "test",
-  "email": "test@example.com",
-  "website": "https://example.com",
+  "data": Object {
+    "display_name": "test",
+    "email": "test@example.com",
+    "website": "https://example.com",
+  },
+  "errors": Array [],
 }
 `;
-
-exports[`validate({"email":"test@example.com","displayName":"test","website":"https://example.com"}) 2`] = `Array []`;
 
 exports[`validate({}) 1`] = `
 Object {
-  "display_name": undefined,
-  "email": undefined,
-  "website": undefined,
+  "data": Object {},
+  "errors": Array [
+    Array [
+      "email",
+      "The email field cannot be empty.",
+    ],
+    Array [
+      "displayName",
+      "The display_name field cannot be empty.",
+    ],
+  ],
 }
-`;
-
-exports[`validate({}) 2`] = `
-Array [
-  Array [
-    "email",
-    "The email field cannot be empty.",
-  ],
-  Array [
-    "displayName",
-    "The display_name field cannot be empty.",
-  ],
-]
 `;

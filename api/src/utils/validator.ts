@@ -82,7 +82,9 @@ export class Validator<
       value = globalId.id;
     }
 
-    this.data[config.as || key] = value;
+    if (this.input[key] !== undefined) {
+      this.data[config.as || key] = value;
+    }
 
     this.validate = (cb: (value: any, field: string) => Status): this => {
       const { valid, message } = cb(value, (config.as || key) as string);
