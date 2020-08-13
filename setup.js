@@ -89,15 +89,16 @@ const questions = [
     default: ({ domain }) =>
       domain
         .substring(0, domain.lastIndexOf("."))
-        .replace(/\./g, "_")
-        .toLowerCase() + `_${env}`,
+        .replace(/\./g, "-")
+        .toLowerCase() + `-${env}`,
     validate(value) {
       const gcp = /^(GOOGLE_CLOUD_PROJECT)=.*/gm;
       const db = /^(PGDATABASE)=.*/gm;
-      const localDb = value.replace(/[-_](dev|development)/, "_local");
+      const dbName = value.replace(/-/g, '_');
+      const localDb = dbName.replace(/_(dev|development)/, "_local");
       return (
         replace(`env/.env.${env}`, gcp, `$1=${value}`) &&
-        replace(`env/.env.${env}`, db, `$1=${value}`) &&
+        replace(`env/.env.${env}`, db, `$1=${dbName}`) &&
         (env === "dev"
           ? replace(`env/.env.local`, gcp, `$1=${value}`) &&
             replace(`env/.env.local`, db, `$1=${localDb}`)
