@@ -3,6 +3,7 @@
  *
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  *
+ * @see https://knexjs.org/#Schema
  * @typedef {import("knex")} Knex
  */
 
@@ -15,7 +16,7 @@ module.exports.up = async (/** @type {Knex} */ db) /* prettier-ignore */ => {
   // Custom UID types for better user experience (unlocks having short URLs etc.)
   await db.raw(`CREATE DOMAIN user_id AS TEXT CHECK(VALUE ~ '^[0-9a-z]{6}$')`);
 
-  await db.schema.createTable("users", table => {
+  await db.schema.createTable("users", (table) => {
     table.specificType("id", "user_id").notNullable().primary();
     table.string("username", 50).notNullable().unique();
     table.string("email", 100);
@@ -28,7 +29,7 @@ module.exports.up = async (/** @type {Knex} */ db) /* prettier-ignore */ => {
     table.timestamp("last_login_at");
   });
 
-  await db.schema.createTable("stories", table => {
+  await db.schema.createTable("stories", (table) => {
     table.uuid("id").notNullable().defaultTo(db.raw("uuid_generate_v4()")).primary();
     table.specificType("author_id", "user_id").notNullable().references("id").inTable("users").onDelete("CASCADE").onUpdate("CASCADE");
     table.string("slug", 120).notNullable();
@@ -39,13 +40,13 @@ module.exports.up = async (/** @type {Knex} */ db) /* prettier-ignore */ => {
     table.timestamps(false, true);
   });
 
-  await db.schema.createTable("story_points", table => {
+  await db.schema.createTable("story_points", (table) => {
     table.uuid("story_id").references("id").inTable("stories").onDelete("CASCADE").onUpdate("CASCADE");
     table.specificType("user_id", "user_id").notNullable().references("id").inTable("users").onDelete("CASCADE").onUpdate("CASCADE");
     table.primary(["story_id", "user_id"]);
   });
 
-  await db.schema.createTable("comments", table => {
+  await db.schema.createTable("comments", (table) => {
     table.uuid("id").notNullable().defaultTo(db.raw("uuid_generate_v4()")).primary();
     table.uuid("story_id").notNullable().references("id").inTable("stories").onDelete("CASCADE").onUpdate("CASCADE");
     table.uuid("parent_id").references("id").inTable("comments").onDelete("CASCADE").onUpdate("CASCADE");
@@ -54,7 +55,7 @@ module.exports.up = async (/** @type {Knex} */ db) /* prettier-ignore */ => {
     table.timestamps(false, true);
   });
 
-  await db.schema.createTable("comment_points", table => {
+  await db.schema.createTable("comment_points", (table) => {
     table.uuid("comment_id").references("id").inTable("comments").onDelete("CASCADE").onUpdate("CASCADE");
     table.specificType("user_id", "user_id").notNullable().references("id").inTable("users").onDelete("CASCADE").onUpdate("CASCADE");
     table.primary(["comment_id", "user_id"]);
