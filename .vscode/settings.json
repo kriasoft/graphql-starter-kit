@@ -19,12 +19,14 @@
     "corejs",
     "dataloader",
     "datname",
+    "envalid",
     "jsonb",
     "knexfile",
     "pgdatabase",
     "pgdebug",
     "pghost",
     "pgpassword",
+    "pgport",
     "pgsslcert",
     "pgsslkey",
     "pgsslmode",
@@ -32,6 +34,7 @@
     "pguser",
     "pnpify",
     "postgres",
-    "psql"
+    "psql",
+    "sendgrid"
   ]
 }

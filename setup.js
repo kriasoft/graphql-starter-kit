@@ -9,6 +9,7 @@
  */
 
 const fs = require("fs");
+const crypto = require("crypto");
 const dotenv = require("dotenv");
 const spawn = require("cross-spawn");
 const inquirer = require("inquirer");
@@ -114,6 +115,7 @@ const questions = [
 ];
 
 async function done(answers) {
+  // Remove this script
   if (answers.clean) {
     fs.unlinkSync("./setup.js");
     let text = fs.readFileSync("./package.json", "utf8");
@@ -121,6 +123,17 @@ async function done(answers) {
     fs.writeFileSync("./package.json", text, "utf8");
     spawn.sync("yarn", ["remove", "inquirer", "cross-spawn"]);
   }
+
+  // Generate JWT secret(s)
+  Object.keys(environments).forEach((env) => {
+    let text = fs.readFileSync(`env/.env.${env}`, "utf8");
+    let [, secret] = text.match(/^JWT_SECRET=(.*)/m) || [];
+    if (secret === "n2127bOgmzao67RiW3umlVs16GL9fEj+JQRDaaN5E9G7yC/b") {
+      secret = crypto.randomBytes(36).toString("base64");
+      text = text.replace(/^(JWT_SECRET)=.*/m, `$1=${secret}`);
+      fs.writeFileSync(`env/.env.${env}`, text, "utf8");
+    }
+  });
 
   if (answers.setup) {
     console.log(`  `);

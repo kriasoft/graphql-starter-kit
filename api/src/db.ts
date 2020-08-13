@@ -7,27 +7,28 @@
 
 import fs from "fs";
 import knex from "knex";
+import env from "./env";
 
 const db = knex({
   client: "pg",
 
   connection: {
-    ssl: (process.env.PGSSLMODE || "disable") !== "disable" && {
+    ssl: env.PGSSLMODE !== "disable" && {
       rejectUnauthorized: false,
-      cert: fs.readFileSync(String(process.env.PGSSLCERT), "utf8"),
-      key: fs.readFileSync(String(process.env.PGSSLKEY), "utf8"),
-      ca: fs.readFileSync(String(process.env.PGSSLROOTCERT), "utf8"),
+      cert: fs.readFileSync(env.PGSSLCERT, "utf8"),
+      key: fs.readFileSync(env.PGSSLKEY, "utf8"),
+      ca: fs.readFileSync(env.PGSSLROOTCERT, "utf8"),
     },
   },
 
   // Note that the max connection pool size must be set to 1
   // in a serverless environment.
   pool: {
-    min: process.env.APP_ENV === "production" ? 1 : 0,
+    min: env.APP_ENV === "production" ? 1 : 0,
     max: 1,
   },
 
-  debug: process.env.PGDEBUG === "true",
+  debug: env.PGDEBUG,
 });
 
 export default db;
