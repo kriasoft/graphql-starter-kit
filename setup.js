@@ -81,6 +81,20 @@ const questions = [
       return replace("env/.env", search, `$1=${value}`);
     },
   },
+  {
+    type: "input",
+    name: "storage",
+    message: "GCS bucket for user uploaded content:",
+    when: (answers) => answers.setup,
+    default: ({ domain }) => `s.${domain}`,
+    validate(value) {
+      if (!value.match(/^\w[\w-.]*\w$/)) {
+        return "Requires a valid GCS bucket name.";
+      }
+      const search = /^(STORAGE_BUCKET)=.*/m;
+      return replace("env/.env", search, `$1=${value}`);
+    },
+  },
   ...Object.keys(environments).map((env) => ({
     type: "input",
     name: `gcp_project_${env}`,
@@ -94,14 +108,15 @@ const questions = [
     validate(value) {
       const gcp = /^(GOOGLE_CLOUD_PROJECT)=.*/gm;
       const db = /^(PGDATABASE)=.*/gm;
-      const dbName = value.replace(/-/g, '_');
+      const dbName = value.replace(/-/g, "_");
       const localDb = dbName.replace(/_(dev|development)/, "_local");
       return (
         replace(`env/.env.${env}`, gcp, `$1=${value}`) &&
         replace(`env/.env.${env}`, db, `$1=${dbName}`) &&
         (env === "dev"
           ? replace(`env/.env.local`, gcp, `$1=${value}`) &&
-            replace(`env/.env.local`, db, `$1=${localDb}`)
+            replace(`env/.env.local`, db, `$1=${localDb}`) &&
+            replace(`env/.env`, gcp, `$1=${value}`)
           : true)
       );
     },
@@ -125,18 +140,18 @@ async function done(answers) {
     spawn.sync("yarn", ["remove", "inquirer", "cross-spawn"]);
   }
 
-  // Generate JWT secret(s)
-  Object.keys(environments).forEach((env) => {
-    let text = fs.readFileSync(`env/.env.${env}`, "utf8");
-    let [, secret] = text.match(/^JWT_SECRET=(.*)/m) || [];
-    if (secret === "n2127bOgmzao67RiW3umlVs16GL9fEj+JQRDaaN5E9G7yC/b") {
-      secret = crypto.randomBytes(36).toString("base64");
-      text = text.replace(/^(JWT_SECRET)=.*/m, `$1=${secret}`);
-      fs.writeFileSync(`env/.env.${env}`, text, "utf8");
-    }
-  });
-
   if (answers.setup) {
+    // Generate JWT secret(s)
+    Object.keys(environments).forEach((env) => {
+      let text = fs.readFileSync(`env/.env.${env}`, "utf8");
+      let [, secret] = text.match(/^JWT_SECRET=(.*)/m) || [];
+      if (secret === "n2127bOgmzao67RiW3umlVs16GL9fEj+JQRDaaN5E9G7yC/b") {
+        secret = crypto.randomBytes(36).toString("base64");
+        text = text.replace(/^(JWT_SECRET)=.*/m, `$1=${secret}`);
+        fs.writeFileSync(`env/.env.${env}`, text, "utf8");
+      }
+    });
+
     console.log(`  `);
     console.log(
       `  Done! Now you can migrate the database and launch the app by running:`,

@@ -1935,6 +1935,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cross-spawn@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "@types/cross-spawn@npm:6.0.2"
+  dependencies:
+    "@types/node": "*"
+  checksum: b083a3f946a47c53c3326aaaa71b84413cec4e51344f360f24eb7783ee387221f5295905629ae2de260d83a83e847c1e806ace79944038124c64365a487c7135
+  languageName: node
+  linkType: hard
+
 "@types/emscripten@npm:^1.38.0":
   version: 1.39.4
   resolution: "@types/emscripten@npm:1.39.4"
@@ -2014,7 +2023,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/inquirer@npm:^7":
+"@types/inquirer@npm:^7.3.0":
   version: 7.3.0
   resolution: "@types/inquirer@npm:7.3.0"
   dependencies:
@@ -2076,7 +2085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jsonwebtoken@npm:^8":
+"@types/jsonwebtoken@npm:^8.5.0":
   version: 8.5.0
   resolution: "@types/jsonwebtoken@npm:8.5.0"
   dependencies:
@@ -2132,12 +2141,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/moment-timezone@npm:^0.5.13":
-  version: 0.5.13
-  resolution: "@types/moment-timezone@npm:0.5.13"
+"@types/moment-timezone@npm:^0.5.30":
+  version: 0.5.30
+  resolution: "@types/moment-timezone@npm:0.5.30"
   dependencies:
-    moment: ">=2.14.0"
-  checksum: c089c46c7b53e9ed7b896f746e3a7111a1ba27e3c1a4e8a5ced76fad046895a076c2cd4bfc85d03c6e6ad74873659fe425abda001f5dc2f29e6e767f1731e38f
+    moment-timezone: "*"
+  checksum: 4eb153fc14e1c7ea82abf47598caae78adfe9d1b3fa793654701b28b68fe948dd0de309369839c351df7079bcca9ace453068129abecca8751a81ef129ffd8cf
   languageName: node
   linkType: hard
 
@@ -2258,10 +2267,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:^8.0.1":
-  version: 8.0.1
-  resolution: "@types/uuid@npm:8.0.1"
-  checksum: aaf6ce3c85e2d961eb3c19016415c03329da9bffa5bd62ff2095a7d16f4717e0ad50734a351567cc826a6dcca5c48f38f076a10ffa0b0d1a02eccdd3a058b714
+"@types/uuid@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "@types/uuid@npm:8.3.0"
+  checksum: 620985aed8fdb4aed153daca5235f4303457a67a4d181efac0021712eabd9edd7e88895f79730c0e651effde7633b1b61e49a81519ac8d4e75019d2ac9b6412f
   languageName: node
   linkType: hard
 
@@ -2686,16 +2695,17 @@ __metadata:
     "@babel/register": ^7.10.5
     "@sendgrid/mail": ^7.2.3
     "@types/cookie": ^0.4.0
+    "@types/cross-spawn": ^6.0.2
     "@types/express": ^4.17.7
     "@types/faker": ^4.1.12
     "@types/graphql-relay": ^0.6.0
     "@types/jest": ^26.0.9
-    "@types/jsonwebtoken": ^8
+    "@types/jsonwebtoken": ^8.5.0
     "@types/lodash": ^4.14.159
     "@types/minimist": ^1.2.0
-    "@types/moment-timezone": ^0.5.13
+    "@types/moment-timezone": ^0.5.30
     "@types/node": ^14.0.27
-    "@types/uuid": ^8.0.1
+    "@types/uuid": ^8.3.0
     "@types/validator": ^13.1.0
     "@typescript-eslint/eslint-plugin": ^3.9.0
     "@typescript-eslint/parser": ^3.9.0
@@ -2707,6 +2717,7 @@ __metadata:
     cookie-parser: ^1.4.5
     core-js: ^3.6.5
     cors: ^2.8.5
+    cross-spawn: ^7.0.3
     dataloader: ^2.0.0
     env: "workspace:*"
     envalid: ^6.0.2
@@ -2722,7 +2733,7 @@ __metadata:
     jest: ^26.4.0
     jsonwebtoken: ^8.5.1
     knex: ^0.21.4
-    lodash: ^4.17.19
+    lodash: ^4.17.20
     minimist: ^1.2.5
     moment-timezone: ^0.5.31
     nanoid: ^3.1.12
@@ -2748,11 +2759,11 @@ __metadata:
     "@babel/preset-typescript": ^7.10.4
     "@babel/register": ^7.10.5
     "@types/faker": ^4.1.12
-    "@types/inquirer": ^7
+    "@types/inquirer": ^7.3.0
     "@types/node": ^14.0.27
     "@yarnpkg/pnpify": 2.1.0
-    cross-spawn: "*"
-    dotenv: "*"
+    cross-spawn: ^7.0.3
+    dotenv: ^8.2.0
     eslint: ^7.6.0
     eslint-config-prettier: ^6.11.0
     faker: ^4.1.0
@@ -3830,7 +3841,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:*, cross-spawn@npm:7.0.3, cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2":
+"cross-spawn@npm:7.0.3, cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -3950,7 +3961,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "db@workspace:db"
   dependencies:
-    cross-spawn: "*"
+    cross-spawn: ^7.0.3
     env: "workspace:*"
     faker: ^4.1.0
     knex: ^0.21.4
@@ -4313,7 +4324,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:*, dotenv@npm:^8.2.0":
+"dotenv@npm:^8.2.0":
   version: 8.2.0
   resolution: "dotenv@npm:8.2.0"
   checksum: 16cb89cbd7b98b053899b8aba8c5044c8fb61a2db8a81fe70360b75035fce5fed53bd7a34d772be717d0880c0321122a4c09423f518025e1b52d96791521b1a7
@@ -7457,6 +7468,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"lodash@npm:^4.17.20":
+  version: 4.17.20
+  resolution: "lodash@npm:4.17.20"
+  checksum: c62101d2500c383b5f174a7e9e6fe8098149ddd6e9ccfa85f36d4789446195f5c4afd3cfba433026bcaf3da271256566b04a2bf2618e5a39f6e67f8c12030cb6
+  languageName: node
+  linkType: hard
+
 "logic-solver@npm:^2.0.1":
   version: 2.0.1
   resolution: "logic-solver@npm:2.0.1"
@@ -7754,7 +7772,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.31":
+"moment-timezone@npm:*, moment-timezone@npm:^0.5.31":
   version: 0.5.31
   resolution: "moment-timezone@npm:0.5.31"
   dependencies:
@@ -7763,7 +7781,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"moment@npm:>= 2.9.0, moment@npm:>=2.14.0":
+"moment@npm:>= 2.9.0":
   version: 2.27.0
   resolution: "moment@npm:2.27.0"
   checksum: 72d9a7d8dba59e3d538440cdc0b59fa895b123361e370be231896478aaf157a484355ce32bd8daf6f731d6d1636d3a67ecb67531e536e093ca18b43e0cbae194
