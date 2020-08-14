@@ -2513,6 +2513,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/cross-spawn", [
+        ["npm:6.0.2", {
+          "packageLocation": "./.yarn/cache/@types-cross-spawn-npm-6.0.2-f5d63b3325-b083a3f946.zip/node_modules/@types/cross-spawn/",
+          "packageDependencies": [
+            ["@types/cross-spawn", "npm:6.0.2"],
+            ["@types/node", "npm:14.0.23"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@types/emscripten", [
         ["npm:1.39.4", {
           "packageLocation": "./.yarn/cache/@types-emscripten-npm-1.39.4-4d03380faa-b848421e25.zip/node_modules/@types/emscripten/",
@@ -2742,11 +2752,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/moment-timezone", [
-        ["npm:0.5.13", {
-          "packageLocation": "./.yarn/cache/@types-moment-timezone-npm-0.5.13-085981c884-c089c46c7b.zip/node_modules/@types/moment-timezone/",
+        ["npm:0.5.30", {
+          "packageLocation": "./.yarn/cache/@types-moment-timezone-npm-0.5.30-4d8a0a74b7-4eb153fc14.zip/node_modules/@types/moment-timezone/",
           "packageDependencies": [
-            ["@types/moment-timezone", "npm:0.5.13"],
-            ["moment", "npm:2.27.0"]
+            ["@types/moment-timezone", "npm:0.5.30"],
+            ["moment-timezone", "npm:0.5.31"]
           ],
           "linkType": "HARD",
         }]
@@ -2890,10 +2900,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/uuid", [
-        ["npm:8.0.1", {
-          "packageLocation": "./.yarn/cache/@types-uuid-npm-8.0.1-2fa6200cf2-aaf6ce3c85.zip/node_modules/@types/uuid/",
+        ["npm:8.3.0", {
+          "packageLocation": "./.yarn/cache/@types-uuid-npm-8.3.0-60b441a3d7-620985aed8.zip/node_modules/@types/uuid/",
           "packageDependencies": [
-            ["@types/uuid", "npm:8.0.1"]
+            ["@types/uuid", "npm:8.3.0"]
           ],
           "linkType": "HARD",
         }]
@@ -3376,6 +3386,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/register", "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:7.10.5"],
             ["@sendgrid/mail", "npm:7.2.3"],
             ["@types/cookie", "npm:0.4.0"],
+            ["@types/cross-spawn", "npm:6.0.2"],
             ["@types/express", "npm:4.17.7"],
             ["@types/faker", "npm:4.1.12"],
             ["@types/graphql-relay", "npm:0.6.0"],
@@ -3383,9 +3394,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jsonwebtoken", "npm:8.5.0"],
             ["@types/lodash", "npm:4.14.159"],
             ["@types/minimist", "npm:1.2.0"],
-            ["@types/moment-timezone", "npm:0.5.13"],
+            ["@types/moment-timezone", "npm:0.5.30"],
             ["@types/node", "npm:14.0.27"],
-            ["@types/uuid", "npm:8.0.1"],
+            ["@types/uuid", "npm:8.3.0"],
             ["@types/validator", "npm:13.1.0"],
             ["@typescript-eslint/eslint-plugin", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:3.9.0"],
             ["@typescript-eslint/parser", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:3.9.0"],
@@ -3397,6 +3408,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cookie-parser", "npm:1.4.5"],
             ["core-js", "npm:3.6.5"],
             ["cors", "npm:2.8.5"],
+            ["cross-spawn", "npm:7.0.3"],
             ["dataloader", "npm:2.0.0"],
             ["env", "workspace:env"],
             ["envalid", "npm:6.0.2"],
@@ -3412,7 +3424,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "npm:26.4.0"],
             ["jsonwebtoken", "npm:8.5.1"],
             ["knex", "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:0.21.4"],
-            ["lodash", "npm:4.17.19"],
+            ["lodash", "npm:4.17.20"],
             ["minimist", "npm:1.2.5"],
             ["moment-timezone", "npm:0.5.31"],
             ["nanoid", "npm:3.1.12"],
@@ -8669,6 +8681,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/lodash-npm-4.17.19-fa87a8e838-ff2b7a95f0.zip/node_modules/lodash/",
           "packageDependencies": [
             ["lodash", "npm:4.17.19"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:4.17.20", {
+          "packageLocation": "./.yarn/cache/lodash-npm-4.17.20-c0db62021c-c62101d250.zip/node_modules/lodash/",
+          "packageDependencies": [
+            ["lodash", "npm:4.17.20"]
           ],
           "linkType": "HARD",
         }]
