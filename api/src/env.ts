@@ -23,6 +23,7 @@ export default cleanEnv(
     JWT_SECRET: str(),
     JWT_EXPIRES: num({ default: 60 * 60 * 24 * 14 /* 2 weeks */ }),
 
+    GOOGLE_CLOUD_SQL: str({ default: "" }),
     PGHOST: str(),
     PGPORT: num({ default: 5432 }),
     PGUSER: str(),

@@ -92,7 +92,12 @@ const questions = [
         return "Requires a valid GCS bucket name.";
       }
       const search = /^(STORAGE_BUCKET)=.*/m;
-      return replace("env/.env", search, `$1=${value}`);
+      return (
+        replace("env/.env.prod", search, `$1=${value}`) &&
+        replace("env/.env.test", search, `$1=test-${value}`) &&
+        replace("env/.env.dev", search, `$1=dev-${value}`) &&
+        replace("env/.env.local", search, `$1=dev-${value}`)
+      );
     },
   },
   ...Object.keys(environments).map((env) => ({
@@ -107,16 +112,17 @@ const questions = [
         .toLowerCase() + `-${env}`,
     validate(value) {
       const gcp = /^(GOOGLE_CLOUD_PROJECT)=.*/gm;
+      const sql = /^(GOOGLE_CLOUD_SQL)=.*/gm;
       const db = /^(PGDATABASE)=.*/gm;
       const dbName = value.replace(/-/g, "_");
       const localDb = dbName.replace(/_(dev|development)/, "_local");
       return (
         replace(`env/.env.${env}`, gcp, `$1=${value}`) &&
+        replace(`env/.env.${env}`, sql, `$1=${value}:us-central1:pg12`) &&
         replace(`env/.env.${env}`, db, `$1=${dbName}`) &&
         (env === "dev"
           ? replace(`env/.env.local`, gcp, `$1=${value}`) &&
-            replace(`env/.env.local`, db, `$1=${localDb}`) &&
-            replace(`env/.env`, gcp, `$1=${value}`)
+            replace(`env/.env.local`, db, `$1=${localDb}`)
           : true)
       );
     },

@@ -4,8 +4,8 @@ This package contains environment variables that can be shared across multiple
 projects in the monorepo (`api`, `worker`, etc.).
 
 This project was bootstrapped with [Node.js API Starter Kit](https://github.com/kriasoft/nodejs-api-starter).
-Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) if you
-need some help.
+Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for
+assistance.
 
 **IMPORTANT**: Database passwords, API keys etc. need to be encrypted.
 

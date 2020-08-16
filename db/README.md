@@ -4,8 +4,8 @@ Migration and seed files plus some administration scripts that help to design
 a PostgreSQL database.
 
 This project was bootstrapped with [Node.js API Starter Kit](https://github.com/kriasoft/nodejs-api-starter).
-Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) if you
-need some help.
+Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for
+assistance.
 
 ## Directory Layout
 
