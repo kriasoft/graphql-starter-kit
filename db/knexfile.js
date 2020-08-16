@@ -5,6 +5,8 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
+const fs = require("fs");
+
 // Load environment variables (PGHOST, PGUSER, etc.)
 require("env");
 
@@ -14,7 +16,16 @@ require("env");
 module.exports = {
   client: "pg",
 
-  connection: {},
+  connection: {
+    ssl: process.env.PGSSLMODE === "verify-ca" && {
+      cert: fs.readFileSync(process.env.PGSSLCERT, "ascii"),
+      key: fs.readFileSync(process.env.PGSSLKEY, "ascii"),
+      ca: fs.readFileSync(process.env.PGSSLROOTCERT, "ascii"),
+      servername: ((x) => `${x[0]}:${x[2]}`)(
+        process.env.GOOGLE_CLOUD_SQL.split(":"),
+      ),
+    },
+  },
 
   pool: { min: 0, max: 1 },
 

@@ -14,11 +14,9 @@ import spawn from "cross-spawn";
 import minimist from "minimist";
 
 import env from "../src/env";
-import pkg from "../package.json";
+import { name } from "../package.json";
 
 const args = minimist(process.argv.slice(3));
-const project = process.env.GOOGLE_CLOUD_PROJECT;
-const region = process.env.GOOGLE_CLOUD_REGION;
 const version = args.version ?? os.userInfo().username;
 
 const envVars = [
@@ -27,11 +25,11 @@ const envVars = [
   `APP_VERSION=${version}`,
   `APP_ENV=${env.APP_ENV}`,
   `JWT_SECRET=${env.JWT_SECRET}`,
-  `JWT_EXPIRES=${env.JWT_EXPIRES}`,
-  `PGHOST=/cloudsql/${project}:${region}:db`,
+  `PGHOST=/cloudsql/${env.GOOGLE_CLOUD_SQL}`,
   `PGUSER=${env.PGUSER}`,
   `PGPASSWORD=${env.PGPASSWORD}`,
   `PGDATABASE=${env.PGDATABASE}`,
+  `PGAPPNAME=${name}_${version}`,
 ];
 
 spawn.sync(
@@ -40,13 +38,13 @@ spawn.sync(
     `--project=${process.env.GOOGLE_CLOUD_PROJECT}`,
     `functions`,
     `deploy`,
-    pkg.name,
+    name,
     `--region=${process.env.GOOGLE_CLOUD_REGION}`,
     `--allow-unauthenticated`,
-    `--entry-point=${pkg.name}`,
+    `--entry-point=${name}`,
     `--memory=2GB`,
     `--runtime=nodejs12`,
-    `--source=gs://${process.env.PKG_BUCKET}/api_${version}.zip`,
+    `--source=gs://${process.env.PKG_BUCKET}/${name}_${version}.zip`,
     `--timeout=30`,
     `--set-env-vars=${envVars.join(",")}`,
     `--trigger-http`,

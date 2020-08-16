@@ -46,7 +46,8 @@ if (!env.isProduction) {
   });
 
   app.listen(env.PORT, () => {
-    console.log(`API listening on http://localhost:${env.PORT}/`);
+    const meta = `env: ${env.APP_ENV}, db: ${env.PGDATABASE}`;
+    console.log(`API listening on http://localhost:${env.PORT}/ (${meta})`);
     require("../scripts/update-schema");
   });
 }

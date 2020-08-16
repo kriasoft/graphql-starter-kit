@@ -13,11 +13,11 @@ const db = knex({
   client: "pg",
 
   connection: {
-    ssl: env.PGSSLMODE !== "disable" && {
-      rejectUnauthorized: false,
-      cert: fs.readFileSync(env.PGSSLCERT, "utf8"),
-      key: fs.readFileSync(env.PGSSLKEY, "utf8"),
-      ca: fs.readFileSync(env.PGSSLROOTCERT, "utf8"),
+    ssl: env.PGSSLMODE === "verify-ca" && {
+      cert: fs.readFileSync(env.PGSSLCERT, "ascii"),
+      key: fs.readFileSync(env.PGSSLKEY, "ascii"),
+      ca: fs.readFileSync(env.PGSSLROOTCERT, "ascii"),
+      servername: ((x) => `${x[0]}:${x[2]}`)(env.GOOGLE_CLOUD_SQL.split(":")),
     },
   },
 
