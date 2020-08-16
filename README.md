@@ -16,10 +16,10 @@ infrastructure, using code-first **GraphQL API** and **PostgreSQL** backend.
 
 ---
 
-This monorepo was bootstrapped with [Node.js API Starter Kit](https://github.com/kriasoft/nodejs-api-starter).
+This project was bootstrapped with [Node.js API Starter Kit](https://github.com/kriasoft/nodejs-api-starter).
 Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for assistance.
 
-## Monorepo Structure
+## Directory Structure
 
 `├──`[`.github`](.github) — GitHub configuration including CI/CD<br>
 `├──`[`.vscode`](.vscode) — VSCode settings including code snippets, recommended extensions etc.<br>

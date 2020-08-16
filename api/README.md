@@ -6,8 +6,8 @@ environment such as [Google Cloud Functions](https://cloud.google.com/functions)
 or [Google Cloud Run](https://cloud.google.com/run).
 
 This project was bootstrapped with [Node.js API Starter Kit](https://github.com/kriasoft/nodejs-api-starter).
-Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) if you
-need some help.
+Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for
+assistance.
 
 ## Tech Stack
 

@@ -23,6 +23,8 @@
     "envalid",
     "jsonb",
     "knexfile",
+    "kriasoft",
+    "pgappname",
     "pgdatabase",
     "pgdebug",
     "pghost",
