@@ -73,7 +73,7 @@ function signOut(res: Response): void {
   res.clearCookie(env.JWT_COOKIE);
 }
 
-export const auth: RequestHandler = async (req, res, next) => {
+export const session: RequestHandler = async function session(req, res, next) {
   try {
     req.user = await getUser(req);
     req.signIn = signIn.bind(undefined, res);
