@@ -34,13 +34,52 @@ type User implements Node {
   id: ID!
   username: String!
   email: String
-  displayName: String
-  photoURL: String
+  emailVerified: Boolean
+  name: String
+  picture: String
+  givenName: String
+  familyName: String
   timeZone: String
+  locale: String
   admin: Boolean
+  blocked: Boolean
+  identities: [Identity!]
   createdAt(format: String): String
   updatedAt(format: String): String
-  lastLoginAt(format: String): String
+  lastLogin(format: String): String
+}
+
+type Identity {
+  # The ID of an object
+  id: ID!
+  provider: IdentityProvider!
+  username: String
+  email: String
+  emailVerified: Boolean
+  name: String
+  picture: String
+  givenName: String
+  familyName: String
+  locale: String
+  scopes: [String!]!
+  tokenType: String
+  createdAt(format: String): String
+  updatedAt(format: String): String
+  issuedAt(format: String): String
+  expiresAt(format: String): String
+}
+
+enum IdentityProvider {
+  google
+  apple
+  facebook
+  github
+  linkedin
+  microsoft
+  twitter
+  yahoo
+  gamecenter
+  playgames
 }
 
 # A connection to a list of items.
@@ -136,9 +175,10 @@ input UpdateUserInput {
   id: ID!
   username: String
   email: String
-  displayName: String
-  photo: String
+  name: String
+  picture: String
   timeZone: String
+  locale: String
   admin: Boolean
   validateOnly: Boolean
   clientMutationId: String

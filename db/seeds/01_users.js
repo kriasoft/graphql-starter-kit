@@ -49,11 +49,13 @@ module.exports.seed = async (/** @type {Knex} */ db) => {
         id,
         username,
         email: internet.email(firstName, lastName).toLowerCase(),
-        display_name: `${firstName} ${lastName}`,
-        photo: image.avatar(),
+        name: `${firstName} ${lastName}`,
+        given_name: firstName,
+        family_name: lastName,
+        picture: image.avatar(),
         created_at: createdAt,
         updated_at: createdAt,
-        last_login_at:
+        last_login:
           Math.random() > 0.5 ? date.between(createdAt, new Date()) : null,
       };
     });

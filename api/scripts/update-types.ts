@@ -40,9 +40,10 @@ async function updateTypes(): Promise<void> {
     if (enums[i - 1]?.key !== x.key) {
       lines.push(`export enum ${x.name} {`);
     }
-    lines.push(`  ${x.value} = '${x.value}',`);
+    const key = x.value.replace(/[.-]/g, "_");
+    lines.push(`  ${key} = "${x.value}",`);
     if (enums[i + 1]?.key !== x.key) {
-      lines.push("};\n");
+      lines.push("}\n");
     }
   });
 
@@ -75,6 +76,8 @@ async function updateTypes(): Promise<void> {
       ? "boolean"
       : x.type === "jsonb"
       ? "any"
+      : x.type === "ARRAY" && x.udt === "_text"
+      ? "string[]"
       : x.type.startsWith("timestamp") || x.type === "date"
       ? "Date"
       : x.type === "USER-DEFINED" && enums.some((e) => e.key === x.udt)

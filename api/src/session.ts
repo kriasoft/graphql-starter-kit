@@ -1,5 +1,5 @@
 /**
- * Authentication middleware.
+ * JWT-based session middleware.
  *
  * @see https://firebase.google.com/docs/auth/admin/manage-cookies
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
@@ -43,7 +43,7 @@ async function signIn(
   [user] = await db
     .table<User>("users")
     .where({ id: user.id })
-    .update({ last_login_at: db.fn.now() })
+    .update({ last_login: db.fn.now() })
     .returning("*");
 
   if (!user) {
@@ -63,6 +63,7 @@ async function signIn(
       httpOnly: true,
       maxAge: env.JWT_EXPIRES,
       secure: env.isProduction,
+      path: "/",
     }),
   );
 
