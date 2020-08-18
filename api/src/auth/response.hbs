@@ -1,0 +1,22 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>0Auth Callback</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fafafa">
+  <noscript>
+    <meta http-equiv="refresh" content="0;url=/" />
+  </noscript>
+  <script>
+    const returnUrl = window.sessionStorage.getItem("return") || "/";
+    if (window.opener && !window.opener.closed) {
+      window.opener.location.href = returnUrl;
+      window.close();
+    } else {
+      window.location.href = returnUrl;
+    }
+  </script>
+</head>
+</html>

@@ -15,12 +15,16 @@ const alphabet = "0123456789abcdefghijklmnopqrstuvwxyz";
 function createNewId(table: string, size: number) {
   const generateId = customAlphabet(alphabet, size);
 
-  return async function newId(verify: true) {
+  return async function newId(verify = true) {
     let id = await generateId();
 
     // Ensures that the generated ID is unique
     while (verify) {
-      const record = await db.table(table).where({ id }).first(db.raw(1));
+      const record = await db
+        .table(table)
+        .where({ id })
+        .orWhere({ username: id })
+        .first(db.raw(1));
 
       if (record) {
         console.warn(`Re-generating new ${table} ID.`);

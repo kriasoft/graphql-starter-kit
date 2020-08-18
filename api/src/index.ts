@@ -9,6 +9,7 @@ import { express as voyager } from "graphql-voyager/middleware";
 import express, { Router, Request, Response } from "express";
 
 import env from "./env";
+import { auth } from "./auth";
 import { session } from "./session";
 import { schema } from "./schema";
 import { Context } from "./context";
@@ -16,6 +17,7 @@ import { Context } from "./context";
 export const api = Router();
 
 api.use(session);
+api.use(auth);
 
 // Generates interactive UML diagram for the API schema
 // https://github.com/APIs-guru/graphql-voyager

@@ -7,7 +7,7 @@
 import DataLoader from "dataloader";
 import { Request } from "express";
 
-import db, { User, Story, Comment } from "./db";
+import db, { User, Identity, Story, Comment } from "./db";
 import { mapTo, mapToMany, mapToValues } from "./utils";
 import { UnauthorizedError, ForbiddenError } from "./error";
 
@@ -80,6 +80,14 @@ export class Context {
         }),
       )
       .then((rows) => mapTo(rows, keys, (x) => x.username)),
+  );
+
+  identitiesByUserId = new DataLoader<string, Identity[]>((keys) =>
+    db
+      .table<Identity>("identities")
+      .whereIn("user_id", keys)
+      .select()
+      .then((rows) => mapToMany(rows, keys, (x) => x.user_id)),
   );
 
   storyById = new DataLoader<string, Story | null>((keys) =>
