@@ -32,6 +32,9 @@ module.exports = {
     development: {
       ignore: ["**/__tests__/**", "**/*.test.ts"],
     },
+    production: {
+      ignore: ["**/__tests__/**", "**/*.test.ts"],
+    },
   },
 
   sourceMaps: "inline",

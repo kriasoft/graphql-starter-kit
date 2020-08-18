@@ -10,11 +10,13 @@ import {
   GraphQLNonNull,
   GraphQLString,
   GraphQLBoolean,
+  GraphQLList,
 } from "graphql";
 
 import { User } from "../db";
 import { nodeInterface } from "../node";
 import { dateField } from "../fields";
+import { IdentityType } from "./identity";
 import { Context } from "../context";
 
 export const UserType = new GraphQLObjectType<User, Context>({
@@ -37,17 +39,34 @@ export const UserType = new GraphQLObjectType<User, Context>({
       },
     },
 
-    displayName: {
-      type: GraphQLString,
-      resolve(self) {
-        return self.display_name;
+    emailVerified: {
+      type: GraphQLBoolean,
+      resolve(self, args, ctx) {
+        return ctx.user && (ctx.user.id === self.id || ctx.user.admin)
+          ? self.email_verified
+          : null;
       },
     },
 
-    photoURL: {
+    name: {
+      type: GraphQLString,
+    },
+
+    picture: {
+      type: GraphQLString,
+    },
+
+    givenName: {
       type: GraphQLString,
       resolve(self) {
-        return self.photo;
+        return self.given_name;
+      },
+    },
+
+    familyName: {
+      type: GraphQLString,
+      resolve(self) {
+        return self.family_name;
       },
     },
 
@@ -58,12 +77,29 @@ export const UserType = new GraphQLObjectType<User, Context>({
       },
     },
 
+    locale: {
+      type: GraphQLString,
+    },
+
     admin: {
       type: GraphQLBoolean,
     },
 
+    blocked: {
+      type: GraphQLBoolean,
+    },
+
+    identities: {
+      type: new GraphQLList(new GraphQLNonNull(IdentityType)),
+      resolve(self, args, ctx) {
+        return ctx.user && (ctx.user.id === self.id || ctx.user.admin)
+          ? ctx.identitiesByUserId.load(self.id)
+          : null;
+      },
+    },
+
     createdAt: dateField((self) => self.created_at),
     updatedAt: dateField((self) => self.updated_at),
-    lastLoginAt: dateField((self) => self.last_login_at),
+    lastLogin: dateField((self) => self.last_login),
   },
 });

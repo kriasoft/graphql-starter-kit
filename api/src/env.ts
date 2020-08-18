@@ -34,6 +34,9 @@ export default cleanEnv(
     PGSSLKEY: str({ default: "" }),
     PGSSLROOTCERT: str({ default: "" }),
     PGDEBUG: bool({ default: false }),
+
+    GOOGLE_CLIENT_ID: str(),
+    GOOGLE_CLIENT_SECRET: str(),
   },
   { dotEnvPath: null },
 );

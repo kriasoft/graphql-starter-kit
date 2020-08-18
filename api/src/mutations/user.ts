@@ -25,9 +25,10 @@ export const updateUser = mutationWithClientMutationId({
     id: { type: new GraphQLNonNull(GraphQLID) },
     username: { type: GraphQLString },
     email: { type: GraphQLString },
-    displayName: { type: GraphQLString },
-    photo: { type: GraphQLString },
+    name: { type: GraphQLString },
+    picture: { type: GraphQLString },
     timeZone: { type: GraphQLString },
+    locale: { type: GraphQLString },
     admin: { type: GraphQLBoolean },
     validateOnly: { type: GraphQLBoolean },
   },
@@ -60,20 +61,23 @@ export const updateUser = mutationWithClientMutationId({
         .isLength({ max: 100 })
         .isEmail()
 
-        .field("displayName", { as: "display_name", trim: true })
+        .field("name", { trim: true })
         .isLength({ min: 1, max: 100 })
 
-        .field("photo", { as: "photo" })
+        .field("picture", { as: "picture" })
         .isLength({ max: 250 })
         .isURL()
 
         .field("timeZone", { as: "time_zone" })
         .isLength({ max: 50 })
 
+        .field("locale")
+        .isLength({ max: 10 })
+
         .field("admin", { as: "admin" })
         .is(
           () => Boolean(ctx.user?.admin),
-          "Only admins can change this field.",
+          "Only admins can update this field.",
         ),
     );
 
