@@ -5,6 +5,8 @@ optimized for hosting in a [serverless](https://cloud.google.com/serverless)
 environment such as [Google Cloud Functions](https://cloud.google.com/functions)
 or [Google Cloud Run](https://cloud.google.com/run).
 
+---
+
 This project was bootstrapped with [Node.js API Starter Kit](https://github.com/kriasoft/nodejs-api-starter).
 Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for
 assistance.
@@ -13,21 +15,22 @@ assistance.
 
 - [Node.js](https://nodejs.org/) `v12`, [Yarn](https://yarnpkg.com/) `v2`, [TypeScript](https://www.typescriptlang.org/), [Babel](https://babeljs.io/), [Prettier](https://prettier.io/), [ESLint](https://eslint.org/) — core platform and dev tools
 - [GraphQL.js](https://github.com/graphql/graphql-js), [GraphQL.js Relay](https://github.com/graphql/graphql-relay-js), [DataLoader](https://github.com/graphql/dataloader), [Validator.js](https://github.com/validatorjs/validator.js) — [GraphQL](https://graphql.org/) schema and API endpoint(s)
-- [PostgreSQL](https://www.postgresql.org/), [Knex](https://knexjs.org/), [pg](https://node-postgres.com/), [GCP Storage](https://cloud.google.com/storage) — data access
-- [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup) - stateless authentication via 3rd party providers (Google, Apple, etc.)
+- [PostgreSQL](https://www.postgresql.org/), [Knex.js](https://knexjs.org/), [`pg`](https://node-postgres.com/), [`@google-cloud/storage`](https://googleapis.dev/nodejs/storage/latest) — data access
+- [`jswonwebtoken`](https://github.com/auth0/node-jsonwebtoken), [`google-auth-library`](https://github.com/googleapis/google-auth-library-nodejs) — stateless JWT-based sessions and authentication
 - [Jest](https://jestjs.io/) - unit and snapshot testing
 
 ```bash
 .
 ├── scripts                     # Automation scripts
+│   ├── deploy.ts               #   - deploys the app to Google Cloud
 │   ├── update-schema.ts        #   - generates `schema.graphql` file
 │   └── update-types.ts         #   - generates TypeScript definitions
 ├── src                         #
-│   ├── mutations               # GraphQL API mutation endpoints
-│   ├── queries                 # The top-level GraphQL API query fields
-│   ├── types                   # GrapHQL API schema types
-│   ├── utils                   # Helper functions
-│   ├── auth.ts                 # Authentication middleware
+│   ├── auth/                   # Authentication middleware
+│   ├── mutations/              # GraphQL API mutation endpoints
+│   ├── queries/                # The top-level GraphQL API query fields
+│   ├── types/                  # GrapHQL API schema types
+│   ├── utils/                  # Helper functions
 │   ├── context.ts              # GraphQL API context variable(s)
 │   ├── db.ts                   # PostgreSQL client and query builder
 │   ├── errors.ts               # Custom error types
@@ -35,7 +38,8 @@ assistance.
 │   ├── index.ts                # GraphQL API server entry point
 │   ├── node.ts                 # GraphQL Relay Node interface
 │   ├── schema.ts               # GraphQL API schema definition
-│   └── validator.ts            # User input validator
+│   ├── validator.ts            # User input validator
+│   └── session.ts              # Stateless JWT-based session middleware
 ├── babel.config.js             # Babel.js configuration
 ├── package.json                # Node.js dependencies
 ├── README.md                   # This file

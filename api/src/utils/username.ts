@@ -6,8 +6,6 @@
 
 import db from "../db";
 
-type generateUsername = (email?: string) => Promise<string>;
-
 const USERNAME_REGEX = /^(?=.{2,50}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
 
 export function isValidUsername(username?: string): boolean {
