@@ -4,10 +4,6 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-interface Entity {
-  __type?: string;
-}
-
 export function assignType<T extends Record<string, unknown>>(type: string) {
   return (obj?: T | null): T | null | undefined => {
     if (obj) {
