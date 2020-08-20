@@ -1,4 +1,5 @@
 # Compiled output
+*/dist/
 api/lib/
 
 # Yarn
@@ -11,4 +12,5 @@ api/lib/
 .pnp.js
 
 # Misc
+*.hbs
 tsconfig.json

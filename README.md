@@ -26,6 +26,7 @@ Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for as
 `├──`[`env`](./env) — environment variables used for local development<br>
 `├──`[`db`](./db) — database schema and some administration tools<br>
 `├──`[`api`](./api) — GraphQL API server and authentication middleware<br>
+`├──`[`proxy`](./proxy) — reverse proxy implemented using [Cloudflare Workers](https://workers.cloudflare.com/)<br>
 `└── ...` — add more packages such as `worker`, `web`, `mobile`, etc.
 
 ## Requirements
