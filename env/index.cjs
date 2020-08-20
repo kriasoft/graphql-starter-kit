@@ -10,7 +10,8 @@ const path = require("path");
 const dotenv = require("dotenv");
 const minimist = require("minimist");
 
-const { env = "dev" } = minimist(process.argv.slice(2));
+const args = minimist(process.argv.slice(2));
+const env = args.env || minimist(args._).env || "dev";
 
 dotenv.config({ path: path.resolve(__dirname, `.env.${env}.override`) });
 dotenv.config({ path: path.resolve(__dirname, `.env.${env}`) });

@@ -14,10 +14,13 @@ import spawn from "cross-spawn";
 import minimist from "minimist";
 
 import env from "../src/env";
-import { name } from "../package.json";
+import pkg from "../package.json";
 
-const args = minimist(process.argv.slice(3));
+const args = minimist(process.argv.slice(2));
 const version = args.version ?? os.userInfo().username;
+const source = `gs://${process.env.PKG_BUCKET}/${pkg.name}_${version}.zip`;
+
+console.log(`Deploying ${source} to ${env.APP_ENV}...`);
 
 const envVars = [
   `APP_NAME=${env.APP_NAME}`,
@@ -29,7 +32,7 @@ const envVars = [
   `PGUSER=${env.PGUSER}`,
   `PGPASSWORD=${env.PGPASSWORD}`,
   `PGDATABASE=${env.PGDATABASE}`,
-  `PGAPPNAME=${name}_${version}`,
+  `PGAPPNAME=${pkg.name}_${version}`,
 ];
 
 spawn.sync(
@@ -38,13 +41,13 @@ spawn.sync(
     `--project=${process.env.GOOGLE_CLOUD_PROJECT}`,
     `functions`,
     `deploy`,
-    name,
+    pkg.name,
     `--region=${process.env.GOOGLE_CLOUD_REGION}`,
     `--allow-unauthenticated`,
-    `--entry-point=${name}`,
+    `--entry-point=${pkg.name}`,
     `--memory=2GB`,
     `--runtime=nodejs12`,
-    `--source=gs://${process.env.PKG_BUCKET}/${name}_${version}.zip`,
+    `--source=${source}`,
     `--timeout=30`,
     `--set-env-vars=${envVars.join(",")}`,
     `--trigger-http`,
