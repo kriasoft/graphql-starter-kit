@@ -2,16 +2,16 @@
 
 Light-weight reverse proxy implemented by using [Cloudflare Workers](https://workers.cloudflare.com/).
 
-- `https://example.com/`, `/about`, `/pricing`, `/blog/*` etc.<br>
+- `https://example.com/`, `/about`, `/pricing`, `/blog/*`, etc.<br>
   ↳ routed to `https://example.webflow.io`
 - `https://example.com/help/*`<br>
   ↳ routed to `https://intercom.help`
 - `https://example.com/graphql`, `/auth/google`, `/auth/google/return` etc.<br>
   ↳ routed to the GraphQL API server (Google Cloud Function or Cloud Run)
 - `https://example.com/admin/*`<br>
-  ↳ routed to the admin dashboard
+  ↳ routed to the admin dashboard (Cloudflare Workers Site)
 - `https://example.com/*` the reset of the pages<br>
-  ↳ routed to the web app
+  ↳ routed to the main web application (Cloudflare Workers Site)
 
 ## Tech Stack
 

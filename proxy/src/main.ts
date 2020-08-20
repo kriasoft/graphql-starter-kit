@@ -23,7 +23,7 @@ async function handleRequest(request: Request) {
   // Help pages
   if (path === "/help" || path.startsWith("/help")) {
     url.hostname = "intercom.help";
-    url.pathname = "/stridist-xxx/en/" + path.substring(6);
+    url.pathname = "/example-xxx/en/" + path.substring(6);
     return fetch(new Request(url.toString(), request));
   }
 
