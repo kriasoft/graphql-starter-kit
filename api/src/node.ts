@@ -17,10 +17,6 @@ export const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
     switch (type) {
       case "User":
         return context.userById.load(id).then(assignType("User"));
-      case "Story":
-        return context.storyById.load(id).then(assignType("Story"));
-      case "Comment":
-        return context.commentById.load(id).then(assignType("Comment"));
       default:
         return null;
     }
@@ -29,10 +25,6 @@ export const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
     switch (getType(obj)) {
       case "User":
         return require("./types").UserType;
-      case "Story":
-        return require("./types").StoryType;
-      case "Comment":
-        return require("./types").CommentType;
       default:
         return null;
     }

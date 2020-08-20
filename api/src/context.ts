@@ -7,8 +7,8 @@
 import DataLoader from "dataloader";
 import { Request } from "express";
 
-import db, { User, Identity, Story, Comment } from "./db";
-import { mapTo, mapToMany, mapToValues } from "./utils";
+import db, { User, Identity } from "./db";
+import { mapTo, mapToMany } from "./utils";
 import { UnauthorizedError, ForbiddenError } from "./error";
 
 export class Context {
@@ -24,6 +24,10 @@ export class Context {
     }
   }
 
+  /*
+   * Authentication and authorization
+   * ------------------------------------------------------------------------ */
+
   get user(): User | null {
     return this.req.user;
   }
@@ -35,10 +39,6 @@ export class Context {
   signOut(): void {
     this.req.signOut();
   }
-
-  /*
-   * Authorization
-   * ------------------------------------------------------------------------ */
 
   ensureAuthorized(check?: (user: User) => boolean): void {
     if (!this.req.user) {
@@ -88,108 +88,5 @@ export class Context {
       .whereIn("user_id", keys)
       .select()
       .then((rows) => mapToMany(rows, keys, (x) => x.user_id)),
-  );
-
-  storyById = new DataLoader<string, Story | null>((keys) =>
-    db
-      .table<Story>("stories")
-      .whereIn("id", keys)
-      .select()
-      .then((rows) => {
-        rows.forEach((x) => this.storyBySlug.prime(x.slug, x));
-        return rows;
-      })
-      .then((rows) => mapTo(rows, keys, (x) => x.id)),
-  );
-
-  storyBySlug = new DataLoader<string, Story | null>((keys) =>
-    db
-      .table<Story>("stories")
-      .whereIn("slug", keys)
-      .select()
-      .then((rows) => {
-        rows.forEach((x) => this.storyById.prime(x.id, x));
-        return rows;
-      })
-      .then((rows) => mapTo(rows, keys, (x) => x.slug)),
-  );
-
-  storyCommentsCount = new DataLoader<string, number>((keys) =>
-    db
-      .table<Comment>("comments")
-      .whereIn("story_id", keys)
-      .groupBy("story_id")
-      .select<{ story_id: string; count: string }[]>(
-        "story_id",
-        db.raw("count(story_id)"),
-      )
-      .then((rows) =>
-        mapToValues(
-          rows,
-          keys,
-          (x) => x.story_id,
-          (x) => (x ? Number(x.count) : 0),
-        ),
-      ),
-  );
-
-  storyPointsCount = new DataLoader<string, number>((keys) =>
-    db
-      .table("stories")
-      .leftJoin("story_points", "story_points.story_id", "stories.id")
-      .whereIn("stories.id", keys)
-      .groupBy("stories.id")
-      .select("stories.id", db.raw("count(story_points.user_id)::int"))
-      .then((rows) =>
-        mapToValues(
-          rows,
-          keys,
-          (x) => x.id,
-          (x) => (x ? parseInt(x.count, 10) : 0),
-        ),
-      ),
-  );
-
-  storyPointGiven = new DataLoader<string, boolean>((keys) => {
-    const currentUser = this.user;
-    const userId = currentUser ? currentUser.id : "";
-
-    return db
-      .table("stories")
-      .leftJoin("story_points", function join() {
-        this.on("story_points.story_id", "stories.id").andOn(
-          "story_points.user_id",
-          db.raw("?", [userId]),
-        );
-      })
-      .whereIn("stories.id", keys)
-      .select<{ id: string; given: boolean }[]>(
-        "stories.id",
-        db.raw("(story_points.user_id IS NOT NULL) AS given"),
-      )
-      .then((rows) =>
-        mapToValues(
-          rows,
-          keys,
-          (x) => x.id,
-          (x) => x?.given || false,
-        ),
-      );
-  });
-
-  commentById = new DataLoader<string, Comment | null>((keys) =>
-    db
-      .table<Comment>("comments")
-      .whereIn("id", keys)
-      .select()
-      .then((rows) => mapTo(rows, keys, (x) => x.id)),
-  );
-
-  commentsByStoryId = new DataLoader<string, Comment[]>((keys) =>
-    db
-      .table<Comment>("comments")
-      .whereIn("story_id", keys)
-      .select()
-      .then((rows) => mapToMany(rows, keys, (x) => x.story_id)),
   );
 }

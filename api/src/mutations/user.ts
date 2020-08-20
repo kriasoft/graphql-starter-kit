@@ -74,7 +74,13 @@ export const updateUser = mutationWithClientMutationId({
         .field("locale")
         .isLength({ max: 10 })
 
-        .field("admin", { as: "admin" })
+        .field("admin")
+        .is(
+          () => Boolean(ctx.user?.admin),
+          "Only admins can update this field.",
+        )
+
+        .field("archived")
         .is(
           () => Boolean(ctx.user?.admin),
           "Only admins can update this field.",
@@ -96,31 +102,5 @@ export const updateUser = mutationWithClientMutationId({
     }
 
     return { user };
-  },
-});
-
-export const deleteUser = mutationWithClientMutationId({
-  name: "DeleteUser",
-  description: "Deletes a user.",
-
-  inputFields: {
-    id: { type: new GraphQLNonNull(GraphQLID) },
-  },
-
-  outputFields: {
-    deletedUserId: {
-      type: GraphQLString,
-    },
-  },
-
-  async mutateAndGetPayload(input, ctx: Context) {
-    // Check permissions
-    ctx.ensureAuthorized((user) => user.admin);
-
-    const id = fromGlobalId(input.id, "User");
-
-    await db.table("users").where({ id }).del();
-
-    return { deletedUserId: input.id };
   },
 });
