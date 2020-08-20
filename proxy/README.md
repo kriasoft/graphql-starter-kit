@@ -10,7 +10,7 @@ Light-weight reverse proxy implemented by using [Cloudflare Workers](https://wor
   ↳ routed to the GraphQL API server (Google Cloud Function or Cloud Run)
 - `https://example.com/admin/*`<br>
   ↳ routed to the admin dashboard (Cloudflare Workers Site)
-- `https://example.com/*` the reset of the pages<br>
+- `https://example.com/*` the rest of the pages<br>
   ↳ routed to the main web application (Cloudflare Workers Site)
 
 ## Tech Stack
