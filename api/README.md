@@ -23,6 +23,7 @@ assistance.
 .
 ├── scripts                     # Automation scripts
 │   ├── deploy.ts               #   - deploys the app to Google Cloud
+│   ├── push.ts                 #   - uploads package.zip to GCS bucket
 │   ├── update-schema.ts        #   - generates `schema.graphql` file
 │   └── update-types.ts         #   - generates TypeScript definitions
 ├── src                         #
@@ -85,6 +86,21 @@ $ yarn test                     # Run unit tests with Jest
 
 Use `yarn start-debug` instead of `yarn start` then attach VS Code debugger to
 the running instance of the app.
+
+## How to Deploy
+
+Compile and bundle the code into `package.zip` (`build`), upload application
+bundle to Google Cloud Storage (`push`), and finally, deploy or re-deploy a
+Google Cloud Function straight from GCS (`deploy`).
+
+```
+$ yarn build
+$ yarn push [--version=#0]
+$ yarn deploy [--version=#0] [--env=#1]
+```
+
+**NOTE**: These three separate steps are required in order to optimize the CI/CD
+workflows.
 
 ## License
 

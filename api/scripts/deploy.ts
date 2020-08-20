@@ -1,7 +1,7 @@
 /**
  * Deploys application bundle to Google Cloud Functions (GCF). Usage:
  *
- *   $ yarn deploy [--version=#0]
+ *   $ yarn deploy [--version=#0] [--env=#1]
  *
  * @see https://cloud.google.com/functions
  * @see https://cloud.google.com/sdk/gcloud/reference/functions/deploy
@@ -28,6 +28,8 @@ const envVars = [
   `APP_VERSION=${version}`,
   `APP_ENV=${env.APP_ENV}`,
   `JWT_SECRET=${env.JWT_SECRET}`,
+  `GOOGLE_CLIENT_ID=${env.GOOGLE_CLIENT_ID}`,
+  `GOOGLE_CLIENT_SECRET=${env.GOOGLE_CLIENT_SECRET}`,
   `PGHOST=/cloudsql/${env.GOOGLE_CLOUD_SQL}`,
   `PGUSER=${env.PGUSER}`,
   `PGPASSWORD=${env.PGPASSWORD}`,
@@ -35,7 +37,7 @@ const envVars = [
   `PGAPPNAME=${pkg.name}_${version}`,
 ];
 
-spawn.sync(
+const p = spawn.sync(
   "gcloud",
   [
     `--project=${process.env.GOOGLE_CLOUD_PROJECT}`,
@@ -54,3 +56,5 @@ spawn.sync(
   ],
   { stdio: "inherit" },
 );
+
+process.exit(p.status || undefined);
