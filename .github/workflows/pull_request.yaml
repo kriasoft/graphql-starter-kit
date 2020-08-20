@@ -19,3 +19,4 @@ jobs:
       # Build and test "api"
       - run: yarn workspace api test
       - run: yarn workspace api build
+      - run: yarn workspace proxy build
