@@ -72,45 +72,10 @@ module.exports.up = async (/** @type {Knex} */ db) /* prettier-ignore */ => {
     table.timestamp("expires_at");
     table.primary(["provider", "id"]);
   });
-
-  await db.schema.createTable("stories", (table) => {
-    table.uuid("id").notNullable().defaultTo(db.raw("uuid_generate_v4()")).primary();
-    table.specificType("author_id", "user_id").notNullable().references("id").inTable("users").onDelete("CASCADE").onUpdate("CASCADE");
-    table.string("slug", 120).notNullable();
-    table.string("title", 120).notNullable();
-    table.string("text", 2000);
-    table.boolean("is_url").notNullable().defaultTo(false);
-    table.boolean("approved").notNullable().defaultTo(false);
-    table.timestamps(false, true);
-  });
-
-  await db.schema.createTable("story_points", (table) => {
-    table.uuid("story_id").references("id").inTable("stories").onDelete("CASCADE").onUpdate("CASCADE");
-    table.specificType("user_id", "user_id").notNullable().references("id").inTable("users").onDelete("CASCADE").onUpdate("CASCADE");
-    table.primary(["story_id", "user_id"]);
-  });
-
-  await db.schema.createTable("comments", (table) => {
-    table.uuid("id").notNullable().defaultTo(db.raw("uuid_generate_v4()")).primary();
-    table.uuid("story_id").notNullable().references("id").inTable("stories").onDelete("CASCADE").onUpdate("CASCADE");
-    table.uuid("parent_id").references("id").inTable("comments").onDelete("CASCADE").onUpdate("CASCADE");
-    table.specificType("author_id", "user_id").notNullable().references("id").inTable("users").onDelete("CASCADE").onUpdate("CASCADE");
-    table.text("text");
-    table.timestamps(false, true);
-  });
-
-  await db.schema.createTable("comment_points", (table) => {
-    table.uuid("comment_id").references("id").inTable("comments").onDelete("CASCADE").onUpdate("CASCADE");
-    table.specificType("user_id", "user_id").notNullable().references("id").inTable("users").onDelete("CASCADE").onUpdate("CASCADE");
-    table.primary(["comment_id", "user_id"]);
-  });
 };
 
 module.exports.down = async (/** @type {Knex} */ db) => {
-  await db.schema.dropTableIfExists("comment_points");
-  await db.schema.dropTableIfExists("comments");
-  await db.schema.dropTableIfExists("story_points");
-  await db.schema.dropTableIfExists("stories");
+  await db.schema.dropTableIfExists("identities");
   await db.schema.dropTableIfExists("users");
   await db.raw("DROP TYPE IF EXISTS identity_provider");
   await db.raw("DROP DOMAIN IF EXISTS user_id");
