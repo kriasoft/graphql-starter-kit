@@ -20,13 +20,16 @@
     "corejs",
     "dataloader",
     "datname",
+    "devtool",
+    "downlevel",
     "envalid",
+    "esnext",
     "gamecenter",
     "jsonb",
     "knexfile",
     "kriasoft",
     "linkedin",
-    "playgames",
+    "pathinfo",
     "pgappname",
     "pgdatabase",
     "pgdebug",
@@ -38,9 +41,14 @@
     "pgsslmode",
     "pgsslrootcert",
     "pguser",
+    "playgames",
     "pnpify",
     "postgres",
     "psql",
-    "sendgrid"
+    "sendgrid",
+    "sourcemap",
+    "tslib",
+    "typechecking",
+    "webflow"
   ]
 }

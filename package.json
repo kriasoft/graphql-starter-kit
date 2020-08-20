@@ -6,7 +6,8 @@
   "workspaces": [
     "api",
     "db",
-    "env"
+    "env",
+    "proxy"
   ],
   "scripts": {
     "setup": "node ./setup",
@@ -14,7 +15,7 @@
     "g:lint": "cd $INIT_CWD && eslint --cache",
     "g:format": "CONFIG=\"$(pwd)/package.json\" IGNORE=\"$(pwd)/.prettierignore\" && cd $INIT_CWD && prettier --config \"$CONFIG\" --ignore-path \"$IGNORE\""
   },
-  "dependencies": {
+  "devDependencies": {
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.1",
     "@babel/node": "^7.10.5",
@@ -23,25 +24,28 @@
     "@babel/register": "^7.10.5",
     "@types/faker": "^4.1.12",
     "@types/inquirer": "^7.3.0",
-    "@types/node": "^14.0.27",
+    "@types/node": "^14.6.0",
+    "@typescript-eslint/eslint-plugin": "^3.9.1",
+    "@typescript-eslint/parser": "^3.9.1",
     "@yarnpkg/pnpify": "2.1.0",
     "cross-spawn": "^7.0.3",
     "dotenv": "^8.2.0",
-    "eslint": "^7.6.0",
+    "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.11.0",
     "faker": "^4.1.0",
     "husky": "^4.2.5",
     "inquirer": "^7.3.3",
-    "knex": "^0.21.4",
+    "knex": "^0.21.5",
     "minimist": "^1.2.5",
     "nanoid": "^3.1.12",
-    "pg": "^8.3.0",
+    "pg": "^8.3.2",
     "prettier": "2.0.5",
     "typescript": "3.9.7"
   },
   "engines": {
     "node": ">=12"
   },
+  "private": true,
   "prettier": {
     "printWidth": 80,
     "tabWidth": 2,
@@ -73,12 +77,29 @@
     ],
     "parserOptions": {
       "ecmaVersion": 2020
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.ts",
+          "*.tsx"
+        ],
+        "parser": "@typescript-eslint/parser",
+        "extends": [
+          "plugin:@typescript-eslint/recommended"
+        ],
+        "plugins": [
+          "@typescript-eslint"
+        ],
+        "parserOptions": {
+          "sourceType": "module"
+        }
+      }
+    ]
   },
   "husky": {
     "hooks": {
       "pre-commit": "echo \"TODO: Add pre-commit hook\""
     }
-  },
-  "private": true
+  }
 }

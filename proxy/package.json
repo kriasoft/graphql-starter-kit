@@ -1,0 +1,52 @@
+{
+  "name": "proxy",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "Kriasoft (https://github.com/kriasoft)",
+  "scripts": {
+    "build": "webpack"
+  },
+  "dependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@cloudflare/workers-types": "^2.0.0",
+    "babel-loader": "^8.1.0",
+    "core-js": "^3.6.5",
+    "typescript": "^3.9.7",
+    "webpack": "5.0.0-beta.28",
+    "webpack-cli": "webpack/webpack-cli#workspace=webpack-cli&commit=86dfe514a5b5de38f631a02e5211d10f32c536b9"
+  },
+  "private": true,
+  "eslintConfig": {
+    "ignorePatterns": "/dist/",
+    "overrides": [
+      {
+        "files": [
+          "src/**.ts"
+        ],
+        "env": {
+          "worker": true,
+          "node": false
+        }
+      }
+    ]
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "modules": false,
+          "loose": true,
+          "useBuiltIns": "usage",
+          "corejs": 3,
+          "targets": {
+            "browsers": "last 1 Chrome versions"
+          }
+        }
+      ],
+      "@babel/preset-typescript"
+    ]
+  }
+}
