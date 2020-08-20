@@ -29,10 +29,10 @@
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
     "faker": "^4.1.0",
-    "knex": "^0.21.4",
+    "knex": "^0.21.5",
     "minimist": "^1.2.5",
     "nanoid": "^3.1.12",
-    "pg": "^8.3.0",
+    "pg": "^8.3.2",
     "prettier": "^2.0.5"
   },
   "private": true
