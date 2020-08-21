@@ -8182,6 +8182,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
+        ["npm:11.5.2", {
+          "packageLocation": "./.yarn/cache/got-npm-11.5.2-66a447e099-9cfd13e7c7.zip/node_modules/got/",
+          "packageDependencies": [
+            ["got", "npm:11.5.2"],
+            ["@sindresorhus/is", "npm:3.0.0"],
+            ["@szmarczak/http-timer", "npm:4.0.5"],
+            ["@types/cacheable-request", "npm:6.0.1"],
+            ["@types/responselike", "npm:1.0.0"],
+            ["cacheable-lookup", "npm:5.0.3"],
+            ["cacheable-request", "npm:7.0.1"],
+            ["decompress-response", "npm:6.0.0"],
+            ["http2-wrapper", "npm:1.0.0-beta.5.2"],
+            ["lowercase-keys", "npm:2.0.0"],
+            ["p-cancelable", "npm:2.0.0"],
+            ["responselike", "npm:2.0.0"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:6.7.1", {
           "packageLocation": "./.yarn/cache/got-npm-6.7.1-f61570d59b-bf19ee1cbb.zip/node_modules/got/",
           "packageDependencies": [
@@ -12968,11 +12986,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["proxy", "workspace:proxy"],
             ["@babel/core", "npm:7.11.1"],
+            ["@babel/node", "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:7.10.5"],
             ["@babel/preset-env", "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:7.11.0"],
             ["@babel/preset-typescript", "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:7.10.4"],
             ["@cloudflare/workers-types", "npm:2.0.0"],
+            ["@types/minimist", "npm:1.2.0"],
             ["babel-loader", "virtual:a79575648ee6aa3987b96e1ae7433105b0879543b0ca8beadcdded635903a9da857d9b356ae961befa550717968a1c44f6edc9144256ce4ea622aceeee59abdd#npm:8.1.0"],
             ["core-js", "npm:3.6.5"],
+            ["cross-spawn", "npm:7.0.3"],
+            ["env", "workspace:env"],
+            ["got", "npm:11.5.2"],
+            ["minimist", "npm:1.2.5"],
             ["typescript", "patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5b02a2"],
             ["webpack", "virtual:a79575648ee6aa3987b96e1ae7433105b0879543b0ca8beadcdded635903a9da857d9b356ae961befa550717968a1c44f6edc9144256ce4ea622aceeee59abdd#npm:5.0.0-beta.28"],
             ["webpack-cli", "virtual:a79575648ee6aa3987b96e1ae7433105b0879543b0ca8beadcdded635903a9da857d9b356ae961befa550717968a1c44f6edc9144256ce4ea622aceeee59abdd#https://github.com/webpack/webpack-cli.git#workspace=webpack-cli&commit=86dfe514a5b5de38f631a02e5211d10f32c536b9"]
