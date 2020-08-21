@@ -25,6 +25,18 @@ Light-weight reverse proxy implemented by using [Cloudflare Workers](https://wor
 $ yarn build                    # Builds the project using Webpack
 ```
 
+## How to Deploy
+
+Compile and bundle the code into `dist/main.js` (`build`), upload application
+bundle to Google Cloud Storage (`push`), and finally, deploy or re-deploy it
+to Cloudflare Workers (`deploy`).
+
+```
+$ yarn build
+$ yarn push [--version=#0]
+$ yarn deploy [--version=#0] [--env=#1] [--no-download]
+```
+
 ## References
 
 - [Cloudflare Workers documentation](https://developers.cloudflare.com/workers/)

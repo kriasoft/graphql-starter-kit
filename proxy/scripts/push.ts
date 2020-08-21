@@ -15,11 +15,11 @@ import pkg from "../package.json";
 
 const args = minimist(process.argv.slice(3));
 const version = args.version ?? os.userInfo().username;
-const target = `gs://${process.env.PKG_BUCKET}/${pkg.name}_${version}.zip`;
+const target = `gs://${process.env.PKG_BUCKET}/${pkg.name}_${version}.js`;
 
-console.log(`Uploading package.zip to ${target}...`);
+console.log(`Uploading dist/main.js to ${target}...`);
 
-const p = spawn.sync("gsutil", ["cp", "package.zip", target], {
+const p = spawn.sync("gsutil", ["cp", "dist/main.js", target], {
   stdio: "inherit",
 });
 

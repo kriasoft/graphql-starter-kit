@@ -6942,6 +6942,25 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"got@npm:^11.5.2":
+  version: 11.5.2
+  resolution: "got@npm:11.5.2"
+  dependencies:
+    "@sindresorhus/is": ^3.0.0
+    "@szmarczak/http-timer": ^4.0.5
+    "@types/cacheable-request": ^6.0.1
+    "@types/responselike": ^1.0.0
+    cacheable-lookup: ^5.0.3
+    cacheable-request: ^7.0.1
+    decompress-response: ^6.0.0
+    http2-wrapper: ^1.0.0-beta.5.0
+    lowercase-keys: ^2.0.0
+    p-cancelable: ^2.0.0
+    responselike: ^2.0.0
+  checksum: 9cfd13e7c72f55a8ca8c57308919e7bd1d5a665a5fb6725119fbff9f4020dc5d4315ad032896e96bd115e3d3ecfa167cb165f4c336629670a2c11b2f361bcc5f
+  languageName: node
+  linkType: hard
+
 "got@npm:^6.2.0":
   version: 6.7.1
   resolution: "got@npm:6.7.1"
@@ -7361,7 +7380,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"http2-wrapper@npm:^1.0.0-beta.4.8":
+"http2-wrapper@npm:^1.0.0-beta.4.8, http2-wrapper@npm:^1.0.0-beta.5.0":
   version: 1.0.0-beta.5.2
   resolution: "http2-wrapper@npm:1.0.0-beta.5.2"
   dependencies:
@@ -11259,11 +11278,17 @@ fsevents@^1.2.7:
   resolution: "proxy@workspace:proxy"
   dependencies:
     "@babel/core": ^7.11.1
+    "@babel/node": ^7.10.5
     "@babel/preset-env": ^7.11.0
     "@babel/preset-typescript": ^7.10.4
     "@cloudflare/workers-types": ^2.0.0
+    "@types/minimist": ^1.2.0
     babel-loader: ^8.1.0
     core-js: ^3.6.5
+    cross-spawn: ^7.0.3
+    env: "workspace:*"
+    got: ^11.5.2
+    minimist: ^1.2.5
     typescript: ^3.9.7
     webpack: 5.0.0-beta.28
     webpack-cli: "webpack/webpack-cli#workspace=webpack-cli&commit=86dfe514a5b5de38f631a02e5211d10f32c536b9"

@@ -31,7 +31,7 @@ module.exports = function config(env, options) {
       filename: "[name].js",
     },
 
-    devtool: "source-map",
+    devtool: "inline-source-map",
 
     optimization: {
       minimize: isEnvProduction,

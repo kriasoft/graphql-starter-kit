@@ -16,7 +16,7 @@ import minimist from "minimist";
 import env from "../src/env";
 import pkg from "../package.json";
 
-const args = minimist(process.argv.slice(2));
+const args = minimist(process.argv.slice(3));
 const version = args.version ?? os.userInfo().username;
 const source = `gs://${process.env.PKG_BUCKET}/${pkg.name}_${version}.zip`;
 
