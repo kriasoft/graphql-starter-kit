@@ -26,6 +26,7 @@ yarn-error.log
 /coverage
 
 # Configuration overrides
+.env.override
 .env.*.override
 docker-stack.override.yml
 

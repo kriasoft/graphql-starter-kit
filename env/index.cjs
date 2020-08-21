@@ -15,6 +15,7 @@ const env = args.env || minimist(args._).env || "dev";
 
 dotenv.config({ path: path.resolve(__dirname, `.env.${env}.override`) });
 dotenv.config({ path: path.resolve(__dirname, `.env.${env}`) });
+dotenv.config({ path: path.resolve(__dirname, `.env.override`) });
 dotenv.config({ path: path.resolve(__dirname, `.env`) });
 
 // Load Google Cloud credentials
