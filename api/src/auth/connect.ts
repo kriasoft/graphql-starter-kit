@@ -16,7 +16,19 @@ export default async function connect(
   // Get the currently authenticated user from session
   let user: User | null | undefined = req.user;
 
-  // If user is not authenticated, find user account by email
+  // If user is not authenticated, find user by credentials
+  if (!user) {
+    user = await db
+      .table<Identity>("identities")
+      .leftJoin<User>("users", "users.id", "identities.user_id")
+      .where({
+        "identities.id": identity.id,
+        "identities.provider": identity.provider,
+      } as any)
+      .first<User>("users.*");
+  }
+
+  // Otherwise, find user account by email
   if (!user && identity.email && identity.email_verified !== false) {
     user = await db
       .table<User>("users")
