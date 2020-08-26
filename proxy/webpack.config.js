@@ -9,8 +9,8 @@ const path = require("path");
 
 /**
  * @param {Record<string, boolean> | undefined} env
- * @param {{ mode: 'production' | 'development' }} options
- * @returns {import('webpack').Configuration}
+ * @param {{ mode: "production" | "development" }} options
+ * @returns {import("webpack").Configuration}
  */
 module.exports = function config(env, options) {
   const isEnvProduction = options.mode === "production";

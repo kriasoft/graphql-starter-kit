@@ -1,6 +1,7 @@
 {
   "name": "api",
   "version": "0.0.0",
+  "private": true,
   "license": "MIT",
   "author": "Kriasoft (https://github.com/kriasoft)",
   "main": "lib/index.js",
@@ -86,15 +87,9 @@
   "engines": {
     "node": ">=12"
   },
-  "private": true,
   "nodemonConfig": {
     "ext": "ts,json,hbs",
     "exec": "babel-node -x .ts -r env"
-  },
-  "eslintConfig": {
-    "ignorePatterns": [
-      "/lib/"
-    ]
   },
   "jest": {
     "testPathIgnorePatterns": [

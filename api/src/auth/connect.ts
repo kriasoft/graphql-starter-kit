@@ -24,7 +24,7 @@ export default async function connect(
       .where({
         "identities.id": identity.id,
         "identities.provider": identity.provider,
-      } as any)
+      } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
       .first<User>("users.*");
   }
 

@@ -1,6 +1,7 @@
 {
   "name": "proxy",
   "version": "0.0.0",
+  "private": true,
   "license": "MIT",
   "author": "Kriasoft (https://github.com/kriasoft)",
   "scripts": {
@@ -25,9 +26,7 @@
     "webpack": "5.0.0-beta.28",
     "webpack-cli": "webpack/webpack-cli#workspace=webpack-cli&commit=86dfe514a5b5de38f631a02e5211d10f32c536b9"
   },
-  "private": true,
   "eslintConfig": {
-    "ignorePatterns": "/dist/",
     "overrides": [
       {
         "files": [

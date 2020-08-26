@@ -1,6 +1,7 @@
 {
   "name": "app",
   "version": "0.0.0",
+  "private": true,
   "license": "MIT",
   "author": "Kriasoft (https://github.com/kriasoft)",
   "workspaces": [
@@ -25,6 +26,7 @@
     "@types/faker": "^4.1.12",
     "@types/inquirer": "^7.3.0",
     "@types/node": "^14.6.0",
+    "@types/prettier": "^2.0.2",
     "@typescript-eslint/eslint-plugin": "^3.9.1",
     "@typescript-eslint/parser": "^3.9.1",
     "@yarnpkg/pnpify": "2.1.0",
@@ -41,61 +43,6 @@
     "pg": "^8.3.2",
     "prettier": "2.0.5",
     "typescript": "3.9.7"
-  },
-  "engines": {
-    "node": ">=12"
-  },
-  "private": true,
-  "prettier": {
-    "printWidth": 80,
-    "tabWidth": 2,
-    "useTabs": false,
-    "semi": true,
-    "singleQuote": false,
-    "quoteProps": "as-needed",
-    "jsxSingleQuote": false,
-    "trailingComma": "all",
-    "bracketSpacing": true,
-    "jsxBracketSameLine": false,
-    "arrowParens": "always",
-    "requirePragma": false,
-    "insertPragma": false,
-    "proseWrap": "preserve",
-    "htmlWhitespaceSensitivity": "css",
-    "vueIndentScriptAndStyle": false,
-    "endOfLine": "lf"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "es6": true,
-      "node": true
-    },
-    "extends": [
-      "eslint:recommended",
-      "prettier"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2020
-    },
-    "overrides": [
-      {
-        "files": [
-          "*.ts",
-          "*.tsx"
-        ],
-        "parser": "@typescript-eslint/parser",
-        "extends": [
-          "plugin:@typescript-eslint/recommended"
-        ],
-        "plugins": [
-          "@typescript-eslint"
-        ],
-        "parserOptions": {
-          "sourceType": "module"
-        }
-      }
-    ]
   },
   "husky": {
     "hooks": {

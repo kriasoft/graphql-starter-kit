@@ -5,14 +5,14 @@
  * @see https://babeljs.io/docs/en/babel-preset-typescript
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  *
- * @type {import('@babel/core').TransformOptions}
+ * @type {import("@babel/core").TransformOptions}
  */
 
 module.exports = {
   presets: [
     [
       "@babel/preset-env",
-      /** @lends {import('@babel/preset-env').Options} */ {
+      /** @lends {import("@babel/preset-env").Options} */ {
         // https://cloud.google.com/functions/docs/concepts/nodejs-runtime
         targets: { node: "12" },
         useBuiltIns: "usage",
