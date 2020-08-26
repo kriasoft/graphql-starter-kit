@@ -86,6 +86,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:14.6.0"
       ],
       [
+        "@types/prettier",
+        "npm:2.0.2"
+      ],
+      [
         "@typescript-eslint/eslint-plugin",
         "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:3.9.1"
       ],
@@ -166,6 +170,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/faker", "npm:4.1.12"],
             ["@types/inquirer", "npm:7.3.0"],
             ["@types/node", "npm:14.6.0"],
+            ["@types/prettier", "npm:2.0.2"],
             ["@typescript-eslint/eslint-plugin", "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:3.9.1"],
             ["@typescript-eslint/parser", "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:3.9.1"],
             ["@yarnpkg/pnpify", "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:2.1.0"],
@@ -4030,6 +4035,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/faker", "npm:4.1.12"],
             ["@types/inquirer", "npm:7.3.0"],
             ["@types/node", "npm:14.6.0"],
+            ["@types/prettier", "npm:2.0.2"],
             ["@typescript-eslint/eslint-plugin", "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:3.9.1"],
             ["@typescript-eslint/parser", "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:3.9.1"],
             ["@yarnpkg/pnpify", "virtual:0460f86c7587ee75dac643681550c044e8047ba46e219a5baac054fc0fea2d0af97a9bd3fe4b22de0884797215e0a1a4368bb60f9ef7087a69c4008789f4e032#npm:2.1.0"],
