@@ -10,7 +10,7 @@
     "deploy": "babel-node -x .ts ./scripts/deploy --"
   },
   "dependencies": {
-    "@babel/core": "^7.11.1",
+    "@babel/core": "^7.11.4",
     "@cloudflare/workers-types": "^2.0.0",
     "@types/minimist": "^1.2.0",
     "babel-loader": "^8.1.0",
@@ -19,7 +19,7 @@
     "env": "workspace:*",
     "got": "^11.5.2",
     "minimist": "^1.2.5",
-    "typescript": "^3.9.7",
+    "typescript": "4.0.2",
     "webpack": "5.0.0-beta.28",
     "webpack-cli": "webpack/webpack-cli#workspace=webpack-cli&commit=86dfe514a5b5de38f631a02e5211d10f32c536b9"
   },
