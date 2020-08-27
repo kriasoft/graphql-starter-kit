@@ -11,9 +11,6 @@
   },
   "dependencies": {
     "@babel/core": "^7.11.1",
-    "@babel/node": "^7.10.5",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-typescript": "^7.10.4",
     "@cloudflare/workers-types": "^2.0.0",
     "@types/minimist": "^1.2.0",
     "babel-loader": "^8.1.0",
@@ -36,34 +33,6 @@
           "worker": true,
           "node": false
         }
-      }
-    ]
-  },
-  "babel": {
-    "overrides": [
-      {
-        "test": "scripts/*.ts",
-        "presets": [
-          "@babel/preset-env"
-        ]
-      },
-      {
-        "test": "src/**/*.ts",
-        "presets": [
-          [
-            "@babel/preset-env",
-            {
-              "modules": false,
-              "loose": true,
-              "useBuiltIns": "usage",
-              "corejs": 3,
-              "targets": {
-                "browsers": "last 1 Chrome versions"
-              }
-            }
-          ],
-          "@babel/preset-typescript"
-        ]
       }
     ]
   }

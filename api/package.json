@@ -8,12 +8,11 @@
   "scripts": {
     "start": "nodemon ./src",
     "start-debug": "nodemon --inspect ./src",
-    "test": "jest",
-    "build": "babel ./src -x .ts --out-dir lib --copy-files --no-copy-ignored --delete-dir-on-start --verbose && del \"lib/**/__snapshots__\" \"lib/**/*.md\" && yarn bundle",
-    "push": "babel-node -x .ts ./scripts/push --",
-    "deploy": "babel-node -x .ts ./scripts/deploy --",
-    "update-schema": "babel-node -x .ts -r env ./scripts/update-schema",
-    "update-types": "babel-node -x .ts ./scripts/update-types",
+    "build": "babel --root-mode upward ./src -x .ts --out-dir lib --copy-files --no-copy-ignored --delete-dir-on-start --verbose && del \"lib/**/__snapshots__\" \"lib/**/*.md\" && yarn bundle",
+    "push": "babel-node --root-mode upward -x .ts ./scripts/push --",
+    "deploy": "babel-node --root-mode upward -x .ts ./scripts/deploy --",
+    "update-schema": "babel-node --root-mode upward -x .ts -r env ./scripts/update-schema",
+    "update-types": "babel-node --root-mode upward -x .ts ./scripts/update-types",
     "api:start": "yarn workspace api start",
     "api:start-debug": "yarn workspace api start-debug",
     "api:test": "yarn workspace api test",
@@ -40,7 +39,6 @@
     "graphql-relay": "^0.6.0",
     "graphql-voyager": "^1.0.0-rc.31",
     "handlebars": "^4.7.6",
-    "idx": "^2.5.6",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.5",
     "lodash": "^4.17.20",
@@ -57,11 +55,6 @@
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.1",
     "@babel/node": "^7.10.5",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-typescript": "^7.10.4",
-    "@babel/register": "^7.10.5",
     "@types/cookie": "^0.4.0",
     "@types/cross-spawn": "^6.0.2",
     "@types/express": "^4.17.7",
@@ -75,11 +68,8 @@
     "@types/node": "^14.6.0",
     "@types/uuid": "^8.3.0",
     "@types/validator": "^13.1.0",
-    "babel-jest": "^26.3.0",
-    "babel-plugin-idx": "^2.4.0",
     "del-cli": "^3.0.1",
     "env": "workspace:*",
-    "jest": "^26.4.1",
     "minimist": "^1.2.5",
     "nodemon": "^2.0.4",
     "typescript": "3.9.7"
@@ -89,7 +79,7 @@
   },
   "nodemonConfig": {
     "ext": "ts,json,hbs",
-    "exec": "babel-node -x .ts -r env"
+    "exec": "babel-node --root-mode upward -x .ts -r env"
   },
   "jest": {
     "testPathIgnorePatterns": [

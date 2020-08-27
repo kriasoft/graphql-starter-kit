@@ -14,9 +14,11 @@ jobs:
 
       # Analyze code for potential problems
       - run: yarn prettier --check .
-      - run: yarn eslint --report-unused-disable-directives .
+      - run: yarn lint --no-cache
 
-      # Build and test "api"
-      - run: yarn workspace api test
+      # Test
+      - run: yarn test
+
+      # Compile
       - run: yarn workspace api build
       - run: yarn workspace proxy build

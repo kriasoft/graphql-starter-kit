@@ -54,10 +54,10 @@ const story = await db.table("stories").where({ id }).first();
 ctx.ensureAuthorized((user) => story.author_id === user.id);
 ```
 
-Always validate user and sanitize user input! We use [`validator.js`](https://github.com/validatorjs/validator.js) + a custom helper function `ctx.validate(input)(...)` for that. For example:
+Always validate user and sanitize user input! We use [`validator.js`](https://github.com/validatorjs/validator.js) + a custom helper function `validate(input, validator => /* rules */)` for that. For example:
 
 ```js
-const data = ctx.validate(input, (x) =>
+const { data, errors } = await validate(input, (x) =>
   x
     .field("title", { trim: true })
     .isRequired()
@@ -67,6 +67,10 @@ const data = ctx.validate(input, (x) =>
     .isRequired()
     .isLength({ min: 10, max: 1000 }),
 );
+
+if (errors.length > 0) {
+  return { errors };
+}
 
 await db.table("stories").where({ id }).update(data);
 ```
