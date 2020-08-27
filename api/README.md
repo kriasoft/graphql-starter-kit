@@ -77,9 +77,9 @@ The app must become available on [`http://localhost:8080/graphql`](http://localh
 ## How to Test
 
 ```bash
-$ yarn g:lint .                 # Lint the code in the selected folder using ESLint
+$ yarn g:lint [--no-cache]      # Lint code with ESLint
+$ yarn g:test                   # Run unit tests with Jest
 $ yarn tsc                      # Check the code for type errors using TypeScript
-$ yarn test                     # Run unit tests with Jest
 ```
 
 ## How to Debug

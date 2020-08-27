@@ -10,12 +10,13 @@ import {
   GraphQLID,
   GraphQLString,
   GraphQLBoolean,
+  GraphQLList,
 } from "graphql";
 
 import db, { User } from "../db";
 import { Context } from "../context";
 import { UserType } from "../types";
-import { fromGlobalId } from "../utils";
+import { validate, fromGlobalId } from "../utils";
 
 export const updateUser = mutationWithClientMutationId({
   name: "UpdateUser",
@@ -35,6 +36,9 @@ export const updateUser = mutationWithClientMutationId({
 
   outputFields: {
     user: { type: UserType },
+    errors: {
+      type: new GraphQLList(new GraphQLNonNull(new GraphQLList(GraphQLString))),
+    },
   },
 
   async mutateAndGetPayload(input, ctx: Context) {
@@ -43,15 +47,18 @@ export const updateUser = mutationWithClientMutationId({
     // Check permissions
     ctx.ensureAuthorized((user) => user.id === id || user.admin);
 
-    const usernameAvailable = await db
-      .table("users")
-      .where({ username: input.username.trim() })
-      .whereNot({ id })
-      .select(db.raw("1"))
-      .then((x) => !x.length);
+    const usernameAvailable =
+      input.username === undefined
+        ? true
+        : await db
+            .table("users")
+            .where({ username: input.username?.trim() || null })
+            .whereNot({ id })
+            .select(db.raw("1"))
+            .then((x) => !x.length);
 
     // Validate and sanitize user input
-    const data = ctx.validate(input, (x) =>
+    const { data, errors } = validate(input, (x) =>
       x
         .field("username", { trim: true })
         .isLength({ min: 1, max: 50 })
@@ -87,8 +94,8 @@ export const updateUser = mutationWithClientMutationId({
         ),
     );
 
-    if (input.validateOnly) {
-      return { user: null };
+    if (errors.length > 0) {
+      return { errors };
     }
 
     let user;
