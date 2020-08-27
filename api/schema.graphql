@@ -131,6 +131,7 @@ type SignInPayload {
 
 type UpdateUserPayload {
   user: User
+  errors: [[String]!]
   clientMutationId: String
 }
 

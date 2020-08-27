@@ -2,8 +2,8 @@
 # Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
 
 # Compiled output
-dist/
-lib/
+/*/dist
+/api/lib/
 package.zip
 
 # Dependencies

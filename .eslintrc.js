@@ -37,8 +37,8 @@ module.exports = {
     },
     {
       files: ["*.tsx"],
-      extends: ["prettier/react"],
-      plugins: ["jsx-a11y", "react", "react-hooks"],
+      extends: ["plugin:react/recommended", "prettier/react"],
+      plugins: ["jsx-a11y", "react-hooks"],
       env: {
         browser: true,
       },

@@ -44,6 +44,7 @@ module.exports = function config(env, options) {
           exclude: /node_modules/,
           loader: "babel-loader",
           options: {
+            rootMode: "upward",
             cacheDirectory: true,
             cacheCompression: true,
           },
