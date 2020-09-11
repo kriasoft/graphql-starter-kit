@@ -8,7 +8,9 @@
 
 const knex = require("knex");
 const spawn = require("cross-spawn");
+
 const config = require("../knexfile");
+const updateTypes = require("./update-types");
 
 async function reset() {
   const db = knex({
@@ -32,7 +34,7 @@ async function reset() {
   // Migrate database to the latest version
   spawn.sync("yarn", ["knex", "migrate:latest"], { stdio: "inherit" });
   spawn.sync("yarn", ["knex", "seed:run"], { stdio: "inherit" });
-  spawn.sync("yarn", ["api:update-types"], { stdio: "inherit" });
+  await updateTypes();
 }
 
 reset().catch((err) => {

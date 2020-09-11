@@ -6,34 +6,25 @@
   "author": "Kriasoft (https://github.com/kriasoft)",
   "scripts": {
     "build": "webpack",
-    "push": "babel-node -x .ts ./scripts/push --",
-    "deploy": "babel-node -x .ts ./scripts/deploy --"
+    "push": "node ../scripts/push",
+    "deploy": "node ../scripts/deploy-proxy",
+    "proxy:build": "yarn workspace proxy build",
+    "proxy:push": "yarn workspace proxy push",
+    "proxy:deploy": "yarn workspace proxy deploy"
   },
   "dependencies": {
-    "@babel/core": "^7.11.4",
+    "@babel/core": "^7.11.6",
     "@cloudflare/workers-types": "^2.0.0",
     "@types/minimist": "^1.2.0",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.5",
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
-    "got": "^11.5.2",
+    "got": "^11.6.2",
     "minimist": "^1.2.5",
+    "scripts": "workspace:*",
     "typescript": "4.0.2",
     "webpack": "5.0.0-beta.28",
     "webpack-cli": "webpack/webpack-cli#workspace=webpack-cli&commit=86dfe514a5b5de38f631a02e5211d10f32c536b9"
-  },
-  "eslintConfig": {
-    "overrides": [
-      {
-        "files": [
-          "src/**.ts"
-        ],
-        "env": {
-          "worker": true,
-          "node": false
-        }
-      }
-    ]
   }
 }

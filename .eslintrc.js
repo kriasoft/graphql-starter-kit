@@ -52,6 +52,9 @@ module.exports = {
           version: "detect",
         },
       },
+      rules: {
+        "react/no-children-prop": "off",
+      },
     },
     {
       files: ["*.test.ts", "*.test.tsx"],
@@ -59,14 +62,20 @@ module.exports = {
         jest: true,
       },
     },
+    {
+      files: ["proxy/**/*.ts"],
+      env: {
+        worker: true,
+        node: false,
+      },
+    },
   ],
 
   ignorePatterns: [
     "/.git",
     "/**/__snapshots__",
-    "/*/dist",
-    "/*/node_modules",
-    "/api/lib",
+    "/**/node_modules",
     "/coverage",
+    "/dist/",
   ],
 };

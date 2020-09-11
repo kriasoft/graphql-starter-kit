@@ -22,3 +22,6 @@ jobs:
       # Compile
       - run: yarn workspace api build
       - run: yarn workspace proxy build
+
+      # Upload application bundles to GCS
+      # - run: yarn workspaces foreach run push

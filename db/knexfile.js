@@ -21,9 +21,7 @@ module.exports = {
       cert: fs.readFileSync(process.env.PGSSLCERT, "ascii"),
       key: fs.readFileSync(process.env.PGSSLKEY, "ascii"),
       ca: fs.readFileSync(process.env.PGSSLROOTCERT, "ascii"),
-      servername: ((x) => `${x[0]}:${x[2]}`)(
-        process.env.GOOGLE_CLOUD_SQL.split(":"),
-      ),
+      servername: process.env.PGSERVERNAME,
     },
   },
 

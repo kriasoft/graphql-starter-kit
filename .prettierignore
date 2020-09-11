@@ -1,6 +1,5 @@
 # Compiled output
-*/dist/
-api/lib/
+/dist/
 
 # Yarn
 .yarn/cache

@@ -112,14 +112,14 @@ const questions = [
         .toLowerCase() + `-${env}`,
     validate(value) {
       const gcp = /^(GOOGLE_CLOUD_PROJECT)=.*/gm;
-      const sql = /^(GOOGLE_CLOUD_SQL)=.*/gm;
       const db = /^(PGDATABASE)=.*/gm;
       const dbName = value.replace(/-/g, "_");
+      const dbServer = /(PGSERVERNAME)=.*/gm;
       const localDb = dbName.replace(/_(dev|development)/, "_local");
       return (
         replace(`env/.env.${env}`, gcp, `$1=${value}`) &&
-        replace(`env/.env.${env}`, sql, `$1=${value}:us-central1:pg12`) &&
         replace(`env/.env.${env}`, db, `$1=${dbName}`) &&
+        replace(`env/.env.${env}`, dbServer, `$1=${value}:pg12`) &&
         (env === "dev"
           ? replace(`env/.env.local`, gcp, `$1=${value}`) &&
             replace(`env/.env.local`, db, `$1=${localDb}`)
@@ -143,7 +143,11 @@ async function done(answers) {
     let text = fs.readFileSync("./package.json", "utf8");
     text = text.replace(/\n\s+"setup": ".*?\n/s, "\n");
     fs.writeFileSync("./package.json", text, "utf8");
-    spawn.sync("yarn", ["remove", "inquirer", "cross-spawn"]);
+    spawn.sync("yarn", ["remove", "inquirer", "cross-spawn", "dotenv"], {
+      stdio: "inherit",
+    });
+  } else {
+    spawn.sync("yarn", ["install"], { stdio: "inherit" });
   }
 
   if (answers.setup) {
@@ -163,8 +167,8 @@ async function done(answers) {
       `  Done! Now you can migrate the database and launch the app by running:`,
     );
     console.log(`  `);
-    console.log(`  $ yarn db:migrate`);
-    console.log(`  $ yarn start`);
+    console.log(`  $ yarn db:reset`);
+    console.log(`  $ yarn api:start`);
     console.log(`  `);
   } else {
     console.log(`  No problem. You can run this script at any time later.`);

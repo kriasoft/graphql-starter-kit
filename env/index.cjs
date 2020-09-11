@@ -5,13 +5,16 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
+const os = require("os");
 const fs = require("fs");
 const path = require("path");
 const dotenv = require("dotenv");
 const minimist = require("minimist");
+const babel = require("@babel/core");
 
 const args = minimist(process.argv.slice(2));
 const env = args.env || minimist(args._).env || "dev";
+const rootPath = path.resolve(__dirname, "..");
 
 dotenv.config({ path: path.resolve(__dirname, `.env.${env}.override`) });
 dotenv.config({ path: path.resolve(__dirname, `.env.${env}`) });
@@ -40,3 +43,13 @@ if (process.env.PGSSLKEY) {
     console.error(err);
   }
 }
+
+// Default application version
+if (!process.env.VERSION) {
+  process.env.VERSION = os.userInfo().username;
+}
+
+// Customize @babel/register cache location
+const pkgPath = path.relative(rootPath, process.cwd());
+const cachePath = `${pkgPath}.babel.${babel.version}.${babel.getEnv()}.json`;
+process.env.BABEL_CACHE_PATH = path.resolve(rootPath, ".cache", cachePath);

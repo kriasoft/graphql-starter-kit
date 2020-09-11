@@ -4,6 +4,7 @@
   "private": true,
   "license": "MIT",
   "author": "Kriasoft (https://github.com/kriasoft)",
+  "types": "types.d.ts",
   "scripts": {
     "version": "knex migrate:currentVersion",
     "change": "knex migrate:make",
@@ -13,6 +14,7 @@
     "reset": "node ./scripts/reset",
     "backup": "node ./scripts/backup",
     "restore": "node ./scripts/restore",
+    "update-types": "node ./scripts/update-types",
     "repl": "node --experimental-repl-await ./scripts/repl",
     "psql": "node ./scripts/psql",
     "db:version": "yarn workspace db version",
@@ -23,17 +25,22 @@
     "db:reset": "yarn workspace db reset",
     "db:backup": "yarn workspace db backup",
     "db:restore": "yarn workspace db restore",
+    "db:update-types": "yarn workspace db update-types",
     "db:repl": "yarn workspace db repl",
     "db:psql": "yarn workspace db psql"
   },
-  "devDependencies": {
+  "dependencies": {
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
-    "faker": "^4.1.0",
+    "faker": "^5.1.0",
     "knex": "^0.21.5",
+    "lodash": "^4.17.20",
     "minimist": "^1.2.5",
     "nanoid": "^3.1.12",
-    "pg": "^8.3.2",
+    "pg": "^8.3.3",
     "prettier": "2.1.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.161"
   }
 }
