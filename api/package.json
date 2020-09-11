@@ -4,24 +4,23 @@
   "private": true,
   "license": "MIT",
   "author": "Kriasoft (https://github.com/kriasoft)",
-  "main": "lib/index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "nodemon ./src",
-    "start-debug": "nodemon --inspect ./src",
-    "build": "babel --root-mode upward ./src -x .ts --out-dir lib --copy-files --no-copy-ignored --delete-dir-on-start --verbose && del \"lib/**/__snapshots__\" \"lib/**/*.md\" && yarn bundle",
-    "push": "babel-node --root-mode upward -x .ts ./scripts/push --",
-    "deploy": "babel-node --root-mode upward -x .ts ./scripts/deploy --",
-    "update-schema": "babel-node --root-mode upward -x .ts -r env ./scripts/update-schema",
-    "update-types": "babel-node --root-mode upward -x .ts ./scripts/update-types",
+    "start": "nodemon --ext js,ts,json,hbs ./start",
+    "start-debug": "nodemon --ext js,ts,json,hbs --inspect ./start",
+    "update-schema": "node ../scripts/update-schema",
+    "build": "node ../scripts/build-api",
+    "push": "node ../scripts/push",
+    "deploy": "node ../scripts/deploy-api",
     "api:start": "yarn workspace api start",
     "api:start-debug": "yarn workspace api start-debug",
-    "api:test": "yarn workspace api test",
-    "api:build": "yarn workspace api build",
     "api:update-schema": "yarn workspace api update-schema",
-    "api:update-types": "yarn workspace api update-types"
+    "api:build": "yarn workspace api build",
+    "api:push": "yarn workspace api push",
+    "api:deploy": "yarn workspace api deploy"
   },
   "dependencies": {
-    "@sendgrid/mail": "^7.2.3",
+    "@sendgrid/mail": "^7.2.5",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie": "^0.4.1",
@@ -33,7 +32,7 @@
     "envalid": "^6.0.2",
     "express": "^4.17.1",
     "express-graphql": "^0.11.0",
-    "faker": "^4.1.0",
+    "faker": "^5.1.0",
     "google-auth-library": "^6.0.6",
     "graphql": "^15.3.0",
     "graphql-relay": "^0.6.0",
@@ -44,7 +43,7 @@
     "lodash": "^4.17.20",
     "moment-timezone": "^0.5.31",
     "nanoid": "^3.1.12",
-    "pg": "^8.3.2",
+    "pg": "^8.3.3",
     "pretty-error": "^2.1.1",
     "slugify": "^1.4.5",
     "source-map-support": "^0.5.19",
@@ -52,22 +51,23 @@
     "validator": "^13.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.4",
-    "@babel/node": "^7.10.5",
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/register": "^7.11.5",
     "@types/cookie": "^0.4.0",
     "@types/cross-spawn": "^6.0.2",
-    "@types/express": "^4.17.7",
-    "@types/faker": "^4.1.12",
+    "@types/express": "^4.17.8",
+    "@types/faker": "^5.1.0",
     "@types/graphql-relay": "^0.6.0",
-    "@types/jest": "^26.0.9",
+    "@types/jest": "^26.0.13",
     "@types/jsonwebtoken": "^8.5.0",
-    "@types/lodash": "^4.14.159",
+    "@types/lodash": "^4.14.161",
     "@types/minimist": "^1.2.0",
     "@types/moment-timezone": "^0.5.30",
-    "@types/node": "^14.6.0",
+    "@types/node": "^14.10.1",
     "@types/uuid": "^8.3.0",
     "@types/validator": "^13.1.0",
+    "db": "workspace:*",
     "del-cli": "^3.0.1",
     "env": "workspace:*",
     "minimist": "^1.2.5",
@@ -77,14 +77,7 @@
   "engines": {
     "node": ">=12"
   },
-  "nodemonConfig": {
-    "ext": "ts,json,hbs",
-    "exec": "babel-node --root-mode upward -x .ts -r env"
-  },
   "jest": {
-    "testPathIgnorePatterns": [
-      "/lib/"
-    ],
     "testEnvironment": "node"
   }
 }

@@ -13,7 +13,9 @@
   "search.exclude": {
     "**/lib/": true,
     "yarn-error.log": true,
-    "yarn.lock": true
+    "yarn.lock": true,
+    "**/.yarn": true,
+    "**/.pnp.*": true
   },
   "cSpell.ignoreWords": [
     "abcdefghijklmnopqrstuvwxyz",
@@ -24,8 +26,10 @@
     "devtool",
     "downlevel",
     "envalid",
+    "eslintcache",
     "esnext",
     "gamecenter",
+    "globby",
     "gsutil",
     "jsonb",
     "knexfile",
@@ -38,6 +42,7 @@
     "pghost",
     "pgpassword",
     "pgport",
+    "pgservername",
     "pgsslcert",
     "pgsslkey",
     "pgsslmode",
@@ -51,6 +56,7 @@
     "sourcemap",
     "tslib",
     "typechecking",
-    "webflow"
+    "webflow",
+    "yarnrc"
   ]
 }

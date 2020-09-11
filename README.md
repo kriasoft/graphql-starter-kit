@@ -5,9 +5,9 @@
 
 <p align="center">
   <a href="https://discord.com/invite/bSsv7XM"><img src="https://img.shields.io/badge/chat-discord-kriasoft.svg?logo=discord&style=flat" height="20"></a>
-  <a href="https://patreon.com/koistya"><img src="https://img.shields.io/badge/donate-patreon-kriasoft.svg?logo=patreon&style=flat" height="20"></a>
+  <a href="https://github.com/sponsors/koistya"><img src="https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&style=flat" height="20"></a>
   <a href="https://github.com/kriasoft/nodejs-api-starter/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/nodejs-api-starter.svg?style=social&label=Star&maxAge=3600" height="20"></a>
-  <a href="https://twitter.com/ReactStarter"><img src="https://img.shields.io/twitter/follow/ReactStarter.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
+  <a href="https://twitter.com/koistya"><img src="https://img.shields.io/twitter/follow/koistya.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
 </p>
 
 **Yarn v2** based monorepo template for quickly bootstrapping production ready web
@@ -27,6 +27,7 @@ Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for as
 `├──`[`db`](./db) — database schema and some administration tools<br>
 `├──`[`api`](./api) — GraphQL API server and authentication middleware<br>
 `├──`[`proxy`](./proxy) — reverse proxy implemented using [Cloudflare Workers](https://workers.cloudflare.com/)<br>
+`├──`[`scripts`](./scripts) — Automation scripts shared across the project<br>
 `└── ...` — add more packages such as `worker`, `web`, `mobile`, etc.
 
 ## Requirements
@@ -40,9 +41,9 @@ Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for as
 Just clone the repo and run `yarn setup` followed by `yarn start`:
 
 ```bash
-$ npx degit https://github.com/kriasoft/nodejs-api-starter example
+$ git clone --origin=upstream --branch=main --single-branch \
+    https://github.com/kriasoft/nodejs-api-starter.git example
 $ cd ./example                  # Change current directory to the newly created one
-$ yarn install                  # Install Node.js dependencies
 $ yarn setup                    # Configure environment variables
 $ yarn start                    # Launch Node.js API application
 ```
@@ -53,6 +54,27 @@ The API server must become available at [http://localhost:8080/graphql](http://l
 
 - [Yarn 2 (Berry) - Plug'n'play, constraints and workspaces](https://www.youtube.com/watch?v=HUVawJXeHfU) by [@jherr](https://github.com/jherr)
 - [Database change management with Node.js](https://dev.to/koistya/database-change-management-with-node-js-12dk) by [@koistya](https://github.com/koistya)
+
+## How to Update
+
+In the case when you kept the original Node.js Starter Kit git history, you can
+always pull and merge updates from the "upstream" repository back into your
+project by running:
+
+```bash
+$ git fetch upstream            # Fetch Node.js Starter Kit (upstream) repository
+$ git checkout main             # Switch to the main branch (or, master branch)
+$ git merge upstream/main       # Merge upstream/master into the local branch
+```
+
+In order to update Yarn and other dependencies to the latest versions, run:
+
+```bash
+$ yarn set version latest       # Upgrade Yarn CLI to the latest version
+$ yarn upgrade-interactive      # Bump Node.js dependencies using an interactive mode
+$ yarn install                  # Install the updated Node.js dependencies
+$ yarn pnpify --sdk vscode      # Update VSCode settings
+```
 
 ## How to Contribute
 
@@ -65,8 +87,9 @@ However, if you decide to get involved, please take a moment to review the
 ## License
 
 Copyright © 2016-present Kriasoft. This source code is licensed under the MIT license found in the
-[LICENSE](https://github.com/kriasoft/nodejs-api-starter/blob/master/LICENSE) file.
+[LICENSE](https://github.com/kriasoft/nodejs-api-starter/blob/main/LICENSE) file.
 
 ---
 
-Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [blog](https://medium.com/@tarkus)) and [contributors](https://github.com/kriasoft/nodejs-api-starter/graphs/contributors).
+<sup>Made with ♥&nbps; by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [blog](https://medium.com/@koistya))
+and [contributors](https://github.com/kriasoft/nodejs-api-starter/graphs/contributors).</sup>

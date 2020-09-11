@@ -2,9 +2,7 @@
 # Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
 
 # Compiled output
-/*/dist
-/api/lib/
-package.zip
+/dist/
 
 # Dependencies
 node_modules/
@@ -39,6 +37,7 @@ docker-stack.override.yml
 !.vscode/settings.json
 
 # Cache
+/.cache
 .eslintcache
 
 # macOS
