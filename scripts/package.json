@@ -1,0 +1,23 @@
+{
+  "name": "scripts",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "author": "Kriasoft (https://github.com/kriasoft)",
+  "dependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/register": "^7.11.5",
+    "api": "workspace:*",
+    "archiver": "^5.0.2",
+    "cross-spawn": "^7.0.3",
+    "env": "workspace:*",
+    "globby": "^11.0.1",
+    "got": "^11.6.2",
+    "make-dir": "^3.1.0",
+    "minimist": "^1.2.5"
+  },
+  "devDependencies": {
+    "@types/archiver": "^3.1.0",
+    "@types/babel__core": "^7.1.9"
+  }
+}

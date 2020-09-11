@@ -5,8 +5,9 @@
  */
 
 import { Request } from "express";
+import type { User, Identity } from "db";
 
-import db, { User, Identity } from "../db";
+import db from "../db";
 import { newUserId } from "../utils";
 
 export default async function connect(

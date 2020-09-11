@@ -8,16 +8,18 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-import "env";
-import os from "os";
-import spawn from "cross-spawn";
-import minimist from "minimist";
+require("env");
+const spawn = require("cross-spawn");
+const minimist = require("minimist");
 
-import env from "../src/env";
-import pkg from "../package.json";
+const env = process.env;
+const pkg = require("api/package.json");
+const region = env.GOOGLE_CLOUD_REGION;
 
-const args = minimist(process.argv.slice(3));
-const version = args.version ?? os.userInfo().username;
+const { version } = minimist(process.argv.slice(2), {
+  default: { version: process.env.VERSION },
+});
+
 const source = `gs://${process.env.PKG_BUCKET}/${pkg.name}_${version}.zip`;
 
 console.log(`Deploying ${source} to ${env.APP_ENV}...`);
@@ -25,26 +27,26 @@ console.log(`Deploying ${source} to ${env.APP_ENV}...`);
 const envVars = [
   `APP_NAME=${env.APP_NAME}`,
   `APP_ORIGIN=${env.APP_ORIGIN}`,
-  `APP_VERSION=${version}`,
   `APP_ENV=${env.APP_ENV}`,
+  `VERSION=${version}`,
   `JWT_SECRET=${env.JWT_SECRET}`,
   `GOOGLE_CLIENT_ID=${env.GOOGLE_CLIENT_ID}`,
   `GOOGLE_CLIENT_SECRET=${env.GOOGLE_CLIENT_SECRET}`,
-  `PGHOST=/cloudsql/${env.GOOGLE_CLOUD_SQL}`,
+  `PGHOST=/cloudsql/${env.PGSERVERNAME.replace(":", `:${region}:`)}`,
   `PGUSER=${env.PGUSER}`,
   `PGPASSWORD=${env.PGPASSWORD}`,
   `PGDATABASE=${env.PGDATABASE}`,
-  `PGAPPNAME=${pkg.name}_${version}`,
+  `PGAPPNAME=${pkg.name}_${version}_${env.APP_ENV}`,
 ];
 
-const p = spawn.sync(
+spawn(
   "gcloud",
   [
-    `--project=${process.env.GOOGLE_CLOUD_PROJECT}`,
+    `--project=${env.GOOGLE_CLOUD_PROJECT}`,
     `functions`,
     `deploy`,
     pkg.name,
-    `--region=${process.env.GOOGLE_CLOUD_REGION}`,
+    `--region=${env.GOOGLE_CLOUD_REGION}`,
     `--allow-unauthenticated`,
     `--entry-point=${pkg.name}`,
     `--memory=2GB`,
@@ -55,6 +57,7 @@ const p = spawn.sync(
     `--trigger-http`,
   ],
   { stdio: "inherit" },
-);
-
-process.exit(p.status || undefined);
+).on("error", (err) => {
+  console.error(err);
+  process.exit(1);
+});

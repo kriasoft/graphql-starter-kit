@@ -12,8 +12,8 @@ import {
   GraphQLBoolean,
   GraphQLList,
 } from "graphql";
+import type { Identity } from "db";
 
-import { Identity } from "../db";
 import { dateField } from "../fields";
 import { IdentityProviderType } from "../enums";
 import { Context } from "../context";

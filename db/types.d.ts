@@ -1,38 +1,3 @@
-/**
- * Knex.js database client and query builder for PostgreSQL.
- *
- * @see https://knexjs.org/
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
- */
-
-import fs from "fs";
-import knex from "knex";
-import env from "./env";
-
-const db = knex({
-  client: "pg",
-
-  connection: {
-    ssl: env.PGSSLMODE === "verify-ca" && {
-      cert: fs.readFileSync(env.PGSSLCERT, "ascii"),
-      key: fs.readFileSync(env.PGSSLKEY, "ascii"),
-      ca: fs.readFileSync(env.PGSSLROOTCERT, "ascii"),
-      servername: ((x) => `${x[0]}:${x[2]}`)(env.GOOGLE_CLOUD_SQL.split(":")),
-    },
-  },
-
-  // Note that the max connection pool size must be set to 1
-  // in a serverless environment.
-  pool: {
-    min: env.APP_ENV === "production" ? 1 : 0,
-    max: 1,
-  },
-
-  debug: env.PGDEBUG,
-});
-
-export default db;
-
 // The TypeScript definitions below are automatically generated.
 // Do not touch them, or risk, your modifications being lost.
 

@@ -12,8 +12,9 @@ import {
   GraphQLBoolean,
   GraphQLList,
 } from "graphql";
+import type { User } from "db";
 
-import db, { User } from "../db";
+import db from "../db";
 import { Context } from "../context";
 import { UserType } from "../types";
 import { validate, fromGlobalId } from "../utils";

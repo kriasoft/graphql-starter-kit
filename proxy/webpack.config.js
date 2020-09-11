@@ -6,6 +6,7 @@
  */
 
 const path = require("path");
+const pkg = require("./package.json");
 
 /**
  * @param {Record<string, boolean> | undefined} env
@@ -23,12 +24,12 @@ module.exports = function config(env, options) {
     target: "webworker",
     bail: isEnvProduction,
 
-    entry: "./src/main.ts",
+    entry: "./main.ts",
 
     output: {
-      path: isEnvProduction ? path.resolve(__dirname, "dist") : undefined,
+      path: path.resolve(__dirname, "../dist"),
       pathinfo: isEnvDevelopment,
-      filename: "[name].js",
+      filename: `${pkg.name}.js`,
     },
 
     devtool: "inline-source-map",
@@ -45,7 +46,10 @@ module.exports = function config(env, options) {
           loader: "babel-loader",
           options: {
             rootMode: "upward",
-            cacheDirectory: true,
+            cacheDirectory: path.resolve(
+              __dirname,
+              `../.cache/${pkg.name}.babel-loader`,
+            ),
             cacheCompression: true,
           },
         },

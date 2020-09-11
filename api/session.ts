@@ -8,9 +8,10 @@
 import cookie from "cookie";
 import jwt from "jsonwebtoken";
 import { RequestHandler, Request, Response } from "express";
+import type { User } from "db";
 
+import db from "./db";
 import env from "./env";
-import db, { User } from "./db";
 
 async function getUser(req: Request): Promise<User | null> {
   const cookies = cookie.parse(req.headers.cookie || "");

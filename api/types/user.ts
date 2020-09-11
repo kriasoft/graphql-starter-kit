@@ -12,8 +12,8 @@ import {
   GraphQLBoolean,
   GraphQLList,
 } from "graphql";
+import type { User } from "db";
 
-import { User } from "../db";
 import { nodeInterface } from "../node";
 import { dateField } from "../fields";
 import { IdentityType } from "./identity";

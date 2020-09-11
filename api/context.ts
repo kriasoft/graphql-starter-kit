@@ -6,8 +6,9 @@
 
 import DataLoader from "dataloader";
 import { Request } from "express";
+import type { User, Identity } from "db";
 
-import db, { User, Identity } from "./db";
+import db from "./db";
 import { mapTo, mapToMany } from "./utils";
 import { UnauthorizedError, ForbiddenError } from "./error";
 

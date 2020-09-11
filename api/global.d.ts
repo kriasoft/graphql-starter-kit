@@ -4,8 +4,9 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { User } from "./db";
+import type { User } from "db";
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 declare global {
   namespace Express {

@@ -104,4 +104,4 @@ You can find backup files inside of the [`/backups`](./backups) folder.
 ## License
 
 Copyright © 2016-present Kriasoft. This source code is licensed under the MIT license found in the
-[LICENSE](https://github.com/kriasoft/nodejs-api-starter/blob/master/LICENSE) file.
+[LICENSE](https://github.com/kriasoft/nodejs-api-starter/blob/main/LICENSE) file.

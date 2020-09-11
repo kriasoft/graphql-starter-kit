@@ -4,9 +4,9 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
+import { Router, Request } from "express";
 import { graphqlHTTP } from "express-graphql";
 import { express as voyager } from "graphql-voyager/middleware";
-import express, { Router, Request, Response } from "express";
 
 import env from "./env";
 import { auth } from "./auth";
@@ -38,18 +38,3 @@ api.use(
     },
   })),
 );
-
-if (!env.isProduction) {
-  const app = express();
-
-  app.use(api);
-  app.get("/", (req: Request, res: Response) => {
-    res.redirect("/graphql");
-  });
-
-  app.listen(env.PORT, () => {
-    const meta = `env: ${env.APP_ENV}, db: ${env.PGDATABASE}`;
-    console.log(`API listening on http://localhost:${env.PORT}/ (${meta})`);
-    require("../scripts/update-schema");
-  });
-}

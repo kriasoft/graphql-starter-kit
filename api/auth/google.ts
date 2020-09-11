@@ -6,11 +6,11 @@
 
 import { Request, Response } from "express";
 import { OAuth2Client } from "google-auth-library";
+import { IdentityProvider } from "db/types";
 
 import env from "../env";
 import connect from "./connect";
 import response from "./response";
-import { IdentityProvider } from "../db";
 
 const client = new OAuth2Client({
   clientId: env.GOOGLE_CLIENT_ID,

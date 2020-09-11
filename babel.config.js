@@ -13,7 +13,7 @@ module.exports = function config(api) {
     presets: ["@babel/preset-env"],
 
     plugins: [
-      "@babel/plugin-proposal-class-properties",
+      ["@babel/plugin-proposal-class-properties", { loose: true }],
       "@babel/plugin-proposal-object-rest-spread",
     ],
 
@@ -25,12 +25,23 @@ module.exports = function config(api) {
         presets: ["@babel/preset-typescript"],
       },
 
-      /**
-       * Google Cloud Functions
-       * https://cloud.google.com/functions/docs/concepts/nodejs-runtime
-       */
       {
-        test: "api/src/**/*.ts",
+        test: /\.tsx$/,
+        presets: [
+          [
+            "@babel/preset-react",
+            {
+              development: api.env() === "development",
+              useBuiltIns: true,
+            },
+          ],
+        ],
+      },
+
+      // Google Cloud Functions
+      // https://cloud.google.com/functions/docs/concepts/nodejs-runtime
+      {
+        test: "api/**/*.ts",
         presets: [
           [
             "@babel/preset-env",
@@ -48,11 +59,14 @@ module.exports = function config(api) {
         },
       },
 
-      /**
-       * Cloudflare Workers
-       */
       {
-        test: "proxy/src/**/*.ts",
+        test: "**/*.d.ts",
+        presets: [["@babel/preset-env", { targets: { esmodules: true } }]],
+      },
+
+      // Cloudflare Workers
+      {
+        test: "proxy/**/*.ts",
         presets: [
           [
             "@babel/preset-env",

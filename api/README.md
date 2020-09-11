@@ -21,30 +21,23 @@ assistance.
 
 ```bash
 .
-├── scripts                     # Automation scripts
-│   ├── deploy.ts               #   - deploys the app to Google Cloud
-│   ├── push.ts                 #   - uploads package.zip to GCS bucket
-│   ├── update-schema.ts        #   - generates `schema.graphql` file
-│   └── update-types.ts         #   - generates TypeScript definitions
-├── src                         #
-│   ├── auth/                   # Authentication middleware
-│   ├── mutations/              # GraphQL API mutation endpoints
-│   ├── queries/                # The top-level GraphQL API query fields
-│   ├── types/                  # GrapHQL API schema types
-│   ├── utils/                  # Helper functions
-│   ├── context.ts              # GraphQL API context variable(s)
-│   ├── db.ts                   # PostgreSQL client and query builder
-│   ├── errors.ts               # Custom error types
-│   ├── fields.ts               # Helper functions for GraphQL fields
-│   ├── index.ts                # GraphQL API server entry point
-│   ├── node.ts                 # GraphQL Relay Node interface
-│   ├── schema.ts               # GraphQL API schema definition
-│   ├── validator.ts            # User input validator
-│   └── session.ts              # Stateless JWT-based session middleware
-├── babel.config.js             # Babel.js configuration
+├── auth/                       # Authentication middleware
+├── enums/                      # GraphQ enumeration types
+├── mutations/                  # GraphQL API mutation endpoints
+├── queries/                    # The top-level GraphQL API query fields
+├── types/                      # GrapHQL API schema types
+├── utils/                      # Helper functions
+├── context.ts                  # GraphQL API context variable(s)
+├── db.ts                       # PostgreSQL client and query builder
+├── errors.ts                   # Custom error types
+├── fields.ts                   # Helper functions for GraphQL fields
+├── index.ts                    # GraphQL API server entry point
+├── node.ts                     # GraphQL Relay Node interface
 ├── package.json                # Node.js dependencies
-├── README.md                   # This file
 ├── schema.graphql              # Auto-generated GraphQL API schema
+├── schema.ts                   # GraphQL API schema definition
+├── session.ts                  # Stateless JWT-based session middleware
+├── start.js                    # Application launcher for local development
 └── tsconfig.json               # TypeScript configuration
 ```
 
@@ -105,4 +98,4 @@ workflows.
 ## License
 
 Copyright © 2016-present Kriasoft. This source code is licensed under the MIT license found in the
-[LICENSE](https://github.com/kriasoft/nodejs-api-starter/blob/master/LICENSE) file.
+[LICENSE](https://github.com/kriasoft/nodejs-api-starter/blob/main/LICENSE) file.

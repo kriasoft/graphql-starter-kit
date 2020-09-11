@@ -11,8 +11,9 @@ import {
   connectionFromArraySlice,
   cursorToOffset,
 } from "graphql-relay";
+import type { User } from "db";
 
-import db, { User } from "../db";
+import db from "../db";
 import { Context } from "../context";
 import { UserType } from "../types";
 import { countField } from "../fields";

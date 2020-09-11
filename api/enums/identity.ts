@@ -6,7 +6,7 @@
 
 import { mapValues } from "lodash";
 import { GraphQLEnumType } from "graphql";
-import { IdentityProvider } from "../db";
+import { IdentityProvider } from "db/types";
 
 export const IdentityProviderType = new GraphQLEnumType({
   name: "IdentityProvider",
