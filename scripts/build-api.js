@@ -13,7 +13,9 @@ const globby = require("globby");
 const makeDir = require("make-dir");
 const archiver = require("archiver");
 const babel = require("@babel/core");
+
 const pkg = require("../api/package.json");
+const bundleYarn = require("./bundle-yarn");
 
 // Match patterns of the files that needs to be included into the bundle
 const match = [
@@ -58,25 +60,39 @@ async function build() {
     }
   }
 
+  // Compile and bundle referenced workspaces
+  pkg.dependencies.db = "file:packages/db";
+  for (const file of ["db/types.d.ts", "db/package.json"]) {
+    const filePath = path.resolve(root, file);
+    const fileName = `packages/${file.replace(/(\.d\.ts|\.ts)$/, ".js")}`;
+    console.log(fileName);
+    if (file.endsWith(".ts")) {
+      const result = await babel.transformFileAsync(filePath, {
+        cwd: path.resolve(root, "db"),
+        rootMode: "upward",
+        envName: "production",
+      });
+      zip.append(result.code, { name: fileName });
+    } else if (file === "db/package.json") {
+      const src = JSON.parse(await fs.promises.readFile(filePath, "utf-8"));
+      delete src.types;
+      delete src.scripts;
+      delete src.dependencies;
+      delete src.devDependencies;
+      zip.append(JSON.stringify(src, null, "  "), { name: fileName });
+    }
+  }
+
   // Clean up and bundle package.json
   pkg.main = "index.js";
+  delete pkg.scripts;
   delete pkg.devDependencies;
   delete pkg.jest;
-  delete pkg.nodemonConfig;
-  delete pkg.scripts;
 
   console.log("package.json");
   zip.append(JSON.stringify(pkg, null, "  "), { name: "package.json" });
 
-  // Bundle Yarn CLI
-  console.log(".yarnrc.yml");
-  const file = path.resolve(root, ".yarnrc.yml");
-  const text = await fs.promises.readFile(file, { encoding: "utf-8" });
-  const yarnPath = text.match(/^yarnPath: (.*)$/m)[1];
-  zip.append(`yarnPath: ${yarnPath}\n`, { name: ".yarnrc.yml" });
-  console.log(yarnPath);
-  zip.file(path.resolve(root, yarnPath), { name: yarnPath });
-
+  await bundleYarn(zip);
   await zip.finalize();
 
   console.log(`Output: ${path.relative(root, dest)} ${zip.pointer()} bytes`);
