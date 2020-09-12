@@ -25,6 +25,7 @@ const source = `gs://${process.env.PKG_BUCKET}/${pkg.name}_${version}.zip`;
 console.log(`Deploying ${source} to ${env.APP_ENV}...`);
 
 const envVars = [
+  `NODE_OPTIONS=--require ./.pnp.js`,
   `APP_NAME=${env.APP_NAME}`,
   `APP_ORIGIN=${env.APP_ORIGIN}`,
   `APP_ENV=${env.APP_ENV}`,
