@@ -5,17 +5,23 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
+const env = require("env");
 const path = require("path");
+const { DefinePlugin } = require("webpack");
 const pkg = require("./package.json");
 
 /**
- * @param {Record<string, boolean> | undefined} env
+ * @param {Record<string, boolean> | undefined} envName
  * @param {{ mode: "production" | "development" }} options
  * @returns {import("webpack").Configuration}
  */
-module.exports = function config(env, options) {
+module.exports = function config(envName, options) {
   const isEnvProduction = options.mode === "production";
   const isEnvDevelopment = options.mode === "development";
+
+  const prodEnv = env.load("prod");
+  const testEnv = env.load("test");
+  const devEnv = env.load("dev");
 
   process.env.BABEL_ENV = options.mode;
 
@@ -32,7 +38,9 @@ module.exports = function config(env, options) {
       filename: `${pkg.name}.js`,
     },
 
-    devtool: "inline-source-map",
+    resolve: {
+      extensions: [".ts"],
+    },
 
     optimization: {
       minimize: isEnvProduction,
@@ -46,14 +54,22 @@ module.exports = function config(env, options) {
           loader: "babel-loader",
           options: {
             rootMode: "upward",
-            cacheDirectory: path.resolve(
-              __dirname,
-              `../.cache/${pkg.name}.babel-loader`,
-            ),
+            cacheDirectory: `../.cache/${pkg.name}.babel-loader`,
             cacheCompression: true,
           },
         },
       ],
     },
+
+    plugins: [
+      new DefinePlugin({
+        GOOGLE_CLOUD_REGION: JSON.stringify(prodEnv.GOOGLE_CLOUD_REGION),
+        GOOGLE_CLOUD_PROJECT: JSON.stringify({
+          prod: prodEnv.GOOGLE_CLOUD_PROJECT,
+          test: testEnv.GOOGLE_CLOUD_PROJECT,
+          dev: devEnv.GOOGLE_CLOUD_PROJECT,
+        }),
+      }),
+    ],
   };
 };

@@ -15169,6 +15169,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["proxy", "workspace:proxy"],
             ["@babel/core", "npm:7.11.6"],
             ["@cloudflare/workers-types", "npm:2.0.0"],
+            ["@types/jest", "npm:26.0.13"],
             ["@types/minimist", "npm:1.2.0"],
             ["babel-loader", "virtual:a79575648ee6aa3987b96e1ae7433105b0879543b0ca8beadcdded635903a9da857d9b356ae961befa550717968a1c44f6edc9144256ce4ea622aceeee59abdd#npm:8.1.0"],
             ["core-js", "npm:3.6.5"],

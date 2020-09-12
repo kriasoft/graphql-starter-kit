@@ -23,9 +23,7 @@ const args = minimist(process.argv.slice(2), {
   default: { env: "dev", version: env.VERSION, download: true },
 });
 const source = `gs://${env.PKG_BUCKET}/${name}_${args.version}.js`;
-const script = ["prod", "production"].includes(args.env)
-  ? name
-  : `${name}-${args.env}`;
+const script = `${name}${args.env === "prod" ? "" : `-${env}`}`;
 
 // Optionally, download the bundle from GCS bucket
 if (args.download) {
@@ -42,20 +40,28 @@ if (args.download) {
   console.log(`Deploying dist/${name}.js to workers/scripts/${script}...`);
 }
 
-process.exit(0);
-
 const cf = got.extend({
-  prefixUrl: `https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/`,
+  prefixUrl: `https://api.cloudflare.com/client/v4/accounts/${env.CLOUDFLARE_ACCOUNT_ID}/`,
   headers: {
-    Authorization: `Bearer ${env.CF_TOKEN}`,
+    Authorization: `Bearer ${env.CLOUDFLARE_API_TOKEN}`,
     "Content-Type": "application/javascript",
   },
+  responseType: "json",
 });
 
 cf.put({
   url: `workers/scripts/${script}`,
-  body: fs.readFileSync(path.resolve(root, `dist/main.js`), "utf-8"),
-}).catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+  body: fs.readFileSync(path.resolve(root, `dist/${name}.js`), "utf-8"),
+})
+  .then(({ body }) => {
+    if (body.success) {
+      delete body.result.script;
+      console.log(body.result);
+    } else {
+      throw new Error(body.errors[0]);
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
