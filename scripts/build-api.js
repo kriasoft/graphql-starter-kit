@@ -61,7 +61,7 @@ async function build() {
   }
 
   // Compile and bundle referenced workspaces
-  pkg.dependencies.db = "file:packages/db";
+  pkg.workspaces = ["packages/db"];
   for (const file of ["db/types.d.ts", "db/package.json"]) {
     const filePath = path.resolve(root, file);
     const fileName = `packages/${file.replace(/(\.d\.ts|\.ts)$/, ".js")}`;

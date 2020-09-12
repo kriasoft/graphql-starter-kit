@@ -5,6 +5,5 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-declare global {
-  const MY_ENV_VAR: string;
-}
+declare const GOOGLE_CLOUD_REGION: string;
+declare const GOOGLE_CLOUD_PROJECT: { prod: string; test: string; dev: string };

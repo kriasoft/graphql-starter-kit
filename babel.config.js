@@ -71,7 +71,7 @@ module.exports = function config(api) {
           [
             "@babel/preset-env",
             {
-              modules: false,
+              modules: api.env() === "test" ? "auto" : false,
               loose: true,
               targets: {
                 browsers: "last 1 Chrome versions",

@@ -13,43 +13,62 @@ const minimist = require("minimist");
 const babel = require("@babel/core");
 
 const args = minimist(process.argv.slice(2));
-const env = args.env || minimist(args._).env || "dev";
+const envName = args.env || minimist(args._).env || "dev";
 const rootPath = path.resolve(__dirname, "..");
+const resolve = (filename) => path.resolve(__dirname, filename);
 
-dotenv.config({ path: path.resolve(__dirname, `.env.${env}.override`) });
-dotenv.config({ path: path.resolve(__dirname, `.env.${env}`) });
-dotenv.config({ path: path.resolve(__dirname, `.env.override`) });
-dotenv.config({ path: path.resolve(__dirname, `.env`) });
+/**
+ * Loads environment variables from .env files.
+ *
+ * @param {"prod" | "test" | "dev"} envName
+ * @returns {{[key: string]: string}}
+ */
+module.exports.load = function load(envName) {
+  const env = [
+    dotenv.config({ path: resolve(`.env.${envName}.override`) }).parsed,
+    dotenv.config({ path: resolve(`.env.${envName}`) }).parsed,
+    dotenv.config({ path: resolve(`.env.override`) }).parsed,
+    dotenv.config({ path: resolve(`.env`) }).parsed,
+  ]
+    .reverse()
+    .reduce((acc, parsed) => ({ ...acc, ...parsed }), {});
 
-// Load Google Cloud credentials
-const gcpKey = path.resolve(__dirname, `gcp-key.${env}.json`);
+  // Load Google Cloud credentials
+  const gcpKey = path.resolve(__dirname, `gcp-key.${envName}.json`);
 
-if (fs.existsSync(gcpKey)) {
-  process.env.GOOGLE_APPLICATION_CREDENTIALS = gcpKey;
-}
-
-// Resolve relative paths to absolute
-["PGSSLCERT", "PGSSLKEY", "PGSSLROOTCERT"].forEach((key) => {
-  if (process.env[key] && process.env[key].startsWith(".")) {
-    process.env[key] = path.resolve(__dirname, process.env[key]);
+  if (fs.existsSync(gcpKey)) {
+    env.GOOGLE_APPLICATION_CREDENTIALS = gcpKey;
   }
-});
 
-// Ensure that the SSL key file has correct permissions
-if (process.env.PGSSLKEY) {
-  try {
-    fs.chmodSync(process.env.PGSSLKEY, 0o600);
-  } catch (err) {
-    console.error(err);
+  // Resolve relative paths to absolute
+  ["PGSSLCERT", "PGSSLKEY", "PGSSLROOTCERT"].forEach((key) => {
+    if (env[key] && env[key].startsWith(".")) {
+      env[key] = path.resolve(__dirname, env[key]);
+    }
+  });
+
+  // Ensure that the SSL key file has correct permissions
+  if (env.PGSSLKEY) {
+    try {
+      fs.chmodSync(env.PGSSLKEY, 0o600);
+    } catch (err) {
+      console.error(err);
+    }
   }
-}
 
-// Default application version
-if (!process.env.VERSION) {
-  process.env.VERSION = os.userInfo().username;
-}
+  // Default application version
+  if (!env.VERSION) {
+    env.VERSION = os.userInfo().username;
+  }
 
-// Customize @babel/register cache location
-const pkgPath = path.relative(rootPath, process.cwd());
-const cachePath = `${pkgPath}.babel.${babel.version}.${babel.getEnv()}.json`;
-process.env.BABEL_CACHE_PATH = path.resolve(rootPath, ".cache", cachePath);
+  // Customize @babel/register cache location
+  const pkgPath = path.relative(rootPath, process.cwd());
+  const cachePath = `${pkgPath}.babel.${babel.version}.${babel.getEnv()}.json`;
+  env.BABEL_CACHE_PATH = path.resolve(rootPath, ".cache", cachePath);
+
+  Object.assign(process.env, env);
+
+  return { ...env };
+};
+
+module.exports.load(envName);

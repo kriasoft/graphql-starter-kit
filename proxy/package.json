@@ -15,7 +15,6 @@
   "dependencies": {
     "@babel/core": "^7.11.6",
     "@cloudflare/workers-types": "^2.0.0",
-    "@types/minimist": "^1.2.0",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.5",
     "cross-spawn": "^7.0.3",
@@ -26,5 +25,9 @@
     "typescript": "4.0.2",
     "webpack": "5.0.0-beta.28",
     "webpack-cli": "webpack/webpack-cli#workspace=webpack-cli&commit=86dfe514a5b5de38f631a02e5211d10f32c536b9"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.13",
+    "@types/minimist": "^1.2.0"
   }
 }
