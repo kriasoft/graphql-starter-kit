@@ -53,6 +53,7 @@ The API server must become available at [http://localhost:8080/graphql](http://l
 ## References
 
 - [Yarn 2 (Berry) - Plug'n'play, constraints and workspaces](https://www.youtube.com/watch?v=HUVawJXeHfU) by [@jherr](https://github.com/jherr)
+- [Google Cloud SQL — Tips & Tricks](https://medium.com/@koistya/google-cloud-sql-tips-tricks-d0fe7106c68a?sk=fe65df6e858c9b57edbda07bc67ed0e9) by [@koistya](https://github.com/koistya)
 - [Database change management with Node.js](https://dev.to/koistya/database-change-management-with-node-js-12dk) by [@koistya](https://github.com/koistya)
 
 ## How to Update
@@ -91,5 +92,5 @@ Copyright © 2016-present Kriasoft. This source code is licensed under the MIT l
 
 ---
 
-<sup>Made with ♥&nbps; by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [blog](https://medium.com/@koistya))
+<sup>Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [blog](https://medium.com/@koistya))
 and [contributors](https://github.com/kriasoft/nodejs-api-starter/graphs/contributors).</sup>

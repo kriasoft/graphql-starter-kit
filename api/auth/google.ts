@@ -70,6 +70,7 @@ export async function callback(req: Request, res: Response): Promise<void> {
 
     res.send(response({ user }));
   } catch (error) {
+    console.error(error);
     res.status(401);
     res.send(response({ error }));
   }

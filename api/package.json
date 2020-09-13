@@ -10,14 +10,14 @@
     "start-debug": "nodemon --ext js,ts,json,hbs --inspect ./start",
     "update-schema": "node ../scripts/update-schema",
     "build": "node ../scripts/build-api",
-    "push": "node ../scripts/push",
+    "push": "yarn push -r env ../dist/api.zip",
     "deploy": "node ../scripts/deploy-api",
-    "api:start": "yarn workspace api start",
-    "api:start-debug": "yarn workspace api start-debug",
-    "api:update-schema": "yarn workspace api update-schema",
-    "api:build": "yarn workspace api build",
-    "api:push": "yarn workspace api push",
-    "api:deploy": "yarn workspace api deploy"
+    "api:start": "yarn workspace api run start",
+    "api:start-debug": "yarn workspace api run start-debug",
+    "api:update-schema": "yarn workspace api run update-schema",
+    "api:build": "yarn workspace api run build",
+    "api:push": "yarn workspace api run build",
+    "api:deploy": "yarn workspace api run deploy"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.2.5",
