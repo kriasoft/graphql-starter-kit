@@ -3660,6 +3660,7 @@ __metadata:
     babel-jest: ^26.3.0
     cross-spawn: ^7.0.3
     dotenv: ^8.2.0
+    env: "workspace:*"
     eslint: ^7.8.1
     eslint-config-prettier: ^6.11.0
     eslint-plugin-jsx-a11y: ^6.3.1
