@@ -6,11 +6,11 @@
   "author": "Kriasoft (https://github.com/kriasoft)",
   "scripts": {
     "build": "webpack",
-    "push": "node ../scripts/push",
+    "push": "yarn push -r env ../dist/proxy.js",
     "deploy": "node ../scripts/deploy-proxy",
-    "proxy:build": "yarn workspace proxy build",
-    "proxy:push": "yarn workspace proxy push",
-    "proxy:deploy": "yarn workspace proxy deploy"
+    "proxy:build": "yarn workspace proxy run build",
+    "proxy:push": "yarn workspace proxy run push",
+    "proxy:deploy": "yarn workspace proxy run deploy"
   },
   "dependencies": {
     "@babel/core": "^7.11.6",

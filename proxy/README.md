@@ -1,4 +1,4 @@
-# Reverse Proxy
+# Application Routing / Reverse Proxy
 
 Light-weight reverse proxy implemented by using [Cloudflare Workers](https://workers.cloudflare.com/).
 
@@ -22,19 +22,19 @@ Light-weight reverse proxy implemented by using [Cloudflare Workers](https://wor
 ## How to Build
 
 ```bash
-$ yarn build                    # Builds the project using Webpack
+$ yarn build                    # Compile and bundle the code with Babel, Webpack
 ```
 
 ## How to Deploy
 
-Compile and bundle the code into `dist/main.js` (`build`), upload application
+Compile and bundle the code into `dist/proxy.js` (`build`), upload application
 bundle to Google Cloud Storage (`push`), and finally, deploy or re-deploy it
 to Cloudflare Workers (`deploy`).
 
 ```
-$ yarn build
-$ yarn push [--version=#0]
-$ yarn deploy [--version=#0] [--env=#1] [--no-download]
+$ yarn run build
+$ yarn run push [--version #0]
+$ yarn run deploy [--version #0] [--env #0] [--no-download]
 ```
 
 ## References

@@ -23,7 +23,7 @@ const args = minimist(process.argv.slice(2), {
   default: { env: "dev", version: env.VERSION, download: true },
 });
 const source = `gs://${env.PKG_BUCKET}/${name}_${args.version}.js`;
-const script = `${name}${args.env === "prod" ? "" : `-${env}`}`;
+const script = `${name}${args.env === "prod" ? "" : `-${args.env}`}`;
 
 // Optionally, download the bundle from GCS bucket
 if (args.download) {
