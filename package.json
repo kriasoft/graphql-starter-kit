@@ -36,7 +36,7 @@
     "cross-spawn": "^7.0.3",
     "dotenv": "^8.2.0",
     "env": "workspace:*",
-    "eslint": "^7.8.1",
+    "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.6",
