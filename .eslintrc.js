@@ -72,7 +72,9 @@ module.exports = {
   ],
 
   ignorePatterns: [
+    "/.cache",
     "/.git",
+    "/.yarn",
     "/**/__snapshots__",
     "/**/node_modules",
     "/coverage",

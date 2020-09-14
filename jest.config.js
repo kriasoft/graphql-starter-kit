@@ -9,8 +9,12 @@
 
 module.exports = {
   testPathIgnorePatterns: [
-    "<rootDir>/*/dist/",
-    "<rootDir>/*/scripts/",
-    "<rootDir>/api/lib/",
+    "<rootDir>/.cache/",
+    "<rootDir>/.github/",
+    "<rootDir>/.vscode/",
+    "<rootDir>/.yarn/",
+    "<rootDir>/db/",
+    "<rootDir>/dist/",
+    "<rootDir>/scripts/",
   ],
 };

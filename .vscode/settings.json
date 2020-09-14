@@ -28,6 +28,7 @@
     "downlevel",
     "envalid",
     "eslintcache",
+    "esmodules",
     "esnext",
     "gamecenter",
     "globby",
@@ -58,6 +59,7 @@
     "tslib",
     "typechecking",
     "webflow",
+    "yarnpkg",
     "yarnrc"
   ]
 }
