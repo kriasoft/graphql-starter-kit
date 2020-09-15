@@ -16,7 +16,7 @@
     "api:start-debug": "yarn workspace api run start-debug",
     "api:update-schema": "yarn workspace api run update-schema",
     "api:build": "yarn workspace api run build",
-    "api:push": "yarn workspace api run build",
+    "api:push": "yarn workspace api run push",
     "api:deploy": "yarn workspace api run deploy"
   },
   "dependencies": {

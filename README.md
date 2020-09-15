@@ -27,8 +27,9 @@ Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for as
 `├──`[`db`](./db) — database schema and some administration tools<br>
 `├──`[`api`](./api) — GraphQL API server and authentication middleware<br>
 `├──`[`proxy`](./proxy) — reverse proxy implemented using [Cloudflare Workers](https://workers.cloudflare.com/)<br>
+`├──`[`web`](./web) — web application project skeleton based on [React.js](https://reactjs.org/) and [Next.js](https://nextjs.org/)<br>
 `├──`[`scripts`](./scripts) — Automation scripts shared across the project<br>
-`└── ...` — add more packages such as `worker`, `web`, `mobile`, etc.
+`└── ...` — add more packages such as `worker`, `admin`, `mobile`, etc.
 
 ## Requirements
 
@@ -45,10 +46,11 @@ $ git clone --origin=upstream --branch=main --single-branch \
     https://github.com/kriasoft/nodejs-api-starter.git example
 $ cd ./example                  # Change current directory to the newly created one
 $ yarn setup                    # Configure environment variables
-$ yarn start                    # Launch Node.js API application
+$ yarn start                    # Launch Node.js API and web application
 ```
 
-The API server must become available at [http://localhost:8080/graphql](http://localhost:8080/graphql).
+The API server must become available at [http://localhost:8080/graphql](http://localhost:8080/graphql).<br>
+The web application front-end must become available at [http://localhost:3000/](http://localhost:3000/).
 
 ## References
 
