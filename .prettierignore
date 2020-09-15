@@ -12,4 +12,4 @@
 
 # Misc
 *.hbs
-tsconfig.json
+/tsconfig.json

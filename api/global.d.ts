@@ -6,8 +6,6 @@
 
 import type { User } from "db";
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 declare global {
   namespace Express {
     interface Request {

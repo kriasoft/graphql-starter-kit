@@ -9,11 +9,13 @@
     "db",
     "env",
     "proxy",
-    "scripts"
+    "scripts",
+    "web"
   ],
   "scripts": {
     "setup": "node ./setup",
     "start": "yarn workspaces foreach -ip run start",
+    "build": "yarn workspaces foreach -p run build",
     "lint": "eslint --cache --report-unused-disable-directives .",
     "test": "jest",
     "g:lint": "yarn lint \"$INIT_CWD\"",
@@ -30,8 +32,8 @@
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "@babel/register": "^7.11.5",
-    "@typescript-eslint/eslint-plugin": "^4.1.0",
-    "@typescript-eslint/parser": "^4.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
     "babel-jest": "^26.3.0",
     "cross-spawn": "^7.0.3",
     "dotenv": "^8.2.0",
