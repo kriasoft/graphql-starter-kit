@@ -66,5 +66,11 @@
     "skipLibCheck": true,                     /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "resolveJsonModule": true                 /* Allow for importing, extracting types from and generating .json files */
-  }
+  },
+  "exclude": [
+    ".cache/**/*",
+    ".yarn/**/*",
+    "dist/**/*",
+    "*/.next/**/*"
+  ]
 }
