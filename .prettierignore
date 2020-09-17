@@ -1,4 +1,7 @@
 # Compiled output
+/**/__generated__
+/*/.next/
+/.cache/
 /dist/
 
 # Yarn

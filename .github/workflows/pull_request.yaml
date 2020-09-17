@@ -30,7 +30,6 @@ jobs:
       - run: yarn workspace api build
       - run: yarn workspace proxy build
 
-
       # Upload to a cloud storage bucket
       # - run: yarn workspaces foreach -p run push
 
