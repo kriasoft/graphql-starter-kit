@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  process.stdout.write(`http://localhost:${port}/ `);
+  process.stdout.write(`[api] http://localhost:${port}/ `);
   console.log({ env: env.APP_ENV, version: env.VERSION, db: env.PGDATABASE });
   updateSchema();
 });

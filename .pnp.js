@@ -5721,6 +5721,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/http-proxy", [
+        ["npm:1.17.4", {
+          "packageLocation": "./.yarn/cache/@types-http-proxy-npm-1.17.4-b058ec1b5e-9f5ba01f10.zip/node_modules/@types/http-proxy/",
+          "packageDependencies": [
+            ["@types/http-proxy", "npm:1.17.4"],
+            ["@types/node", "npm:14.0.23"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@types/inquirer", [
         ["npm:7.3.1", {
           "packageLocation": "./.yarn/cache/@types-inquirer-npm-7.3.1-63b5231eee-2db996acf8.zip/node_modules/@types/inquirer/",
@@ -12985,6 +12995,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["is-glob", "npm:4.0.1"],
             ["lodash", "npm:4.17.20"],
             ["micromatch", "npm:3.1.10"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.0.5", {
+          "packageLocation": "./.yarn/cache/http-proxy-middleware-npm-1.0.5-7a983c6d1d-3b1ccf0b03.zip/node_modules/http-proxy-middleware/",
+          "packageDependencies": [
+            ["http-proxy-middleware", "npm:1.0.5"],
+            ["@types/http-proxy", "npm:1.17.4"],
+            ["http-proxy", "npm:1.18.1"],
+            ["is-glob", "npm:4.0.1"],
+            ["lodash", "npm:4.17.19"],
+            ["micromatch", "npm:4.0.2"]
           ],
           "linkType": "HARD",
         }]
@@ -21704,8 +21726,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./web/",
           "packageDependencies": [
             ["web", "workspace:web"],
+            ["@types/express", "npm:4.17.8"],
             ["@types/node", "npm:14.10.1"],
             ["@types/react", "npm:16.9.49"],
+            ["express", "npm:4.17.1"],
+            ["http-proxy-middleware", "npm:1.0.5"],
             ["next", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:9.5.3"],
             ["react", "npm:17.0.0-rc.1"],
             ["react-dom", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:17.0.0-rc.1"],

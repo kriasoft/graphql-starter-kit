@@ -6,8 +6,8 @@
   "author": "Kriasoft (https://github.com/kriasoft)",
   "main": "index.ts",
   "scripts": {
-    "start": "nodemon --ext js,ts,json,hbs ./start",
-    "start-debug": "nodemon --ext js,ts,json,hbs --inspect ./start",
+    "start": "nodemon --ext js,ts,json,hbs ./server",
+    "start-debug": "nodemon --ext js,ts,json,hbs --inspect ./server",
     "update-schema": "node ../scripts/update-schema",
     "build": "node ../scripts/build-api",
     "push": "yarn push -r env ../dist/api.zip",
