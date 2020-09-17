@@ -36,8 +36,8 @@ assistance.
 ├── package.json                # Node.js dependencies
 ├── schema.graphql              # Auto-generated GraphQL API schema
 ├── schema.ts                   # GraphQL API schema definition
+├── server.js                   # Application launcher for local development
 ├── session.ts                  # Stateless JWT-based session middleware
-├── start.js                    # Application launcher for local development
 └── tsconfig.json               # TypeScript configuration
 ```
 
