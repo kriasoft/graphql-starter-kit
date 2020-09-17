@@ -6,16 +6,5 @@
  */
 
 module.exports = {
-  rewrites() {
-    return [
-      {
-        source: "/auth/:path*",
-        destination: "http://localhost:8080/auth/:path*",
-      },
-      {
-        source: "/graphql",
-        destination: "http://localhost:8080/graphql",
-      },
-    ];
-  },
+  poweredByHeader: false,
 };
