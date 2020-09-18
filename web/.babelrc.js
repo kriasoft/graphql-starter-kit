@@ -9,8 +9,6 @@
  */
 
 module.exports = function config(api) {
-  api.cache(true);
-
   return {
     presets: [
       "next/babel",
