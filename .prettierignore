@@ -3,6 +3,7 @@
 /*/.next/
 /.cache/
 /dist/
+/web/out/
 
 # Yarn
 .yarn/cache

@@ -79,5 +79,6 @@ module.exports = {
     "/**/node_modules",
     "/coverage",
     "/dist/",
+    "/web/out/",
   ],
 };
