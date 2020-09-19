@@ -4,6 +4,7 @@
 # Compiled output
 /*/.next/
 /dist/
+/web/out/
 
 # Dependencies
 node_modules/

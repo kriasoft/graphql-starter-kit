@@ -70,7 +70,8 @@
   "exclude": [
     ".cache/**/*",
     ".yarn/**/*",
+    "*/.next/**/*",
     "dist/**/*",
-    "*/.next/**/*"
+    "web/out/**/*"
   ]
 }

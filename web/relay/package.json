@@ -1,0 +1,6 @@
+{
+  "name": "relay",
+  "private": true,
+  "browser": "relay.browser.ts",
+  "main": "relay.server.ts"
+}
