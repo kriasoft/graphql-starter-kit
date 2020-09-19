@@ -6,17 +6,25 @@
  */
 
 import React from "react";
-import { CacheProvider } from "@emotion/react";
 import { cache } from "@emotion/css";
+import { CacheProvider } from "@emotion/react";
+import { RelayEnvironmentProvider } from "react-relay/hooks";
 import type { AppProps } from "next/app";
+
+import { createRelay } from "../relay";
 
 function App(props: AppProps): JSX.Element {
   const { Component, pageProps } = props;
 
+  // It should be possible to reset Relay environment by calling setRelay(...)
+  const [relay] = React.useState(createRelay);
+
   return (
-    <CacheProvider value={cache}>
-      <Component {...pageProps} />
-    </CacheProvider>
+    <RelayEnvironmentProvider environment={relay}>
+      <CacheProvider value={cache}>
+        <Component {...pageProps} />
+      </CacheProvider>
+    </RelayEnvironmentProvider>
   );
 }
 

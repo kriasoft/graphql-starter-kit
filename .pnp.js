@@ -19417,7 +19417,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["immutable", "npm:4.0.0-rc.12"],
             ["invariant", "npm:2.2.4"],
             ["relay-compiler", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:10.0.1"],
-            ["relay-runtime", null],
+            ["relay-runtime", "npm:10.0.1"],
             ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
           ],
           "packagePeers": [
@@ -22563,6 +22563,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["relay-compiler", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:10.0.1"],
             ["relay-compiler-language-typescript", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:13.0.1"],
             ["relay-config", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:10.0.1"],
+            ["relay-runtime", "npm:10.0.1"],
             ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
           ],
           "linkType": "SOFT",
