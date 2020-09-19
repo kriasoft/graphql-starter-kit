@@ -15,6 +15,8 @@ import {
 } from "relay-runtime";
 import type { GraphQLResponseWithData } from "relay-runtime";
 
+export * from "./ResetRelayContext";
+
 if (!process.browser) {
   throw new Error("Not supported. See package.json->browser field.");
 }
