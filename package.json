@@ -32,8 +32,8 @@
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "@babel/register": "^7.11.5",
-    "@typescript-eslint/eslint-plugin": "^4.1.1",
-    "@typescript-eslint/parser": "^4.1.1",
+    "@typescript-eslint/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/parser": "^4.2.0",
     "babel-jest": "^26.3.0",
     "cross-spawn": "^7.0.3",
     "dotenv": "^8.2.0",
@@ -46,12 +46,12 @@
     "inquirer": "^7.3.3",
     "jest": "^26.4.2",
     "prettier": "2.1.2",
-    "typescript": "4.0.2"
+    "typescript": "4.0.3"
   },
   "devDependencies": {
     "@jest/types": "^26.3.0",
     "@types/inquirer": "^7.3.1",
-    "@types/node": "^14.10.1",
+    "@types/node": "^14.11.2",
     "@types/prettier": "^2.1.1",
     "@yarnpkg/pnpify": "2.2.1",
     "husky": "^4.3.0"
