@@ -65,14 +65,14 @@
     "@types/lodash": "^4.14.161",
     "@types/minimist": "^1.2.0",
     "@types/moment-timezone": "^0.5.30",
-    "@types/node": "^14.10.1",
+    "@types/node": "^14.11.2",
     "@types/uuid": "^8.3.0",
     "@types/validator": "^13.1.0",
     "del-cli": "^3.0.1",
     "env": "workspace:*",
     "minimist": "^1.2.5",
     "nodemon": "^2.0.4",
-    "typescript": "4.0.2"
+    "typescript": "4.0.3"
   },
   "engines": {
     "node": ">=12"

@@ -12,7 +12,7 @@
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
     "globby": "^11.0.1",
-    "got": "^11.6.2",
+    "got": "^11.7.0",
     "make-dir": "^3.1.0",
     "minimist": "^1.2.5"
   },
