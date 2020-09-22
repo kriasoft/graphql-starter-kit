@@ -19,12 +19,12 @@
     "core-js": "^3.6.5",
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
-    "got": "^11.6.2",
+    "got": "^11.7.0",
     "minimist": "^1.2.5",
     "scripts": "workspace:*",
-    "typescript": "4.0.2",
-    "webpack": "5.0.0-beta.30",
-    "webpack-cli": "webpack/webpack-cli#workspace=webpack-cli&commit=6c508aa7623e3a542a69337201b6e3e5aea08177"
+    "typescript": "4.0.3",
+    "webpack": "5.0.0-rc.0",
+    "webpack-cli": "webpack/webpack-cli#workspace=webpack-cli&commit=111198bb2925b7a98fd43b302a64a4dfded2585a"
   },
   "devDependencies": {
     "@types/jest": "^26.0.13",
