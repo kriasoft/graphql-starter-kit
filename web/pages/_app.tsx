@@ -7,14 +7,21 @@
 
 import React from "react";
 import { cache } from "@emotion/css";
-import { CacheProvider } from "@emotion/react";
+import { CacheProvider, ThemeProvider } from "@emotion/react";
 import { RelayEnvironmentProvider } from "react-relay/hooks";
 import type { AppProps } from "next/app";
 
+import { lightTheme, darkTheme } from "../theme";
 import { createRelay, ResetRelayContext } from "../relay";
 
 function App(props: AppProps): JSX.Element {
   const { Component, pageProps } = props;
+
+  // Allows switching between light and dark modes
+  const [theme, setTheme] = React.useState(lightTheme);
+  React.useCallback(() => {
+    setTheme((x) => (x.mode === "light" ? darkTheme : lightTheme));
+  }, []);
 
   // Allows to reset Relay's local store
   const [relay, setRelay] = React.useState(createRelay);
@@ -26,7 +33,9 @@ function App(props: AppProps): JSX.Element {
     <RelayEnvironmentProvider environment={relay}>
       <ResetRelayContext.Provider value={resetRelay}>
         <CacheProvider value={cache}>
-          <Component {...pageProps} />
+          <ThemeProvider theme={theme}>
+            <Component {...pageProps} />
+          </ThemeProvider>
         </CacheProvider>
       </ResetRelayContext.Provider>
     </RelayEnvironmentProvider>
