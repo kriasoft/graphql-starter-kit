@@ -10,12 +10,11 @@ import { css } from "@emotion/react";
 export default function Home(): JSX.Element {
   return (
     <p
-      css={css`
+      css={(theme) => css`
         margin-top: 30%;
         text-align: center;
         font-weight: bold;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          "Helvetica Neue", Arial, sans-serif;
+        font-family: ${theme.typography.fontFamily};
       `}
     >
       Next.js app skeleton.
