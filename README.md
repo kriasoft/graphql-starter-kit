@@ -42,7 +42,7 @@ Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for as
 Just clone the repo and run `yarn setup` followed by `yarn start`:
 
 ```bash
-$ git clone --origin=upstream --branch=main --single-branch \
+$ git clone --origin=upstream --branch=main --single-branch --depth=0 \
     https://github.com/kriasoft/nodejs-api-starter.git example
 $ cd ./example                  # Change current directory to the newly created one
 $ yarn setup                    # Configure environment variables
