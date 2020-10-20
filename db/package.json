@@ -33,14 +33,14 @@
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
     "faker": "^5.1.0",
-    "knex": "^0.21.5",
+    "knex": "^0.21.6",
     "lodash": "^4.17.20",
     "minimist": "^1.2.5",
     "nanoid": "^3.1.12",
-    "pg": "^8.3.3",
+    "pg": "^8.4.1",
     "prettier": "2.1.2"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.161"
+    "@types/lodash": "^4.14.162"
   }
 }
