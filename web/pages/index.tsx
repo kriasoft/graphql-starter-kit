@@ -11,7 +11,7 @@ export default function Home(): JSX.Element {
   return (
     <p
       css={(theme) => css`
-        margin-top: 30%;
+        margin-top: 40vh;
         text-align: center;
         font-weight: bold;
         font-family: ${theme.typography.fontFamily};

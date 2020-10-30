@@ -2,7 +2,7 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-import React from "react";
+import * as React from "react";
 import { createOperationDescriptor, getRequest } from "relay-runtime";
 import { graphql, useRelayEnvironment, fetchQuery } from "react-relay/hooks";
 

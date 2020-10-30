@@ -2,7 +2,7 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-import React from "react";
+import * as React from "react";
 import { graphql, useMutation } from "react-relay/hooks";
 
 import { ResetRelayContext } from "../relay";
