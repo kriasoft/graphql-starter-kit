@@ -5,7 +5,7 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-import React from "react";
+import * as React from "react";
 import { cache } from "@emotion/css";
 import { CacheProvider, ThemeProvider } from "@emotion/react";
 import { RelayEnvironmentProvider } from "react-relay/hooks";

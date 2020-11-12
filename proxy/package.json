@@ -15,16 +15,16 @@
   "dependencies": {
     "@babel/core": "^7.12.3",
     "@cloudflare/workers-types": "^2.1.0",
-    "babel-loader": "^8.1.0",
-    "core-js": "^3.6.5",
+    "babel-loader": "^8.2.1",
+    "core-js": "^3.7.0",
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
     "got": "^11.8.0",
     "minimist": "^1.2.5",
     "scripts": "workspace:*",
     "typescript": "4.0.5",
-    "webpack": "5.3.2",
-    "webpack-cli": "^4.1.0"
+    "webpack": "5.4.0",
+    "webpack-cli": "^4.2.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",

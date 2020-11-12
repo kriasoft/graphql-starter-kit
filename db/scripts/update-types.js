@@ -72,7 +72,7 @@ async function updateTypes() {
       }
 
       const nullable = x.null === "YES" ? " | null" : "";
-      const type = ["integer", "numeric", "decimal"].includes(x.type)
+      const type = ["integer", "numeric", "decimal", "bigint"].includes(x.type)
         ? "number"
         : x.type === "boolean"
         ? "boolean"
