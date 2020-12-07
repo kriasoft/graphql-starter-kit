@@ -7,12 +7,12 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
-import validator from "validator";
 import isEmail from "validator/lib/isEmail";
 import isLength from "validator/lib/isLength";
 import isURL from "validator/lib/isURL";
 import textTrim from "validator/lib/trim";
 import { fromGlobalId } from "graphql-relay";
+import type { IsEmailOptions, IsLengthOptions, IsURLOptions } from "validator";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -111,13 +111,13 @@ export class Validator<
       message: message || `The ${field} field cannot be empty.`,
     }));
 
-  isEmail = (options?: validator.IsEmailOptions, message?: string): this =>
+  isEmail = (options?: IsEmailOptions, message?: string): this =>
     this.validate((value) => ({
       valid: value === undefined ? true : isEmail(value, options),
       message: message || "The email address is invalid.",
     }));
 
-  isLength = (options?: validator.IsLengthOptions, message?: string): this =>
+  isLength = (options?: IsLengthOptions, message?: string): this =>
     this.validate((value, field) => ({
       valid: value === undefined ? true : isLength(value, options),
       message: message
@@ -129,7 +129,7 @@ export class Validator<
         : `Invalid length.`,
     }));
 
-  isURL = (options?: validator.IsURLOptions, message?: string): this =>
+  isURL = (options?: IsURLOptions, message?: string): this =>
     this.validate((value) => ({
       valid: value === undefined ? true : isURL(value, options),
       message: message || "The URL is invalid.",
