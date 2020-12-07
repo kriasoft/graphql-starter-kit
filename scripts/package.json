@@ -5,10 +5,10 @@
   "license": "MIT",
   "author": "Kriasoft (https://github.com/kriasoft)",
   "dependencies": {
-    "@babel/core": "^7.12.3",
+    "@babel/core": "^7.12.9",
     "@babel/register": "^7.12.1",
     "api": "workspace:*",
-    "archiver": "^5.0.2",
+    "archiver": "^5.1.0",
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
     "globby": "^11.0.1",
@@ -17,7 +17,7 @@
     "minimist": "^1.2.5"
   },
   "devDependencies": {
-    "@types/archiver": "^3.1.1",
+    "@types/archiver": "^5.1.0",
     "@types/babel__core": "^7.1.12"
   }
 }

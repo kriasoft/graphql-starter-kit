@@ -11,12 +11,12 @@
 module.exports = function config(api) {
   return {
     presets: [
-      "next/babel",
-      "@emotion/babel-preset-css-prop",
-      {
-        sourceMap: api.env() !== "production",
-      },
+      require.resolve("next/babel"),
+      [
+        require.resolve("@emotion/babel-preset-css-prop"),
+        { sourceMap: api.env() !== "production" },
+      ],
     ],
-    plugins: ["relay"],
+    plugins: [require.resolve("babel-plugin-relay")],
   };
 };
