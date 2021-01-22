@@ -7,7 +7,7 @@
   "main": "index.cjs",
   "type": "commonjs",
   "dependencies": {
-    "@babel/core": "^7.12.9",
+    "@babel/core": "^7.12.10",
     "dotenv": "^8.2.0",
     "minimist": "^1.2.5"
   }

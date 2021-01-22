@@ -169,6 +169,7 @@ async function done(answers) {
     console.log(`  `);
     console.log(`  $ yarn db:reset`);
     console.log(`  $ yarn api:start`);
+    console.log(`  $ yarn web:start`);
     console.log(`  `);
   } else {
     console.log(`  No problem. You can run this script at any time later.`);
