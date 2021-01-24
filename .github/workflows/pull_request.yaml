@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: yarn install --immutable-cache
+      - run: yarn install
 
       # Analyze code for potential problems
       - run: yarn prettier --check .
