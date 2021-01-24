@@ -129,6 +129,12 @@ const questions = [
   })),
   {
     type: "confirm",
+    name: "yarn",
+    message: "Enable Yarn Zero-install?",
+    default: true,
+  },
+  {
+    type: "confirm",
     name: "clean",
     message: "Do you want to remove this setup script?",
     when: (answers) => answers.setup,
@@ -137,6 +143,25 @@ const questions = [
 ];
 
 async function done(answers) {
+  // Enable/disable Yarn Zero-install
+  if (answers.yarn) {
+    await replace(`.gitignore`, /^#!\.yarn\/cache$/m, `!.yarn/cache`);
+    await replace(`.gitignore`, /^\.pnp\.\*$/m, `#.pnp.*`);
+    await replace(
+      `.github/workflows/pull_request.yaml`,
+      /yarn install$/m,
+      `yarn install --immutable --immutable-cache`,
+    );
+  } else {
+    await replace(`.gitignore`, /^!\.yarn\/cache$/m, `#!.yarn/cache`);
+    await replace(`.gitignore`, /^#\.pnp\.\*$/m, `.pnp.*`);
+    await replace(
+      `.github/workflows/pull_request.yaml`,
+      /yarn install.*$/m,
+      `yarn install`,
+    );
+  }
+
   // Remove this script
   if (answers.clean) {
     fs.unlinkSync("./setup.js");
@@ -146,8 +171,6 @@ async function done(answers) {
     spawn.sync("yarn", ["remove", "inquirer", "cross-spawn", "dotenv"], {
       stdio: "inherit",
     });
-  } else {
-    spawn.sync("yarn", ["install"], { stdio: "inherit" });
   }
 
   if (answers.setup) {
@@ -166,14 +189,19 @@ async function done(answers) {
     console.log(
       `  Done! Now you can migrate the database and launch the app by running:`,
     );
-    console.log(`  `);
-    console.log(`  $ yarn db:reset`);
-    console.log(`  $ yarn api:start`);
-    console.log(`  $ yarn web:start`);
-    console.log(`  `);
   } else {
+    console.log(`  `);
     console.log(`  No problem. You can run this script at any time later.`);
+    console.log(
+      `  Now you can migrate the database and launch the app by running:`,
+    );
   }
+
+  console.log(`  `);
+  console.log(`  $ yarn db:reset`);
+  console.log(`  $ yarn api:start`);
+  console.log(`  $ yarn web:start`);
+  console.log(`  `);
 }
 
 inquirer

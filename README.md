@@ -45,6 +45,7 @@ Just clone the repo and run `yarn setup` followed by `yarn start`:
 $ git clone --origin=upstream --branch=main --single-branch \
     https://github.com/kriasoft/nodejs-api-starter.git example
 $ cd ./example                  # Change current directory to the newly created one
+$ yarn install                  # Install project dependencies
 $ yarn setup                    # Configure environment variables
 $ yarn start                    # Launch Node.js API and web application
 ```

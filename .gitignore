@@ -10,13 +10,14 @@
 node_modules/
 
 # Yarn Zero-installs
-# https://yarnpkg.com/advanced/qa/#which-files-should-be-gitignored
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 .yarn/*
-!.yarn/cache
+#!.yarn/cache
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
-!.yarn/versionss
+!.yarn/versions
+.pnp.*
 
 # Logs
 yarn-debug.log*
