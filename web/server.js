@@ -6,18 +6,16 @@
  */
 
 const next = require("next");
-const express = require("express");
 
-const port = process.env.PORT || 3000;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-app.prepare().then(() => {
-  const server = express();
-
-  // Enable GraphQL API and authentication proxy in development mode
+const setup = app.prepare().then(() => {
   if (dev) {
+    const server = require("express")();
+    const port = process.env.PORT || 3000;
+
     const { createProxyMiddleware } = require("http-proxy-middleware");
 
     server.use(
@@ -29,13 +27,25 @@ app.prepare().then(() => {
         },
       }),
     );
+
+    server.all("*", (req, res) => handle(req, res));
+
+    server.listen(port, (err) => {
+      if (err) throw err;
+      process.stdout.write(`[web] http://localhost:${port} `);
+      console.log({ dev });
+    });
   }
-
-  server.all("*", (req, res) => handle(req, res));
-
-  server.listen(port, (err) => {
-    if (err) throw err;
-    process.stdout.write(`[web] http://localhost:${port} `);
-    console.log({ dev });
-  });
 });
+
+// Google Cloud function
+// https://cloud.google.com/functions/docs/writing
+module.exports.web = function web(req, res) {
+  setup
+    .then(() => handle(req, res))
+    .catch((err) => {
+      res.status(err.code || 500);
+      res.type("text/plain");
+      res.send(err.message);
+    });
+};

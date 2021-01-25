@@ -13,11 +13,12 @@ export default function Home(): JSX.Element {
       css={(theme) => css`
         margin-top: 40vh;
         text-align: center;
+        font-size: 4rem;
         font-weight: bold;
         font-family: ${theme.typography.fontFamily};
       `}
     >
-      Next.js app skeleton.
+      Welcome to <a href="/">Next.js web app</a>!
     </p>
   );
 }

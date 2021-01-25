@@ -82,18 +82,18 @@ the running instance of the app.
 
 ## How to Deploy
 
-Compile and bundle the code into `package.zip` (`build`), upload application
-bundle to Google Cloud Storage (`push`), and finally, deploy or re-deploy a
-Google Cloud Function straight from GCS (`deploy`).
+Compile and bundle the code into the `dist/api.zip` file (`yarn build`), upload
+it to Google Cloud Storage (`yarn push`), and finally, deploy or re-deploy
+the Google Cloud Function straight from GCS (`yarn deploy`).
 
 ```
-$ yarn build
-$ yarn push [--version=#0]
-$ yarn deploy [--version=#0] [--env=#1]
+$ yarn api:build
+$ yarn api:push [--version=#0]
+$ yarn api:deploy [--version=#0] [--env=#1]
 ```
 
-**NOTE**: These three separate steps are required in order to optimize the CI/CD
-workflows.
+**NOTE**: These three separate steps are necessary in order to optimize the CI/CD
+workflows (see `.github/workflows`).
 
 ## License
 

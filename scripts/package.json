@@ -14,7 +14,8 @@
     "globby": "^11.0.2",
     "got": "^11.8.1",
     "make-dir": "^3.1.0",
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.5",
+    "web": "workspace:*"
   },
   "devDependencies": {
     "@types/archiver": "^5.1.0",
