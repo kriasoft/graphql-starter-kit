@@ -5,6 +5,24 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Build Web",
+      "request": "launch",
+      "runtimeArgs": [
+        "run",
+        "webpack",
+        "build",
+        "--mode",
+        "development",
+        "--profile",
+        "--json",
+        "${workspaceFolder}/dist/web.json"
+      ],
+      "runtimeExecutable": "yarn",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node",
+      "cwd": "${workspaceFolder}/web"
+    },
+    {
       "type": "node",
       "request": "attach",
       "name": "Attach to Node.js",

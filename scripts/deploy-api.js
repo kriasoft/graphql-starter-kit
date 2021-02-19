@@ -1,7 +1,7 @@
 /**
  * Deploys application bundle to Google Cloud Functions (GCF). Usage:
  *
- *   $ yarn deploy [--version=#0] [--env=#1]
+ *   $ yarn deploy [--version #0] [--env #0]
  *
  * @see https://cloud.google.com/functions
  * @see https://cloud.google.com/sdk/gcloud/reference/functions/deploy
@@ -51,7 +51,7 @@ spawn(
     `--allow-unauthenticated`,
     `--entry-point=${pkg.name}`,
     `--memory=2GB`,
-    `--runtime=nodejs12`,
+    `--runtime=nodejs14`,
     `--source=${source}`,
     `--timeout=30`,
     `--set-env-vars=${envVars.join(",")}`,

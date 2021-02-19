@@ -10,7 +10,18 @@
 
 module.exports = function config(api) {
   return {
-    presets: ["@babel/preset-env"],
+    presets: [
+      [
+        "@babel/preset-env",
+        api.caller((x) => !x || x.target === "node" || x.target === undefined)
+          ? {
+              targets: { node: "14" },
+              useBuiltIns: "usage",
+              corejs: { version: 3, proposals: true },
+            }
+          : {},
+      ],
+    ],
 
     plugins: [
       ["@babel/plugin-proposal-class-properties", { loose: true }],
@@ -18,6 +29,7 @@ module.exports = function config(api) {
     ],
 
     ignore: api.env() === "test" ? [] : ["**/__tests__/**", "**/*.test.ts"],
+    sourceMaps: api.env() === "production",
 
     overrides: [
       {
@@ -33,59 +45,17 @@ module.exports = function config(api) {
             {
               development: api.env() === "development",
               useBuiltIns: true,
+              runtime: "automatic",
+              importSource: "@emotion/react",
             },
           ],
         ],
-      },
-
-      // Google Cloud Functions
-      // https://cloud.google.com/functions/docs/concepts/nodejs-runtime
-      {
-        test: "api/**/*.ts",
-        presets: [
-          [
-            "@babel/preset-env",
-            {
-              targets: { node: "12" },
-              useBuiltIns: "usage",
-              corejs: { version: 3, proposals: true },
-            },
-          ],
-        ],
-        env: {
-          production: {
-            sourceMaps: true,
-          },
-        },
+        plugins: ["@emotion/babel-plugin"],
       },
 
       {
         test: "**/*.d.ts",
         presets: [["@babel/preset-env", { targets: { esmodules: true } }]],
-      },
-
-      // Cloudflare Workers
-      {
-        test: "proxy/**/*.ts",
-        presets: [
-          [
-            "@babel/preset-env",
-            {
-              modules: api.env() === "test" ? "auto" : false,
-              loose: true,
-              targets: {
-                browsers: "last 1 Chrome versions",
-              },
-              useBuiltIns: "usage",
-              corejs: { version: 3, proposals: true },
-            },
-          ],
-        ],
-        env: {
-          production: {
-            sourceMaps: "inline",
-          },
-        },
       },
     ],
   };

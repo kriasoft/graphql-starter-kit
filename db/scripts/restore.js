@@ -1,7 +1,7 @@
 /**
  * Restores database from a backup. Usage:
  *
- *   yarn db:restore [--env=#0]
+ *   yarn db:restore [--env #0]
  *
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */

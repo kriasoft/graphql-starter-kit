@@ -32,13 +32,13 @@
   "dependencies": {
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
-    "faker": "^5.1.0",
-    "knex": "^0.21.16",
+    "faker": "^5.4.0",
+    "knex": "^0.21.17",
     "lodash": "^4.17.20",
     "minimist": "^1.2.5",
     "nanoid": "^3.1.20",
     "pg": "^8.5.1",
-    "prettier": "2.2.1"
+    "prettier": "^2.2.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.168"

@@ -5,7 +5,6 @@
 import * as React from "react";
 import { graphql, useMutation } from "react-relay/hooks";
 
-import { ResetRelayContext } from "../relay";
 import { useAuthSignOutMutation as SignOutMutation } from "./__generated__/useAuthSignOutMutation.graphql";
 
 export type AuthProvider = "google" | "apple" | "facebook";
@@ -23,7 +22,6 @@ const signOutMutation = graphql`
 
 export function useAuth(): Auth {
   const [signOut] = useMutation<SignOutMutation>(signOutMutation);
-  const resetRelay = React.useContext(ResetRelayContext);
 
   return React.useMemo<Auth>(function createAuth() {
     return {
@@ -40,7 +38,7 @@ export function useAuth(): Auth {
             if (errors) {
               throw errors[0];
             } else {
-              resetRelay();
+              window.location.reload();
             }
           },
         });

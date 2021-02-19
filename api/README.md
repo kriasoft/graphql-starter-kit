@@ -13,7 +13,7 @@ assistance.
 
 ## Tech Stack
 
-- [Node.js](https://nodejs.org/) `v12`, [Yarn](https://yarnpkg.com/) `v2`, [TypeScript](https://www.typescriptlang.org/), [Babel](https://babeljs.io/), [Prettier](https://prettier.io/), [ESLint](https://eslint.org/) — core platform and dev tools
+- [Node.js](https://nodejs.org/) `v14`, [Yarn](https://yarnpkg.com/) `v2`, [TypeScript](https://www.typescriptlang.org/), [Babel](https://babeljs.io/), [Prettier](https://prettier.io/), [ESLint](https://eslint.org/) — core platform and dev tools
 - [GraphQL.js](https://github.com/graphql/graphql-js), [GraphQL.js Relay](https://github.com/graphql/graphql-relay-js), [DataLoader](https://github.com/graphql/dataloader), [Validator.js](https://github.com/validatorjs/validator.js) — [GraphQL](https://graphql.org/) schema and API endpoint(s)
 - [PostgreSQL](https://www.postgresql.org/), [Knex.js](https://knexjs.org/), [`pg`](https://node-postgres.com/), [`@google-cloud/storage`](https://googleapis.dev/nodejs/storage/latest) — data access
 - [`jswonwebtoken`](https://github.com/auth0/node-jsonwebtoken), [`google-auth-library`](https://github.com/googleapis/google-auth-library-nodejs) — stateless JWT-based sessions and authentication
@@ -43,7 +43,7 @@ assistance.
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) v12 or higher, [Yarn](https://yarnpkg.com/) package manager
+- [Node.js](https://nodejs.org/) v14 or higher, [Yarn](https://yarnpkg.com/) package manager
 - Local or remote instance of [PostgreSQL](https://www.postgresql.org/) (see [Postgres.app](https://postgresapp.com/), [Google Cloud SQL](https://cloud.google.com/sql))
 - [VS Code](https://code.visualstudio.com/) editor (highly recommended)
 
@@ -88,8 +88,8 @@ the Google Cloud Function straight from GCS (`yarn deploy`).
 
 ```
 $ yarn api:build
-$ yarn api:push [--version=#0]
-$ yarn api:deploy [--version=#0] [--env=#1]
+$ yarn api:push [--version #0]
+$ yarn api:deploy [--version #0] [--env #0]
 ```
 
 **NOTE**: These three separate steps are necessary in order to optimize the CI/CD

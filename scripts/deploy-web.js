@@ -1,62 +1,96 @@
 /**
- * Deploys application bundle to Google Cloud Functions (GCF). Usage:
+ * Deploys application bundle to Cloudflare. Usage:
  *
- *   $ yarn deploy [--version=#0] [--env=#1]
+ *   $ yarn deploy [--version #0] [--env #0] [--no-download]
  *
- * @see https://cloud.google.com/functions
- * @see https://cloud.google.com/sdk/gcloud/reference/functions/deploy
+ * @see https://developers.cloudflare.com/workers/
+ * @see https://api.cloudflare.com/#worker-script-upload-worker
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
 require("env");
-const spawn = require("cross-spawn");
+const fs = require("fs");
+const got = require("got");
+const path = require("path");
+const globby = require("globby");
 const minimist = require("minimist");
-const pkg = require("web/package.json");
+const { Storage } = require("@google-cloud/storage");
 
-const { env } = process;
-const { version } = minimist(process.argv.slice(2), {
-  default: { version: process.env.VERSION },
+const env = process.env;
+const args = minimist(process.argv.slice(2), {
+  default: { env: "dev", version: env.VERSION, download: false },
 });
 
-const source = `gs://${process.env.PKG_BUCKET}/${pkg.name}_${version}.zip`;
+// The name of the worker script (e.g. "proxy", "proxy-test", etc.)
+const name = `proxy${args.env === "prod" ? "" : `-${args.env}`}`;
 
-console.log(`Deploying ${source} to ${env.APP_ENV}...`);
+// Configure an HTTP client for accessing Cloudflare REST API
+const cf = got.extend({
+  prefixUrl: `https://api.cloudflare.com/client/v4/accounts/${env.CLOUDFLARE_ACCOUNT_ID}/`,
+  headers: {
+    Authorization: `Bearer ${env.CLOUDFLARE_API_TOKEN}`,
+    "Content-Type": "application/javascript",
+  },
+  responseType: "json",
+});
 
-const envVars = [
-  `NODE_OPTIONS=--require ./.pnp.js`,
-  // `APP_NAME=${env.APP_NAME}`,
-  // `APP_ORIGIN=${env.APP_ORIGIN}`,
-  // `APP_ENV=${env.APP_ENV}`,
-  // `VERSION=${version}`,
-  // `JWT_SECRET=${env.JWT_SECRET}`,
-  // `GOOGLE_CLIENT_ID=${env.GOOGLE_CLIENT_ID}`,
-  // `GOOGLE_CLIENT_SECRET=${env.GOOGLE_CLIENT_SECRET}`,
-  // `PGHOST=/cloudsql/${env.PGSERVERNAME.replace(":", `:${region}:`)}`,
-  // `PGUSER=${env.PGUSER}`,
-  // `PGPASSWORD=${env.PGPASSWORD}`,
-  // `PGDATABASE=${env.PGDATABASE}`,
-  // `PGAPPNAME=${pkg.name}_${version}_${env.APP_ENV}`,
-];
+async function deploy() {
+  const storage = new Storage();
 
-spawn(
-  "gcloud",
-  [
-    `--project=${env.GOOGLE_CLOUD_PROJECT}`,
-    `functions`,
-    `deploy`,
-    pkg.name,
-    `--region=${env.GOOGLE_CLOUD_REGION}`,
-    `--allow-unauthenticated`,
-    `--entry-point=${pkg.name}`,
-    `--memory=2GB`,
-    `--runtime=nodejs12`,
-    `--source=${source}`,
-    `--timeout=30`,
-    `--set-env-vars=${envVars.join(",")}`,
-    `--trigger-http`,
-  ],
-  { stdio: "inherit" },
-).on("error", (err) => {
+  /*
+   * Upload application (static) files to a cloud storage bucket.
+   * Example: `dist/web/**` => `gs://s.example.com/app/`
+   */
+
+  const appBucket = storage.bucket(env.STORAGE_BUCKET);
+  const files = await globby(".", { cwd: "../dist/web" });
+
+  async function upload() {
+    let filename;
+
+    while ((filename = files.shift())) {
+      console.log(filename);
+      await appBucket.upload(path.resolve(__dirname, "../dist/web", filename), {
+        destination: `app/${filename}`,
+        public: true,
+      });
+    }
+  }
+
+  await Promise.all(Array.from({ length: 5 }).map(() => upload()));
+
+  /*
+   * Upload the reverse proxy script to Cloudflare Workers.
+   */
+
+  let source;
+
+  if (process.env.CI === "true" || args.download) {
+    console.log(`Downloading proxy_${args.version}.js from ${env.PKG_BUCKET}`);
+    source = await storage
+      .bucket(env.PKG_BUCKET)
+      .file(`proxy_${args.version}.js`)
+      .download()
+      .then((x) => x[0].toString());
+  } else {
+    source = fs.readFileSync(
+      path.resolve(__dirname, "../dist/proxy/proxy.js"),
+      "utf8",
+    );
+  }
+
+  const res = await cf.put({ url: `workers/scripts/${name}`, body: source });
+
+  if (res.body.success) {
+    delete res.body.result.script;
+    console.log("Successfully deployed!");
+    console.log(res.body.result);
+  } else {
+    throw new Error(res.body.errors[0]);
+  }
+}
+
+deploy().catch((err) => {
   console.error(err);
   process.exit(1);
 });

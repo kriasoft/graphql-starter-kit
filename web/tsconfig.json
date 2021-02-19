@@ -1,10 +1,14 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["@emotion/react/types/css-prop", "jest"],
+    "lib": ["DOM", "DOM.Iterable", "ES2020", "WebWorker"],
+    "types": [
+      "@types/webpack-env",
+      "@emotion/react/types/css-prop",
+      "@cloudflare/workers-types",
+      "jest"
+    ],
     "jsx": "preserve"
   },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

@@ -16,6 +16,5 @@ module.exports = {
     "<rootDir>/db/",
     "<rootDir>/dist/",
     "<rootDir>/scripts/",
-    "<rootDir>/web/out/",
   ],
 };
