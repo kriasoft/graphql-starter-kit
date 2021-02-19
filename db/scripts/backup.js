@@ -1,7 +1,7 @@
 /**
  * Creates database backup (data only). Usage:
  *
- *   yarn db:backup [--env=#0]
+ *   yarn db:backup [--env #0]
  *
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */

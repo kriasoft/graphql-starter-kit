@@ -1,7 +1,7 @@
 /**
  * Resets database to its initial state (for local development). Usage:
  *
- *   yarn db:reset [--env=#0]
+ *   yarn db:reset [--env #0]
  *
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */

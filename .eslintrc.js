@@ -38,7 +38,7 @@ module.exports = {
     {
       files: ["*.tsx"],
       extends: ["plugin:react/recommended", "prettier/react"],
-      plugins: ["jsx-a11y", "react-hooks"],
+      plugins: ["jsx-a11y", "react-hooks", "@emotion"],
       env: {
         browser: true,
       },
@@ -49,11 +49,12 @@ module.exports = {
       },
       settings: {
         react: {
-          version: "detect",
+          version: "17.0.1",
         },
       },
       rules: {
         "react/no-children-prop": "off",
+        "react/react-in-jsx-scope": "off",
       },
     },
     {

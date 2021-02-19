@@ -1,7 +1,7 @@
 /**
  * REPL shell for PostgreSQL. Usage:
  *
- *   yarn db:psql [--env=#0]
+ *   yarn db:psql [--env #0]
  *
  * @see https://www.postgresql.org/docs/current/app-psql.html
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)

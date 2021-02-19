@@ -1,0 +1,30 @@
+/**
+ * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ */
+
+import { graphql } from "relay-runtime";
+
+import type Home from "./Home";
+import type { Route } from "../../core";
+import type { homeQueryResponse } from "./__generated__/homeQuery.graphql";
+
+/**
+ * Homepage route.
+ */
+export default {
+  path: "/",
+  query: graphql`
+    query homeQuery {
+      me {
+        id
+        name
+        email
+      }
+    }
+  `,
+  component: () => import(/* webpackChunkName: "home" */ "./Home"),
+  response: (data) => ({
+    head: { title: "Home" },
+    props: data,
+  }),
+} as Route<typeof Home, homeQueryResponse>;
