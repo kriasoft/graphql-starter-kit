@@ -14,6 +14,21 @@ export enum IdentityProvider {
   playgames = "playgames",
 }
 
+export type CommentPoint = {
+  comment_id: string;
+  user_id: string;
+};
+
+export type Comment = {
+  id: string;
+  story_id: string;
+  parent_id: string | null;
+  author_id: string;
+  text: string | null;
+  created_at: Date;
+  updated_at: Date;
+};
+
 export type Identity = {
   provider: IdentityProvider;
   id: string;
@@ -34,6 +49,23 @@ export type Identity = {
   updated_at: Date;
   issued_at: Date | null;
   expires_at: Date | null;
+};
+
+export type Story = {
+  id: string;
+  author_id: string;
+  slug: string;
+  title: string;
+  text: string | null;
+  is_url: boolean;
+  approved: boolean;
+  created_at: Date;
+  updated_at: Date;
+};
+
+export type StoryPoint = {
+  story_id: string;
+  user_id: string;
 };
 
 export type User = {

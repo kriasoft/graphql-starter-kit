@@ -19,6 +19,8 @@ type Root {
   me: User
   user(username: String!): User
   users(after: String, first: Int): UserConnection
+  story(slug: String!): Story
+  stories: [Story]
 }
 
 # An object with an ID
@@ -114,6 +116,32 @@ type UserEdge {
   cursor: String!
 }
 
+type Story implements Node {
+  # The ID of an object
+  id: ID!
+  author: User!
+  slug: String!
+  title: String!
+  text(truncate: Int): String!
+  isURL: Boolean!
+  comments: [Comment]
+  pointsCount: Int!
+  pointGiven: Boolean!
+  commentsCount: Int!
+  createdAt(format: String): String
+  updatedAt(format: String): String
+}
+
+type Comment implements Node {
+  # The ID of an object
+  id: ID!
+  parent: Comment
+  author: User!
+  text: String
+  createdAt(format: String): String
+  updatedAt(format: String): String
+}
+
 type Mutation {
   # Authenticates user with an ID token or email and password.
   signIn(idToken: String, email: String, password: String): SignInPayload
@@ -123,6 +151,12 @@ type Mutation {
 
   # Updates a user.
   updateUser(input: UpdateUserInput!): UpdateUserPayload
+
+  # Creates or updates a story.
+  upsertStory(input: UpsertStoryInput!): UpsertStoryPayload
+
+  # Marks the story as "liked".
+  likeStory(input: LikeStoryInput!): LikeStoryPayload
 }
 
 type SignInPayload {
@@ -145,5 +179,30 @@ input UpdateUserInput {
   locale: String
   admin: Boolean
   validateOnly: Boolean
+  clientMutationId: String
+}
+
+type UpsertStoryPayload {
+  story: Story
+  errors: [[String!]!]
+  clientMutationId: String
+}
+
+input UpsertStoryInput {
+  id: ID
+  title: String
+  text: String
+  approved: Boolean
+  validateOnly: Boolean
+  clientMutationId: String
+}
+
+type LikeStoryPayload {
+  story: Story
+  clientMutationId: String
+}
+
+input LikeStoryInput {
+  id: ID!
   clientMutationId: String
 }
