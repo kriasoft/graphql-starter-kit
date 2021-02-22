@@ -57,7 +57,7 @@ export class Context {
 
   userById = new DataLoader<string, User | null>((keys) =>
     db
-      .table<User>("users")
+      .table<User>("user")
       .whereIn("id", keys)
       .select()
       .then((rows) =>
@@ -71,7 +71,7 @@ export class Context {
 
   userByUsername = new DataLoader<string, User | null>((keys) =>
     db
-      .table<User>("users")
+      .table<User>("user")
       .whereIn("username", keys)
       .select()
       .then((rows) =>
@@ -85,7 +85,7 @@ export class Context {
 
   identitiesByUserId = new DataLoader<string, Identity[]>((keys) =>
     db
-      .table<Identity>("identities")
+      .table<Identity>("identity")
       .whereIn("user_id", keys)
       .select()
       .then((rows) => mapToMany(rows, keys, (x) => x.user_id)),

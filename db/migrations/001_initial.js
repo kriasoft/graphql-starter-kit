@@ -33,7 +33,7 @@ module.exports.up = async (/** @type {Knex} */ db) /* prettier-ignore */ => {
   // Custom types
   await db.raw(`CREATE TYPE identity_provider AS ENUM (${idps.map(x => `'${x}'`).join(', ')})`);
 
-  await db.schema.createTable("users", (table) => {
+  await db.schema.createTable("user", (table) => {
     table.specificType("id", "user_id").notNullable().primary();
     table.string("username", 50).notNullable().unique();
     table.string("email", 100);
@@ -51,10 +51,10 @@ module.exports.up = async (/** @type {Knex} */ db) /* prettier-ignore */ => {
     table.timestamp("last_login");
   });
 
-  await db.schema.createTable("identities", (table) => {
+  await db.schema.createTable("identity", (table) => {
     table.specificType("provider", "identity_provider").notNullable();
     table.string("id", 36).notNullable();
-    table.specificType("user_id", "user_id").notNullable().references("id").inTable("users").onDelete("CASCADE").onUpdate("CASCADE");
+    table.specificType("user_id", "user_id").notNullable().references("id").inTable("user").onDelete("CASCADE").onUpdate("CASCADE");
     table.text("username");
     table.text("email");
     table.boolean("email_verified");
@@ -75,8 +75,8 @@ module.exports.up = async (/** @type {Knex} */ db) /* prettier-ignore */ => {
 };
 
 module.exports.down = async (/** @type {Knex} */ db) => {
-  await db.schema.dropTableIfExists("identities");
-  await db.schema.dropTableIfExists("users");
+  await db.schema.dropTableIfExists("identity");
+  await db.schema.dropTableIfExists("user");
   await db.raw("DROP TYPE IF EXISTS identity_provider");
   await db.raw("DROP DOMAIN IF EXISTS user_id");
 };

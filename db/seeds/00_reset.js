@@ -6,5 +6,5 @@
  */
 
 module.exports.seed = async (/** @type {Knex} */ db) => {
-  await db.table("users").delete();
+  await db.table("user").delete();
 };

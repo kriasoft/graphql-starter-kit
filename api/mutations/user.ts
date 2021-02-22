@@ -52,7 +52,7 @@ export const updateUser = mutationWithClientMutationId({
       input.username === undefined
         ? true
         : await db
-            .table("users")
+            .table("user")
             .where({ username: input.username?.trim() || null })
             .whereNot({ id })
             .select(db.raw("1"))
@@ -103,7 +103,7 @@ export const updateUser = mutationWithClientMutationId({
 
     if (Object.keys(data).length) {
       [user] = await db
-        .table<User>("users")
+        .table<User>("user")
         .where({ id })
         .update({ ...data, updated_at: db.fn.now() })
         .returning("*");

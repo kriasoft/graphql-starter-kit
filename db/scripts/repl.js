@@ -35,7 +35,7 @@ Promise.resolve()
     console.log(x.version);
     console.log(`Connected to "${x.database}". Usage example:`);
     console.log(``);
-    console.log(`   await db.table("users").first()`);
+    console.log(`   await db.table("user").first()`);
     console.log(`   await db.raw("select version()")`);
     console.log(``);
     console.log(`Type ".exit" to exit the REPL`);

@@ -36,7 +36,7 @@ export async function generateUsername(email?: string): Promise<string> {
   // Verify that the username is unique
   const {
     rows: [{ exists }],
-  } = await db.raw("SELECT EXISTS (SELECT * FROM users WHERE username = ?)", [
+  } = await db.raw(`SELECT EXISTS (SELECT * FROM "user" WHERE username = ?)`, [
     username,
   ]);
 
