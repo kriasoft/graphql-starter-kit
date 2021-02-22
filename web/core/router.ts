@@ -16,7 +16,6 @@ export async function resolveRoute(
     for (let i = 0, route; i < routes.length, (route = routes[i]); i++) {
       if (route.path !== ctx.path) continue;
 
-      const { query } = route;
       let { variables } = route;
 
       // Prepare GraphQL query variables
@@ -25,7 +24,10 @@ export async function resolveRoute(
       // Fetch GraphQL query response and load React component in parallel
       const [component, data] = await Promise.all([
         route.component?.().then((x) => x.default),
-        query && fetchQuery(ctx.relay, query, variables).toPromise(),
+        route.query &&
+          fetchQuery(ctx.relay, route.query, variables, {
+            fetchPolicy: "store-or-network",
+          }).toPromise(),
       ]);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

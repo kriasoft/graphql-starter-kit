@@ -19,9 +19,19 @@ export function createRelay(config: Config = {}): Environment {
 
   const network = Network.create(
     (operation, variables): Promise<any> =>
-      fetch(new Request(`${baseUrl}/graphql`, config.request), {
+      fetch(`${baseUrl}/graphql`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          // Pass-through headers from the original HTTP request
+          // when used in Cloudflare Workers environment. See `proxy/index.ts`.
+          ...(config.request &&
+            (Array.from(config.request.headers).reduce(
+              (acc, [k, v]) => ({ ...acc, [k]: v }),
+              {},
+            ) as { [key: string]: string })),
+
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ query: operation.text, variables }),
         ...(!config.request && { credentials: "include" }),
       }).then((res) => res.json()),
