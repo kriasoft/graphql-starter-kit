@@ -12,6 +12,8 @@
     "archiver": "^5.2.0",
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
+    "file-type": "^16.2.0",
+    "form-data": "^4.0.0",
     "globby": "^11.0.2",
     "got": "^11.8.1",
     "make-dir": "^3.1.0",

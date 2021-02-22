@@ -11,16 +11,16 @@ export function transform(route: RouteResponse, res: Response): Response {
     .on("title:first-of-type", {
       // <title>...</title>
       element(el) {
-        if (route.head?.title) {
-          el.setInnerContent(route.head.title);
+        if (route.title) {
+          el.setInnerContent(route.title);
         }
       },
     })
     .on('meta[name="description"]:first-of-type', {
       // <meta name="description" content="..." />
       element(el) {
-        if (route.head?.description) {
-          el.setAttribute("content", route.head.description);
+        if (route.description) {
+          el.setAttribute("content", route.description);
         }
       },
     })

@@ -208,7 +208,7 @@ module.exports = function config(envName, options) {
     name: "proxy",
     entry: "./proxy",
     output: {
-      path: path.resolve(__dirname, "../dist/proxy"),
+      path: appConfig.output.path,
       filename: "proxy.js",
       uniqueName: "proxy",
     },
@@ -225,11 +225,6 @@ module.exports = function config(envName, options) {
           prod: prodEnv.GOOGLE_CLOUD_PROJECT,
           test: testEnv.GOOGLE_CLOUD_PROJECT,
           dev: devEnv.GOOGLE_CLOUD_PROJECT,
-        }),
-        STORAGE_BUCKET: JSON.stringify({
-          prod: prodEnv.STORAGE_BUCKET,
-          test: testEnv.STORAGE_BUCKET,
-          dev: devEnv.STORAGE_BUCKET,
         }),
       }),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),

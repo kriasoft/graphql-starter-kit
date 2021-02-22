@@ -5,13 +5,16 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
+import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+
 import { transform } from "./transform";
 import { parseHostname } from "./parse";
 import { createRelay } from "../core/relay";
 import { resolveRoute } from "../core/router";
 
-async function handleRequest(request: Request) {
-  const url = new URL(request.url);
+async function handleEvent(event: FetchEvent) {
+  const request = event.request;
+  const url = new URL(event.request.url);
   const { pathname: path, hostname } = url;
   const [env, prNumber] = parseHostname(hostname);
 
@@ -20,6 +23,24 @@ async function handleRequest(request: Request) {
     hostname: `${GOOGLE_CLOUD_REGION}-${GOOGLE_CLOUD_PROJECT[env]}.cloudfunctions.net`,
     pathname: prNumber ? `/api_${prNumber}` : "/api",
   };
+
+  // Serve static assets from KV storage
+  // https://github.com/cloudflare/kv-asset-handler
+  if (
+    path.startsWith("/static/") ||
+    path.startsWith("/favicon.") ||
+    path.startsWith("/logo") ||
+    path.startsWith("/manifest.") ||
+    path.startsWith("/robots.")
+  ) {
+    try {
+      return getAssetFromKV(event, {
+        cacheControl: { bypassCache: env !== "prod" },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   // GraphQL API and authentication
   if (path.startsWith("/graphql") || path.startsWith("/auth")) {
@@ -41,17 +62,15 @@ async function handleRequest(request: Request) {
     return fetch(new Request(url.toString(), request));
   }
 
-  // Disallow search engin crawlers to access non-production areas
-  if (path === "/robots.txt" && env !== "prod") {
-    return new Response("User-agent: *\nDisallow: /");
-  }
+  // Fetch index.html page from KV storage
+  url.pathname = "/index.html";
+  const resPromise = getAssetFromKV(
+    { ...event, request: new Request(url.toString(), request) },
+    { cacheControl: { bypassCache: env !== "prod" } },
+  );
 
-  url.protocol = "https:";
-  url.hostname = STORAGE_BUCKET[env];
-  url.pathname = `/app${path}`;
-
+  // Find application route matching the URL pathname
   const apiBaseUrl = `https://${apiUrl.hostname}${apiUrl.pathname}`;
-  const resPromise = fetch(new Request(url.toString(), request));
   const relay = createRelay({ baseUrl: apiBaseUrl, request });
   const route = await resolveRoute({ path, relay });
 
@@ -59,6 +78,7 @@ async function handleRequest(request: Request) {
     return Response.redirect(route.redirect, route.status);
   }
 
+  // Inject page metadata such as <title>, <meta name="description" contents="..." />, etc.
   const res = transform(route, await resPromise);
   return new Response(res.body, {
     status: route.error?.status || 200,
@@ -67,7 +87,7 @@ async function handleRequest(request: Request) {
 }
 
 addEventListener("fetch", (event) => {
-  event.respondWith(handleRequest(event.request));
+  event.respondWith(handleEvent(event));
 });
 
 export {};
