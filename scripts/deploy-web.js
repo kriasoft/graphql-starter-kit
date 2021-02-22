@@ -14,9 +14,12 @@ const got = require("got");
 const path = require("path");
 const globby = require("globby");
 const minimist = require("minimist");
+const FileType = require("file-type");
+const FormData = require("form-data");
 const { Storage } = require("@google-cloud/storage");
 
 const env = process.env;
+const cwd = path.resolve(__dirname, "../dist/web");
 const args = minimist(process.argv.slice(2), {
   default: { env: "dev", version: env.VERSION, download: false },
 });
@@ -28,66 +31,105 @@ const name = `proxy${args.env === "prod" ? "" : `-${args.env}`}`;
 const cf = got.extend({
   prefixUrl: `https://api.cloudflare.com/client/v4/accounts/${env.CLOUDFLARE_ACCOUNT_ID}/`,
   headers: {
-    Authorization: `Bearer ${env.CLOUDFLARE_API_TOKEN}`,
-    "Content-Type": "application/javascript",
+    authorization: `Bearer ${env.CLOUDFLARE_API_TOKEN}`,
+    "user-agent": "https://git.io/vMINh",
   },
   responseType: "json",
+  resolveBodyOnly: true,
+  hooks: {
+    afterResponse: [
+      (res) => {
+        if (!res.body?.success) throw new Error(res.body.errors[0].message);
+        res.body?.messages.forEach((x) => console.log(x));
+        res.body = res.body.result || res.body;
+        return res;
+      },
+    ],
+  },
 });
 
 async function deploy() {
-  const storage = new Storage();
-
   /*
-   * Upload application (static) files to a cloud storage bucket.
-   * Example: `dist/web/**` => `gs://s.example.com/app/`
+   * Optionally, download previously compiled assets.
+   * https://googleapis.dev/nodejs/storage/latest/
    */
 
-  const appBucket = storage.bucket(env.STORAGE_BUCKET);
-  const files = await globby(".", { cwd: "../dist/web" });
-
-  async function upload() {
-    let filename;
-
-    while ((filename = files.shift())) {
-      console.log(filename);
-      await appBucket.upload(path.resolve(__dirname, "../dist/web", filename), {
-        destination: `app/${filename}`,
-        public: true,
-      });
-    }
+  if (process.env.CI === "true" || args.download) {
+    const file = `web_${args.version}.zip`;
+    console.log(`Downloading gs://${env.PKG_BUCKET}/${file}`);
+    const [contents] = await new Storage()
+      .bucket(env.PKG_BUCKET)
+      .file(file)
+      .download();
+    fs.writeFileSync(path.resolve(cwd, "../web.zip"), contents);
+    // TODO: Unzip
   }
 
-  await Promise.all(Array.from({ length: 5 }).map(() => upload()));
+  /*
+   * Create a KV storage namespace.
+   * https://api.cloudflare.com/#workers-kv-namespace-list-namespaces
+   */
+
+  const assetsNamespace =
+    env.APP_NAME +
+    (args.env === `prod` ? `` : `_${args.env}`) +
+    (args.env === `test` && args.version ? `_${args.version}` : ``);
+
+  let res = await cf.get({ url: "storage/kv/namespaces" });
+  let ns = res.find((x) => x.title === assetsNamespace);
+
+  if (!ns) {
+    console.log(`Creating KV namespace: ${assetsNamespace}`);
+    ns = await cf.post({
+      url: "storage/kv/namespaces",
+      json: { title: assetsNamespace },
+    });
+  }
+
+  /*
+   * Upload website assets to KV storage.
+   * https://api.cloudflare.com/#workers-kv-namespace-write-multiple-key-value-pairs
+   */
+
+  console.log(`Uploading assets to KV storage: ${ns.title}, id: ${ns.id}`);
+
+  const files = await globby([".", "!proxy.*"], { cwd });
+
+  for (let i = 0; i < files.length; i++) {
+    const data = fs.readFileSync(path.resolve(cwd, files[i]));
+    const type = await FileType.fromBuffer(data);
+    files[i] = type
+      ? { key: files[i], value: data.toString("base64"), base64: true }
+      : { key: files[i], value: data.toString("utf-8") };
+  }
+
+  await cf.put({ url: `storage/kv/namespaces/${ns.id}/bulk`, json: files });
 
   /*
    * Upload the reverse proxy script to Cloudflare Workers.
    */
 
-  let source;
+  console.log(`Uploading Cloudflare Worker script: ${name}`);
 
-  if (process.env.CI === "true" || args.download) {
-    console.log(`Downloading proxy_${args.version}.js from ${env.PKG_BUCKET}`);
-    source = await storage
-      .bucket(env.PKG_BUCKET)
-      .file(`proxy_${args.version}.js`)
-      .download()
-      .then((x) => x[0].toString());
-  } else {
-    source = fs.readFileSync(
-      path.resolve(__dirname, "../dist/proxy/proxy.js"),
-      "utf8",
-    );
-  }
+  const form = new FormData();
+  const script = fs.readFileSync(path.resolve(cwd, "proxy.js"), "utf-8");
+  const bindings = [
+    { type: "kv_namespace", name: "__STATIC_CONTENT", namespace_id: ns.id },
+    { type: "plain_text", name: "__STATIC_CONTENT_MANIFEST", text: "false" },
+  ];
+  const metadata = { body_part: "script", bindings };
+  form.append("script", script, { contentType: "application/javascript" });
+  form.append("metadata", JSON.stringify(metadata), {
+    contentType: "application/json",
+  });
 
-  const res = await cf.put({ url: `workers/scripts/${name}`, body: source });
+  await cf.put({
+    url: `workers/scripts/${name}`,
+    headers: form.getHeaders(),
+    body: form,
+  });
 
-  if (res.body.success) {
-    delete res.body.result.script;
-    console.log("Successfully deployed!");
-    console.log(res.body.result);
-  } else {
-    throw new Error(res.body.errors[0]);
-  }
+  console.log("Done!");
 }
 
 deploy().catch((err) => {

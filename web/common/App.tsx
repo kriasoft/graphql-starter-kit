@@ -39,6 +39,12 @@ export class App extends React.Component<AppProps> {
     this.renderPath({ location: history.location, action: Action.Pop });
   }
 
+  componentDidUpdate(): void {
+    if (this.state.route?.title) {
+      self.document.title = this.state.route.title;
+    }
+  }
+
   componentWillUnmount(): void {
     if (this.dispose) this.dispose();
   }

@@ -24,7 +24,7 @@ export default {
   `,
   component: () => import(/* webpackChunkName: "settings" */ "./Settings"),
   response: (data) => ({
-    head: { title: "Account Settings" },
+    title: "Account Settings",
     props: data,
   }),
 } as Route<typeof Settings, settingsQueryResponse>;

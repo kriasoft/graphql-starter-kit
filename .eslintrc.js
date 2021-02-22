@@ -25,10 +25,7 @@ module.exports = {
     {
       files: ["*.ts", "*.tsx"],
       parser: "@typescript-eslint/parser",
-      extends: [
-        "plugin:@typescript-eslint/recommended",
-        "prettier/@typescript-eslint",
-      ],
+      extends: ["plugin:@typescript-eslint/recommended"],
       plugins: ["@typescript-eslint"],
       parserOptions: {
         sourceType: "module",
@@ -37,7 +34,7 @@ module.exports = {
     },
     {
       files: ["*.tsx"],
-      extends: ["plugin:react/recommended", "prettier/react"],
+      extends: ["plugin:react/recommended"],
       plugins: ["jsx-a11y", "react-hooks", "@emotion"],
       env: {
         browser: true,

@@ -17,10 +17,8 @@ export type RouterResponse<
     | FunctionComponent<any>
     | ComponentClass<any> = FunctionComponent<any>
 > = {
-  head?: {
-    title?: string;
-    description?: string;
-  };
+  title?: string;
+  description?: string;
   component?: Component;
   props?: ComponentProps<Component>;
   error?: Error;

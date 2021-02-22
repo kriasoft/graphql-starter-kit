@@ -7,4 +7,3 @@
 
 declare const GOOGLE_CLOUD_REGION: string;
 declare const GOOGLE_CLOUD_PROJECT: { prod: string; test: string; dev: string };
-declare const STORAGE_BUCKET: { prod: string; test: string; dev: string };

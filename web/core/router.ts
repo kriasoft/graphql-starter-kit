@@ -36,12 +36,8 @@ export async function resolveRoute(
     throw new NotFoundError();
   } catch (error) {
     return {
-      head: {
-        title:
-          error instanceof NotFoundError
-            ? "Page not found"
-            : "Application error",
-      },
+      title:
+        error instanceof NotFoundError ? "Page not found" : "Application error",
       error,
     };
   }
