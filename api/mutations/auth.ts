@@ -40,7 +40,7 @@ export const signIn: GraphQLFieldConfig<unknown, Context, any> = {
     //   Authenticate user with the provided Firebase ID token,
     //   or username / email and password.
 
-    const user = await db.table<User>("users").where({ id: "wp60xu" }).first();
+    const user = await db.table<User>("user").where({ id: "wp60xu" }).first();
     const me = await ctx.signIn(user);
 
     return { me };

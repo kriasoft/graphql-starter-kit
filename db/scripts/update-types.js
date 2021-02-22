@@ -9,16 +9,6 @@ const path = require("path");
 const knex = require("knex");
 const { camelCase, upperFirst } = require("lodash");
 
-function singular(word) {
-  return word.endsWith("ies")
-    ? `${word.substring(0, word.length - 3)}y`
-    : word.endsWith("es")
-    ? `${word.substring(0, word.length - 1)}`
-    : word.endsWith("s")
-    ? word.substring(0, word.length - 1)
-    : word;
-}
-
 async function updateTypes() {
   const db = knex(require("../knexfile"));
   const lines = [];
@@ -66,9 +56,7 @@ async function updateTypes() {
     // Construct TypeScript db record types
     columns.forEach((x, i) => {
       if (!(columns[i - 1] && columns[i - 1].table === x.table)) {
-        lines.push(
-          `export type ${singular(upperFirst(camelCase(x.table)))} = {`,
-        );
+        lines.push(`export type ${upperFirst(camelCase(x.table))} = {`);
       }
 
       const nullable = x.null === "YES" ? " | null" : "";

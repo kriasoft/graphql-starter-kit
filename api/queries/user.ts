@@ -51,7 +51,7 @@ export const users: GraphQLFieldConfig<unknown, Context> = {
     // Only admins are allowed to fetch the list of users
     ctx.ensureAuthorized((user) => user.admin);
 
-    const query = db.table<User>("users");
+    const query = db.table<User>("user");
 
     const limit = args.first === undefined ? 50 : args.first;
     const offset = args.after ? cursorToOffset(args.after) + 1 : 0;

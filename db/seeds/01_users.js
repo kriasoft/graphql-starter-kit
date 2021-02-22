@@ -69,5 +69,5 @@ module.exports.seed = async (/** @type {Knex} */ db) => {
 
   fs.writeFileSync(jsonFile, stringify(users), "utf8");
 
-  await db.table("users").insert(users);
+  await db.table("user").insert(users);
 };

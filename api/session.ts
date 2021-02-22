@@ -23,7 +23,7 @@ async function getUser(req: Request): Promise<User | null> {
         issuer: env.APP_ORIGIN,
         audience: env.APP_NAME,
       }) as { sub: string };
-      const user = await db.table("users").where({ id: token.sub }).first();
+      const user = await db.table("user").where({ id: token.sub }).first();
       return user || null;
     } catch (err) {
       console.error(err);
@@ -42,7 +42,7 @@ async function signIn(
   }
 
   [user] = await db
-    .table<User>("users")
+    .table<User>("user")
     .where({ id: user.id })
     .update({ last_login: db.fn.now() })
     .returning("*");

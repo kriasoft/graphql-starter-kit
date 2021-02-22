@@ -20,19 +20,19 @@ export default async function connect(
   // If user is not authenticated, find user by credentials
   if (!user) {
     user = await db
-      .table<Identity>("identities")
-      .leftJoin<User>("users", "users.id", "identities.user_id")
+      .table<Identity>("identity")
+      .leftJoin<User>("user", "user.id", "identity.user_id")
       .where({
-        "identities.id": identity.id,
-        "identities.provider": identity.provider,
+        "identity.id": identity.id,
+        "identity.provider": identity.provider,
       } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
-      .first<User>("users.*");
+      .first<User>("user.*");
   }
 
   // Otherwise, find user account by email
   if (!user && identity.email && identity.email_verified !== false) {
     user = await db
-      .table<User>("users")
+      .table<User>("user")
       .where({ email: identity.email })
       .orderBy("email_verified", "desc")
       .first();
@@ -42,7 +42,7 @@ export default async function connect(
   if (!user) {
     const userId = await newUserId(true);
     [user] = await db
-      .table<User>("users")
+      .table<User>("user")
       .insert({
         id: userId,
         username: userId,
@@ -60,10 +60,7 @@ export default async function connect(
   // Link credentials to user account
   if (user) {
     const key = { provider: identity.provider, id: identity.id };
-    const dbIdentity = await db
-      .table<Identity>("identities")
-      .where(key)
-      .first();
+    const dbIdentity = await db.table<Identity>("identity").where(key).first();
 
     if (dbIdentity) {
       if (dbIdentity.user_id !== user.id) {
@@ -73,7 +70,7 @@ export default async function connect(
       }
 
       await db
-        .table<Identity>("identities")
+        .table<Identity>("identity")
         .where(key)
         .update({
           ...identity,
@@ -81,7 +78,7 @@ export default async function connect(
           updated_at: db.fn.now(),
         });
     } else {
-      await db.table<Identity>("identities").insert({
+      await db.table<Identity>("identity").insert({
         ...identity,
         user_id: user.id,
       });

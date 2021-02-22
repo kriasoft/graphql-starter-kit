@@ -38,4 +38,4 @@ function createNewId(table: string, size: number) {
   };
 }
 
-export const newUserId = createNewId("users", 6);
+export const newUserId = createNewId("user", 6);
