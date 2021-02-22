@@ -65,9 +65,9 @@ always pull and merge updates from the "upstream" repository back into your
 project by running:
 
 ```bash
-$ git fetch seed            # Fetch Node.js Starter Kit (upstream) repository
+$ git fetch seed                # Fetch Node.js Starter Kit (upstream) repository
 $ git checkout main             # Switch to the main branch (or, master branch)
-$ git merge seed/main       # Merge upstream/master into the local branch
+$ git merge seed/main           # Merge upstream/master into the local branch
 ```
 
 In order to update Yarn and other dependencies to the latest versions, run:
