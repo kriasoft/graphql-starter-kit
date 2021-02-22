@@ -16,17 +16,16 @@ export async function resolveRoute(
     for (let i = 0, route; i < routes.length, (route = routes[i]); i++) {
       if (route.path !== ctx.path) continue;
 
+      const { query } = route;
+      let { variables } = route;
+
       // Prepare GraphQL query variables
-      const variables =
-        typeof route.variables === "function"
-          ? route.variables(ctx)
-          : route.variables;
+      variables = typeof variables === "function" ? variables(ctx) : variables;
 
       // Fetch GraphQL query response and load React component in parallel
       const [component, data] = await Promise.all([
-        route.component && route.component().then((x) => x.default),
-        route.query &&
-          fetchQuery(ctx.relay, route.query, variables).toPromise(),
+        route.component?.().then((x) => x.default),
+        query && fetchQuery(ctx.relay, query, variables).toPromise(),
       ]);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

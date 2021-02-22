@@ -79,7 +79,8 @@ async function handleEvent(event: FetchEvent) {
   }
 
   // Inject page metadata such as <title>, <meta name="description" contents="..." />, etc.
-  const res = transform(route, await resPromise);
+  // and serialized API response <script id="data" type="application/json">...</script>
+  const res = transform(await resPromise, route, relay);
   return new Response(res.body, {
     status: route.error?.status || 200,
     headers: res.headers,

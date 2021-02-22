@@ -4,24 +4,24 @@
 
 import * as React from "react";
 import { Update, Action } from "history";
+import { Environment } from "relay-runtime";
 import { RelayEnvironmentProvider } from "react-relay/hooks";
 
 import { ErrorPage } from "./ErrorPage";
 import { AppStyles } from "./AppStyles";
 import { AppToolbar } from "./AppToolbar";
 import { AppContent } from "./AppContent";
-import { createRelay } from "../core/relay";
 import { resolveRoute } from "../core/router";
 import { History, HistoryContext, LocationContext } from "../core/history";
 import type { RouteResponse } from "../core/router";
 
 export type AppProps = {
   history: History;
+  relay: Environment;
 };
 
 export class App extends React.Component<AppProps> {
   state = {
-    relay: createRelay(),
     route: undefined as RouteResponse | undefined,
     location: this.props.history.location,
     error: undefined as Error | undefined,
@@ -57,7 +57,7 @@ export class App extends React.Component<AppProps> {
   renderPath = async (ctx: Update): Promise<void> => {
     resolveRoute({
       path: ctx.location.pathname,
-      relay: this.state.relay,
+      relay: this.props.relay,
     }).then((route) => {
       if (route.error) console.error(route.error);
       this.setState({ route, location: ctx.location, error: route.error });
@@ -66,14 +66,14 @@ export class App extends React.Component<AppProps> {
 
   render(): JSX.Element {
     const { history } = this.props;
-    const { relay, route, location, error } = this.state;
+    const { route, location, error } = this.state;
 
     if (error) {
       return <ErrorPage error={error} />;
     }
 
     return (
-      <RelayEnvironmentProvider environment={relay}>
+      <RelayEnvironmentProvider environment={this.props.relay}>
         <HistoryContext.Provider value={history}>
           <LocationContext.Provider value={location}>
             <AppStyles />

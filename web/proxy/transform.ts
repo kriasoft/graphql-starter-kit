@@ -4,9 +4,14 @@
  * @copyright 2016-present Kriasoft (https://git.io/vMINh)
  */
 
+import type { Environment } from "relay-runtime";
 import type { RouteResponse } from "../core/router";
 
-export function transform(route: RouteResponse, res: Response): Response {
+export function transform(
+  res: Response,
+  route: RouteResponse,
+  relay: Environment,
+): Response {
   return new HTMLRewriter()
     .on("title:first-of-type", {
       // <title>...</title>
@@ -22,6 +27,13 @@ export function transform(route: RouteResponse, res: Response): Response {
         if (route.description) {
           el.setAttribute("content", route.description);
         }
+      },
+    })
+    .on("script#data", {
+      element(el) {
+        el.setInnerContent(
+          JSON.stringify(relay.getStore().getSource().toJSON()),
+        );
       },
     })
     .transform(res);
