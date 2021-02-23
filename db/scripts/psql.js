@@ -4,7 +4,7 @@
  *   yarn db:psql [--env #0]
  *
  * @see https://www.postgresql.org/docs/current/app-psql.html
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 const spawn = require("cross-spawn");

@@ -1,7 +1,7 @@
 /**
  * GraphQL API mutations related to user accounts.
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import { mutationWithClientMutationId } from "graphql-relay";

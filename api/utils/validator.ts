@@ -4,7 +4,7 @@
  * GraphQL mutations while validating and sanitizing user input.
  *
  * @see https://github.com/validatorjs/validator.js
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import isEmail from "validator/lib/isEmail";

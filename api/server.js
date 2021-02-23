@@ -1,7 +1,7 @@
 /**
  * GraphQL API launcher used for local development.
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 require("env");

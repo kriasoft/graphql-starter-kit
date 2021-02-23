@@ -5,7 +5,7 @@
  *   "test.example.com" => ["test", undefined]
  *   "123-test.example.com" => ["test", "123"]
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 export function parseHostname(

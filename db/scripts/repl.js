@@ -4,7 +4,7 @@
  *   yarn db:repl [--env #0]
  *
  * @see https://knexjs.org/#Builder
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 const repl = require("repl");

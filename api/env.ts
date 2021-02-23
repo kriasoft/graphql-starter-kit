@@ -2,7 +2,7 @@
  * Ensures that all of the environment dependencies are met.
  *
  * @see https://github.com/af/envalid
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import { cleanEnv, str, num, bool, url } from "envalid";

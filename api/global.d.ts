@@ -1,7 +1,7 @@
 /**
  * Global type definitions (overrides).
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import type { User } from "db";

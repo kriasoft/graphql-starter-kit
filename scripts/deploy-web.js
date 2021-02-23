@@ -5,7 +5,7 @@
  *
  * @see https://developers.cloudflare.com/workers/
  * @see https://api.cloudflare.com/#worker-script-upload-worker
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 require("env");
@@ -32,7 +32,7 @@ const cf = got.extend({
   prefixUrl: `https://api.cloudflare.com/client/v4/accounts/${env.CLOUDFLARE_ACCOUNT_ID}/`,
   headers: {
     authorization: `Bearer ${env.CLOUDFLARE_API_TOKEN}`,
-    "user-agent": "https://git.io/vMINh",
+    "user-agent": "https://git.io/Jt7GM",
   },
   responseType: "json",
   resolveBodyOnly: true,

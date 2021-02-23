@@ -2,7 +2,7 @@
  * Knex.js CLI configuration.
  *
  * @see https://knexjs.org/#knexfile
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 const fs = require("fs");

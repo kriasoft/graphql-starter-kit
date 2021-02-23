@@ -2,7 +2,7 @@
  * Cloudflare Worker script acting as a reverse proxy.
  *
  * @see https://developers.cloudflare.com/workers/
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";

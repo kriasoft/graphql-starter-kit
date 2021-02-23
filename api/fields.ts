@@ -1,7 +1,7 @@
 /**
  * Helper functions for creating GraphQL query fields
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import moment from "moment-timezone";

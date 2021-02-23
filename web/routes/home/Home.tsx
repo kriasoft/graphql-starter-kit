@@ -1,9 +1,8 @@
 /**
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import * as React from "react";
-import { css } from "@emotion/react";
 import { Typography, Link } from "@material-ui/core";
 
 import type { homeQueryResponse as Props } from "./__generated__/homeQuery.graphql";

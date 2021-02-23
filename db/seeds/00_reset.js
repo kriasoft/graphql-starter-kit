@@ -2,7 +2,7 @@
  * Removes the existing db records before seeding.
  *
  * @typedef {import("knex")} Knex
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 module.exports.seed = async (/** @type {Knex} */ db) => {

@@ -2,7 +2,7 @@
  * Prettier configuration
  *
  * @see https://prettier.io/docs/en/configuration
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  *
  * @type {import("prettier").RequiredOptions}
  */

@@ -5,7 +5,7 @@
  *
  * @see https://cloud.google.com/functions
  * @see https://cloud.google.com/sdk/gcloud/reference/functions/deploy
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 require("env");

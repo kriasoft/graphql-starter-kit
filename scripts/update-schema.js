@@ -1,7 +1,7 @@
 /**
  * Generates `schema.graphql` file from the actual GraphQL schema.
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 require("env");

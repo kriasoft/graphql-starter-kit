@@ -1,7 +1,7 @@
 /**
  * Injects HTML page metadata (title, description, etc.)
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import type { Environment } from "relay-runtime";

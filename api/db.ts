@@ -2,7 +2,7 @@
  * Knex.js database client and query builder for PostgreSQL.
  *
  * @see https://knexjs.org/
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import fs from "fs";

@@ -1,7 +1,7 @@
 /**
  * The top-level GraphQL API query fields related to user accounts.
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import { GraphQLNonNull, GraphQLString, GraphQLFieldConfig } from "graphql";

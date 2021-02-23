@@ -2,7 +2,7 @@
  * ESLint configuration
  *
  * @see https://eslint.org/docs/user-guide/configuring
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  *
  * @type {import("eslint").Linter.Config}
  */
