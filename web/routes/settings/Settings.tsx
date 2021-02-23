@@ -5,9 +5,9 @@
 import * as React from "react";
 import { css } from "@emotion/react";
 import { graphql, useMutation } from "react-relay/hooks";
+import { Button, TextField, Typography } from "@material-ui/core";
 
 import { useErrors } from "../../hooks";
-import { TextField } from "../../common";
 import type { settingsQueryResponse as Props } from "./__generated__/settingsQuery.graphql";
 import type { SettingsUpdateMutation } from "./__generated__/SettingsUpdateMutation.graphql";
 
@@ -40,6 +40,11 @@ export default function Settings(props: Props): JSX.Element {
     setInput((x) => ({ ...x, [name]: value }));
   }
 
+  const fields: { key: keyof typeof input; label: string }[] = [
+    { key: "name", label: "Name" },
+    { key: "email", label: "Email" },
+  ];
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!me) return;
@@ -53,7 +58,12 @@ export default function Settings(props: Props): JSX.Element {
 
   return (
     <React.Fragment>
-      <h1>Account Settings</h1>
+      <Typography
+        sx={{ marginBottom: (theme) => theme.spacing(2) }}
+        variant="h2"
+      >
+        Account Settings
+      </Typography>
       <form
         onSubmit={handleSubmit}
         css={css`
@@ -62,25 +72,23 @@ export default function Settings(props: Props): JSX.Element {
           align-items: flex-start;
         `}
       >
-        <TextField
-          name="name"
-          type="text"
-          label="Name"
-          value={input.name}
-          error={error.name}
-          onChange={handleChange}
-          fullWidth
-        />
-        <TextField
-          name="email"
-          type="email"
-          label="Email"
-          value={input.email}
-          error={error.email}
-          onChange={handleChange}
-          fullWidth
-        />
-        <button type="submit">Save</button>
+        {fields.map((x) => (
+          <TextField
+            sx={{ marginBottom: (theme) => theme.spacing(2) }}
+            key={x.key}
+            name={x.key}
+            type={x.key === "email" ? "email" : "text"}
+            label={x.label}
+            value={input[x.key]}
+            placeholder={error[x.key]}
+            onChange={handleChange}
+            fullWidth
+          />
+        ))}
+
+        <Button variant="contained" type="submit">
+          Save
+        </Button>
       </form>
     </React.Fragment>
   );

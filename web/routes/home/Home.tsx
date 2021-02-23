@@ -4,6 +4,8 @@
 
 import * as React from "react";
 import { css } from "@emotion/react";
+import { Typography, Link } from "@material-ui/core";
+
 import type { homeQueryResponse as Props } from "./__generated__/homeQuery.graphql";
 import { useNavigate, useAuth } from "../../hooks";
 
@@ -19,36 +21,31 @@ export default function Home(props: Props): JSX.Element {
 
   return (
     <React.Fragment>
-      <h1
-        css={css`
-          text-align: center;
-          margin-top: 35vh;
-        `}
+      <Typography
+        sx={{ marginTop: "32vh" }}
+        variant="h1"
+        align="center"
         children="Welcome to React.js app!"
+        gutterBottom
       />
-      <p
-        css={css`
-          text-align: center;
-          font-size: 1.125rem;
-        `}
-      >
+      <Typography sx={{ fontSize: "1.125rem" }} align="center">
         {me ? (
           <React.Fragment>
             Check out your{" "}
-            <a href="/settings" onClick={navigate}>
+            <Link href="/settings" onClick={navigate}>
               account settings
-            </a>
+            </Link>
             .
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <a href="/auth/google" onClick={signIn}>
+            <Link href="/auth/google" onClick={signIn}>
               Connect
-            </a>{" "}
+            </Link>{" "}
             via your Google account.
           </React.Fragment>
         )}
-      </p>
+      </Typography>
     </React.Fragment>
   );
 }

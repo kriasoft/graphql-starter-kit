@@ -5,8 +5,8 @@
   "license": "MIT",
   "author": "Kriasoft (https://github.com/kriasoft)",
   "dependencies": {
-    "@babel/core": "^7.12.17",
-    "@babel/register": "^7.12.13",
+    "@babel/core": "^7.13.1",
+    "@babel/register": "^7.13.0",
     "@google-cloud/storage": "^5.8.0",
     "api": "workspace:*",
     "archiver": "^5.2.0",

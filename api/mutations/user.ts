@@ -38,7 +38,9 @@ export const updateUser = mutationWithClientMutationId({
   outputFields: {
     user: { type: UserType },
     errors: {
-      type: new GraphQLList(new GraphQLNonNull(new GraphQLList(GraphQLString))),
+      type: new GraphQLList(
+        new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLString))),
+      ),
     },
   },
 

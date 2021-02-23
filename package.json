@@ -22,21 +22,21 @@
     "postinstall": "husky install"
   },
   "dependencies": {
-    "@babel/cli": "^7.12.17",
-    "@babel/core": "^7.12.17",
-    "@babel/node": "^7.12.17",
-    "@babel/plugin-proposal-class-properties": "^7.12.13",
-    "@babel/plugin-proposal-object-rest-spread": "^7.12.13",
-    "@babel/plugin-transform-runtime": "^7.12.17",
-    "@babel/preset-env": "^7.12.17",
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.1",
+    "@babel/node": "^7.13.0",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.13.0",
+    "@babel/plugin-transform-runtime": "^7.13.2",
+    "@babel/preset-env": "^7.13.0",
     "@babel/preset-react": "^7.12.13",
-    "@babel/preset-typescript": "^7.12.17",
-    "@babel/register": "^7.12.13",
+    "@babel/preset-typescript": "^7.13.0",
+    "@babel/register": "^7.13.0",
     "@emotion/babel-plugin": "^11.2.0",
     "@emotion/eslint-plugin": "^11.2.0",
     "@emotion/react": "^11.1.5",
-    "@typescript-eslint/eslint-plugin": "^4.15.1",
-    "@typescript-eslint/parser": "^4.15.1",
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
     "babel-jest": "^26.6.3",
     "cross-spawn": "^7.0.3",
     "dotenv": "^8.2.0",
@@ -57,6 +57,6 @@
     "@types/node": "^14.14.31",
     "@types/prettier": "^2.2.1",
     "@yarnpkg/pnpify": "2.4.0",
-    "husky": "^5.1.0"
+    "husky": "^5.1.1"
   }
 }

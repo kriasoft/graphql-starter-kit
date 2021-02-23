@@ -25,7 +25,7 @@ export type SettingsUpdateMutationResponse = {
             readonly name: string | null;
             readonly email: string | null;
         } | null;
-        readonly errors: ReadonlyArray<ReadonlyArray<string | null>> | null;
+        readonly errors: ReadonlyArray<ReadonlyArray<string>> | null;
     } | null;
 };
 export type SettingsUpdateMutation = {
