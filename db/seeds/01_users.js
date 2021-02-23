@@ -1,7 +1,4 @@
 /**
- * Seeds the database with test / reference user accounts.
- *
- * @typedef {import("knex")} Knex
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
@@ -13,7 +10,7 @@ const { name, date, image, internet, random } = require("faker");
 // Short ID generator
 // https://zelark.github.io/nano-id-cc/
 const alphabet = "0123456789abcdefghijklmnopqrstuvwxyz";
-const newUserId = nanoid.customAlphabet(alphabet, 7);
+const newUserId = nanoid.customAlphabet(alphabet, 6);
 
 const jsonFile = `${__filename.substring(0, __filename.lastIndexOf("."))}.json`;
 
@@ -21,7 +18,12 @@ function stringify(obj) {
   return prettier.format(JSON.stringify(obj), { parser: "json" });
 }
 
-module.exports.seed = async (/** @type {Knex} */ db) => {
+/**
+ * Seeds the database with test / reference user accounts.
+ *
+ * @param {import("knex")} db
+ */
+module.exports.seed = async (db) => {
   let users = fs.existsSync(jsonFile) ? require(jsonFile) : null;
 
   // Generates fake user accounts
@@ -62,12 +64,6 @@ module.exports.seed = async (/** @type {Knex} */ db) => {
 
     fs.writeFileSync(jsonFile, stringify(users), "utf8");
   }
-
-  users.forEach((x) => {
-    x.id = x.id.substring(0, 6);
-  });
-
-  fs.writeFileSync(jsonFile, stringify(users), "utf8");
 
   await db.table("user").insert(users);
 };

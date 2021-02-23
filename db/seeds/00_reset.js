@@ -1,10 +1,13 @@
 /**
- * Removes the existing db records before seeding.
- *
- * @typedef {import("knex")} Knex
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-module.exports.seed = async (/** @type {Knex} */ db) => {
+/**
+ * Remove the existing db records before seeding.
+ *
+ * @param {import("knex")} db
+ */
+module.exports.seed = async (db) => {
+  await db.table("identity").delete();
   await db.table("user").delete();
 };
