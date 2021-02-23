@@ -33,7 +33,7 @@
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
     "faker": "^5.4.0",
-    "knex": "^0.21.17",
+    "knex": "^0.21.18",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "nanoid": "^3.1.20",

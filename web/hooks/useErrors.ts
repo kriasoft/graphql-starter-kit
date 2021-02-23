@@ -32,7 +32,7 @@ const empty: Errors<Input> = {};
 export function useErrors<T extends Input>(): [
   Errors<T>,
   (
-    inputErrors: string[][] | null | undefined,
+    inputErrors: readonly (readonly string[])[] | null | undefined,
     mutationErrors: PayloadError[] | null | undefined,
   ) => void,
 ] {

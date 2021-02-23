@@ -6,11 +6,16 @@ import * as React from "react";
 import { Update, Action } from "history";
 import { Environment } from "relay-runtime";
 import { RelayEnvironmentProvider } from "react-relay/hooks";
+import {
+  CssBaseline,
+  Container,
+  Toolbar,
+  ThemeProvider,
+} from "@material-ui/core";
 
+import theme from "../theme";
 import { ErrorPage } from "./ErrorPage";
-import { AppStyles } from "./AppStyles";
 import { AppToolbar } from "./AppToolbar";
-import { AppContent } from "./AppContent";
 import { resolveRoute } from "../core/router";
 import { History, HistoryContext, LocationContext } from "../core/history";
 import type { RouteResponse } from "../core/router";
@@ -73,19 +78,28 @@ export class App extends React.Component<AppProps> {
     }
 
     return (
-      <RelayEnvironmentProvider environment={this.props.relay}>
-        <HistoryContext.Provider value={history}>
-          <LocationContext.Provider value={location}>
-            <AppStyles />
-            <AppToolbar />
-            <AppContent>
-              {route?.component
-                ? React.createElement(route.component, route.props)
-                : null}
-            </AppContent>
-          </LocationContext.Provider>
-        </HistoryContext.Provider>
-      </RelayEnvironmentProvider>
+      <ThemeProvider theme={theme}>
+        <RelayEnvironmentProvider environment={this.props.relay}>
+          <HistoryContext.Provider value={history}>
+            <LocationContext.Provider value={location}>
+              <CssBaseline />
+              <AppToolbar />
+              <Toolbar />
+              <Container
+                maxWidth="md"
+                sx={{
+                  marginTop: (x) => x.spacing(4),
+                  marginBottom: (x) => x.spacing(4),
+                }}
+              >
+                {route?.component
+                  ? React.createElement(route.component, route.props)
+                  : null}
+              </Container>
+            </LocationContext.Provider>
+          </HistoryContext.Provider>
+        </RelayEnvironmentProvider>
+      </ThemeProvider>
     );
   }
 }

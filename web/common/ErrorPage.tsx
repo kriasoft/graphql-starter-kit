@@ -3,9 +3,7 @@
  */
 
 import * as React from "react";
-import { css } from "@emotion/react";
-
-import { AppStyles } from "./AppStyles";
+import { CssBaseline, Container, Typography } from "@material-ui/core";
 
 export type ErrorPageProps = {
   error: Error;
@@ -16,26 +14,25 @@ export function ErrorPage(props: ErrorPageProps): JSX.Element {
 
   return (
     <React.Fragment>
-      <AppStyles />
-      <p
-        css={css`
-          max-width: 600px;
-          padding: 16px;
-          margin: 43vh auto 0;
-          text-align: center;
-          font-size: 2rem;
-          font-weight: 300;
-        `}
-      >
-        <strong
-          css={css`
-            font-weight: 500;
-          `}
+      <CssBaseline />
+      <Container maxWidth="sm">
+        <Typography
+          variant="h1"
+          align="center"
+          sx={{
+            padding: (theme) => theme.spacing(2),
+            marginTop: "43vh",
+            fontSize: "2em",
+            fontWeight: 300,
+            "& strong": {
+              fontWeight: 400,
+            },
+          }}
         >
-          Error {error.status || 500}
-        </strong>
-        : {error.message}
-      </p>
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          <strong>Error {(error as any).status || 500}</strong>: {error.message}
+        </Typography>
+      </Container>
     </React.Fragment>
   );
 }
