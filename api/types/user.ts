@@ -1,7 +1,7 @@
 /**
  * The custom GraphQL type that represents a user account.
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import { globalIdField } from "graphql-relay";

@@ -2,7 +2,7 @@
  * JWT-based session middleware.
  *
  * @see https://firebase.google.com/docs/auth/admin/manage-cookies
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import cookie from "cookie";

@@ -2,7 +2,7 @@
  * Webpack configuration
  *
  * @see https://webpack.js.org/configuration/
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 const env = require("env");

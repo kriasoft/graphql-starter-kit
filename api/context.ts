@@ -1,7 +1,7 @@
 /**
  * GraphQL API context variables.
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import DataLoader from "dataloader";

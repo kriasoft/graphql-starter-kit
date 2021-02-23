@@ -4,7 +4,7 @@
  *    const id = await newUserId(); // => "ys59bg"
  *
  * @see https://zelark.github.io/nano-id-cc/
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import { customAlphabet } from "nanoid/async";

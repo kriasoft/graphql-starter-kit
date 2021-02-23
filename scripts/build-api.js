@@ -4,7 +4,7 @@
  * @see https://www.archiverjs.com/
  * @see https://babeljs.io/docs/en/babel-core
  * @see https://github.com/sindresorhus/globby
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 const fs = require("fs");

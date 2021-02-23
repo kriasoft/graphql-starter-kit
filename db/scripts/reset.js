@@ -3,7 +3,7 @@
  *
  *   yarn db:reset [--env #0]
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 const knex = require("knex");

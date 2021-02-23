@@ -2,7 +2,7 @@
  * Relay configuration
  *
  * @see https://relay.dev/docs/installation-and-setup
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 module.exports = {

@@ -1,7 +1,7 @@
 /**
  * The initial database schema.
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  *
  * @see https://knexjs.org/#Schema
  * @typedef {import("knex")} Knex

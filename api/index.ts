@@ -1,7 +1,7 @@
 /**
  * GraphQL API Starter Kit for Node.js
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import { Router, Request } from "express";

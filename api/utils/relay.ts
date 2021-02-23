@@ -1,7 +1,7 @@
 /**
  * Relay.js global ID helper function(s).
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import { fromGlobalId as parse } from "graphql-relay";

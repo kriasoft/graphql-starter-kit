@@ -1,7 +1,7 @@
 /**
  * The Node interface for compatibility with Relay.js.
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 /* eslint-disable @typescript-eslint/no-var-requires */

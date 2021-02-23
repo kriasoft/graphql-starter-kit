@@ -2,7 +2,7 @@
  * Babel configuration
  *
  * @see https://babeljs.io/docs/en/options
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  *
  * @param {import("@babel/core").ConfigAPI} api
  * @returns {import("@babel/core").TransformOptions}

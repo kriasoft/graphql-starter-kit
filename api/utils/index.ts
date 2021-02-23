@@ -1,7 +1,7 @@
 /**
  * Utility functions.
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 export * from "./id";

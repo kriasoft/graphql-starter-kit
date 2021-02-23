@@ -1,7 +1,7 @@
 /**
  * Helper functions for resolving GraphQL type names.
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 export function assignType<T extends Record<string, unknown>>(type: string) {

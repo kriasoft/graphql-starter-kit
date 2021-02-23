@@ -3,7 +3,7 @@
 Migration and seed files plus some administration scripts that help to design
 a PostgreSQL database.
 
-This project was bootstrapped with [Node.js API Starter Kit](https://github.com/kriasoft/nodejs-api-starter).
+This project was bootstrapped with [GraphQL API Starter Kit](https://github.com/kriasoft/graphql-starter).
 Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for
 assistance.
 
@@ -104,4 +104,4 @@ You can find backup files inside of the [`/backups`](./backups) folder.
 ## License
 
 Copyright © 2016-present Kriasoft. This source code is licensed under the MIT license found in the
-[LICENSE](https://github.com/kriasoft/nodejs-api-starter/blob/main/LICENSE) file.
+[LICENSE](https://github.com/kriasoft/graphql-starter/blob/main/LICENSE) file.

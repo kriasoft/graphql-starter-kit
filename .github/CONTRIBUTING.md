@@ -1,6 +1,6 @@
-# Contributing to Node.js API Starter Kit
+# Contributing to GraphQL API Starter Kit
 
-♥ [Node.js API Starter Kit](https://github.com/kriasoft/nodejs-api-starter) and
+♥ [GraphQL API Starter Kit](https://github.com/kriasoft/graphql-starter) and
 want to get involved? Thanks! There are plenty of ways you can help!
 
 Please take a moment to review this document in order to make the contribution
@@ -13,7 +13,7 @@ patches and features.
 
 ## Using the issue tracker
 
-The [issue tracker](https://github.com/kriasoft/nodejs-api-starter/issues) is
+The [issue tracker](https://github.com/kriasoft/graphql-starter/issues) is
 the preferred channel for [bug reports](#bugs), [features requests](#features)
 and [submitting pull requests](#pull-requests), but please respect the following
 restrictions:
@@ -101,11 +101,11 @@ included in the project:
 
    ```bash
    # Clone your fork of the repo into the current directory
-   git clone https://github.com/<your-username>/nodejs-api-starter.git
+   git clone https://github.com/<your-username>/graphql-starter.git
    # Navigate to the newly cloned directory
-   cd nodejs-api-starter
+   cd graphql-starter
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream https://github.com/kriasoft/nodejs-api-starter.git
+   git remote add upstream https://github.com/kriasoft/graphql-starter.git
    ```
 
 2. If you cloned a while ago, get the latest changes from upstream:

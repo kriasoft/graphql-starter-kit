@@ -5,7 +5,7 @@
  *
  *   $ yarn setup
  *
- * @copyright 2016-present Kriasoft (https://git.io/vMINh)
+ * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 const fs = require("fs");

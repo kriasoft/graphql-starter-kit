@@ -1,12 +1,12 @@
 <h1 align="center">
   <img src="https://s.tarkus.me/graphql-logo.png" width="128" height="128" alt="GraphQL" /><br>
-  Node.js API Starter Kit
+  GraphQL API and Relay Starter Kit
 </h1>
 
 <p align="center">
   <a href="https://discord.com/invite/bSsv7XM"><img src="https://img.shields.io/badge/chat-discord-kriasoft.svg?logo=discord&style=flat" height="20"></a>
   <a href="https://patreon.com/koistya"><img src="https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&style=flat" height="20"></a>
-  <a href="https://github.com/kriasoft/nodejs-api-starter/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/nodejs-api-starter.svg?style=social&label=Star&maxAge=3600" height="20"></a>
+  <a href="https://github.com/kriasoft/graphql-starter/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/graphql-starter.svg?style=social&label=Star&maxAge=3600" height="20"></a>
   <a href="https://twitter.com/koistya"><img src="https://img.shields.io/twitter/follow/koistya.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
 </p>
 
@@ -16,7 +16,7 @@ infrastructure, using code-first **GraphQL API** and **PostgreSQL** backend.
 
 ---
 
-This project was bootstrapped with [Node.js API Starter Kit](https://github.com/kriasoft/nodejs-api-starter).
+This project was bootstrapped with [GraphQL API Starter Kit](https://github.com/kriasoft/graphql-starter).
 Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for assistance.
 
 ## Directory Structure
@@ -42,11 +42,11 @@ Just clone the repo and run `yarn setup` followed by `yarn start`:
 
 ```bash
 $ git clone --origin=seed --branch=main --single-branch \
-    https://github.com/kriasoft/nodejs-api-starter.git example
+    https://github.com/kriasoft/graphql-starter.git example
 $ cd ./example                  # Change current directory to the newly created one
 $ yarn install                  # Install project dependencies
 $ yarn setup                    # Configure environment variables
-$ yarn start                    # Launch Node.js API and web application
+$ yarn start                    # Launch GraphQL API and web application
 ```
 
 The API server must become available at [http://localhost:8080/graphql](http://localhost:8080/graphql).<br>
@@ -82,17 +82,17 @@ $ yarn pnpify --sdk vscode      # Update VSCode settings
 ## How to Contribute
 
 Anyone and everyone is welcome to [contribute](.github/CONTRIBUTING.md). Start
-by checking out the list of [open issues](https://github.com/kriasoft/nodejs-api-starter/issues)
-marked [help wanted](https://github.com/kriasoft/nodejs-api-starter/issues?q=label:"help+wanted").
+by checking out the list of [open issues](https://github.com/kriasoft/graphql-starter/issues)
+marked [help wanted](https://github.com/kriasoft/graphql-starter/issues?q=label:"help+wanted").
 However, if you decide to get involved, please take a moment to review the
 [guidelines](.github/CONTRIBUTING.md).
 
 ## License
 
 Copyright © 2016-present Kriasoft. This source code is licensed under the MIT license found in the
-[LICENSE](https://github.com/kriasoft/nodejs-api-starter/blob/main/LICENSE) file.
+[LICENSE](https://github.com/kriasoft/graphql-starter/blob/main/LICENSE) file.
 
 ---
 
 <sup>Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya), [blog](https://medium.com/@koistya))
-and [contributors](https://github.com/kriasoft/nodejs-api-starter/graphs/contributors).</sup>
+and [contributors](https://github.com/kriasoft/graphql-starter/graphs/contributors).</sup>
