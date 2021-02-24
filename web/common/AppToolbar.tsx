@@ -19,10 +19,12 @@ import { ArrowDropDown, NotificationsNone } from "@material-ui/icons";
 import { useAuth, useCurrentUser, useNavigate } from "../hooks";
 import { UserMenu, NotificationsMenu } from "../menu";
 
-export type AppToolbarProps = AppBarProps;
+type AppToolbarProps = AppBarProps & {
+  onChangeTheme: () => void;
+};
 
 export function AppToolbar(props: AppToolbarProps): JSX.Element {
-  const { ...other } = props;
+  const { onChangeTheme, ...other } = props;
   const menuAnchorRef = React.createRef<HTMLButtonElement>();
 
   const [anchorEl, setAnchorEl] = React.useState({
@@ -76,7 +78,10 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
               height: 40,
               borderRadius: 20,
               fontWeight: 600,
-              backgroundColor: (x) => x.palette.grey[300],
+              backgroundColor: (x) =>
+                x.palette.mode === "light"
+                  ? x.palette.grey[300]
+                  : x.palette.grey[700],
               ".MuiChip-avatar": { width: 32, height: 32 },
             }}
             component="a"
@@ -92,7 +97,10 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
           <IconButton
             sx={{
               marginLeft: (x) => x.spacing(1),
-              backgroundColor: (x) => x.palette.grey[300],
+              backgroundColor: (x) =>
+                x.palette.mode === "light"
+                  ? x.palette.grey[300]
+                  : x.palette.grey[700],
               width: 40,
               height: 40,
             }}
@@ -105,7 +113,10 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
             ref={menuAnchorRef}
             sx={{
               marginLeft: (x) => x.spacing(1),
-              backgroundColor: (x) => x.palette.grey[300],
+              backgroundColor: (x) =>
+                x.palette.mode === "light"
+                  ? x.palette.grey[300]
+                  : x.palette.grey[700],
               width: 40,
               height: 40,
             }}
@@ -134,6 +145,7 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
         anchorEl={anchorEl.userMenu}
         onClose={closeUserMenu}
         PaperProps={{ sx: { marginTop: "8px" } }}
+        onChangeTheme={onChangeTheme}
       />
     </AppBar>
   );

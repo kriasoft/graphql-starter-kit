@@ -7,10 +7,11 @@ import { Update, Action } from "history";
 import { Environment } from "relay-runtime";
 import { RelayEnvironmentProvider } from "react-relay/hooks";
 import {
-  CssBaseline,
   Container,
-  Toolbar,
+  CssBaseline,
+  PaletteMode,
   ThemeProvider,
+  Toolbar,
 } from "@material-ui/core";
 
 import theme from "../theme";
@@ -20,7 +21,7 @@ import { resolveRoute } from "../core/router";
 import { History, HistoryContext, LocationContext } from "../core/history";
 import type { RouteResponse } from "../core/router";
 
-export type AppProps = {
+type AppProps = {
   history: History;
   relay: Environment;
 };
@@ -30,6 +31,9 @@ export class App extends React.Component<AppProps> {
     route: undefined as RouteResponse | undefined,
     location: this.props.history.location,
     error: undefined as Error | undefined,
+    theme: (window?.localStorage?.getItem("theme") === "dark"
+      ? "dark"
+      : "light") as PaletteMode,
   };
 
   static getDerivedStateFromError(error: Error): { error: Error } {
@@ -69,6 +73,14 @@ export class App extends React.Component<AppProps> {
     });
   };
 
+  handleChangeTheme = (): void => {
+    this.setState((x: { theme: PaletteMode }) => {
+      const theme = x.theme === "light" ? "dark" : "light";
+      window.localStorage?.setItem("theme", theme);
+      return { ...x, theme };
+    });
+  };
+
   render(): JSX.Element {
     const { history } = this.props;
     const { route, location, error } = this.state;
@@ -78,12 +90,12 @@ export class App extends React.Component<AppProps> {
     }
 
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme[this.state.theme]}>
         <RelayEnvironmentProvider environment={this.props.relay}>
           <HistoryContext.Provider value={history}>
             <LocationContext.Provider value={location}>
               <CssBaseline />
-              <AppToolbar />
+              <AppToolbar onChangeTheme={this.handleChangeTheme} />
               <Toolbar />
               <Container
                 maxWidth="md"
