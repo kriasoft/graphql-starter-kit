@@ -5,7 +5,7 @@
 import * as React from "react";
 import { Menu, MenuProps, MenuItem, ListItemText } from "@material-ui/core";
 
-export type NotificationsMenuProps = Omit<
+type NotificationsMenuProps = Omit<
   MenuProps,
   | "id"
   | "role"
@@ -16,7 +16,7 @@ export type NotificationsMenuProps = Omit<
 >;
 
 export function NotificationsMenu(props: NotificationsMenuProps): JSX.Element {
-  const { ...other } = props;
+  const { PaperProps, ...other } = props;
 
   return (
     <Menu
@@ -26,11 +26,7 @@ export function NotificationsMenu(props: NotificationsMenuProps): JSX.Element {
       getContentAnchorEl={null}
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       transformOrigin={{ vertical: "top", horizontal: "right" }}
-      PaperProps={{
-        sx: {
-          maxWidth: "500px",
-        },
-      }}
+      PaperProps={{ ...PaperProps, sx: { ...PaperProps?.sx, width: 320 } }}
       {...other}
     >
       <MenuItem>
