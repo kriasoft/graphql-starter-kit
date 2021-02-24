@@ -3,7 +3,6 @@
  */
 
 import * as React from "react";
-import { css } from "@emotion/react";
 import {
   AppBar,
   AppBarProps,
@@ -13,27 +12,42 @@ import {
   Link,
   Toolbar,
   Typography,
+  IconButton,
 } from "@material-ui/core";
-import { ArrowDropDown } from "@material-ui/icons";
+import { ArrowDropDown, NotificationsNone } from "@material-ui/icons";
 
 import { useAuth, useCurrentUser, useNavigate } from "../hooks";
-import { UserMenu } from "../menu";
+import { UserMenu, NotificationsMenu } from "../menu";
 
 export type AppToolbarProps = AppBarProps;
 
 export function AppToolbar(props: AppToolbarProps): JSX.Element {
   const { ...other } = props;
-  const [userMenuEl, setUserMenuEl] = React.useState<HTMLElement | undefined>();
+  const menuAnchorRef = React.createRef<HTMLButtonElement>();
+
+  const [anchorEl, setAnchorEl] = React.useState({
+    userMenu: null as HTMLElement | null,
+    notifications: null as HTMLElement | null,
+  });
+
   const navigate = useNavigate();
   const user = useCurrentUser();
   const auth = useAuth();
 
-  function openUserMenu(event: React.MouseEvent<HTMLElement>) {
-    setUserMenuEl(event.currentTarget);
+  function openNotificationsMenu() {
+    setAnchorEl((x) => ({ ...x, notifications: menuAnchorRef.current }));
+  }
+
+  function closeNotificationsMenu() {
+    setAnchorEl((x) => ({ ...x, notifications: null }));
+  }
+
+  function openUserMenu() {
+    setAnchorEl((x) => ({ ...x, userMenu: menuAnchorRef.current }));
   }
 
   function closeUserMenu() {
-    setUserMenuEl(undefined);
+    setAnchorEl((x) => ({ ...x, userMenu: null }));
   }
 
   function signIn(event: React.MouseEvent): void {
@@ -44,24 +58,27 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
   return (
     <AppBar color="default" {...other}>
       <Toolbar>
-        <Typography
-          variant="h1"
-          css={css`
-            font-size: 1.5rem;
-            font-weight: 500;
-          `}
-        >
+        {/* App Logo */}
+
+        <Typography variant="h1" sx={{ fontSize: "1.5rem", fontWeight: 500 }}>
           <Link color="inherit" underline="none" href="/" onClick={navigate}>
             App Name
           </Link>
         </Typography>
-        <span
-          css={css`
-            flex-grow: 1;
-          `}
-        />
+
+        <span style={{ flexGrow: 1 }} />
+
+        {/* Account related controls (icon buttons) */}
+
         {user && (
           <Chip
+            sx={{
+              height: 40,
+              borderRadius: 20,
+              fontWeight: 600,
+              backgroundColor: (x) => x.palette.grey[300],
+              ".MuiChip-avatar": { width: 32, height: 32 },
+            }}
             component="a"
             avatar={
               <Avatar alt={user.name || ""} src={user.picture || undefined} />
@@ -72,15 +89,28 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
           />
         )}
         {user && (
-          <Chip
+          <IconButton
             sx={{
               marginLeft: (x) => x.spacing(1),
-              "& .MuiChip-label": {
-                paddingRight: 0,
-              },
+              backgroundColor: (x) => x.palette.grey[300],
+              width: 40,
+              height: 40,
             }}
-            onDelete={openUserMenu}
-            deleteIcon={<ArrowDropDown />}
+            children={<NotificationsNone />}
+            onClick={openNotificationsMenu}
+          />
+        )}
+        {user && (
+          <IconButton
+            ref={menuAnchorRef}
+            sx={{
+              marginLeft: (x) => x.spacing(1),
+              backgroundColor: (x) => x.palette.grey[300],
+              width: 40,
+              height: 40,
+            }}
+            children={<ArrowDropDown />}
+            onClick={openUserMenu}
           />
         )}
         {!user && (
@@ -92,15 +122,23 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
           />
         )}
       </Toolbar>
+
+      {/* Pop-up menus */}
+
+      <NotificationsMenu
+        anchorEl={anchorEl.notifications}
+        onClose={closeNotificationsMenu}
+        PaperProps={{ sx: { marginTop: "8px" } }}
+      />
       <UserMenu
-        anchorEl={userMenuEl}
+        anchorEl={anchorEl.userMenu}
         onClose={closeUserMenu}
-        PaperProps={{ sx: { marginTop: "21px" } }}
+        PaperProps={{ sx: { marginTop: "8px" } }}
       />
     </AppBar>
   );
 }
 
-function getFirstName(name: string): string {
-  return name && name.split(" ")[0];
+function getFirstName(displayName: string): string {
+  return displayName && displayName.split(" ")[0];
 }
