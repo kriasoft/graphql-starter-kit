@@ -3,27 +3,29 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type settingsQueryVariables = {};
-export type settingsQueryResponse = {
+export type accountSettingsQueryVariables = {};
+export type accountSettingsQueryResponse = {
     readonly me: {
         readonly id: string;
         readonly name: string | null;
         readonly email: string | null;
+        readonly username: string;
     } | null;
 };
-export type settingsQuery = {
-    readonly response: settingsQueryResponse;
-    readonly variables: settingsQueryVariables;
+export type accountSettingsQuery = {
+    readonly response: accountSettingsQueryResponse;
+    readonly variables: accountSettingsQueryVariables;
 };
 
 
 
 /*
-query settingsQuery {
+query accountSettingsQuery {
   me {
     id
     name
     email
+    username
   }
 }
 */
@@ -58,6 +60,13 @@ var v0 = [
         "kind": "ScalarField",
         "name": "email",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "username",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -68,7 +77,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "settingsQuery",
+    "name": "accountSettingsQuery",
     "selections": (v0/*: any*/),
     "type": "Root",
     "abstractKey": null
@@ -77,18 +86,18 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "settingsQuery",
+    "name": "accountSettingsQuery",
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "e9d9abb02ee9b6cf2b20143fb5020629",
+    "cacheID": "dd2f665e96cc67a5257c4461b4a11764",
     "id": null,
     "metadata": {},
-    "name": "settingsQuery",
+    "name": "accountSettingsQuery",
     "operationKind": "query",
-    "text": "query settingsQuery {\n  me {\n    id\n    name\n    email\n  }\n}\n"
+    "text": "query accountSettingsQuery {\n  me {\n    id\n    name\n    email\n    username\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '399e16b7d691d7da85ca0451473fe2e6';
+(node as any).hash = '8d47cf8eaa4d0278fb78f335f1f5a9e9';
 export default node;

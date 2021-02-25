@@ -89,7 +89,7 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
               <Avatar alt={user.name || ""} src={user.picture || undefined} />
             }
             label={getFirstName(user.name || "")}
-            href="/"
+            href={`/@${user.username}`}
             onClick={navigate}
           />
         )}

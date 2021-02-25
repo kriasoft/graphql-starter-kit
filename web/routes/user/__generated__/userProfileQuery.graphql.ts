@@ -3,31 +3,35 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type useCurrentUserQueryVariables = {};
-export type useCurrentUserQueryResponse = {
-    readonly me: {
+export type userProfileQueryVariables = {
+    username: string;
+};
+export type userProfileQueryResponse = {
+    readonly user: {
         readonly id: string;
         readonly name: string | null;
         readonly email: string | null;
-        readonly picture: string | null;
         readonly username: string;
+        readonly picture: string | null;
     } | null;
 };
-export type useCurrentUserQuery = {
-    readonly response: useCurrentUserQueryResponse;
-    readonly variables: useCurrentUserQueryVariables;
+export type userProfileQuery = {
+    readonly response: userProfileQueryResponse;
+    readonly variables: userProfileQueryVariables;
 };
 
 
 
 /*
-query useCurrentUserQuery {
-  me {
+query userProfileQuery(
+  $username: String!
+) {
+  user(username: $username) {
     id
     name
     email
-    picture
     username
+    picture
   }
 }
 */
@@ -35,11 +39,24 @@ query useCurrentUserQuery {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "username"
+  }
+],
+v1 = [
+  {
     "alias": null,
-    "args": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "username",
+        "variableName": "username"
+      }
+    ],
     "concreteType": "User",
     "kind": "LinkedField",
-    "name": "me",
+    "name": "user",
     "plural": false,
     "selections": [
       {
@@ -67,14 +84,14 @@ var v0 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "picture",
+        "name": "username",
         "storageKey": null
       },
       {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "username",
+        "name": "picture",
         "storageKey": null
       }
     ],
@@ -83,30 +100,30 @@ var v0 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "useCurrentUserQuery",
-    "selections": (v0/*: any*/),
+    "name": "userProfileQuery",
+    "selections": (v1/*: any*/),
     "type": "Root",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "useCurrentUserQuery",
-    "selections": (v0/*: any*/)
+    "name": "userProfileQuery",
+    "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "1758680a4ffb3bd7d98cdaa706a84f48",
+    "cacheID": "799022dd46e8090e5dd52a5aba23ce35",
     "id": null,
     "metadata": {},
-    "name": "useCurrentUserQuery",
+    "name": "userProfileQuery",
     "operationKind": "query",
-    "text": "query useCurrentUserQuery {\n  me {\n    id\n    name\n    email\n    picture\n    username\n  }\n}\n"
+    "text": "query userProfileQuery(\n  $username: String!\n) {\n  user(username: $username) {\n    id\n    name\n    email\n    username\n    picture\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '63c6a5501b1c65be61e8231d81cb5a7e';
+(node as any).hash = '07a99a6b2a7d0db8cec7f43783d6c725';
 export default node;

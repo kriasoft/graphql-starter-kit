@@ -13,10 +13,10 @@ import {
   Switch,
   useTheme,
 } from "@material-ui/core";
-import { Brightness4 } from "@material-ui/icons";
+import { Brightness4, Settings } from "@material-ui/icons";
 
 import { Logout } from "../icons";
-import { useAuth } from "../hooks";
+import { useAuth, useNavigate } from "../hooks";
 
 type UserMenuProps = Omit<
   MenuProps,
@@ -33,12 +33,18 @@ type UserMenuProps = Omit<
 export function UserMenu(props: UserMenuProps): JSX.Element {
   const { onChangeTheme, PaperProps, MenuListProps, ...other } = props;
 
+  const navigate = useNavigate();
   const theme = useTheme();
   const auth = useAuth();
 
   function signOut(event: React.MouseEvent): void {
     event.preventDefault();
     auth.signOut();
+  }
+
+  function handleClick(event: React.MouseEvent<HTMLAnchorElement>): void {
+    props.onClose?.(event, "backdropClick");
+    navigate(event);
   }
 
   return (
@@ -53,6 +59,11 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
       MenuListProps={{ ...MenuListProps, dense: true }}
       {...other}
     >
+      <MenuItem component={Link} href="/settings" onClick={handleClick}>
+        <ListItemIcon sx={{ minWidth: 40 }} children={<Settings />} />
+        <ListItemText primary="Account settings" />
+      </MenuItem>
+
       <MenuItem>
         <ListItemIcon sx={{ minWidth: 40 }} children={<Brightness4 />} />
         <ListItemText primary="Dark Mode" />

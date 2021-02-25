@@ -6,7 +6,7 @@ import { graphql } from "relay-runtime";
 
 import type Settings from "./Settings";
 import type { Route } from "../../core";
-import type { settingsQueryResponse } from "./__generated__/settingsQuery.graphql";
+import type { accountSettingsQueryResponse } from "./__generated__/accountSettingsQuery.graphql";
 
 /**
  * User account settings route.
@@ -14,11 +14,12 @@ import type { settingsQueryResponse } from "./__generated__/settingsQuery.graphq
 export default {
   path: "/settings",
   query: graphql`
-    query settingsQuery {
+    query accountSettingsQuery {
       me {
         id
         name
         email
+        username
       }
     }
   `,
@@ -27,4 +28,4 @@ export default {
     title: "Account Settings",
     props: data,
   }),
-} as Route<typeof Settings, settingsQueryResponse>;
+} as Route<typeof Settings, accountSettingsQueryResponse>;
