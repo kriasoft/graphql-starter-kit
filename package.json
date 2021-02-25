@@ -8,6 +8,7 @@
     "api",
     "db",
     "env",
+    "img",
     "scripts",
     "web"
   ],

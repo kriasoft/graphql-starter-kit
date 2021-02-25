@@ -1,18 +1,24 @@
 <h1 align="center">
   <img src="https://s.tarkus.me/graphql-logo.png" width="128" height="128" alt="GraphQL" /><br>
   GraphQL API and Relay Starter Kit
-</h1>
-
-<p align="center">
+  <br>
   <a href="https://discord.com/invite/bSsv7XM"><img src="https://img.shields.io/badge/chat-discord-kriasoft.svg?logo=discord&style=flat" height="20"></a>
   <a href="https://patreon.com/koistya"><img src="https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&style=flat" height="20"></a>
   <a href="https://github.com/kriasoft/graphql-starter/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/graphql-starter.svg?style=social&label=Star&maxAge=3600" height="20"></a>
   <a href="https://twitter.com/koistya"><img src="https://img.shields.io/twitter/follow/koistya.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
-</p>
+</h1>
 
-**Yarn v2** based monorepo template for quickly bootstrapping production ready web
-application projects optimized for [serverless](https://cloud.google.com/serverless)
-infrastructure, using code-first **GraphQL API** and **PostgreSQL** backend.
+## Features
+
+- Yarn v2 monorepo structure optimized for fast CI/CD workflows and DX (Yarn PnP, Zero-install)
+- GraphQL API using code-first development approach (TypeScript, GraphQL.js, Knex, PostgreSQL)
+- Stateless JWT cookie-based authentication (supporting SSR, OAuth 2.0 via Google, Facebook, etc.)
+- Database tooling such as seed files, migrations, REPL shell, etc.
+- Front-end boilerplate pre-configured with TypeScript, Webpack v5, React, Relay, and Materia UI
+- Serverless deployment: `api`, `img` → Cloud Functions, `web` → Cloudflare Workers
+- HTML page rendering (SSR) at CDN edge locations, all ~100 points on Lighthouse
+- Pre-configured dev, test / QA, production, and review (per PR) environments
+- Pre-configured VSCode code snippets and other VSCode settings
 
 ---
 
@@ -25,7 +31,8 @@ Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for as
 `├──`[`.vscode`](.vscode) — VSCode settings including code snippets, recommended extensions etc.<br>
 `├──`[`env`](./env) — environment variables that are used for local development (`dev`, `test`, `prod`)<br>
 `├──`[`db`](./db) — database schema, seeds, and migrations ([Cloud SQL](https://cloud.google.com/sql), [Knex.js](https://knexjs.org/))<br>
-`├──`[`api`](./api) — GraphQL API server and authentication ([Cloud Functions](https://cloud.google.com/functions), [GraphQL.js](https://graphql.org/graphql-js/))<br>
+`├──`[`api`](./api) — GraphQL API and authentication ([Could SQL](https://cloud.google.com/sql), [Cloud Functions](https://cloud.google.com/functions), [GraphQL.js](https://graphql.org/graphql-js/))<br>
+`├──`[`img`](./img) — dynamic image resizing ([Cloud Functions](https://cloud.google.com/functions), [Cloud Storage](https://cloud.google.com/storage))<br>
 `├──`[`web`](./web) — [React](https://reactjs.org/) / [Relay](https://relay.dev/) web application with CDN rendering ([Webpack](https://webpack.js.org/), [Cloudflare Workers](https://workers.cloudflare.com/))<br>
 `├──`[`scripts`](./scripts) — Automation scripts shared across the project<br>
 `└── ...` — add more packages such as `worker`, `admin`, `mobile`, etc.

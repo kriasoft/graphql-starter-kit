@@ -86,7 +86,11 @@ export class App extends React.Component<AppProps> {
     const { route, location, error } = this.state;
 
     if (error) {
-      return <ErrorPage error={error} />;
+      return (
+        <ThemeProvider theme={theme[this.state.theme]}>
+          <ErrorPage error={error} />;
+        </ThemeProvider>
+      );
     }
 
     return (
