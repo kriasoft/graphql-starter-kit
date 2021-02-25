@@ -10,6 +10,7 @@ import type { ComponentClass, ComponentProps, FunctionComponent } from "react";
 export type RouterContext = {
   path: string;
   relay: Environment;
+  params?: { [key: string]: string };
 };
 
 export type RouterResponse<
@@ -19,7 +20,7 @@ export type RouterResponse<
 > = {
   title?: string;
   description?: string;
-  component?: Component;
+  component?: () => Promise<Component>;
   props?: ComponentProps<Component>;
   error?: Error;
   redirect?: string;

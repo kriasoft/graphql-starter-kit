@@ -21,6 +21,7 @@ const query = graphql`
       name
       email
       picture
+      username
     }
   }
 `;

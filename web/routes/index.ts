@@ -3,9 +3,10 @@
  */
 
 import { default as home } from "./home";
-import { default as settings } from "./settings";
+import { default as account } from "./account";
+import { default as user } from "./user";
 
 /**
  * The list of application routes (pages).
  */
-export default [home, settings] as const;
+export default [home, account, user] as const;

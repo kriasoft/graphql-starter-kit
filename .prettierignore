@@ -1,9 +1,7 @@
 # Compiled output
 /**/__generated__
-/*/.next/
 /.cache/
 /dist/
-/web/out/
 
 # Yarn
 .yarn/cache
@@ -15,5 +13,6 @@
 .pnp.js
 
 # Misc
+.husky
 *.hbs
 /tsconfig.json

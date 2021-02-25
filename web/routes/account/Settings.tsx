@@ -8,7 +8,7 @@ import { graphql, useMutation } from "react-relay/hooks";
 import { Button, TextField, Typography } from "@material-ui/core";
 
 import { useErrors } from "../../hooks";
-import type { settingsQueryResponse as Props } from "./__generated__/settingsQuery.graphql";
+import type { accountSettingsQueryResponse as Props } from "./__generated__/accountSettingsQuery.graphql";
 import type { SettingsUpdateMutation } from "./__generated__/SettingsUpdateMutation.graphql";
 
 const updateUserMutation = graphql`
@@ -18,6 +18,7 @@ const updateUserMutation = graphql`
         id
         name
         email
+        username
       }
       errors
     }
@@ -30,6 +31,7 @@ export default function Settings(props: Props): JSX.Element {
     id: me?.id || "",
     name: me?.name || "",
     email: me?.email || "",
+    username: me?.username || "",
   });
 
   const [updateUser] = useMutation<SettingsUpdateMutation>(updateUserMutation);
@@ -43,6 +45,7 @@ export default function Settings(props: Props): JSX.Element {
   const fields: { key: keyof typeof input; label: string }[] = [
     { key: "name", label: "Name" },
     { key: "email", label: "Email" },
+    { key: "username", label: "Username" },
   ];
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

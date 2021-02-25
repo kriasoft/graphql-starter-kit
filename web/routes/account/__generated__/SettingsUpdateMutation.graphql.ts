@@ -24,6 +24,7 @@ export type SettingsUpdateMutationResponse = {
             readonly id: string;
             readonly name: string | null;
             readonly email: string | null;
+            readonly username: string;
         } | null;
         readonly errors: ReadonlyArray<ReadonlyArray<string>> | null;
     } | null;
@@ -44,6 +45,7 @@ mutation SettingsUpdateMutation(
       id
       name
       email
+      username
     }
     errors
   }
@@ -101,6 +103,13 @@ v1 = [
             "kind": "ScalarField",
             "name": "email",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "username",
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -134,14 +143,14 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "cf283ad877ef002bc600210d66966754",
+    "cacheID": "9b7966806b9687a1dda9ea2f0ec361cd",
     "id": null,
     "metadata": {},
     "name": "SettingsUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation SettingsUpdateMutation(\n  $input: UpdateUserInput!\n) {\n  updateUser(input: $input) {\n    user {\n      id\n      name\n      email\n    }\n    errors\n  }\n}\n"
+    "text": "mutation SettingsUpdateMutation(\n  $input: UpdateUserInput!\n) {\n  updateUser(input: $input) {\n    user {\n      id\n      name\n      email\n      username\n    }\n    errors\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '87e5035f55513040b34500b0a71e039e';
+(node as any).hash = '8fa8cd5c65d6f1093d68c54f8f2ac6c8';
 export default node;

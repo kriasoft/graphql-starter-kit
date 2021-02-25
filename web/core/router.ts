@@ -3,10 +3,32 @@
  */
 
 import { fetchQuery } from "react-relay/hooks";
+import { match as createMatchFn } from "path-to-regexp";
+import type { Match, MatchFunction } from "path-to-regexp";
 
 import routes from "../routes";
 import { NotFoundError } from "./errors";
 import type { RouterContext, RouterResponse, Route } from "./router.types";
+
+/**
+ * Converts the URL path string to a RegExp matching function.
+ *
+ * @see https://github.com/pillarjs/path-to-regexp
+ */
+const matchUrlPath: (
+  pattern: string[] | string,
+  path: string,
+) => Match<{ [key: string]: string }> = (() => {
+  const cache = new Map<string, MatchFunction<{ [key: string]: string }>>();
+  return function matchUrlPath(pattern: string[] | string, path: string) {
+    const key = Array.isArray(pattern) ? pattern.join("::") : pattern;
+    let fn = cache.get(key);
+    if (fn) return fn(path);
+    fn = createMatchFn(pattern, { decode: decodeURIComponent });
+    cache.set(key, fn);
+    return fn(path);
+  };
+})();
 
 export async function resolveRoute(
   ctx: RouterContext,
@@ -14,12 +36,21 @@ export async function resolveRoute(
   try {
     // Find the first route matching the provided URL path string
     for (let i = 0, route; i < routes.length, (route = routes[i]); i++) {
-      if (route.path !== ctx.path) continue;
+      const match = matchUrlPath(route.path, ctx.path);
 
-      let { variables } = route;
+      if (!match) continue;
+
+      ctx.params = match.params;
 
       // Prepare GraphQL query variables
-      variables = typeof variables === "function" ? variables(ctx) : variables;
+      const variables =
+        typeof route.variables === "function"
+          ? route.variables(ctx)
+          : route.variables
+          ? route.variables
+          : Object.keys(match.params).length === 0
+          ? undefined
+          : match.params;
 
       // Fetch GraphQL query response and load React component in parallel
       const [component, data] = await Promise.all([
