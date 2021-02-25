@@ -100,6 +100,25 @@ const questions = [
       );
     },
   },
+  {
+    type: "input",
+    name: "cache",
+    message: "GCS bucket for cached images:",
+    when: (answers) => answers.setup,
+    default: ({ domain }) => `c.${domain}`,
+    validate(value) {
+      if (!value.match(/^\w[\w-.]*\w$/)) {
+        return "Requires a valid GCS bucket name.";
+      }
+      const search = /^(CACHE_BUCKET)=.*/m;
+      return (
+        replace("env/.env.prod", search, `$1=${value}`) &&
+        replace("env/.env.test", search, `$1=test-${value}`) &&
+        replace("env/.env.dev", search, `$1=dev-${value}`) &&
+        replace("env/.env.local", search, `$1=dev-${value}`)
+      );
+    },
+  },
   ...Object.keys(environments).map((env) => ({
     type: "input",
     name: `gcp_project_${env}`,

@@ -49,6 +49,13 @@ async function handleEvent(event: FetchEvent) {
     return fetch(new Request(url.toString(), request));
   }
 
+  // Image resizing
+  if (path.startsWith("/img/")) {
+    url.hostname = apiUrl.hostname;
+    url.pathname = `/img${path.substring(4)}`;
+    return fetch(new Request(url.toString(), request));
+  }
+
   // TODO: Blog posts
   if (path === "/blog" || path.startsWith("/blog/")) {
     url.hostname = "example.webflow.io";
