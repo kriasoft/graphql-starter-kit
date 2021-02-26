@@ -61,7 +61,7 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
     >
       <MenuItem component={Link} href="/settings" onClick={handleClick}>
         <ListItemIcon sx={{ minWidth: 40 }} children={<Settings />} />
-        <ListItemText primary="Account settings" />
+        <ListItemText primary="Account Settings" />
       </MenuItem>
 
       <MenuItem>

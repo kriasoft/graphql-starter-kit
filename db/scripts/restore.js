@@ -1,7 +1,7 @@
 /**
- * Restores database from a backup. Usage:
+ * Restores database from a backup file. Usage:
  *
- *   yarn db:restore [--env #0]
+ *   yarn db:restore [--env #0] [--from #0]
  *
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
@@ -9,24 +9,29 @@
 const fs = require("fs");
 const path = require("path");
 const spawn = require("cross-spawn");
+const minimist = require("minimist");
 
 // Load environment variables (PGHOST, PGUSER, etc.)
 require("env");
 
+const args = minimist(process.argv.slice(2));
+const toEnv = args.env || "dev";
+const fromEnv = args.from || toEnv;
+
 // Find the latest backup file for the selected environment
-const { ENV, PGDATABASE } = process.env;
+const { PGDATABASE } = process.env;
 const file = fs
   .readdirSync(path.resolve(__dirname, "../backups"))
   .sort()
   .reverse()
-  .find((x) => x.endsWith(`_${ENV}.sql`));
+  .find((x) => x.endsWith(`_${fromEnv}.sql`));
 
 if (!file) {
-  console.log(`Cannot find the SQL backup file for "${ENV}" environment.`);
+  console.log(`Cannot find the SQL backup file for "${fromEnv}" environment.`);
   process.exit(1);
 }
 
-console.log(`Restoring ${file} to ${PGDATABASE} (${ENV})...`);
+console.log(`Restoring ${file} to ${PGDATABASE} (${toEnv})...`);
 
 spawn(
   "psql",
@@ -35,9 +40,7 @@ spawn(
     path.resolve(__dirname, `../backups/${file}`),
     "--echo-errors",
     "--no-readline",
-    ...process.argv.slice(2).filter((x) => !x.startsWith("--env")),
+    ...args._,
   ],
-  {
-    stdio: "inherit",
-  },
+  { stdio: "inherit" },
 ).on("exit", process.exit);

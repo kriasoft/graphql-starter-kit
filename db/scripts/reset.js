@@ -1,16 +1,22 @@
 /**
  * Resets database to its initial state (for local development). Usage:
  *
- *   yarn db:reset [--env #0]
+ *   yarn db:reset [--env #0] [--no-seed]
  *
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 const knex = require("knex");
 const spawn = require("cross-spawn");
+const minimist = require("minimist");
 
 const config = require("../knexfile");
 const updateTypes = require("./update-types");
+
+const args = minimist(process.argv.slice(2), {
+  boolean: ["seed"],
+  default: { env: "dev", seed: true },
+});
 
 async function reset() {
   const db = knex({
@@ -33,7 +39,11 @@ async function reset() {
 
   // Migrate database to the latest version
   spawn.sync("yarn", ["knex", "migrate:latest"], { stdio: "inherit" });
-  spawn.sync("yarn", ["knex", "seed:run"], { stdio: "inherit" });
+
+  if (args.seed) {
+    spawn.sync("yarn", ["knex", "seed:run"], { stdio: "inherit" });
+  }
+
   await updateTypes();
 }
 

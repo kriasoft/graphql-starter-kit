@@ -18,6 +18,7 @@ import { ArrowDropDown, NotificationsNone } from "@material-ui/icons";
 
 import { useAuth, useCurrentUser, useNavigate } from "../hooks";
 import { UserMenu, NotificationsMenu } from "../menu";
+import { Google } from "../icons";
 
 type AppToolbarProps = AppBarProps & {
   onChangeTheme: () => void;
@@ -126,10 +127,12 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
         )}
         {!user && (
           <Button
+            variant="outlined"
+            startIcon={<Google />}
             href="/auth/google"
-            color="inherit"
+            color="primary"
             onClick={signIn}
-            children="Sign In"
+            children="Sign in with Google"
           />
         )}
       </Toolbar>

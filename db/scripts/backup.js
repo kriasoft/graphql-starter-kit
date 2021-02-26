@@ -11,10 +11,13 @@ const path = require("path");
 const readline = require("readline");
 const spawn = require("cross-spawn");
 const cp = require("child_process");
+const minimist = require("minimist");
 const { EOL } = require("os");
 
 // Load environment variables (PGHOST, PGUSER, etc.)
 require("env");
+
+const args = minimist(process.argv.slice(2), { default: { env: "dev" } });
 
 // Get the list of database tables
 let cmd = spawn.sync(
@@ -26,9 +29,7 @@ let cmd = spawn.sync(
     "--command",
     "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'",
   ],
-  {
-    stdio: ["inherit", "pipe", "inherit"],
-  },
+  { stdio: ["inherit", "pipe", "inherit"] },
 );
 
 if (cmd.status !== 0) {
@@ -59,19 +60,16 @@ cmd = cp
       "--exclude-table=migrations_lock",
       "--exclude-table=migrations_id_seq",
       "--exclude-table=migrations_lock_index_seq",
-      ...process.argv.slice(2).filter((x) => !x.startsWith("--env")),
+      ...args._,
     ],
-    {
-      stdio: ["pipe", "pipe", "inherit"],
-    },
+    { stdio: ["pipe", "pipe", "inherit"] },
   )
   .on("exit", (code) => {
     if (code !== 0) process.exit(code);
   });
 
-const env = process.env.ENV;
 const timestamp = new Date().toISOString().replace(/(-|:|\.\d{3})/g, "");
-const file = path.resolve(__dirname, `../backups/${timestamp}_${env}.sql`);
+const file = path.resolve(__dirname, `../backups/${timestamp}_${args.env}.sql`);
 const out = fs.createWriteStream(file, { encoding: "utf8" });
 const rl = readline.createInterface({ input: cmd.stdout, terminal: false });
 

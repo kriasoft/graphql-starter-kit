@@ -31,7 +31,7 @@ assistance.
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) v12 or higher, [Yarn](https://yarnpkg.com/) package manager
+- [Node.js](https://nodejs.org/) v14, [Yarn](https://yarnpkg.com/) package manager
 - Local or remote instance of [PostgreSQL](https://www.postgresql.org/) (see [Postgres.app](https://postgresapp.com/), [Google Cloud SQL](https://cloud.google.com/sql))
 - Optionally, [`psql`](https://www.postgresql.org/docs/current/app-psql.html), [`pg_dump`](https://www.postgresql.org/docs/current/app-pgdump.html), [`pg_restore`](https://www.postgresql.org/docs/current/app-pgrestore.html) client utilities (`brew install libpq` [❐](https://stackoverflow.com/a/49689589/82686))
 
@@ -39,9 +39,9 @@ assistance.
 
 You can access the database either by using a terminal window:
 
-```bash
-$ yarn db:repl                  # Launches Knex.js REPL shell
-$ yarn db:psql                  # Launches PostgreSQL REPL shell
+```
+$ yarn db:repl [--env #0]       # Launches Knex.js REPL shell
+$ yarn db:psql [--env #0]       # Launches PostgreSQL REPL shell
 ```
 
 Or, by using a GUI such as [Postico](https://eggerapps.at/postico/). Find
@@ -61,37 +61,43 @@ and hit `TAB` which should insert a VS Code snippet.
 
 ## How to migrate database schema and data
 
-```bash
-$ yarn db:version               # Prints the current schema version to the console
-$ yarn db:migrate               # Migrates database schema to the latest version
-$ yarn db:seed                  # Seeds database with some reference data
+```
+$ yarn db:version [--env #0]    # Prints the current schema version to the console
+$ yarn db:migrate [--env #0]    # Migrates database schema to the latest version
+$ yarn db:seed [--env #0]       # Seeds database with some reference data
 ```
 
 While the app is in development, you can use a simplified migration workflow by
 creating a backup of your existing database, making changes to the existing
 migration file (`migrations/001_initial.ts`), re-apply the migration and restore
-all the data (as opposed to re-seeding).
+all the data (as opposed to re-seeding). For example:
+
+```
+$ yarn db:backup --env=prod
+$ yarn db:reset --env=local --no-seed
+$ yarn db:restore --env=local --from=prod
+```
 
 ## How to re-apply the latest migration
 
-```bash
-$ yarn db:rollback              # Rolls back the latest migration
-$ yarn db:migrate               # Migrates database schema to the latest version
-$ yarn db:seed                  # Seeds database with some reference data
+```
+$ yarn db:rollback [--env #0]   # Rolls back the latest migration
+$ yarn db:migrate [--env #0]    # Migrates database schema to the latest version
+$ yarn db:seed [--env #0]       # Seeds database with some reference data
 ```
 
 Alternatively, you can drop and re-create the database, then apply all the
 outstanding migrations and seed files over again by running:
 
-```bash
-$ yarn db:reset                 # Re-creates the database; applies migrations and seeds
+```
+$ yarn db:reset [--env #0] [--no-seed]
 ```
 
 ## How to backup and restore data
 
-```bash
-$ yarn db:backup                # Exports database data to a backup file
-$ yarn db:restore               # Restores data from a backup file
+```
+$ yarn db:backup [--env #0]
+$ yarn db:restore [--env #0] [--from #0]
 ```
 
 You can find backup files inside of the [`/backups`](./backups) folder.

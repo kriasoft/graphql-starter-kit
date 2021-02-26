@@ -5,7 +5,7 @@
 import * as React from "react";
 import { css } from "@emotion/react";
 import { graphql, useMutation } from "react-relay/hooks";
-import { Button, TextField, Typography } from "@material-ui/core";
+import { Button, Container, TextField, Typography } from "@material-ui/core";
 
 import { useErrors } from "../../hooks";
 import type { accountSettingsQueryResponse as Props } from "./__generated__/accountSettingsQuery.graphql";
@@ -60,7 +60,10 @@ export default function Settings(props: Props): JSX.Element {
   }
 
   return (
-    <React.Fragment>
+    <Container
+      maxWidth="sm"
+      sx={{ marginTop: (x) => x.spacing(3), marginBottom: (x) => x.spacing(3) }}
+    >
       <Typography
         sx={{ marginBottom: (theme) => theme.spacing(2) }}
         variant="h2"
@@ -93,6 +96,6 @@ export default function Settings(props: Props): JSX.Element {
           Save
         </Button>
       </form>
-    </React.Fragment>
+    </Container>
   );
 }
