@@ -43,6 +43,7 @@ const themes = (["light", "dark"] as PaletteMode[]).map((mode) =>
         h4: { fontSize: "1em" },
         h5: { fontSize: "0.8em" },
         h6: { fontSize: "0.7em" },
+        button: { textTransform: "none" },
       },
     },
   ),

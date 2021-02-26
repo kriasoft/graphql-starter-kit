@@ -8,6 +8,7 @@ import {
   Button,
   Card,
   CardContent,
+  Container,
   Typography,
 } from "@material-ui/core";
 
@@ -17,8 +18,15 @@ export default function UserProfile(props: Props): JSX.Element {
   const { user } = props;
 
   return (
-    <div
-      css={{ display: "grid", gridGap: 24, gridTemplateColumns: "160px auto" }}
+    <Container
+      maxWidth="md"
+      sx={{
+        display: "grid",
+        gridGap: 24,
+        gridTemplateColumns: "160px auto",
+        marginTop: (x) => x.spacing(3),
+        marginBottom: (x) => x.spacing(3),
+      }}
     >
       {/* User summary: name, avatar, etc. */}
 
@@ -58,6 +66,6 @@ export default function UserProfile(props: Props): JSX.Element {
           <CardContent>...</CardContent>
         </Card>
       </div>
-    </div>
+    </Container>
   );
 }

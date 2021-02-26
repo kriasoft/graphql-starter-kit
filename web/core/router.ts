@@ -62,7 +62,9 @@ export async function resolveRoute(
       ]);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return { component, ...route.response(data as any, ctx) };
+      const response = route.response(data as any, ctx);
+
+      if (response) return { component, ...response };
     }
 
     throw new NotFoundError();

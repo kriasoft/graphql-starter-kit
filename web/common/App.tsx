@@ -7,7 +7,6 @@ import { Update, Action } from "history";
 import { Environment } from "relay-runtime";
 import { RelayEnvironmentProvider } from "react-relay/hooks";
 import {
-  Container,
   CssBaseline,
   PaletteMode,
   ThemeProvider,
@@ -88,7 +87,7 @@ export class App extends React.Component<AppProps> {
     if (error) {
       return (
         <ThemeProvider theme={theme[this.state.theme]}>
-          <ErrorPage error={error} />;
+          <ErrorPage error={error} history={history} />;
         </ThemeProvider>
       );
     }
@@ -101,17 +100,9 @@ export class App extends React.Component<AppProps> {
               <CssBaseline />
               <AppToolbar onChangeTheme={this.handleChangeTheme} />
               <Toolbar />
-              <Container
-                maxWidth="md"
-                sx={{
-                  marginTop: (x) => x.spacing(4),
-                  marginBottom: (x) => x.spacing(4),
-                }}
-              >
-                {route?.component
-                  ? React.createElement(route.component, route.props)
-                  : null}
-              </Container>
+              {route?.component
+                ? React.createElement(route.component, route.props)
+                : null}
             </LocationContext.Provider>
           </HistoryContext.Provider>
         </RelayEnvironmentProvider>

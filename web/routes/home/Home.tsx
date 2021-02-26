@@ -3,7 +3,7 @@
  */
 
 import * as React from "react";
-import { Typography, Link } from "@material-ui/core";
+import { Container, Link, Typography } from "@material-ui/core";
 
 import type { homeQueryResponse as Props } from "./__generated__/homeQuery.graphql";
 import { useNavigate, useAuth } from "../../hooks";
@@ -19,7 +19,9 @@ export default function Home(props: Props): JSX.Element {
   }
 
   return (
-    <React.Fragment>
+    <Container
+      sx={{ marginTop: (x) => x.spacing(3), marginBottom: (x) => x.spacing(3) }}
+    >
       <Typography
         sx={{ marginTop: "32vh" }}
         variant="h1"
@@ -45,6 +47,6 @@ export default function Home(props: Props): JSX.Element {
           </React.Fragment>
         )}
       </Typography>
-    </React.Fragment>
+    </Container>
   );
 }

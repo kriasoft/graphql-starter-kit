@@ -27,8 +27,9 @@ export default {
     }
   `,
   component: () => import(/* webpackChunkName: "profile" */ "./UserProfile"),
-  response: (data) => ({
-    title: "User Profile",
-    props: data,
-  }),
+  response: (data) =>
+    data.user && {
+      title: `${data.user.name} (@${data.user.username}) · React App`,
+      props: data,
+    },
 } as Route<typeof UserProfile, userProfileQueryResponse>;
