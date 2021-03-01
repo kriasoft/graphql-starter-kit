@@ -34,6 +34,7 @@ module.exports = function config(envName, options) {
   const devEnv = env.load("dev");
 
   process.env.BABEL_ENV = options.mode;
+  process.env.BROWSERSLIST_ENV = options.mode;
 
   /**
    * Client-side application bundle.
@@ -107,8 +108,8 @@ module.exports = function config(envName, options) {
     },
 
     performance: {
-      maxAssetSize: 340 * 1024,
-      maxEntrypointSize: 340 * 1024,
+      maxAssetSize: 600 * 1024,
+      maxEntrypointSize: 600 * 1024,
     },
 
     resolve: {
@@ -134,7 +135,7 @@ module.exports = function config(envName, options) {
               },
             },
             {
-              test: /\.tsx?$/,
+              test: /\.(js|mjs|ts|tsx)$/,
               include: path.resolve(__dirname),
               loader: "babel-loader",
               options: {
@@ -186,7 +187,10 @@ module.exports = function config(envName, options) {
             },
           ],
         }),
-      new webpack.DefinePlugin({}),
+      new webpack.DefinePlugin({
+        "process.env.APP_NAME": JSON.stringify("React App"),
+        "process.env.APP_ORIGIN": JSON.stringify(prodEnv.APP_ORIGIN),
+      }),
       isDevServer && new webpack.HotModuleReplacementPlugin(),
       isDevServer && new ReactRefreshWebpackPlugin(),
       new WebpackManifestPlugin({
@@ -213,6 +217,7 @@ module.exports = function config(envName, options) {
       uniqueName: "proxy",
     },
     performance: {
+      maxAssetSize: 1000 * 1024,
       maxEntrypointSize: 1000 * 1024,
     },
     devtool: false,
@@ -254,6 +259,12 @@ module.exports = function config(envName, options) {
       {
         context: ["/auth", "/graphql"],
         target: "http://localhost:8080",
+      },
+      {
+        context: ["/img"],
+        target: process.env.APP_ORIGIN,
+        changeOrigin: true,
+        secure: false,
       },
     ],
   };

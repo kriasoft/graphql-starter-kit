@@ -102,6 +102,16 @@ $ yarn db:restore [--env #0] [--from #0]
 
 You can find backup files inside of the [`/backups`](./backups) folder.
 
+## How to generate seed files
+
+Generate seed files by using Faker.js (see [`/seeds/*.js`](./seeds)).
+Alternatively, fetch the actual data from the database and save it into JSON
+files as seeds by running:
+
+```
+$ yarn db:import-seeds [--env #0]
+```
+
 ## References
 
 - [Knex.js Migration API](https://knexjs.org/#Migrations-API)

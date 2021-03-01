@@ -37,7 +37,7 @@ export type Route<
   /**
    * GraphQL query expression.
    */
-  query: GraphQLTaggedNode;
+  query?: GraphQLTaggedNode;
   /**
    * GraphQL query variables.
    */

@@ -35,6 +35,7 @@ async function reset() {
   // Drop and re-create the database
   await db.raw(`DROP DATABASE IF EXISTS ??`, [process.env.PGDATABASE]);
   await db.raw(`CREATE DATABASE ??`, [process.env.PGDATABASE]);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   await db.destroy();
 
   // Migrate database to the latest version
