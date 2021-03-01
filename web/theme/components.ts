@@ -19,4 +19,12 @@ export const components: ThemeOptions["components"] = {
       },
     },
   },
+  // https://github.com/mui-org/material-ui/tree/next/packages/material-ui/src/ButtonGroup
+  MuiButtonGroup: {
+    styleOverrides: {
+      root: {
+        boxShadow: "none",
+      },
+    },
+  },
 };
