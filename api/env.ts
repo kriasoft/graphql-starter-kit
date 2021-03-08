@@ -5,7 +5,7 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import { cleanEnv, str, num, bool, url } from "envalid";
+import { bool, cleanEnv, num, str, url } from "envalid";
 
 const appName = process.env.APP_NAME?.replace(/^W/g, "");
 

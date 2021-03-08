@@ -4,9 +4,8 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
+import type { Identity, User } from "db";
 import { Request } from "express";
-import type { User, Identity } from "db";
-
 import db from "../db";
 import { newUserId } from "../utils";
 

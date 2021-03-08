@@ -5,13 +5,12 @@
  */
 
 import fs from "fs";
-import path from "path";
+import { GraphQLObjectType, GraphQLSchema, printSchema } from "graphql";
 import { noop } from "lodash";
-import { printSchema, GraphQLSchema, GraphQLObjectType } from "graphql";
-
-import * as queries from "./queries";
+import path from "path";
 import * as mutations from "./mutations";
 import { nodeField, nodesField } from "./node";
+import * as queries from "./queries";
 
 export const schema = new GraphQLSchema({
   query: new GraphQLObjectType({

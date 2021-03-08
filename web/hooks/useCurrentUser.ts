@@ -3,9 +3,8 @@
  */
 
 import * as React from "react";
+import { fetchQuery, graphql, useRelayEnvironment } from "react-relay/hooks";
 import { createOperationDescriptor, getRequest } from "relay-runtime";
-import { graphql, useRelayEnvironment, fetchQuery } from "react-relay/hooks";
-
 import type {
   useCurrentUserQuery as Query,
   useCurrentUserQueryResponse as Response,

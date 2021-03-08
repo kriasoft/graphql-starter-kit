@@ -2,13 +2,12 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import { fetchQuery } from "react-relay/hooks";
-import { match as createMatchFn } from "path-to-regexp";
 import type { Match, MatchFunction } from "path-to-regexp";
-
+import { match as createMatchFn } from "path-to-regexp";
+import { fetchQuery } from "react-relay/hooks";
 import routes from "../routes";
 import { NotFoundError } from "./errors";
-import type { RouterContext, RouterResponse, Route } from "./router.types";
+import type { Route, RouterContext, RouterResponse } from "./router.types";
 
 /**
  * Converts the URL path string to a RegExp matching function.

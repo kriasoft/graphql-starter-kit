@@ -4,15 +4,14 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import { Router, Request } from "express";
+import { Request, Router } from "express";
 import { graphqlHTTP } from "express-graphql";
 import { express as voyager } from "graphql-voyager/middleware";
-
-import env from "./env";
 import { auth } from "./auth";
-import { session } from "./session";
-import { schema } from "./schema";
 import { Context } from "./context";
+import env from "./env";
+import { schema } from "./schema";
+import { session } from "./session";
 
 export const api = Router();
 

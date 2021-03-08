@@ -3,9 +3,8 @@
  */
 
 import { graphql } from "relay-runtime";
-
-import type Settings from "./Settings";
 import type { Route } from "../../core";
+import type Settings from "./Settings";
 import type { accountSettingsQueryResponse } from "./__generated__/accountSettingsQuery.graphql";
 
 /**

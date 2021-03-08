@@ -2,9 +2,8 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
+import { Container, CssBaseline, Typography } from "@material-ui/core";
 import * as React from "react";
-import { CssBaseline, Container, Typography } from "@material-ui/core";
-
 import type { History } from "../core/history";
 
 export type ErrorPageProps = {

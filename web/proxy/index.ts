@@ -6,11 +6,10 @@
  */
 
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-
-import { transform } from "./transform";
-import { parseHostname } from "./parse";
 import { createRelay } from "../core/relay";
 import { resolveRoute } from "../core/router";
+import { parseHostname } from "./parse";
+import { transform } from "./transform";
 
 async function handleEvent(event: FetchEvent) {
   const request = event.request;

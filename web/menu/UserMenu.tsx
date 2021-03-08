@@ -2,7 +2,6 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import * as React from "react";
 import {
   Link,
   ListItemIcon,
@@ -14,9 +13,9 @@ import {
   useTheme,
 } from "@material-ui/core";
 import { Brightness4, Settings } from "@material-ui/icons";
-
-import { Logout } from "../icons";
+import * as React from "react";
 import { useAuth, useNavigate } from "../hooks";
+import { Logout } from "../icons";
 
 type UserMenuProps = Omit<
   MenuProps,
@@ -82,15 +81,12 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
       {/* Copyright and links to legal documents */}
 
       <MenuItem
-        dense={false}
         sx={{
           "&:hover": { background: "none" },
-          "&.MuiMenuItem-dense": {
-            color: (x) => x.palette.grey[500],
-            paddingTop: (x) => x.spacing(0.5),
-            paddingBottom: (x) => x.spacing(0.5),
-            fontSize: "0.75rem",
-          },
+          color: (x) => x.palette.grey[500],
+          paddingTop: (x) => x.spacing(0.5),
+          paddingBottom: (x) => x.spacing(0.5),
+          fontSize: "0.75rem",
         }}
       >
         <span>&copy; 2021 Company Name</span>

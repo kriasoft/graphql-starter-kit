@@ -2,8 +2,8 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import * as React from "react";
 import { To } from "history";
+import * as React from "react";
 import { useHistory } from "./useHistory";
 
 function isLeftClickEvent(event: React.MouseEvent<HTMLElement>) {

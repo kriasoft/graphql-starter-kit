@@ -6,10 +6,9 @@
  */
 
 import cookie from "cookie";
-import jwt from "jsonwebtoken";
-import { RequestHandler, Request, Response } from "express";
 import type { User } from "db";
-
+import { Request, RequestHandler, Response } from "express";
+import jwt from "jsonwebtoken";
 import db from "./db";
 import env from "./env";
 

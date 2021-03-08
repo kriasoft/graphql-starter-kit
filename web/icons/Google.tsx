@@ -2,8 +2,8 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import * as React from "react";
 import { SvgIcon, SvgIconProps } from "@material-ui/core";
+import * as React from "react";
 
 export function Google(props: SvgIconProps): JSX.Element {
   return (

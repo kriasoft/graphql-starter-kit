@@ -2,23 +2,22 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import * as React from "react";
-import { Update, Action } from "history";
-import { Environment } from "relay-runtime";
-import { RelayEnvironmentProvider } from "react-relay/hooks";
 import {
   CssBaseline,
   PaletteMode,
   ThemeProvider,
   Toolbar,
 } from "@material-ui/core";
-
-import theme from "../theme";
-import { ErrorPage } from "./ErrorPage";
-import { AppToolbar } from "./AppToolbar";
-import { resolveRoute } from "../core/router";
+import { Action, Update } from "history";
+import * as React from "react";
+import { RelayEnvironmentProvider } from "react-relay/hooks";
+import { Environment } from "relay-runtime";
 import { History, HistoryContext, LocationContext } from "../core/history";
 import type { RouteResponse } from "../core/router";
+import { resolveRoute } from "../core/router";
+import theme from "../theme";
+import { AppToolbar } from "./AppToolbar";
+import { ErrorPage } from "./ErrorPage";
 
 type AppProps = {
   history: History;
