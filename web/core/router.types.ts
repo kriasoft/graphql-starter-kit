@@ -20,7 +20,7 @@ export type RouterResponse<
 > = {
   title?: string;
   description?: string;
-  component?: () => Promise<Component>;
+  component?: Component;
   props?: ComponentProps<Component>;
   error?: Error;
   redirect?: string;
