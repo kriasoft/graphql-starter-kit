@@ -4,10 +4,9 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
+import { IdentityProvider } from "db/types";
 import { Request, Response } from "express";
 import { OAuth2Client } from "google-auth-library";
-import { IdentityProvider } from "db/types";
-
 import env from "../env";
 import connect from "./connect";
 import response from "./response";

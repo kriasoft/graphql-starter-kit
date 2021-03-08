@@ -4,15 +4,14 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import moment from "moment-timezone";
-import { QueryBuilder } from "knex";
 import {
   GraphQLFieldConfig,
   GraphQLInt,
   GraphQLNonNull,
   GraphQLString,
 } from "graphql";
-
+import type { Knex } from "knex";
+import moment from "moment-timezone";
 import { Context } from "./context";
 
 /**
@@ -44,7 +43,7 @@ export function dateField<TSource>(
 }
 
 export const countField: GraphQLFieldConfig<
-  { query: QueryBuilder },
+  { query: Knex.QueryBuilder },
   Context
 > = {
   type: new GraphQLNonNull(GraphQLInt),

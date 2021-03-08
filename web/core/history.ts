@@ -2,13 +2,13 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import * as React from "react";
-import { Action } from "history";
 import type {
   History as HistoryBase,
   Location as LocationBase,
   State,
 } from "history";
+import { Action } from "history";
+import * as React from "react";
 
 export type History = HistoryBase<State>;
 export type Location = LocationBase<State>;

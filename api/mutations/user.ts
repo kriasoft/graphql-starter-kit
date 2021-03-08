@@ -4,20 +4,19 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import { mutationWithClientMutationId } from "graphql-relay";
-import {
-  GraphQLNonNull,
-  GraphQLID,
-  GraphQLString,
-  GraphQLBoolean,
-  GraphQLList,
-} from "graphql";
 import type { User } from "db";
-
-import db from "../db";
+import {
+  GraphQLBoolean,
+  GraphQLID,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLString,
+} from "graphql";
+import { mutationWithClientMutationId } from "graphql-relay";
 import { Context } from "../context";
+import db from "../db";
 import { UserType } from "../types";
-import { validate, fromGlobalId } from "../utils";
+import { fromGlobalId, validate } from "../utils";
 
 export const updateUser = mutationWithClientMutationId({
   name: "UpdateUser",

@@ -2,9 +2,9 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import type Terms from "./Terms";
-import type Privacy from "./Privacy";
 import type { Route } from "../../core";
+import type Privacy from "./Privacy";
+import type Terms from "./Terms";
 
 export default [
   {

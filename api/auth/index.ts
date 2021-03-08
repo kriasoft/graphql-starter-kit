@@ -4,7 +4,7 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import { Router, Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import * as google from "./google";
 
 export const auth = Router();

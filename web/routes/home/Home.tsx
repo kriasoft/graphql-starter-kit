@@ -2,11 +2,10 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import * as React from "react";
 import { Container, Link, Typography } from "@material-ui/core";
-
+import * as React from "react";
+import { useAuth, useNavigate } from "../../hooks";
 import type { homeQueryResponse as Props } from "./__generated__/homeQuery.graphql";
-import { useNavigate, useAuth } from "../../hooks";
 
 export default function Home(props: Props): JSX.Element {
   const { me } = props;

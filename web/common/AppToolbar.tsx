@@ -2,23 +2,22 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import * as React from "react";
 import {
   AppBar,
   AppBarProps,
   Avatar,
   Button,
   Chip,
+  IconButton,
   Link,
   Toolbar,
   Typography,
-  IconButton,
 } from "@material-ui/core";
 import { ArrowDropDown, NotificationsNone } from "@material-ui/icons";
-
+import * as React from "react";
 import { useAuth, useCurrentUser, useNavigate } from "../hooks";
-import { UserMenu, NotificationsMenu } from "../menu";
 import { Google } from "../icons";
+import { NotificationsMenu, UserMenu } from "../menu";
 
 type AppToolbarProps = AppBarProps & {
   onChangeTheme: () => void;

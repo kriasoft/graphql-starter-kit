@@ -3,9 +3,8 @@
  */
 
 import { graphql } from "relay-runtime";
-
-import type Home from "./Home";
 import type { Route } from "../../core";
+import type Home from "./Home";
 import type { homeQueryResponse } from "./__generated__/homeQuery.graphql";
 
 /**

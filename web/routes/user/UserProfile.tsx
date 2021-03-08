@@ -2,7 +2,6 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import * as React from "react";
 import {
   Avatar,
   Button,
@@ -11,7 +10,7 @@ import {
   Container,
   Typography,
 } from "@material-ui/core";
-
+import * as React from "react";
 import type { userProfileQueryResponse as Props } from "./__generated__/userProfileQuery.graphql";
 
 export default function UserProfile(props: Props): JSX.Element {

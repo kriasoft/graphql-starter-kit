@@ -4,20 +4,19 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import { globalIdField } from "graphql-relay";
+import type { User } from "db";
 import {
-  GraphQLObjectType,
-  GraphQLNonNull,
-  GraphQLString,
   GraphQLBoolean,
   GraphQLList,
+  GraphQLNonNull,
+  GraphQLObjectType,
+  GraphQLString,
 } from "graphql";
-import type { User } from "db";
-
-import { nodeInterface } from "../node";
-import { dateField } from "../fields";
-import { IdentityType } from "./identity";
+import { globalIdField } from "graphql-relay";
 import { Context } from "../context";
+import { dateField } from "../fields";
+import { nodeInterface } from "../node";
+import { IdentityType } from "./identity";
 
 export const UserType = new GraphQLObjectType<User, Context>({
   name: "User",

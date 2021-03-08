@@ -5,11 +5,10 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import { GraphQLFieldConfig, GraphQLObjectType, GraphQLString } from "graphql";
 import type { User } from "db";
-
-import db from "../db";
+import { GraphQLFieldConfig, GraphQLObjectType, GraphQLString } from "graphql";
 import { Context } from "../context";
+import db from "../db";
 import { UserType } from "../types";
 
 interface SignInArgs {

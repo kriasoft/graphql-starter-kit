@@ -2,8 +2,8 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import type { Environment, GraphQLTaggedNode } from "relay-runtime";
 import type { ComponentClass, ComponentProps, FunctionComponent } from "react";
+import type { Environment, GraphQLTaggedNode } from "relay-runtime";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -20,7 +20,7 @@ export type RouterResponse<
 > = {
   title?: string;
   description?: string;
-  component?: () => Promise<Component>;
+  component?: Component;
   props?: ComponentProps<Component>;
   error?: Error;
   redirect?: string;

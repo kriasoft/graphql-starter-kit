@@ -5,12 +5,11 @@
  */
 
 import DataLoader from "dataloader";
+import type { Identity, User } from "db";
 import { Request } from "express";
-import type { User, Identity } from "db";
-
 import db from "./db";
+import { ForbiddenError, UnauthorizedError } from "./error";
 import { mapTo, mapToMany } from "./utils";
-import { UnauthorizedError, ForbiddenError } from "./error";
 
 export class Context {
   private readonly req: Request;

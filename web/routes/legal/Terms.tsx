@@ -2,8 +2,8 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import * as React from "react";
 import { Container, Link, Typography } from "@material-ui/core";
+import * as React from "react";
 
 const appName = process.env.APP_NAME;
 const appOrigin = process.env.APP_ORIGIN;

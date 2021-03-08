@@ -6,9 +6,9 @@
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-import { nodeDefinitions, fromGlobalId } from "graphql-relay";
-import { assignType, getType } from "./utils";
+import { fromGlobalId, nodeDefinitions } from "graphql-relay";
 import { Context } from "./context";
+import { assignType, getType } from "./utils";
 
 export const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
   (globalId, context: Context) => {

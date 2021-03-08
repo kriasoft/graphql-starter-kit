@@ -4,10 +4,9 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
+import history from "history/browser";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import history from "history/browser";
-
 import { App } from "./common";
 import { createRelay } from "./core/relay";
 

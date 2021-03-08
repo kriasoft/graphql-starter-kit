@@ -3,9 +3,8 @@
  */
 
 import { graphql } from "relay-runtime";
-
-import type UserProfile from "./UserProfile";
 import type { Route } from "../../core";
+import type UserProfile from "./UserProfile";
 import type { userProfileQueryResponse } from "./__generated__/userProfileQuery.graphql";
 
 /**

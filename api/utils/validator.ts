@@ -7,12 +7,12 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
+import { fromGlobalId } from "graphql-relay";
+import type { IsEmailOptions, IsLengthOptions, IsURLOptions } from "validator";
 import isEmail from "validator/lib/isEmail";
 import isLength from "validator/lib/isLength";
 import isURL from "validator/lib/isURL";
 import textTrim from "validator/lib/trim";
-import { fromGlobalId } from "graphql-relay";
-import type { IsEmailOptions, IsLengthOptions, IsURLOptions } from "validator";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 

@@ -4,19 +4,18 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import { GraphQLNonNull, GraphQLString, GraphQLFieldConfig } from "graphql";
+import type { User } from "db";
+import { GraphQLFieldConfig, GraphQLNonNull, GraphQLString } from "graphql";
 import {
   connectionDefinitions,
-  forwardConnectionArgs,
   connectionFromArraySlice,
   cursorToOffset,
+  forwardConnectionArgs,
 } from "graphql-relay";
-import type { User } from "db";
-
-import db from "../db";
 import { Context } from "../context";
-import { UserType } from "../types";
+import db from "../db";
 import { countField } from "../fields";
+import { UserType } from "../types";
 
 export const me: GraphQLFieldConfig<unknown, Context> = {
   type: UserType,

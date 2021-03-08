@@ -2,8 +2,8 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
+import { ListItemText, Menu, MenuItem, MenuProps } from "@material-ui/core";
 import * as React from "react";
-import { Menu, MenuProps, MenuItem, ListItemText } from "@material-ui/core";
 
 type NotificationsMenuProps = Omit<
   MenuProps,

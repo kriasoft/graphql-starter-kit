@@ -2,8 +2,8 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import home from "./home";
 import account from "./account";
+import home from "./home";
 import legal from "./legal";
 import user from "./user";
 

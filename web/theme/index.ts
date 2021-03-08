@@ -2,7 +2,7 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import { createMuiTheme, Theme, PaletteMode } from "@material-ui/core";
+import { createMuiTheme, PaletteMode, Theme } from "@material-ui/core";
 import { components } from "./components";
 
 /**

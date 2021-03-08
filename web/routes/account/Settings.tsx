@@ -2,11 +2,10 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import * as React from "react";
 import { css } from "@emotion/react";
-import { graphql, useMutation } from "react-relay/hooks";
 import { Button, Container, TextField, Typography } from "@material-ui/core";
-
+import * as React from "react";
+import { graphql, useMutation } from "react-relay/hooks";
 import { useErrors } from "../../hooks";
 import type { accountSettingsQueryResponse as Props } from "./__generated__/accountSettingsQuery.graphql";
 import type { SettingsUpdateMutation } from "./__generated__/SettingsUpdateMutation.graphql";
