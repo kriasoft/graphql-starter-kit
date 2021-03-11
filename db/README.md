@@ -22,6 +22,8 @@ assistance.
 │   ├── 00_reset.js             #   - removes existing db records
 │   ├── 01_users.js             #   - creates user accounts
 │   ├── 01_users.json           #   - user accounts dataset
+│   ├── id_identities.js        #   - creates user accounts
+│   ├── 02_identities.json      #   - user accounts dataset
 │   └── ...                     #   - the reset of the seed files
 ├── ssl                         # TLS/SSL certificates for database access
 ├── knexfile.js                 # Configuration file for Knex.js CLI
@@ -47,7 +49,7 @@ $ yarn db:psql [--env #0]       # Launches PostgreSQL REPL shell
 Or, by using a GUI such as [Postico](https://eggerapps.at/postico/). Find
 connection settings inside of the [`env`](../env) package.
 
-Optionally pass the `--env=#0` argument with one of the pre-configured
+Optionally pass the `--env #0` argument with one of the pre-configured
 [environments](../env) — `dev` (default), `local`, `test`, or `prod`.
 
 ## How to create a new migration
@@ -64,18 +66,32 @@ and hit `TAB` which should insert a VS Code snippet.
 ```
 $ yarn db:version [--env #0]    # Prints the current schema version to the console
 $ yarn db:migrate [--env #0]    # Migrates database schema to the latest version
-$ yarn db:seed [--env #0]       # Seeds database with some reference data
+```
+
+Optionally, clean up up the database and seed it with some sample/reference data:
+
+```
+$ yarn db:seed [--env #0]       # Seeds database with sample/reference data
 ```
 
 While the app is in development, you can use a simplified migration workflow by
-creating a backup of your existing database, making changes to the existing
-migration file (`migrations/001_initial.ts`), re-apply the migration and restore
-all the data (as opposed to re-seeding). For example:
+creating a backup of your existing database (data only), making changes to the
+existing migration file(s) (e.g. `migrations/001_initial.ts`), re-applying the
+migrations, and restoring data from the backup file. For example:
 
 ```
-$ yarn db:backup --env=prod
-$ yarn db:reset --env=local --no-seed
-$ yarn db:restore --env=local --from=prod
+$ yarn db:backup [--env #0]     # Dumps database data (only) to a backup file
+$ yarn db:reset [--env #0] [--from #0]
+```
+
+Where `--from #0` flags tells the `db:reset` script to import data from the
+latest backup file of the selected environment (`local`, `dev`, `test`,
+or `prod`).
+
+Or, reset and seed database by running:
+
+```
+$ yarn db:reset [--env #0] [--seed]
 ```
 
 ## How to re-apply the latest migration
@@ -83,14 +99,6 @@ $ yarn db:restore --env=local --from=prod
 ```
 $ yarn db:rollback [--env #0]   # Rolls back the latest migration
 $ yarn db:migrate [--env #0]    # Migrates database schema to the latest version
-$ yarn db:seed [--env #0]       # Seeds database with some reference data
-```
-
-Alternatively, you can drop and re-create the database, then apply all the
-outstanding migrations and seed files over again by running:
-
-```
-$ yarn db:reset [--env #0] [--no-seed]
 ```
 
 ## How to backup and restore data

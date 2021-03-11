@@ -1,7 +1,8 @@
 /**
- * Resets database to its initial state (for local development). Usage:
+ * Resets database to its initial state. Usage:
  *
- *   yarn db:reset [--env #0] [--no-seed]
+ *   yarn db:reset [--env #0] [--from #0]
+ *   yarn db:reset [--env #0] [--seed]
  *
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
@@ -10,45 +11,54 @@ const knex = require("knex");
 const spawn = require("cross-spawn");
 const minimist = require("minimist");
 
-const config = require("../knexfile");
+const db = knex(require("../knexfile"));
 const updateTypes = require("./update-types");
 
+// Parse the command line arguments
 const args = minimist(process.argv.slice(2), {
   boolean: ["seed"],
-  default: { env: "dev", seed: true },
+  default: { env: "dev", seed: false },
 });
+
+const schema = "public";
+const role =
+  process.env.PGHOST === "localhost" ? "postgres" : "cloudsqlsuperuser";
 
 async function reset() {
-  const db = knex({
-    ...config,
-    connection: { ...config.connection, database: "postgres" },
-  });
+  // Drop and re-create the database schema
+  await db.raw(`DROP SCHEMA IF EXISTS ?? CASCADE`, [schema]);
+  await db.raw(`CREATE SCHEMA ?? AUTHORIZATION ??`, [schema, role]);
+  await db.raw(`GRANT ALL ON SCHEMA public TO ??`, [process.env.PGUSER]);
 
-  // Drop existing connections
-  await db.raw(
-    ` SELECT pg_terminate_backend(pg_stat_activity.pid)
-      FROM pg_stat_activity
-      WHERE pg_stat_activity.datname = ? AND pid <> pg_backend_pid()`,
-    [process.env.PGDATABASE],
-  );
-
-  // Drop and re-create the database
-  await db.raw(`DROP DATABASE IF EXISTS ??`, [process.env.PGDATABASE]);
-  await db.raw(`CREATE DATABASE ??`, [process.env.PGDATABASE]);
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  await db.destroy();
+  let p;
+  const opts = { stdio: "inherit" };
+  const envArg = `--env=${args.env}`;
 
   // Migrate database to the latest version
-  spawn.sync("yarn", ["knex", "migrate:latest"], { stdio: "inherit" });
+  p = spawn.sync("yarn", ["knex", "migrate:latest", envArg], opts);
+  if (p.status !== 0) throw new Error();
 
-  if (args.seed) {
-    spawn.sync("yarn", ["knex", "seed:run"], { stdio: "inherit" });
+  // Restore data from a backup file
+  if (args.from) {
+    const fromArg = args.from ? `--from=${args.from}` : undefined;
+    p = spawn.sync("yarn", ["run", "restore", envArg, fromArg], opts);
+    if (p.status !== 0) throw new Error();
   }
 
-  await updateTypes();
+  // Seed database with sample/reference data
+  if (args.seed) {
+    p = spawn.sync("yarn", ["knex", "seed:run", envArg], opts);
+    if (p.status !== 0) throw new Error();
+  }
+
+  if (args.env === "dev" || args.env === "local") {
+    await updateTypes();
+  }
 }
 
-reset().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+reset()
+  .finally(() => db.destroy())
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
