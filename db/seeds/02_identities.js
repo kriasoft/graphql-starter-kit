@@ -12,5 +12,7 @@ const jsonFile = `${__filename.substring(0, __filename.lastIndexOf("."))}.json`;
  */
 module.exports.seed = async (db) => {
   let records = JSON.parse(fs.readFileSync(jsonFile));
-  await db.table("identity").insert(records);
+  if (records.length > 0) {
+    await db.table("identity").insert(records);
+  }
 };

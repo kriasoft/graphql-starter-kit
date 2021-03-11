@@ -33,7 +33,7 @@ export type Route<
   /**
    * URL path pattern.
    */
-  path: string;
+  path: string[] | string;
   /**
    * GraphQL query expression.
    */
