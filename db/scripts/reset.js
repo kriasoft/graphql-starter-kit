@@ -10,8 +10,7 @@
 const knex = require("knex");
 const spawn = require("cross-spawn");
 const minimist = require("minimist");
-
-const db = knex(require("../knexfile"));
+const config = require("../knexfile");
 const updateTypes = require("./update-types");
 
 // Parse the command line arguments
@@ -20,12 +19,28 @@ const args = minimist(process.argv.slice(2), {
   default: { env: "dev", seed: false },
 });
 
+let db;
 const schema = "public";
 const role =
   process.env.PGHOST === "localhost" ? "postgres" : "cloudsqlsuperuser";
 
 async function reset() {
+  // Ensure that the database exists
+  try {
+    const database = "template1";
+    db = knex({ ...config, connection: { ...config.connection, database } });
+    await db.raw(`CREATE DATABASE ?? WITH OWNER ??`, [
+      process.env.PGDATABASE,
+      process.env.PGUSER,
+    ]);
+  } catch (err) {
+    if (err.code !== "42P04") throw err;
+  } finally {
+    await db.destroy();
+  }
+
   // Drop and re-create the database schema
+  db = knex(config);
   await db.raw(`DROP SCHEMA IF EXISTS ?? CASCADE`, [schema]);
   await db.raw(`CREATE SCHEMA ?? AUTHORIZATION ??`, [schema, role]);
   await db.raw(`GRANT ALL ON SCHEMA public TO ??`, [process.env.PGUSER]);
@@ -57,7 +72,7 @@ async function reset() {
 }
 
 reset()
-  .finally(() => db.destroy())
+  .finally(() => db && db.destroy())
   .catch((err) => {
     console.error(err);
     process.exit(1);
