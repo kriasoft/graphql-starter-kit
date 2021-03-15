@@ -21,7 +21,7 @@ function stringify(obj) {
 /**
  * Seeds the database with test / reference user accounts.
  *
- * @param {import("knex")} db
+ * @param {import("knex").Knex} db
  */
 module.exports.seed = async (db) => {
   let users = fs.existsSync(jsonFile) ? require(jsonFile) : null;

@@ -5,7 +5,7 @@
 import { css } from "@emotion/react";
 import { Button, Container, TextField, Typography } from "@material-ui/core";
 import * as React from "react";
-import { graphql, useMutation } from "react-relay/hooks";
+import { graphql, useMutation } from "react-relay";
 import { useErrors } from "../../hooks";
 import type { accountSettingsQueryResponse as Props } from "./__generated__/accountSettingsQuery.graphql";
 import type { SettingsUpdateMutation } from "./__generated__/SettingsUpdateMutation.graphql";
