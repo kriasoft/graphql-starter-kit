@@ -10,8 +10,7 @@ import {
 } from "@material-ui/core";
 import { Action, Update } from "history";
 import * as React from "react";
-import { RelayEnvironmentProvider } from "react-relay/hooks";
-import { Environment } from "relay-runtime";
+import { Environment, RelayEnvironmentProvider } from "react-relay";
 import { History, HistoryContext, LocationContext } from "../core/history";
 import type { RouteResponse } from "../core/router";
 import { resolveRoute } from "../core/router";

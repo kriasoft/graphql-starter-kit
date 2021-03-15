@@ -11,7 +11,7 @@ const fs = require("fs");
 require("env");
 
 /**
- * @type {import("knex").Config}
+ * @type {import("knex").Knex.Config}
  */
 module.exports = {
   client: "pg",

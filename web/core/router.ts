@@ -4,7 +4,7 @@
 
 import type { Match, MatchFunction } from "path-to-regexp";
 import { match as createMatchFn } from "path-to-regexp";
-import { fetchQuery } from "react-relay/hooks";
+import { fetchQuery } from "react-relay";
 import routes from "../routes";
 import { NotFoundError } from "./errors";
 import type { Route, RouterContext, RouterResponse } from "./router.types";

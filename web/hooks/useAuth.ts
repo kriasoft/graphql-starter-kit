@@ -3,7 +3,7 @@
  */
 
 import * as React from "react";
-import { graphql, useMutation } from "react-relay/hooks";
+import { graphql, useMutation } from "react-relay";
 import { useAuthSignOutMutation as SignOutMutation } from "./__generated__/useAuthSignOutMutation.graphql";
 
 export type AuthProvider = "google" | "apple" | "facebook";

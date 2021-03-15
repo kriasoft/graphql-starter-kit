@@ -8,7 +8,7 @@ const jsonFile = `${__filename.substring(0, __filename.lastIndexOf("."))}.json`;
 /**
  * Seeds the database with test / reference user identities.
  *
- * @param {import("knex")} db
+ * @param {import("knex").Knex} db
  */
 module.exports.seed = async (db) => {
   let records = JSON.parse(fs.readFileSync(jsonFile));

@@ -113,7 +113,7 @@ module.exports = function config(envName, options) {
     },
 
     resolve: {
-      extensions: [".wasm", ".mjs", ".js", ".ts", ".tsx", ".json"],
+      extensions: [".wasm", ".mjs", ".js", ".ts", ".d.ts", ".tsx", ".json"],
       alias: {
         ...(isEnvProductionProfile && {
           "react-dom$": "react-dom/profiling",
