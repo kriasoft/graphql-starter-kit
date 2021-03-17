@@ -11,7 +11,8 @@ import { App } from "./common";
 import { createRelay } from "./core/relay";
 
 // Dehydrate the initial API response and initialize a Relay store
-const data = document.getElementById("data")?.innerHTML.trim();
+// https://developer.mozilla.org/docs/Web/HTML/Element/script#embedding_data_in_html
+const data = (document.getElementById("data") as HTMLScriptElement).text;
 const records = data ? JSON.parse(data) : undefined;
 const relay = createRelay({ records });
 
