@@ -86,6 +86,7 @@ async function handleEvent(event: FetchEvent) {
 
   // Inject page metadata such as <title>, <meta name="description" contents="..." />, etc.
   // and serialized API response <script id="data" type="application/json">...</script>
+  // https://developer.mozilla.org/docs/Web/HTML/Element/script#embedding_data_in_html
   const res = transform(await resPromise, route, relay);
   return new Response(res.body, {
     status: route.error?.status || 200,
