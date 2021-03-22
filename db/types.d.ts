@@ -41,6 +41,7 @@ export type User = {
   username: string;
   email: string | null;
   email_verified: boolean;
+  password: string | null;
   name: string | null;
   picture: string | null;
   given_name: string | null;
