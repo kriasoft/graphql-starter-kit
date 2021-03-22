@@ -24,8 +24,17 @@ const idps = [
 module.exports.up = async (/** @type {Knex} */ db) /* prettier-ignore */ => {
   // PostgreSQL extensions
   // https://cloud.google.com/sql/docs/postgres/extensions
+
+  // https://www.postgresql.org/docs/current/uuid-ossp.html
   await db.raw(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
+  // https://www.postgresql.org/docs/current/hstore.html
   await db.raw(`CREATE EXTENSION IF NOT EXISTS "hstore"`);
+  // https://www.postgresql.org/docs/current/citext.html
+  await db.raw(`CREATE EXTENSION IF NOT EXISTS "citext"`);
+
+  // Custom data types (username, email, etc.)
+  await db.raw(`CREATE DOMAIN username AS citext CHECK (VALUE ~ '^[0-9a-zA-Z._]{2,50}$')`);
+  await db.raw(`CREATE DOMAIN email AS citext CHECK (VALUE ~ '^[^\\s@]+@([^\\s@.,]+\\.)+[^\\s@.,]{2,}$')`);
 
   // Custom UID types for better user experience (unlocks having short URLs etc.)
   await db.raw(`CREATE DOMAIN user_id AS TEXT CHECK(VALUE ~ '^[0-9a-z]{6}$')`);
@@ -35,9 +44,10 @@ module.exports.up = async (/** @type {Knex} */ db) /* prettier-ignore */ => {
 
   await db.schema.createTable("user", (table) => {
     table.specificType("id", "user_id").notNullable().primary();
-    table.string("username", 50).notNullable().unique();
-    table.string("email", 100);
+    table.specificType("username", "username").notNullable().unique();
+    table.specificType("email", "email").index();
     table.boolean("email_verified").notNullable().defaultTo(false);
+    table.string("password", 60); // 60-character bcrypt hash string
     table.string("name", 100);
     table.string("picture", 250);
     table.string("given_name", 100);
