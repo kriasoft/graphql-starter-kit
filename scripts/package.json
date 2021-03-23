@@ -7,14 +7,14 @@
   "dependencies": {
     "@babel/core": "^7.13.10",
     "@babel/register": "^7.13.8",
-    "@google-cloud/storage": "^5.8.1",
+    "@google-cloud/storage": "^5.8.2",
     "api": "workspace:*",
     "archiver": "^5.3.0",
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
     "file-type": "^16.3.0",
     "form-data": "^4.0.0",
-    "globby": "^11.0.2",
+    "globby": "^11.0.3",
     "got": "^11.8.2",
     "make-dir": "^3.1.0",
     "minimist": "^1.2.5",
@@ -22,6 +22,6 @@
   },
   "devDependencies": {
     "@types/archiver": "^5.1.0",
-    "@types/babel__core": "^7.1.13"
+    "@types/babel__core": "^7.1.14"
   }
 }

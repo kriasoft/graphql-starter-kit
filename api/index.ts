@@ -6,7 +6,9 @@
 
 import { Request, Router } from "express";
 import { graphqlHTTP } from "express-graphql";
+import { formatError } from "graphql";
 import { express as voyager } from "graphql-voyager/middleware";
+import { ValidationError } from "validator-fluent";
 import { auth } from "./auth";
 import { Context } from "./context";
 import env from "./env";
@@ -32,8 +34,12 @@ api.use(
     graphiql: env.APP_ENV !== "production",
     pretty: !env.isProduction,
     customFormatErrorFn: (err) => {
+      if (err.originalError instanceof ValidationError) {
+        return { ...formatError(err), errors: err.originalError.errors };
+      }
+
       console.error(err.originalError || err);
-      return err;
+      return formatError(err);
     },
   })),
 );

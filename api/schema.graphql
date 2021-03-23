@@ -121,8 +121,11 @@ type Mutation {
   # Removes the authentication cookie.
   signOut: String
 
-  # Updates a user.
-  updateUser(input: UpdateUserInput!): UpdateUserPayload
+  # Updates the user account.
+  updateUser(
+    input: UpdateUserInput
+    dryRun: Boolean! = false
+  ): UpdateUserPayload
 }
 
 type SignInPayload {
@@ -131,8 +134,6 @@ type SignInPayload {
 
 type UpdateUserPayload {
   user: User
-  errors: [[String!]!]
-  clientMutationId: String
 }
 
 input UpdateUserInput {
@@ -143,7 +144,4 @@ input UpdateUserInput {
   picture: String
   timeZone: String
   locale: String
-  admin: Boolean
-  validateOnly: Boolean
-  clientMutationId: String
 }

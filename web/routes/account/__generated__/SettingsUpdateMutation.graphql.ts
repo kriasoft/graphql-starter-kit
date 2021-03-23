@@ -11,9 +11,6 @@ export type UpdateUserInput = {
     picture?: string | null;
     timeZone?: string | null;
     locale?: string | null;
-    admin?: boolean | null;
-    validateOnly?: boolean | null;
-    clientMutationId?: string | null;
 };
 export type SettingsUpdateMutationVariables = {
     input: UpdateUserInput;
@@ -26,7 +23,6 @@ export type SettingsUpdateMutationResponse = {
             readonly email: string | null;
             readonly username: string;
         } | null;
-        readonly errors: ReadonlyArray<ReadonlyArray<string>> | null;
     } | null;
 };
 export type SettingsUpdateMutation = {
@@ -47,7 +43,6 @@ mutation SettingsUpdateMutation(
       email
       username
     }
-    errors
   }
 }
 */
@@ -113,13 +108,6 @@ v1 = [
           }
         ],
         "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "errors",
-        "storageKey": null
       }
     ],
     "storageKey": null
@@ -143,14 +131,14 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "9b7966806b9687a1dda9ea2f0ec361cd",
+    "cacheID": "1fb8c3abab656fbee37524a6fe43acd6",
     "id": null,
     "metadata": {},
     "name": "SettingsUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation SettingsUpdateMutation(\n  $input: UpdateUserInput!\n) {\n  updateUser(input: $input) {\n    user {\n      id\n      name\n      email\n      username\n    }\n    errors\n  }\n}\n"
+    "text": "mutation SettingsUpdateMutation(\n  $input: UpdateUserInput!\n) {\n  updateUser(input: $input) {\n    user {\n      id\n      name\n      email\n      username\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '8fa8cd5c65d6f1093d68c54f8f2ac6c8';
+(node as any).hash = '4fdc43c5ec5b24410eca66b1c0f76755';
 export default node;
