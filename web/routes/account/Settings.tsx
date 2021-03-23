@@ -19,7 +19,6 @@ const updateUserMutation = graphql`
         email
         username
       }
-      errors
     }
   }
 `;
@@ -34,7 +33,7 @@ export default function Settings(props: Props): JSX.Element {
   });
 
   const [updateUser] = useMutation<SettingsUpdateMutation>(updateUserMutation);
-  const [error, setErrors] = useErrors();
+  const [errors, setErrors] = useErrors();
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -52,8 +51,8 @@ export default function Settings(props: Props): JSX.Element {
     if (!me) return;
     updateUser({
       variables: { input },
-      onCompleted({ updateUser: data }, errors) {
-        setErrors(data?.errors, errors);
+      onCompleted(_, errors) {
+        setErrors(errors?.[0]);
       },
     });
   }
@@ -85,7 +84,8 @@ export default function Settings(props: Props): JSX.Element {
             type={x.key === "email" ? "email" : "text"}
             label={x.label}
             value={input[x.key]}
-            placeholder={error[x.key]}
+            error={Boolean(errors[x.key])}
+            helperText={errors[x.key]?.join(" ")}
             onChange={handleChange}
             fullWidth
           />

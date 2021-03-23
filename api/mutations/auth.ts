@@ -5,8 +5,10 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
+import bcrypt from "bcrypt";
 import type { User } from "db";
 import { GraphQLFieldConfig, GraphQLObjectType, GraphQLString } from "graphql";
+import { validate, ValidationError } from "validator-fluent";
 import { Context } from "../context";
 import db from "../db";
 import { UserType } from "../types";
@@ -35,14 +37,39 @@ export const signIn: GraphQLFieldConfig<unknown, Context, any> = {
   },
 
   async resolve(self, args: SignInArgs, ctx) {
-    // TODO:
-    //   Authenticate user with the provided Firebase ID token,
-    //   or username / email and password.
+    if (args.idToken) {
+      // TODO: Authenticate user with the provided (Firebase) ID token.
+      throw new Error("Not implemented.");
+    }
 
-    const user = await db.table<User>("user").where({ id: "wp60xu" }).first();
-    const me = await ctx.signIn(user);
+    // Validate user input for email/password authentication
+    const [input, errors] = validate(args, (value) => ({
+      email: value("email").notEmpty().isEmail(),
+      password: value("password").notEmpty(),
+    }));
 
-    return { me };
+    if (Object.keys(errors).length > 0) {
+      throw new ValidationError(errors);
+    }
+
+    const users = await db
+      .table<User>("user")
+      .where("email", "=", String(input.email))
+      .whereNotNull("password")
+      .orderBy("email_verified", "desc")
+      .select();
+
+    for (const user of users) {
+      const valid = await bcrypt.compare(input.password, String(user.password));
+
+      if (valid) {
+        const me = await ctx.signIn(user);
+        return { me };
+      }
+    }
+
+    // TODO: Log failed login attempts.
+    throw new ValidationError({ password: ["Wrong email or password."] });
   },
 };
 
