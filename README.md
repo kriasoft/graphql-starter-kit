@@ -16,6 +16,7 @@
 - Stateless JWT cookie-based authentication (supporting SSR, OAuth 2.0 via Google, Facebook, etc.)
 - Database tooling such as seed files, migrations, REPL shell, etc.
 - Front-end boilerplate pre-configured with TypeScript, Webpack v5, React, Relay, and Materia UI
+- Transactional email templates pre-configured with Handlebars, Juice, Nodemailer, previewing
 - Serverless deployment: `api`, `img` → Cloud Functions, `web` → Cloudflare Workers
 - HTML page rendering (SSR) at CDN edge locations, all ~100 points on Lighthouse
 - Pre-configured dev, test / QA, production, and review (per PR) environments

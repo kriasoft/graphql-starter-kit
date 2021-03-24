@@ -38,6 +38,8 @@ const envVars = [
   `PGPASSWORD=${env.PGPASSWORD}`,
   `PGDATABASE=${env.PGDATABASE}`,
   `PGAPPNAME=${pkg.name}_${version}_${env.APP_ENV}`,
+  `EMAIL_FROM=${env.EMAIL_FROM}`,
+  `EMAIL_PASSWORD=${env.EMAIL_PASSWORD}`,
 ];
 
 spawn(
