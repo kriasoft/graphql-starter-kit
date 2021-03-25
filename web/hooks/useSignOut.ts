@@ -4,16 +4,16 @@
 
 import * as React from "react";
 import { graphql, useMutation } from "react-relay";
-import { useAuthSignOutMutation as SignOutMutation } from "./__generated__/useAuthSignOutMutation.graphql";
+import { useSignOutMutation } from "./__generated__/useSignOutMutation.graphql";
 
 const signOutMutation = graphql`
-  mutation useAuthSignOutMutation {
+  mutation useSignOutMutation {
     signOut
   }
 `;
 
 export function useSignOut(): () => void {
-  const [commit] = useMutation<SignOutMutation>(signOutMutation);
+  const [commit] = useMutation<useSignOutMutation>(signOutMutation);
   return React.useCallback(
     function () {
       commit({
