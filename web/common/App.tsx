@@ -14,6 +14,7 @@ import { Environment, RelayEnvironmentProvider } from "react-relay";
 import { History, HistoryContext, LocationContext } from "../core/history";
 import type { RouteResponse } from "../core/router";
 import { resolveRoute } from "../core/router";
+import { LoginDialog } from "../dialogs";
 import theme from "../theme";
 import { AppToolbar } from "./AppToolbar";
 import { ErrorPage } from "./ErrorPage";
@@ -101,6 +102,7 @@ export class App extends React.Component<AppProps> {
               {route?.component
                 ? React.createElement(route.component, route.props)
                 : null}
+              <LoginDialog />
             </LocationContext.Provider>
           </HistoryContext.Provider>
         </RelayEnvironmentProvider>

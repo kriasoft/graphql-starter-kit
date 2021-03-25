@@ -15,8 +15,7 @@ import {
 } from "@material-ui/core";
 import { ArrowDropDown, NotificationsNone } from "@material-ui/icons";
 import * as React from "react";
-import { useAuth, useCurrentUser, useNavigate } from "../hooks";
-import { Google } from "../icons";
+import { useCurrentUser, useLoginDialog, useNavigate } from "../hooks";
 import { NotificationsMenu, UserMenu } from "../menu";
 
 type AppToolbarProps = AppBarProps & {
@@ -32,9 +31,9 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
     notifications: null as HTMLElement | null,
   });
 
+  const loginDialog = useLoginDialog();
   const navigate = useNavigate();
   const user = useCurrentUser();
-  const auth = useAuth();
 
   function openNotificationsMenu() {
     setAnchorEl((x) => ({ ...x, notifications: menuAnchorRef.current }));
@@ -54,7 +53,7 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
 
   function signIn(event: React.MouseEvent): void {
     event.preventDefault();
-    auth.signIn("google");
+    loginDialog.show();
   }
 
   return (
@@ -127,11 +126,10 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
         {!user && (
           <Button
             variant="outlined"
-            startIcon={<Google />}
             href="/auth/google"
             color="primary"
             onClick={signIn}
-            children="Sign in with Google"
+            children="Log in / Register"
           />
         )}
       </Toolbar>

@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import { Brightness4, Settings } from "@material-ui/icons";
 import * as React from "react";
-import { useAuth, useNavigate } from "../hooks";
+import { useNavigate, useSignOut } from "../hooks";
 import { Logout } from "../icons";
 
 type UserMenuProps = Omit<
@@ -33,13 +33,8 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
   const { onChangeTheme, PaperProps, MenuListProps, ...other } = props;
 
   const navigate = useNavigate();
+  const signOut = useSignOut();
   const theme = useTheme();
-  const auth = useAuth();
-
-  function signOut(event: React.MouseEvent): void {
-    event.preventDefault();
-    auth.signOut();
-  }
 
   function handleClick(event: React.MouseEvent<HTMLAnchorElement>): void {
     props.onClose?.(event, "backdropClick");

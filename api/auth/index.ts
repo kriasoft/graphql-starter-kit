@@ -1,18 +1,14 @@
 /**
- * OAuth authentication middleware.
- *
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import { NextFunction, Request, Response, Router } from "express";
-import * as google from "./google";
+import { Router } from "express";
+import facebook from "./facebook";
+import google from "./google";
 
-export const auth = Router();
+const auth = Router();
 
-auth.use((req: Request, res: Response, next: NextFunction) => {
-  res.setHeader("Cache-Control", "no-store");
-  next();
-});
+auth.use(google);
+auth.use(facebook);
 
-auth.get("/auth/google", google.auth);
-auth.get("/auth/google/return", google.callback);
+export { auth };

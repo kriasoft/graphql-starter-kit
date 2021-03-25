@@ -1901,7 +1901,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/boom@npm:^9.1.1":
+"@hapi/boom@npm:9.x.x, @hapi/boom@npm:^9.1.1":
   version: 9.1.2
   resolution: "@hapi/boom@npm:9.1.2"
   dependencies:
@@ -1910,10 +1910,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/hoek@npm:9.x.x":
+"@hapi/bourne@npm:2.x.x":
+  version: 2.0.0
+  resolution: "@hapi/bourne@npm:2.0.0"
+  checksum: 97a3e6d44c63debbb170f5966a8076022e2855f1c4fa81edc8c6fd255ba56ce047c3dcce5055858188610eafd77e6420c67ece7fd17e3192830e2fbca7766fd0
+  languageName: node
+  linkType: hard
+
+"@hapi/hoek@npm:9.x.x, @hapi/hoek@npm:^9.0.0, @hapi/hoek@npm:^9.0.4":
   version: 9.1.1
   resolution: "@hapi/hoek@npm:9.1.1"
   checksum: e5be371c579bcdef755566b88ccd6bbf5c52ad2cc770e134ee909156cdcff2acf7aad3f4b5400d83742a27acc580a00a82d2cde8c812db0b0437e4e80fa0a6a0
+  languageName: node
+  linkType: hard
+
+"@hapi/topo@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@hapi/topo@npm:5.0.0"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+  checksum: f92797d5ef54bb801a3591a118ea483ed5a6b41cdd1aaa6f7bf427b64b5f76056bc7063447adf43be8f94b04408228cce12963ea498b8da8f9e01d01c78710ac
+  languageName: node
+  linkType: hard
+
+"@hapi/wreck@npm:^17.0.0":
+  version: 17.1.0
+  resolution: "@hapi/wreck@npm:17.1.0"
+  dependencies:
+    "@hapi/boom": 9.x.x
+    "@hapi/bourne": 2.x.x
+    "@hapi/hoek": 9.x.x
+  checksum: ea3fd37926e16e0c2667e19b17a707eca1e2a58422af610a070d95c09c8b403e1069df4c04bf68ab44f8e1784bd3b7eb5ba5e05b4a13f4df43de3549dbcb9c82
   languageName: node
   linkType: hard
 
@@ -2521,6 +2548,29 @@ __metadata:
     "@sendgrid/client": ^7.4.2
     "@sendgrid/helpers": ^7.4.2
   checksum: 4b4edeaf5ab06a0b4b501526e9bbe06fe0e4f6d55793be65ad22240e0701cad3a8cb0bf0ee64e6f2417557f5bfee4cf1230ec03ebe9d1356ac09eb5b868453aa
+  languageName: node
+  linkType: hard
+
+"@sideway/address@npm:^4.1.0":
+  version: 4.1.1
+  resolution: "@sideway/address@npm:4.1.1"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+  checksum: ba8678372e821590a58ea5edf62370473c8458255168d28d20e9fe6c90c65f5218377012cc5b61a4b544dcd3f2e65a768bca2ae266310e16045dcd85ea17079c
+  languageName: node
+  linkType: hard
+
+"@sideway/formula@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@sideway/formula@npm:3.0.0"
+  checksum: b83ecd35fea33e7b826ddcdc9f0735a79bd374927efea36885203200c418ad0f9975c329eaf9e990a7c61cf96f560ed2020227a35e699324ddd3c94dd3f4045f
+  languageName: node
+  linkType: hard
+
+"@sideway/pinpoint@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@sideway/pinpoint@npm:2.0.0"
+  checksum: e5528639aef1d266c23050897a6571c1e2aeccb59b6a22006a153fbd73aee78ae995bf19c022d70de5a00589a7f51372e78ef9aacd34a3dd9b13720c866aca7e
   languageName: node
   linkType: hard
 
@@ -3250,6 +3300,13 @@ __metadata:
     "@types/express-serve-static-core": "*"
     "@types/mime": "*"
   checksum: 9b9f2a91248ccdc13f2ca658d276bac6b7c7f6907dcb3c9b1602d4d239438717323226b1469788b351967ae29d25663fa66328668923e674246b20d5df4f3e88
+  languageName: node
+  linkType: hard
+
+"@types/simple-oauth2@npm:^4":
+  version: 4.1.0
+  resolution: "@types/simple-oauth2@npm:4.1.0"
+  checksum: de9297b41469503f5f2b797d3d57380eee88c7c87b6cb6d251b889bab933de26d39ef3235a04675d7f30d48a86f539768f9856a812003a2786d20d601f205321
   languageName: node
   linkType: hard
 
@@ -4139,6 +4196,7 @@ __metadata:
     "@types/minimist": ^1.2.1
     "@types/moment-timezone": ^0.5.30
     "@types/node": ^14.14.35
+    "@types/simple-oauth2": ^4
     "@types/uuid": ^8.3.0
     "@types/validator": ^13.1.3
     bcrypt: ^5.0.1
@@ -4159,6 +4217,7 @@ __metadata:
     express-graphql: ^0.12.0
     faker: ^5.4.0
     google-auth-library: ^7.0.2
+    got: ^11.8.2
     graphql: ^15.5.0
     graphql-relay: ^0.6.0
     graphql-voyager: ^1.0.0-rc.31
@@ -4172,6 +4231,7 @@ __metadata:
     nodemon: ^2.0.7
     pg: ^8.5.1
     pretty-error: ^3.0.3
+    simple-oauth2: ^4.2.0
     slugify: ^1.5.0
     source-map-support: ^0.5.19
     typescript: ^4.2.3
@@ -10520,6 +10580,19 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"joi@npm:^17.3.0":
+  version: 17.4.0
+  resolution: "joi@npm:17.4.0"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+    "@hapi/topo": ^5.0.0
+    "@sideway/address": ^4.1.0
+    "@sideway/formula": ^3.0.0
+    "@sideway/pinpoint": ^2.0.0
+  checksum: 2f6203d4513c063d457a935dab5e8060413479880d55af2c4fada987c7fe1bedff46d46eec36b14cf433ecc4df3b580fe1c0a0fed5b73a265b78011f97ff5c2d
+  languageName: node
+  linkType: hard
+
 "js-stringify@npm:^1.0.2":
   version: 1.0.2
   resolution: "js-stringify@npm:1.0.2"
@@ -14791,6 +14864,18 @@ resolve@^2.0.0-next.3:
   version: 1.0.0
   resolution: "signedsource@npm:1.0.0"
   checksum: e6fdfce197bf4ad37c79078137ff8da4655da37caee4fa1c170475e12e0c4bb5104163fefaf81280099e284a19e81eded08a84bab1c4a358c710237473e37c96
+  languageName: node
+  linkType: hard
+
+"simple-oauth2@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "simple-oauth2@npm:4.2.0"
+  dependencies:
+    "@hapi/hoek": ^9.0.4
+    "@hapi/wreck": ^17.0.0
+    debug: ^4.1.1
+    joi: ^17.3.0
+  checksum: ff7602360575eca6e47f66974cdb8c11990a61d98b05f2b473fa9e99619de9bb4269e9b7efc5230b96880e1c6143bccf3a4c383e304a17b8b85402dba9def1aa
   languageName: node
   linkType: hard
 

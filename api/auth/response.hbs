@@ -6,17 +6,22 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fafafa">
-  <noscript>
-    <meta http-equiv="refresh" content="0;url=/" />
-  </noscript>
+  <noscript><meta http-equiv="refresh" content="0;url=/" /></noscript>
+</head>
+<body>
+  <pre><code>{{#if error}}{{ error.stack }}{{/if}}</code></pre>
+  <script id="data" type="application/json">{{{json data}}}</script>
   <script>
-    const returnUrl = window.sessionStorage.getItem("return") || "/";
+    var error = {{#if error}}`{{ error.message }}`{{else}}null{{/if}};
+
     if (window.opener && !window.opener.closed) {
-      window.opener.location.href = returnUrl;
+      var data = JSON.parse(document.getElementById("data").text);
+      window.opener.postMessage(error ? { error } : data, window.location.origin);
       window.close();
-    } else {
+    } else if (!error) {
+      var returnUrl = window.sessionStorage.getItem("return") || "/";
       window.location.href = returnUrl;
     }
   </script>
-</head>
+</body>
 </html>
