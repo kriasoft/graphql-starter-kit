@@ -27,8 +27,9 @@ jobs:
       - run: yarn test
 
       # Compile
-      - run: yarn workspace api build
-      - run: yarn workspace web build
+      - run: yarn api:build
+      - run: yarn web:relay
+      - run: yarn web:build
 
       # Upload to a cloud storage bucket
       # - run: yarn workspaces foreach -p run push

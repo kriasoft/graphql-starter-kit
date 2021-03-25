@@ -3,19 +3,19 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type useAuthSignOutMutationVariables = {};
-export type useAuthSignOutMutationResponse = {
+export type useSignOutMutationVariables = {};
+export type useSignOutMutationResponse = {
     readonly signOut: string | null;
 };
-export type useAuthSignOutMutation = {
-    readonly response: useAuthSignOutMutationResponse;
-    readonly variables: useAuthSignOutMutationVariables;
+export type useSignOutMutation = {
+    readonly response: useSignOutMutationResponse;
+    readonly variables: useSignOutMutationVariables;
 };
 
 
 
 /*
-mutation useAuthSignOutMutation {
+mutation useSignOutMutation {
   signOut
 }
 */
@@ -35,7 +35,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "useAuthSignOutMutation",
+    "name": "useSignOutMutation",
     "selections": (v0/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -44,18 +44,18 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "useAuthSignOutMutation",
+    "name": "useSignOutMutation",
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "d0fe6467f225a88550b46ffeb30f2b5b",
+    "cacheID": "c0a9a141b40ffd855ec90f743197d1b1",
     "id": null,
     "metadata": {},
-    "name": "useAuthSignOutMutation",
+    "name": "useSignOutMutation",
     "operationKind": "mutation",
-    "text": "mutation useAuthSignOutMutation {\n  signOut\n}\n"
+    "text": "mutation useSignOutMutation {\n  signOut\n}\n"
   }
 };
 })();
-(node as any).hash = 'e64db0352baa482e2de3b17514fdd119';
+(node as any).hash = 'e09800d725e76ecd661060cd1beba32a';
 export default node;
