@@ -33,6 +33,7 @@ async function getUser(req: Request): Promise<User | null> {
 }
 
 async function signIn(
+  req: Request,
   res: Response,
   user: User | null | undefined,
 ): Promise<User | null> {
@@ -47,6 +48,7 @@ async function signIn(
     .returning("*");
 
   if (!user) {
+    req.user = null;
     return null;
   }
 
@@ -67,18 +69,19 @@ async function signIn(
     }),
   );
 
-  return user;
+  return (req.user = user);
 }
 
-function signOut(res: Response): void {
+function signOut(req: Request, res: Response): void {
+  req.user = null;
   res.clearCookie(env.JWT_COOKIE);
 }
 
 export const session: RequestHandler = async function session(req, res, next) {
   try {
     req.user = await getUser(req);
-    req.signIn = signIn.bind(undefined, res);
-    req.signOut = signOut.bind(undefined, res);
+    req.signIn = signIn.bind(undefined, req, res);
+    req.signOut = signOut.bind(undefined, req, res);
 
     // In some cases it might be useful to ensure that the API
     // request fails when the user was not authenticated.

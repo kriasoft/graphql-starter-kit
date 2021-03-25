@@ -1,23 +1,27 @@
 /**
- * OAuth authentication middleware for Google.
- *
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import { IdentityProvider } from "db/types";
-import { Request, Response } from "express";
+import { Router } from "express";
 import { OAuth2Client } from "google-auth-library";
 import env from "../env";
 import connect from "./connect";
 import response from "./response";
 
+const router = Router();
+
+/**
+ * Google OAuth 2.0 client.
+ *
+ * @see https://googleapis.dev/nodejs/google-auth-library/latest/
+ */
 const client = new OAuth2Client({
   clientId: env.GOOGLE_CLIENT_ID,
   clientSecret: env.GOOGLE_CLIENT_SECRET,
-  redirectUri: `${env.APP_ORIGIN}/auth/google/return`,
 });
 
-export function auth(req: Request, res: Response): void {
+router.get("/auth/google", function (req, res) {
   const authorizeUrl = client.generateAuthUrl({
     access_type: "offline",
     scope: [
@@ -27,27 +31,28 @@ export function auth(req: Request, res: Response): void {
     ],
     include_granted_scopes: true,
     redirect_uri: env.isProduction
-      ? undefined
-      : `${req.protocol}://${req.get("host")}${req.path}/return`, // TEMP
+      ? `${env.APP_ORIGIN}/auth/google/return`
+      : `${req.protocol}://${req.get("host")}/auth/google/return`,
   });
 
+  res.setHeader("Cache-Control", "no-store");
   res.redirect(authorizeUrl);
-}
+});
 
-export async function callback(req: Request, res: Response): Promise<void> {
+router.get("/auth/google/return", async function (req, res) {
   try {
     const { tokens: credentials } = await client.getToken({
       code: req.query.code as string,
       redirect_uri: env.isProduction
-        ? undefined
-        : `${req.protocol}://${req.get("host")}${req.path}`, // TEMP
+        ? `${env.APP_ORIGIN}/auth/google/return`
+        : `${req.protocol}://${req.get("host")}/auth/google/return`,
     });
 
     const { payload: token } = await client.verifyIdToken({
       idToken: credentials.id_token as string,
     });
 
-    const user = await connect(req, {
+    const data = await connect(req, {
       provider: IdentityProvider.google,
       id: token.sub,
       email: token.email,
@@ -67,10 +72,12 @@ export async function callback(req: Request, res: Response): Promise<void> {
         : null,
     });
 
-    res.send(response({ user }));
+    res.send(response({ data }));
   } catch (error) {
     console.error(error);
     res.status(401);
     res.send(response({ error }));
   }
-}
+});
+
+export default router;

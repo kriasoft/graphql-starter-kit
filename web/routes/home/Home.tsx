@@ -4,17 +4,17 @@
 
 import { Container, Link, Typography } from "@material-ui/core";
 import * as React from "react";
-import { useAuth, useNavigate } from "../../hooks";
+import { useLoginDialog, useNavigate } from "../../hooks";
 import type { homeQueryResponse as Props } from "./__generated__/homeQuery.graphql";
 
 export default function Home(props: Props): JSX.Element {
   const { me } = props;
+  const loginDialog = useLoginDialog();
   const navigate = useNavigate();
-  const auth = useAuth();
 
   function signIn(event: React.MouseEvent<HTMLElement>) {
     event.preventDefault();
-    auth.signIn("google");
+    loginDialog.show();
   }
 
   return (
@@ -42,7 +42,7 @@ export default function Home(props: Props): JSX.Element {
             <Link href="/auth/google" onClick={signIn}>
               Connect
             </Link>{" "}
-            via your Google account.
+            via your Google or Facebook account.
           </React.Fragment>
         )}
       </Typography>

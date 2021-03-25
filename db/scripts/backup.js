@@ -52,6 +52,7 @@ cmd = cp
     [
       "--verbose",
       "--data-only",
+      "--schema=public",
       "--no-owner",
       "--no-privileges",
       // '--column-inserts',

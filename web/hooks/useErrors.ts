@@ -18,7 +18,7 @@ type Input = {
 };
 
 type Errors<T extends Input> = {
-  [key in keyof T | "_"]?: string[] | string;
+  [key in keyof T | "_"]?: string[];
 };
 
 const empty: Errors<Input> = {};
@@ -39,13 +39,17 @@ const empty: Errors<Input> = {};
  */
 export function useErrors<T extends Input>(): [
   Errors<T>,
-  (payloadError?: PayloadError) => void,
+  (payloadError?: PayloadError | ((prev: Errors<T>) => Errors<T>)) => void,
 ] {
   const [errors, set] = React.useState<Errors<T>>(empty);
 
   const setErrors = React.useCallback(
-    function setErrors(err?: PayloadError) {
-      set(err?.errors || (err && { _: err.message }) || empty);
+    function setErrors(err?: PayloadError | ((prev: Errors<T>) => Errors<T>)) {
+      if (typeof err === "function") {
+        set(err);
+      } else {
+        set(err?.errors || (err && { _: [err.message] }) || empty);
+      }
     },
     [set],
   );

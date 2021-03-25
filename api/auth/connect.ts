@@ -1,18 +1,23 @@
 /**
- * Links OAuth credentials (identity) to a user account.
- *
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import type { Identity, User } from "db";
 import { Request } from "express";
+import { graphql } from "graphql";
+import { Context } from "../context";
 import db from "../db";
+import { schema } from "../schema";
 import { newUserId } from "../utils";
 
+/**
+ * Links OAuth credentials (identity) to a user account.
+ */
 export default async function connect(
   req: Request,
   identity: Partial<Omit<Identity, "user_id">>,
-): Promise<User | null> {
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+): Promise<any | null> {
   // Get the currently authenticated user from session
   let user: User | null | undefined = req.user;
 
@@ -84,5 +89,34 @@ export default async function connect(
     }
   }
 
-  return req.signIn(user);
+  await req.signIn(user);
+
+  return graphql({
+    schema,
+    contextValue: new Context(req),
+    source: `
+      query {
+        me {
+          __typename
+          id
+          username
+          email
+          emailVerified
+          name
+          picture
+          givenName
+          familyName
+          timeZone
+          locale
+          createdAt
+          updatedAt
+          lastLogin
+        }
+      }
+    `,
+  }).then(({ data, errors }) => {
+    const err = errors?.[0];
+    if (err) throw err.originalError || err;
+    return data;
+  });
 }

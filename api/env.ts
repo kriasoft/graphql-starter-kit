@@ -35,6 +35,9 @@ export default cleanEnv(process.env, {
   GOOGLE_CLIENT_ID: str(),
   GOOGLE_CLIENT_SECRET: str(),
 
+  FACEBOOK_APP_ID: str(),
+  FACEBOOK_APP_SECRET: str(),
+
   EMAIL_FROM: str(),
   EMAIL_PASSWORD: str(),
 });
