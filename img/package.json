@@ -8,6 +8,6 @@
     "img:deploy": "node ../scripts/deploy-img"
   },
   "dependencies": {
-    "image-resizing": "^0.1.2"
+    "image-resizing": "^0.1.3"
   }
 }

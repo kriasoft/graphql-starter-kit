@@ -3,7 +3,7 @@
  */
 
 import type { ComponentClass, ComponentProps, FunctionComponent } from "react";
-import type { Environment, GraphQLTaggedNode } from "relay-runtime";
+import type { Environment, GraphQLTaggedNode } from "react-relay";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
