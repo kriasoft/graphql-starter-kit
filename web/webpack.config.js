@@ -142,6 +142,24 @@ module.exports = function config(envName, options) {
                 rootMode: "upward",
                 plugins: [
                   ["@babel/plugin-transform-runtime", { useESModules: true }],
+                  [
+                    "babel-plugin-import",
+                    {
+                      libraryName: "@material-ui/core",
+                      libraryDirectory: "",
+                      camel2DashComponentName: false,
+                    },
+                    "core",
+                  ],
+                  [
+                    "babel-plugin-import",
+                    {
+                      libraryName: "@material-ui/icons",
+                      libraryDirectory: "",
+                      camel2DashComponentName: false,
+                    },
+                    "icons",
+                  ],
                   "relay",
                   isDevServer && "react-refresh/babel",
                 ].filter(Boolean),

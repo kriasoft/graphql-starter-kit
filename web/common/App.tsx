@@ -2,12 +2,8 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import {
-  CssBaseline,
-  PaletteMode,
-  ThemeProvider,
-  Toolbar,
-} from "@material-ui/core";
+import { CssBaseline, PaletteMode, Toolbar } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/core/styles";
 import { Action, Update } from "history";
 import * as React from "react";
 import { Environment, RelayEnvironmentProvider } from "react-relay";

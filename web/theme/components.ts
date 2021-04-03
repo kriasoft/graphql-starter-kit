@@ -2,7 +2,7 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-import type { ThemeOptions } from "@material-ui/core";
+import type { ThemeOptions } from "@material-ui/core/styles";
 
 /**
  * Style overrides for Material UI components.
