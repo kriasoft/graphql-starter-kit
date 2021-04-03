@@ -141,7 +141,7 @@ module.exports = function config(envName, options) {
               options: {
                 rootMode: "upward",
                 plugins: [
-                  ["@babel/plugin-transform-runtime", { useESModules: true }],
+                  ["@babel/plugin-transform-runtime"],
                   [
                     "babel-plugin-import",
                     {
