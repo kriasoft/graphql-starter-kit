@@ -34,7 +34,7 @@
   "dependencies": {
     "cross-spawn": "^7.0.3",
     "env": "workspace:*",
-    "faker": "^5.5.2",
+    "faker": "^5.5.3",
     "knex": "^0.95.4",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",

@@ -26,7 +26,7 @@
     "compression": "^1.7.4",
     "cookie": "^0.4.1",
     "cookie-parser": "^1.4.5",
-    "core-js": "^3.10.0",
+    "core-js": "^3.10.1",
     "cors": "^2.8.5",
     "cross-spawn": "^7.0.3",
     "dataloader": "^2.0.0",
@@ -35,8 +35,8 @@
     "envalid": "^7.1.0",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
-    "faker": "^5.5.2",
-    "google-auth-library": "^7.0.3",
+    "faker": "^5.5.3",
+    "google-auth-library": "^7.0.4",
     "got": "^11.8.2",
     "graphql": "^15.5.0",
     "graphql-relay": "^0.6.0",
@@ -58,14 +58,14 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.13.14",
-    "@babel/core": "^7.13.14",
+    "@babel/core": "^7.13.15",
     "@babel/register": "^7.13.14",
     "@types/bcrypt": "^3.0.0",
     "@types/cookie": "^0.4.0",
     "@types/cross-spawn": "^6.0.2",
-    "@types/email-templates": "^8.0.2",
+    "@types/email-templates": "^8.0.3",
     "@types/express": "^4.17.11",
-    "@types/faker": "^5.5.0",
+    "@types/faker": "^5.5.1",
     "@types/graphql-relay": "^0.6.0",
     "@types/jest": "^26.0.22",
     "@types/jsonwebtoken": "^8.5.1",
@@ -80,7 +80,7 @@
     "env": "workspace:*",
     "minimist": "^1.2.5",
     "nodemon": "^2.0.7",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.4"
   },
   "engines": {
     "node": ">=14"
