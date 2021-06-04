@@ -21,6 +21,9 @@
 - HTML page rendering (SSR) at CDN edge locations, all ~100 points on Lighthouse
 - Pre-configured dev, test / QA, production, and review (per PR) environments
 - Pre-configured VSCode code snippets and other VSCode settings
+- The ongoing design and development is supported by these wonderful companies:
+
+<a href="https://reactstarter.com/s/1"><img src="https://reactstarter.com/s/1.png" height="60" /></a>&nbsp;&nbsp;<a href="https://reactstarter.com/s/2"><img src="https://reactstarter.com/s/2.png" height="60" /></a>&nbsp;&nbsp;<a href="https://reactstarter.com/s/3"><img src="https://reactstarter.com/s/3.png" height="60" /></a>
 
 ---
 
@@ -87,6 +90,10 @@ $ yarn upgrade-interactive      # Bump Node.js dependencies using an interactive
 $ yarn install                  # Install the updated Node.js dependencies
 $ yarn pnpify --sdk vscode      # Update VSCode settings
 ```
+
+## Backers
+
+<a href="https://reactstarter.com/b/1"><img src="https://reactstarter.com/b/1.png" height="60" /></a>&nbsp;&nbsp;<a href="https://reactstarter.com/b/2"><img src="https://reactstarter.com/b/2.png" height="60" /></a>&nbsp;&nbsp;<a href="https://reactstarter.com/b/3"><img src="https://reactstarter.com/b/3.png" height="60" /></a>&nbsp;&nbsp;<a href="https://reactstarter.com/b/4"><img src="https://reactstarter.com/b/4.png" height="60" /></a>&nbsp;&nbsp;<a href="https://reactstarter.com/b/5"><img src="https://reactstarter.com/b/5.png" height="60" /></a>&nbsp;&nbsp;<a href="https://reactstarter.com/b/6"><img src="https://reactstarter.com/b/6.png" height="60" /></a>&nbsp;&nbsp;<a href="https://reactstarter.com/b/7"><img src="https://reactstarter.com/b/7.png" height="60" /></a>&nbsp;&nbsp;<a href="https://reactstarter.com/b/8"><img src="https://reactstarter.com/b/8.png" height="60" /></a>
 
 ## How to Contribute
 
