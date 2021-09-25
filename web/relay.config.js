@@ -1,10 +1,11 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+
 /**
- * Relay configuration
+ * Relay configuration.
  *
  * @see https://relay.dev/docs/installation-and-setup
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
-
 module.exports = {
   src: ".",
   schema: "../api/schema.graphql",

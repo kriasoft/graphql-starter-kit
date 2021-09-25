@@ -1,27 +1,12 @@
 # Environment Variables
 
-This package contains environment variables that can be shared across multiple
-projects in the monorepo (`api`, `worker`, etc.).
+This folder contains environment variables and keys that can be shared across multiple
+projects within the monorepo (`api`, `web`, etc.).
 
-This project was bootstrapped with [GraphQL API Starter Kit](https://github.com/kriasoft/graphql-starter).
-Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for
-assistance.
-
-**IMPORTANT**: Database passwords, API keys etc. need to be encrypted.
+**IMPORTANT**: Database passwords, API keys etc. need to be stored encrypted.
 
 ## Pre-configured Environments
 
-- `local`
-- `dev` (default)
-- `test`
-- `prod`
-
-## References
-
-- [The twelve-factor app](https://12factor.net/config) methodology
-- [Dotenv](https://github.com/motdotla/dotenv) `.env` files loader
-
-## License
-
-Copyright © 2016-present Kriasoft. This source code is licensed under the MIT license found in the
-[LICENSE](https://github.com/kriasoft/graphql-starter/blob/main/LICENSE) file.
+- **`local`**: http://localhost:3000 (default)
+- **`test`**: http://test.example.com
+- **`prod`**: http://example.com

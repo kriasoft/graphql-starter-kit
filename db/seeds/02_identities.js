@@ -1,18 +1,15 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
-
-const fs = require("fs");
-const jsonFile = `${__filename.substring(0, __filename.lastIndexOf("."))}.json`;
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
 /**
  * Seeds the database with test / reference user identities.
  *
  * @param {import("knex").Knex} db
  */
-module.exports.seed = async (db) => {
-  let records = JSON.parse(fs.readFileSync(jsonFile));
+module.exports.seed = async function seed(db) {
+  const records = require(__filename.replace(/\.\w+$/, ".json"));
+
   if (records.length > 0) {
-    await db.table("identity").insert(records);
+    await db.table("identity").insert(records).onConflict().ignore();
   }
 };

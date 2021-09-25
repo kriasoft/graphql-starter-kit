@@ -5,6 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "api:start",
+      "program": "${workspaceFolder}/app.js",
+      "request": "launch",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["api:start"],
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node"
+    },
+    {
       "name": "Build Web",
       "request": "launch",
       "runtimeArgs": [

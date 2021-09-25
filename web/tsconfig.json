@@ -8,7 +8,14 @@
       "@cloudflare/workers-types",
       "jest"
     ],
-    "jsx": "preserve"
+    "jsxImportSource": "@emotion/react"
   },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": [
+    "**/*.hooks.ts",
+    "**/*.hooks.tsx",
+    "**/*.lazy.ts",
+    "**/*.lazy.tsx",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

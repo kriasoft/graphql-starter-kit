@@ -1,18 +1,18 @@
-/**
- * GraphQL API context variables.
- *
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
 import DataLoader from "dataloader";
-import type { Identity, User } from "db";
 import { Request } from "express";
-import db from "./db";
-import { ForbiddenError, UnauthorizedError } from "./error";
+import { Forbidden, Unauthorized } from "http-errors";
+import db, { Identity, User } from "./db";
 import { mapTo, mapToMany } from "./utils";
 
+/**
+ * GraphQL execution context.
+ * @see https://graphql.org/learn/execution/
+ */
 export class Context {
-  private readonly req: Request;
+  readonly req: Request;
 
   constructor(req: Request) {
     this.req = req;
@@ -42,11 +42,11 @@ export class Context {
 
   ensureAuthorized(check?: (user: User) => boolean): void {
     if (!this.req.user) {
-      throw new UnauthorizedError();
+      throw new Unauthorized();
     }
 
     if (check && !check(this.req.user)) {
-      throw new ForbiddenError();
+      throw new Forbidden();
     }
   }
 
@@ -61,7 +61,7 @@ export class Context {
       .select()
       .then((rows) =>
         rows.map((x) => {
-          this.userByUsername.prime(x.username, x);
+          if (x.username) this.userByUsername.prime(x.username, x);
           return x;
         }),
       )

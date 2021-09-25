@@ -1,30 +1,24 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
-import { IdentityProvider } from "db/types";
-import { Router } from "express";
+import { RequestHandler } from "express";
 import got from "got";
 import { AuthorizationCode } from "simple-oauth2";
+import { IdentityProvider } from "../db";
 import env from "../env";
-import connect from "./connect";
-import response from "./response";
+import authorize from "./authorize";
+import { createState, verifyState } from "./state";
 
-const router = Router();
-const version = "v10.0";
 const scope = ["email"];
+const version = "v10.0";
 
 /**
- * Facebook OAuth 2.0 client.
+ * OAuth 2.0 client for Facebook.
  *
- * @see https://github.com/lelylan/simple-oauth2
- * @see https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/
+ * @see https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow
  */
-const client = new AuthorizationCode({
-  client: {
-    id: env.FACEBOOK_APP_ID,
-    secret: env.FACEBOOK_APP_SECRET,
-  },
+const oauth = new AuthorizationCode({
+  client: { id: env.FACEBOOK_APP_ID, secret: env.FACEBOOK_APP_SECRET },
   auth: {
     tokenHost: "https://graph.facebook.com",
     tokenPath: `/${version}/oauth/access_token`,
@@ -33,86 +27,52 @@ const client = new AuthorizationCode({
   },
 });
 
-router.get("/auth/facebook", function (req, res) {
-  const authorizeUrl = client.authorizeURL({
-    redirect_uri: env.isProduction
-      ? `${env.APP_ORIGIN}/auth/facebook/return`
-      : `${req.protocol}://${req.get("host")}/auth/facebook/return`,
-    scope,
-  });
-
-  res.setHeader("Cache-Control", "no-store");
+/**
+ * Redirects user to Facebook login page.
+ */
+export const redirect: RequestHandler = function (req, res) {
+  const { redirect_uri } = req.app.locals;
+  const state = createState({});
+  const authorizeUrl = oauth.authorizeURL({ redirect_uri, scope, state });
   res.redirect(authorizeUrl);
-});
-
-router.get("/auth/facebook/return", async function (req, res) {
-  try {
-    res.setHeader("Cache-Control", "no-store");
-
-    const { token } = await client.getToken({
-      code: req.query.code as string,
-      redirect_uri: env.isProduction
-        ? `${env.APP_ORIGIN}/auth/facebook/return`
-        : `${req.protocol}://${req.get("host")}/auth/facebook/return`,
-      scope,
-    });
-
-    // Optionally, secure API calls by adding proof of the app secret.
-    // https://developers.facebook.com/docs/reference/api/securing-graph-api/
-    // const sha256 = crypto.createHmac("sha256", env.FACEBOOK_APP_SECRET);
-    // const appsecret_proof = sha256.update(token.access_token).digest("hex");
-    const user = (await got(`https://graph.facebook.com/${version}/me`, {
-      method: "GET",
-      searchParams: {
-        access_token: token.access_token,
-        fields: "id,name,first_name,last_name,email,picture",
-        // appsecret_proof,
-      },
-    }).json()) as FacebookUser;
-
-    const data = await connect(req, {
-      provider: IdentityProvider.facebook,
-      id: user.id,
-      email: user.email ?? null,
-      email_verified: false,
-      name: user.name,
-      picture: user.picture.data.url,
-      given_name: user.first_name,
-      family_name: user.last_name,
-      locale: user.locale ?? null,
-      access_token: token.access_token,
-      refresh_token: token.access_token,
-      scopes: scope,
-      token_type: token.token_type,
-      issued_at: new Date(
-        new Date(token.expires_at).getTime() - token.expires_in * 1000,
-      ),
-      expires_at: new Date(token.expires_at),
-    });
-
-    res.send(response({ data }));
-  } catch (error) {
-    console.error(error);
-    res.status(401);
-    res.send(response({ error }));
-  }
-});
-
-type FacebookUser = {
-  id: string;
-  name: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  picture: {
-    data: {
-      width: number;
-      height: number;
-      url: string;
-      is_silhouette: boolean;
-    };
-  };
-  locale?: string;
 };
 
-export default router;
+/**
+ * Obtains authorization tokens and profile information once the user
+ * returns from Facebook website.
+ */
+export const callback: RequestHandler = async function (req, res, next) {
+  try {
+    verifyState(req.query.state as string);
+    const { code } = req.query as { code: string };
+    const { redirect_uri } = req.app.locals;
+    const { token } = await oauth.getToken({ code, redirect_uri, scope });
+
+    // Fetch profile information
+    // https://developers.facebook.com/docs/graph-api/reference/user
+    const { access_token } = token;
+    const profile = await got
+      .get({
+        url: `https://graph.facebook.com/${version}/me`,
+        searchParams: { access_token, fields: "id,name,email,picture" },
+      })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .json<{ id: string; name: string; email?: string; picture?: any }>();
+
+    // Link OAuth credentials with the user account.
+    const me = await authorize(req, {
+      provider: IdentityProvider.Facebook,
+      id: profile.id,
+      name: profile.name,
+      email: profile.email,
+      email_verified: profile.email ? true : false,
+      picture: profile.picture?.data,
+      profile,
+      credentials: token,
+    });
+
+    res.render("auth-callback", { data: { me }, layout: false });
+  } catch (err) {
+    next(err);
+  }
+};

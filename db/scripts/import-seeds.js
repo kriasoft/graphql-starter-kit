@@ -1,12 +1,12 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+
 /**
  * Imports reference (seed) data from the database.
  *
  *   yarn db:import-seeds [--env #0]
- *
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-require("env");
 const fs = require("fs");
 const path = require("path");
 const prettier = require("prettier");
@@ -21,10 +21,10 @@ function saveSync(filename, data) {
 }
 
 async function importData() {
-  const users = await db.table("user").orderBy("created_at").select();
+  const users = await db.table("user").orderBy("created").select();
   saveSync("../seeds/01_users.json", users);
 
-  const identities = await db.table("identity").orderBy("created_at").select();
+  const identities = await db.table("identity").orderBy("created").select();
   saveSync("../seeds/02_identities.json", identities);
 }
 

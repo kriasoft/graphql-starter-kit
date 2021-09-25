@@ -1,14 +1,9 @@
-/**
- * Resets database to its initial state. Usage:
- *
- *   yarn db:reset [--env #0] [--from #0]
- *   yarn db:reset [--env #0] [--seed]
- *
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
+const ora = require("ora");
 const knex = require("knex");
-const spawn = require("cross-spawn");
+const envars = require("envars");
 const minimist = require("minimist");
 const config = require("../knexfile");
 const updateTypes = require("./update-types");
@@ -16,64 +11,80 @@ const updateTypes = require("./update-types");
 // Parse the command line arguments
 const args = minimist(process.argv.slice(2), {
   boolean: ["seed"],
-  default: { env: "dev", seed: false },
+  default: { env: "local", seed: true },
 });
 
-let db;
-const schema = "public";
-const role =
-  process.env.PGHOST === "localhost" ? "postgres" : "cloudsqlsuperuser";
+// Load environment variables (PGHOST, PGUSER, etc.)
+envars.config({ env: args.env });
 
+/** @type {import("knex").Knex} */ let db;
+const { PGHOST, PGDATABASE, PGUSER } = process.env;
+const schema = config.migrations?.schemaName ?? "public";
+const role = PGHOST === "localhost" ? "postgres" : "cloudsqlsuperuser";
+
+/**
+ * Resets database to its initial state. Usage:
+ *
+ *   yarn db:reset [--env #0]
+ *   yarn db:reset [--env #0] [--no-seed]
+ */
 async function reset() {
-  // Ensure that the database exists
-  try {
-    const database = "template1";
-    db = knex({ ...config, connection: { ...config.connection, database } });
-    await db.raw(`CREATE DATABASE ?? WITH OWNER ??`, [
-      process.env.PGDATABASE,
-      process.env.PGUSER,
-    ]);
-  } catch (err) {
-    if (err.code !== "42P04") throw err;
-  } finally {
-    await db.destroy();
-  }
+  // Ensure that the target database exists
+  const database = "template1";
+  db = knex({ ...config, connection: { ...config.connection, database } });
+  let cmd = db.raw(`CREATE DATABASE ?? WITH OWNER ??`, [PGDATABASE, PGUSER]);
+  let spinner = ora(cmd.toSQL().sql).start();
+  await cmd
+    .catch((err) => err.code === "42P04" && Promise.resolve())
+    .finally(() => db.destroy())
+    .then(() => spinner.succeed());
 
-  // Drop and re-create the database schema
   db = knex(config);
-  await db.raw(`DROP SCHEMA IF EXISTS ?? CASCADE`, [schema]);
-  await db.raw(`CREATE SCHEMA ?? AUTHORIZATION ??`, [schema, role]);
-  await db.raw(`GRANT ALL ON SCHEMA public TO ??`, [process.env.PGUSER]);
 
-  let p;
-  const opts = { stdio: "inherit" };
-  const envArg = `--env=${args.env}`;
+  // Drop open database connections
+  await db.raw(
+    ` SELECT pg_terminate_backend(pg_stat_activity.pid)
+      FROM pg_stat_activity
+      WHERE pg_stat_activity.datname = ?
+      AND pid <> pg_backend_pid()`,
+    [PGDATABASE],
+  );
 
-  // Migrate database to the latest version
-  p = spawn.sync("yarn", ["knex", "migrate:latest", envArg], opts);
-  if (p.status !== 0) throw new Error();
+  cmd = db.raw(`DROP SCHEMA ?? CASCADE`, [schema]);
+  spinner = ora(cmd.toSQL().sql).start();
+  await cmd.then(() => spinner.succeed());
 
-  // Restore data from a backup file
-  if (args.from) {
-    const fromArg = args.from ? `--from=${args.from}` : undefined;
-    p = spawn.sync("yarn", ["run", "restore", envArg, fromArg], opts);
-    if (p.status !== 0) throw new Error();
-  }
+  cmd = db.raw(`CREATE SCHEMA ?? AUTHORIZATION ??`, [schema, role]);
+  spinner = ora(cmd.toSQL().sql).start();
+  await cmd.then(() => spinner.succeed());
 
-  // Seed database with sample/reference data
+  cmd = db.raw(`GRANT ALL ON SCHEMA ?? TO ??`, [schema, PGUSER]);
+  spinner = ora(cmd.toSQL().sql).start();
+  await cmd.then(() => spinner.succeed());
+
+  cmd = db.raw(`GRANT ALL ON SCHEMA ?? TO ??`, [schema, "public"]);
+  spinner = ora(cmd.toSQL().sql).start();
+  await cmd.then(() => spinner.succeed());
+
+  spinner = ora("Migrate database schema");
+  let res = await db.migrate.latest();
+  spinner.succeed(`${spinner.text} to (${res[1].length})`);
+
   if (args.seed) {
-    p = spawn.sync("yarn", ["knex", "seed:run", envArg], opts);
-    if (p.status !== 0) throw new Error();
+    spinner = ora("Import reference (seed) data");
+    res = await db.seed.run();
+    spinner.succeed(`${spinner.text} (${res[0].length})`);
   }
 
-  if (args.env === "dev" || args.env === "local") {
-    await updateTypes();
+  if (args.env === "local") {
+    spinner = ora("Update TypeScript definitions").start();
+    await updateTypes().then(() => spinner.succeed());
   }
 }
 
 reset()
-  .finally(() => db && db.destroy())
+  .finally(() => db?.destroy())
   .catch((err) => {
-    console.error(err);
+    console.error(err.stack);
     process.exit(1);
   });

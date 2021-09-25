@@ -1,7 +1,9 @@
 # Compiled output
+/api/schema.graphql
+/db/types.ts
 /**/__generated__
 /.cache/
-/dist/
+/*/dist/
 
 # Yarn
 .yarn/cache
@@ -10,7 +12,7 @@
 .yarn/sdks
 .yarn/unplugged
 .yarn/*.*
-.pnp.js
+.pnp.cjs
 
 # Misc
 .husky

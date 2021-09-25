@@ -1,9 +1,8 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
-import { PaletteMode } from "@material-ui/core";
-import { createMuiTheme, Theme } from "@material-ui/core/styles";
+import { PaletteMode } from "@mui/material";
+import { createTheme, Theme } from "@mui/material/styles";
 import { components } from "./components";
 
 /**
@@ -12,7 +11,7 @@ import { components } from "./components";
  * @see https://next.material-ui.com/customization/default-theme/
  */
 const themes = (["light", "dark"] as PaletteMode[]).map((mode) =>
-  createMuiTheme(
+  createTheme(
     {
       palette: {
         mode,

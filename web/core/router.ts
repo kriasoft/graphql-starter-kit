@@ -1,6 +1,5 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
 import type { Match, MatchFunction } from "path-to-regexp";
 import { match as createMatchFn } from "path-to-regexp";
@@ -53,7 +52,8 @@ export async function resolveRoute(
 
       // Fetch GraphQL query response and load React component in parallel
       const [component, data] = await Promise.all([
-        route.component?.().then((x) => x.default),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        route.component?.().then((x: any) => x.default),
         route.query &&
           fetchQuery(ctx.relay, route.query, variables, {
             fetchPolicy: "store-or-network",
@@ -71,7 +71,7 @@ export async function resolveRoute(
     return {
       title:
         error instanceof NotFoundError ? "Page not found" : "Application error",
-      error,
+      error: error as Error,
     };
   }
 }

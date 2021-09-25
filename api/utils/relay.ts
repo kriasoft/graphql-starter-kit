@@ -1,11 +1,11 @@
-/**
- * Relay.js global ID helper function(s).
- *
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
 import { fromGlobalId as parse } from "graphql-relay";
 
+/**
+ * Converts (Relay) global ID into a raw database ID.
+ */
 export function fromGlobalId(globalId: string, expectedType: string): string {
   const { id, type } = parse(globalId);
 

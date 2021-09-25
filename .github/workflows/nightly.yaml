@@ -1,0 +1,38 @@
+# Compile, bundle, and upload application bundles
+# to a cloud storage on each pull request to "main".
+# https://help.github.com/actions
+
+name: "Nightly"
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+
+env:
+  GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ${{ github.workspace }}/.yarn/cache
+            ${{ github.workspace }}/.yarn/unplugged
+            ${{ github.workspace }}/.yarn/install-state.gz
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+      - run: yarn install
+
+      # Clean up review deployments for the merged PRs
+      # - name: Run yarn gh:clean
+      #   env: { GCP_SA_KEY: "${{ secrets.GCP_SA_KEY }}" }
+      #   run: |
+      #     echo "$GCP_SA_KEY" | base64 --decode > "$GOOGLE_APPLICATION_CREDENTIALS"
+      #     gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
+      #     yarn gh:clean

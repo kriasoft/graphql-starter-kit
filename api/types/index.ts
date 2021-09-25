@@ -1,7 +1,5 @@
-/**
- * The list of custom GraphQL types.
- *
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
+export * from "./enums";
 export * from "./user";

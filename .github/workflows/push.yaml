@@ -1,0 +1,36 @@
+# Compile, bundle, and upload application bundles
+# to a cloud storage on each pull request to "main".
+# https://help.github.com/actions
+
+name: Push
+
+on:
+  push:
+    branches: [main]
+
+env:
+  VERSION: ${{ github.event.pull_request.number }}
+  GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ${{ github.workspace }}/.yarn/cache
+            ${{ github.workspace }}/.yarn/unplugged
+            ${{ github.workspace }}/.yarn/install-state.gz
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+      - run: yarn install
+
+      # TODO: Deploy from the previously built artifacts
+      - run: yarn web:build
+      - run: yarn api:build

@@ -1,31 +1,34 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+
 /**
- * Deploys application bundle to Cloudflare. Usage:
+ * Deploys web application bundle to Cloudflare. Usage:
  *
- *   $ yarn deploy [--version #0] [--env #0] [--no-download]
+ *   $ yarn web:deploy [--version #0] [--env #0] [--no-download]
  *
  * @see https://developers.cloudflare.com/workers/
  * @see https://api.cloudflare.com/#worker-script-upload-worker
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-require("env");
 const fs = require("fs");
 const got = require("got");
 const path = require("path");
 const globby = require("globby");
+const envars = require("envars");
 const minimist = require("minimist");
 const FileType = require("file-type");
 const FormData = require("form-data");
-const { Storage } = require("@google-cloud/storage");
 
 const env = process.env;
-const cwd = path.resolve(__dirname, "../dist/web");
+const cwd = path.resolve(__dirname, "../web/dist/web");
 const args = minimist(process.argv.slice(2), {
-  default: { env: "dev", version: env.VERSION, download: false },
+  default: { env: "test", version: env.VERSION, download: false },
 });
 
-// The name of the worker script (e.g. "proxy", "proxy-test", etc.)
-const name = `proxy${args.env === "prod" ? "" : `-${args.env}`}`;
+envars.config({ env: args.env, cwd: path.resolve(__dirname, "../env") });
+
+// The name of the worker script (e.g. "main", "main-test", etc.)
+const name = `main${env.APP_ENV === "prod" ? "" : `-${env.APP_ENV}`}`;
 
 // Configure an HTTP client for accessing Cloudflare REST API
 const cf = got.extend({
@@ -54,16 +57,16 @@ async function deploy() {
    * https://googleapis.dev/nodejs/storage/latest/
    */
 
-  if (process.env.CI === "true" || args.download) {
-    const file = `web_${args.version}.zip`;
-    console.log(`Downloading gs://${env.PKG_BUCKET}/${file}`);
-    const [contents] = await new Storage()
-      .bucket(env.PKG_BUCKET)
-      .file(file)
-      .download();
-    fs.writeFileSync(path.resolve(cwd, "../web.zip"), contents);
-    // TODO: Unzip
-  }
+  // if (process.env.CI === "true" || args.download) {
+  //   const file = `web_${args.version}.zip`;
+  //   console.log(`Downloading gs://${env.PKG_BUCKET}/${file}`);
+  //   const [contents] = await new Storage()
+  //     .bucket(env.PKG_BUCKET)
+  //     .file(file)
+  //     .download();
+  //   fs.writeFileSync(path.resolve(cwd, "../web.zip"), contents);
+  //   // TODO: Unzip
+  // }
 
   /*
    * Create a KV storage namespace.
@@ -72,8 +75,8 @@ async function deploy() {
 
   const assetsNamespace =
     env.APP_NAME +
-    (args.env === `prod` ? `` : `_${args.env}`) +
-    (args.env === `test` && args.version ? `_${args.version}` : ``);
+    (env.APP_ENV === `prod` ? `` : `_${env.APP_ENV}`) +
+    (env.APP_ENV === `test` && args.version ? `_${args.version}` : ``);
 
   let res = await cf.get({ url: "storage/kv/namespaces" });
   let ns = res.find((x) => x.title === assetsNamespace);
@@ -93,7 +96,7 @@ async function deploy() {
 
   console.log(`Uploading assets to KV storage: ${ns.title}, id: ${ns.id}`);
 
-  const files = await globby([".", "!proxy.*"], { cwd });
+  const files = await globby(["."], { cwd });
 
   for (let i = 0; i < files.length; i++) {
     const data = fs.readFileSync(path.resolve(cwd, files[i]));
@@ -112,7 +115,10 @@ async function deploy() {
   console.log(`Uploading Cloudflare Worker script: ${name}`);
 
   const form = new FormData();
-  const script = fs.readFileSync(path.resolve(cwd, "proxy.js"), "utf-8");
+  const script = fs.readFileSync(
+    path.resolve(cwd, "../workers/proxy.js"),
+    "utf-8",
+  );
   const bindings = [
     { type: "kv_namespace", name: "__STATIC_CONTENT", namespace_id: ns.id },
     { type: "plain_text", name: "__STATIC_CONTENT_MANIFEST", text: "false" },

@@ -1,10 +1,6 @@
-/**
- * The custom GraphQL type that represents a user account.
- *
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
-import type { User } from "db";
 import {
   GraphQLBoolean,
   GraphQLList,
@@ -14,12 +10,15 @@ import {
 } from "graphql";
 import { globalIdField } from "graphql-relay";
 import { Context } from "../context";
-import { dateField } from "../fields";
-import { nodeInterface } from "../node";
+import type { User } from "../db";
+import { dateField } from "./fields";
 import { IdentityType } from "./identity";
+import { nodeInterface } from "./node";
+import { PictureType } from "./picture";
 
 export const UserType = new GraphQLObjectType<User, Context>({
   name: "User",
+  description: "The registered user account.",
   interfaces: [nodeInterface],
 
   fields: {
@@ -52,7 +51,7 @@ export const UserType = new GraphQLObjectType<User, Context>({
     },
 
     picture: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(PictureType),
     },
 
     givenName: {
@@ -80,14 +79,6 @@ export const UserType = new GraphQLObjectType<User, Context>({
       type: GraphQLString,
     },
 
-    admin: {
-      type: GraphQLBoolean,
-    },
-
-    blocked: {
-      type: GraphQLBoolean,
-    },
-
     identities: {
       type: new GraphQLList(new GraphQLNonNull(IdentityType)),
       resolve(self, args, ctx) {
@@ -97,8 +88,8 @@ export const UserType = new GraphQLObjectType<User, Context>({
       },
     },
 
-    createdAt: dateField((self) => self.created_at),
-    updatedAt: dateField((self) => self.updated_at),
+    created: dateField((self) => self.created),
+    updated: dateField((self) => self.updated),
     lastLogin: dateField((self) => self.last_login),
   },
 });

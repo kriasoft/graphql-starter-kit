@@ -36,8 +36,8 @@ export const StoryType = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
     },
 
-    createdAt: dateField((self) => self.created_at),
-    updatedAt: dateField((self) => self.updated_at),
+    created: dateField((self) => self.created),
+    updated: dateField((self) => self.updated),
   },
 });
 ```

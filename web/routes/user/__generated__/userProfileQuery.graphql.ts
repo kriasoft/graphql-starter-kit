@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type userProfileQueryVariables = {
     username: string;
 };
@@ -12,7 +13,9 @@ export type userProfileQueryResponse = {
         readonly name: string | null;
         readonly email: string | null;
         readonly username: string;
-        readonly picture: string | null;
+        readonly picture: {
+            readonly url: string | null;
+        };
     } | null;
 };
 export type userProfileQuery = {
@@ -31,7 +34,9 @@ query userProfileQuery(
     name
     email
     username
-    picture
+    picture {
+      url
+    }
   }
 }
 */
@@ -90,8 +95,19 @@ v1 = [
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
+        "concreteType": "Picture",
+        "kind": "LinkedField",
         "name": "picture",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "url",
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       }
     ],
@@ -116,14 +132,14 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "799022dd46e8090e5dd52a5aba23ce35",
+    "cacheID": "8e56c32d1475b9bc1d6934da447a0d74",
     "id": null,
     "metadata": {},
     "name": "userProfileQuery",
     "operationKind": "query",
-    "text": "query userProfileQuery(\n  $username: String!\n) {\n  user(username: $username) {\n    id\n    name\n    email\n    username\n    picture\n  }\n}\n"
+    "text": "query userProfileQuery(\n  $username: String!\n) {\n  user(username: $username) {\n    id\n    name\n    email\n    username\n    picture {\n      url\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '07a99a6b2a7d0db8cec7f43783d6c725';
+(node as any).hash = '86ea7b9247a97190d358a2c6fccba861';
 export default node;

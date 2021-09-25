@@ -1,9 +1,10 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+
 /**
  * Creates database backup (data only). Usage:
  *
- *   yarn db:backup [--env #0]
- *
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
+ *   $ yarn db:backup [--env #0]
  */
 
 const fs = require("fs");
@@ -11,13 +12,31 @@ const path = require("path");
 const readline = require("readline");
 const spawn = require("cross-spawn");
 const cp = require("child_process");
+const envars = require("envars");
 const minimist = require("minimist");
+const { greenBright } = require("chalk");
 const { EOL } = require("os");
 
-// Load environment variables (PGHOST, PGUSER, etc.)
-require("env");
+// Parse CLI arguments
+const args = [];
+const { env } = minimist(process.argv.slice(2), {
+  string: ["env"],
+  unknown: (arg) => !args.push(arg),
+});
 
-const args = minimist(process.argv.slice(2), { default: { env: "dev" } });
+// Load environment variables (PGHOST, PGUSER, etc.)
+envars.config({ env });
+
+const { APP_ENV, PGDATABASE } = process.env;
+const backupDir = path.join(__dirname, "../backups");
+
+if (!fs.existsSync(backupDir)) fs.mkdirSync(backupDir);
+
+console.log(
+  `Creating a backup of the ${greenBright(
+    PGDATABASE,
+  )} (${APP_ENV}) database...`,
+);
 
 // Get the list of database tables
 let cmd = spawn.sync(
@@ -41,7 +60,7 @@ const tables = cmd.stdout
   .toString("utf8")
   .trim()
   .split("|")
-  .filter((x) => x !== "migrations" && x !== "migrations_lock")
+  .filter((x) => x !== "migration" && x !== "migration_lock")
   .map((x) => `public."${x}"`)
   .join(", ");
 
@@ -57,11 +76,11 @@ cmd = cp
       "--no-privileges",
       // '--column-inserts',
       "--disable-triggers",
-      "--exclude-table=migrations",
-      "--exclude-table=migrations_lock",
-      "--exclude-table=migrations_id_seq",
-      "--exclude-table=migrations_lock_index_seq",
-      ...args._,
+      "--exclude-table=migration",
+      "--exclude-table=migration_lock",
+      "--exclude-table=migration_id_seq",
+      "--exclude-table=migration_lock_index_seq",
+      ...args,
     ],
     { stdio: ["pipe", "pipe", "inherit"] },
   )
@@ -70,7 +89,7 @@ cmd = cp
   });
 
 const timestamp = new Date().toISOString().replace(/(-|:|\.\d{3})/g, "");
-const file = path.resolve(__dirname, `../backups/${timestamp}_${args.env}.sql`);
+const file = path.join(backupDir, `${timestamp}_${APP_ENV}.sql`);
 const out = fs.createWriteStream(file, { encoding: "utf8" });
 const rl = readline.createInterface({ input: cmd.stdout, terminal: false });
 

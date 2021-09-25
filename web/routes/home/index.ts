@@ -1,6 +1,5 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
 import { graphql } from "relay-runtime";
 import type { Route } from "../../core";
@@ -15,9 +14,7 @@ export default {
   query: graphql`
     query homeQuery {
       me {
-        id
-        name
-        email
+        ...Auth_me
       }
     }
   `,

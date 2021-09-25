@@ -16,9 +16,19 @@ type Root {
     # The IDs of objects
     ids: [ID!]!
   ): [Node]!
+
+  # The authenticated user.
   me: User
-  user(username: String!): User
-  users(after: String, first: Int): UserConnection
+
+  # Find user by username or email.
+  user(username: String, email: String): User
+  users(
+    # Returns the items in the list that come after the specified cursor.
+    after: String
+
+    # Returns the first n items from the list.
+    first: Int
+  ): UserConnection
 }
 
 # An object with an ID
@@ -27,6 +37,7 @@ interface Node {
   id: ID!
 }
 
+# The registered user account.
 type User implements Node {
   # The ID of an object
   id: ID!
@@ -34,50 +45,44 @@ type User implements Node {
   email: String
   emailVerified: Boolean
   name: String
-  picture: String
+  picture: Picture!
   givenName: String
   familyName: String
   timeZone: String
   locale: String
-  admin: Boolean
-  blocked: Boolean
   identities: [Identity!]
-  createdAt(format: String): String
-  updatedAt(format: String): String
+  created(format: String): String
+  updated(format: String): String
   lastLogin(format: String): String
 }
 
+type Picture {
+  url: String
+}
+
+# The OAuth user identity (credentials).
 type Identity {
   # The ID of an object
   id: ID!
   provider: IdentityProvider!
   username: String
   email: String
-  emailVerified: Boolean
-  name: String
-  picture: String
-  givenName: String
-  familyName: String
-  locale: String
-  scopes: [String!]!
-  tokenType: String
-  createdAt(format: String): String
-  updatedAt(format: String): String
-  issuedAt(format: String): String
-  expiresAt(format: String): String
+  created(format: String): String
+  updated(format: String): String
 }
 
+# OAuth identity provider
 enum IdentityProvider {
-  google
-  apple
-  facebook
-  github
-  linkedin
-  microsoft
-  twitter
-  yahoo
-  gamecenter
-  playgames
+  Google
+  Apple
+  Facebook
+  GitHub
+  LinkedIn
+  Microsoft
+  Twitter
+  Yahoo
+  GameCenter
+  PlayGames
 }
 
 # A connection to a list of items.
@@ -115,21 +120,75 @@ type UserEdge {
 }
 
 type Mutation {
-  # Authenticates user with an ID token or email and password.
-  signIn(idToken: String, email: String, password: String): SignInPayload
+  # Creates an authentication session
+  signIn(input: SignInInput): SignInPayload
 
-  # Removes the authentication cookie.
+  # Clears authentication session
   signOut: String
 
+  # Creates a new user account
+  createUser(input: CreateUserInput, dryRun: Boolean! = false): CreateUserPayload
+  getUploadURL(fileName: String!, contentType: String): String
+
+  # Sends password recovery code to the user's email address
+  resetPassword(
+    # Username or email
+    username: String
+
+    # New password
+    password: String
+
+    # Verification code
+    code: String
+  ): ResetPasswordPayload
+
+  # Saves the uploaded file (URL path) to the database
+  saveUpload(id: ID!, uploadURL: String!, uploadType: UploadType!): SaveUploadPayload
+
   # Updates the user account.
-  updateUser(
-    input: UpdateUserInput
-    dryRun: Boolean! = false
-  ): UpdateUserPayload
+  updateUser(input: UpdateUserInput, dryRun: Boolean! = false): UpdateUserPayload
 }
 
 type SignInPayload {
-  me: User
+  user: User
+}
+
+input SignInInput {
+  # Username or email
+  username: String
+
+  # User's password
+  password: String
+}
+
+type CreateUserPayload {
+  user: User
+}
+
+input CreateUserInput {
+  username: String
+  email: String
+  password: String
+  firstName: String
+  lastName: String
+  timeZone: String
+  locale: String
+  signIn: Boolean = false
+}
+
+type ResetPasswordPayload {
+  user: User
+}
+
+type SaveUploadPayload {
+  user: User
+}
+
+# The type of the uploaded file
+enum UploadType {
+  ProfilePicture
+  ClassCoverImage
+  ClassVideoImage
 }
 
 type UpdateUserPayload {
@@ -141,7 +200,8 @@ input UpdateUserInput {
   username: String
   email: String
   name: String
-  picture: String
+  givenName: String
+  familyName: String
   timeZone: String
   locale: String
 }

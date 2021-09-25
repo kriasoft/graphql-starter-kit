@@ -1,83 +1,105 @@
-/**
- * Authentication API endpoints (signIn, signOut).
- *
- * @see https://firebase.google.com/docs/auth/admin/manage-cookies
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
-import bcrypt from "bcrypt";
-import type { User } from "db";
-import { GraphQLFieldConfig, GraphQLObjectType, GraphQLString } from "graphql";
-import { validate, ValidationError } from "validator-fluent";
+import argon2 from "argon2";
+import {
+  GraphQLFieldConfig,
+  GraphQLInputObjectType,
+  GraphQLObjectType,
+  GraphQLString,
+} from "graphql";
 import { Context } from "../context";
-import db from "../db";
+import db, { User } from "../db";
 import { UserType } from "../types";
+import { validate, ValidationError } from "../utils";
 
-interface SignInArgs {
-  idToken?: string;
-  email?: string;
-  password?: string;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const signIn: GraphQLFieldConfig<unknown, Context, any> = {
-  description: "Authenticates user with an ID token or email and password.",
+/**
+ * @example
+ *   mutation {
+ *     signIn(input: { username: "user@email.com", password: "xxx" }) {
+ *       user {
+ *         id
+ *         email
+ *       }
+ *     }
+ *   }
+ */
+export const signIn: GraphQLFieldConfig<unknown, Context> = {
+  description: "Creates an authentication session",
 
   type: new GraphQLObjectType({
     name: "SignInPayload",
     fields: {
-      me: { type: UserType },
+      user: { type: UserType },
     },
   }),
 
   args: {
-    idToken: { type: GraphQLString },
-    email: { type: GraphQLString },
-    password: { type: GraphQLString },
+    input: {
+      type: new GraphQLInputObjectType({
+        name: "SignInInput",
+        fields: {
+          username: { type: GraphQLString, description: "Username or email" },
+          password: { type: GraphQLString, description: "User's password" },
+        },
+      }),
+    },
   },
 
-  async resolve(self, args: SignInArgs, ctx) {
-    if (args.idToken) {
-      // TODO: Authenticate user with the provided (Firebase) ID token.
-      throw new Error("Not implemented.");
-    }
+  async resolve(self, args, ctx) {
+    const input: SignInInput = args.input;
 
-    // Validate user input for email/password authentication
-    const [input, errors] = validate(args, (value) => ({
-      email: value("email").notEmpty().isEmail(),
-      password: value("password").notEmpty(),
+    // Validate user input
+    const [data, errors] = validate(input, (value) => ({
+      username: value("username").notEmpty().isLength({ max: 50 }),
+      password: value("password").notEmpty().isLength({ max: 50 }),
     }));
 
+    // Throw an error if validation fails
     if (Object.keys(errors).length > 0) {
       throw new ValidationError(errors);
     }
 
-    const users = await db
-      .table<User>("user")
-      .where("email", "=", String(input.email))
-      .whereNotNull("password")
-      .orderBy("email_verified", "desc")
-      .select();
+    // Find user(s) by username or email
+    const login = input.username?.includes("@") ? "email" : "username";
+    const query = db.table<User>("user");
+
+    // NOTE: There can be more than one account with the same email
+    if (login === "email") {
+      query.where("email", "=", input.username as string);
+      query.orderBy("email_verified", "desc");
+      query.orderBy("created", "desc");
+    } else {
+      query.where("username", "=", input.username as string);
+    }
+
+    const users = await query.select();
 
     for (const user of users) {
-      const valid = await bcrypt.compare(input.password, String(user.password));
-
-      if (valid) {
-        const me = await ctx.signIn(user);
-        return { me };
+      if (user.password) {
+        if (await argon2.verify(user.password, data.password as string)) {
+          // If password verification succeeded, create an authentication
+          // session and return the currently logged in user object.
+          return { user: await ctx.signIn(user) };
+        }
       }
     }
 
-    // TODO: Log failed login attempts.
-    throw new ValidationError({ password: ["Wrong email or password."] });
+    // Otherwise, throw a password validation error
+    throw new ValidationError({ password: [`Invalid ${login} or password.`] });
   },
 };
 
 export const signOut: GraphQLFieldConfig<unknown, Context> = {
-  description: "Removes the authentication cookie.",
+  description: "Clears authentication session",
   type: GraphQLString,
 
   resolve(self, args, ctx) {
     ctx.signOut();
   },
+};
+
+type SignInInput = {
+  username?: string | null;
+  password?: string | null;
 };

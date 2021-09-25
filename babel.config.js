@@ -1,9 +1,10 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+
 /**
  * Babel configuration
  *
  * @see https://babeljs.io/docs/en/options
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- *
  * @param {import("@babel/core").ConfigAPI} api
  * @returns {import("@babel/core").TransformOptions}
  */
@@ -14,17 +15,13 @@ module.exports = function config(api) {
       [
         "@babel/preset-env",
         api.caller((x) => !x || x.target === "node" || x.target === undefined)
-          ? {
-              targets: { node: "14" },
-              useBuiltIns: "usage",
-              corejs: { version: 3, proposals: true },
-            }
+          ? { targets: { node: "14" } }
           : {},
       ],
     ],
 
     plugins: [
-      ["@babel/plugin-proposal-class-properties", { loose: true }],
+      "@babel/plugin-proposal-class-properties",
       "@babel/plugin-proposal-object-rest-spread",
     ],
 

@@ -1,65 +1,56 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+
 /**
- * Deploys application bundle to Google Cloud Functions (GCF). Usage:
+ * Deploys the "api" package to Google Cloud Functions (GCF). Usage:
  *
- *   $ yarn deploy [--version #0] [--env #0]
+ *   $ yarn api:deploy [--env #0]
  *
  * @see https://cloud.google.com/functions
  * @see https://cloud.google.com/sdk/gcloud/reference/functions/deploy
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-require("env");
+const envars = require("envars");
 const spawn = require("cross-spawn");
-const minimist = require("minimist");
+const args = require("minimist")(process.argv.slice(2));
 
-const env = process.env;
-const pkg = require("api/package.json");
-const region = env.GOOGLE_CLOUD_REGION;
+process.env.NODE_ENV = "production";
+process.env.APP_ENV = args.env ?? process.env.APP_ENV ?? "test";
 
-const { version } = minimist(process.argv.slice(2), {
-  default: { version: process.env.VERSION },
-});
+// Load environment variables (PGHOST, PGUSER, etc.)
+envars.config({ env: process.env.APP_ENV });
 
-const source = `gs://${process.env.PKG_BUCKET}/${pkg.name}_${version}.zip`;
+// Load the list of environment variables required by the app
+require("api/utils/babel-register");
+const env = { ...require("api/env").default };
 
-console.log(`Deploying ${source} to ${env.APP_ENV}...`);
-
-const envVars = [
-  `NODE_OPTIONS=--require ./.pnp.js`,
-  `APP_NAME=${env.APP_NAME}`,
-  `APP_ORIGIN=${env.APP_ORIGIN}`,
-  `APP_ENV=${env.APP_ENV}`,
-  `VERSION=${version}`,
-  `JWT_SECRET=${env.JWT_SECRET}`,
-  `GOOGLE_CLIENT_ID=${env.GOOGLE_CLIENT_ID}`,
-  `GOOGLE_CLIENT_SECRET=${env.GOOGLE_CLIENT_SECRET}`,
-  `FACEBOOK_APP_ID=${env.FACEBOOK_APP_ID}`,
-  `FACEBOOK_APP_SECRET=${env.FACEBOOK_APP_SECRET}`,
-  `PGHOST=/cloudsql/${env.PGSERVERNAME.replace(":", `:${region}:`)}`,
-  `PGUSER=${env.PGUSER}`,
-  `PGPASSWORD=${env.PGPASSWORD}`,
-  `PGDATABASE=${env.PGDATABASE}`,
-  `PGAPPNAME=${pkg.name}_${version}_${env.APP_ENV}`,
-  `EMAIL_FROM=${env.EMAIL_FROM}`,
-  `EMAIL_PASSWORD=${env.EMAIL_PASSWORD}`,
-];
+// Use Cloud SQL Proxy in Google Cloud Functions (GCF) environment
+const region = process.env.GOOGLE_CLOUD_REGION;
+env.PGHOST = `/cloudsql/${env.PGSERVERNAME.replace(":", `:${region}:`)}`;
+env.PGAPPNAME = `api ${env.APP_ENV} ${new Date().toISOString()}`;
+delete env.PGSSLMODE;
+delete env.PGSSLCERT;
+delete env.PGSSLKEY;
+delete env.PGSSLROOTCERT;
+delete env.PGSERVERNAME;
 
 spawn(
   "gcloud",
   [
-    `--project=${env.GOOGLE_CLOUD_PROJECT}`,
+    `--project=${process.env.GOOGLE_CLOUD_PROJECT}`,
     `functions`,
     `deploy`,
-    pkg.name,
-    `--region=${env.GOOGLE_CLOUD_REGION}`,
+    args.version ? `api_${args.version}` : `api`,
+    `--region=${region}`,
     `--allow-unauthenticated`,
-    `--entry-point=${pkg.name}`,
-    `--memory=2GB`,
+    `--entry-point=api`,
+    `--memory=1GB`,
     `--runtime=nodejs14`,
-    `--source=${source}`,
+    `--source=./dist`,
     `--timeout=30`,
-    `--set-env-vars=${envVars.join(",")}`,
     `--trigger-http`,
+    `--set-env-vars=NODE_OPTIONS=-r ./.pnp.cjs -r source-map-support/register`,
+    ...Object.keys(env).map((key) => `--set-env-vars=${key}=${env[key]}`),
   ],
   { stdio: "inherit" },
 ).on("error", (err) => {
