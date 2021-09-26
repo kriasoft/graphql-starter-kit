@@ -1,43 +1,39 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+
 /**
- * REPL shell for Knex.js. Usage:
+ * REPL shell that can be used for working with Knex.js from
+ * the terminal window. For example:
  *
- *   yarn db:repl [--env #0]
+ *   $ yarn repl
+ *   > await db.table("user").first();
  *
- * @see https://knexjs.org/#Builder
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
+ * @see https://knexjs.org/
  */
 
 const repl = require("repl");
-const knex = require("knex");
-const nanoid = require("nanoid");
-const config = require("../knexfile");
+const { greenBright, blueBright } = require("chalk");
+const createDatabase = require("./create");
 
-// Short ID generator
-// https://zelark.github.io/nano-id-cc/
-const alphabet = "0123456789abcdefghijklmnopqrstuvwxyz";
-global.newUserId = nanoid.customAlphabet(alphabet, 6);
+// Load environment variables (PGHOST, PGUSER, etc.)
+require("../knexfile");
 
-let db = knex({
-  ...config,
-  connection: { ...config.connection, database: "postgres" },
-});
-
+// Starts a REPL shell
 Promise.resolve()
-  // Creates a new database if it doesn't exist
-  .then(() => db.raw("CREATE DATABASE ??", [process.env.PGDATABASE]))
-  .catch(() => Promise.resolve())
-  .then(() => db.destroy())
-  .then(() => (global.db = db = knex(config)))
-
-  // Starts a REPL shell
-  .then(() => db.raw(`SELECT version(), current_database() as database`))
-  .then(({ rows: [x] }) => {
+  .then(() => createDatabase())
+  .then(async function () {
+    require("api/utils/babel-register");
+    const db = (global.db = require("api/db").default);
+    return db.select(db.raw("version(), current_database() as database"));
+  })
+  .then(([x]) => {
     console.log(x.version);
-    console.log(`Connected to "${x.database}". Usage example:`);
+    console.log(`Connected to ${greenBright(x.database)}. Usage example:`);
     console.log(``);
     console.log(`   await db.table("user").first()`);
-    console.log(`   await db.raw("select version()")`);
+    console.log(`   await db.select(db.raw("version()"))`);
+    console.log(`   await db.fn.newUserId()`);
     console.log(``);
-    console.log(`Type ".exit" to exit the REPL`);
-    repl.start(`#> `).on("exit", () => db.destroy());
+    console.log(`Type ${greenBright(".exit")} to exit the REPL shell`);
+    repl.start(blueBright(`#> `)).on("exit", () => global.db?.destroy());
   });

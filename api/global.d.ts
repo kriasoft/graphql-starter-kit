@@ -1,10 +1,7 @@
-/**
- * Global type definitions (overrides).
- *
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
-import type { User } from "db";
+import type { User } from "./db";
 
 declare global {
   namespace Express {

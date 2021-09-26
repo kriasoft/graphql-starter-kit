@@ -1,0 +1,25 @@
+{
+  "Query": {
+    "scope": "javascript,typescript",
+    "prefix": "query-list",
+    "body": [
+      "import { GraphQLFieldConfig, GraphQLList, GraphQLNonNull } from \"graphql\";",
+      "import { Context } from \"../context\";",
+      "import db, { ${1/^(.)(.*?)s?$/${1:/upcase}$2/} } from \"../db\";",
+      "import { ${1/^(.)(.*?)s?$/${1:/upcase}$2/}Type } from \"../types\";",
+      "",
+      "export const ${1:field}: GraphQLFieldConfig<unknown, Context> = {",
+      "  type: new GraphQLNonNull(new GraphQLList(${1/^(.)(.*?)s?$/${1:/upcase}$2/}Type)),",
+      "  description: \"${2:description}\",",
+      "",
+      "  args: {},",
+      "",
+      "  resolve(self, args, ctx) {",
+      "    return db.table<${1/^(.)(.*?)s?$/${1:/upcase}$2/}>(\"${1/^(.*?)s?$/$1/}\").select();",
+      "  },",
+      "};",
+      ""
+    ],
+    "description": "Query List Field"
+  }
+}

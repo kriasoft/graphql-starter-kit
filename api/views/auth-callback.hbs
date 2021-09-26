@@ -1,0 +1,27 @@
+<html className="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>0Auth Callback</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fafafa" />
+    <noscript><meta http-equiv="refresh" content="0;url=/" /></noscript>
+  </head>
+  <body>
+    {{#if error}}<pre><code>{{error.stack}}</code></pre>{{/if}}
+    <script id="data" type="application/json">{{{json data}}}</script>
+    {{! prettier-ignore }}
+    <script>
+      var error = {{#if error}}{{{json error.message}}}{{else}}null{{/if}};
+
+      if (window.opener && !window.opener.closed) {
+        var data = JSON.parse(document.getElementById("data").text);
+        window.opener.postMessage({ data, error }, window.location.origin);
+        window.close();
+      } else if (!error) {
+        var returnUrl = window.sessionStorage.getItem("return") || "/";
+        window.location.href = returnUrl;
+      }
+    </script>
+  </body>
+</html>

@@ -1,23 +1,32 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+
 /**
- * REPL shell for PostgreSQL. Usage:
+ * CLI client for PostgreSQL. Usage example:
  *
- *   yarn db:psql [--env #0]
+ *   $ yarn psql --env=prod
+ *   # \dt
  *
  * @see https://www.postgresql.org/docs/current/app-psql.html
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 const spawn = require("cross-spawn");
-const { _ } = require("minimist")(process.argv.slice(2));
+const envars = require("envars");
+const minimist = require("minimist");
+const createDatabase = require("./create");
 
-// Load environment variables (PGHOST, PGUSER, etc.)
-require("env");
-
-// Create a new database if it doesn't exist
-const cmd = `CREATE DATABASE "${process.env.PGDATABASE}"`;
-spawn.sync("psql", ["-d", "postgres", "-c", cmd], {
-  stdio: "ignore",
+// Parse CLI arguments
+const args = [];
+const { env } = minimist(process.argv.slice(2), {
+  string: ["env"],
+  unknown: (arg) => !args.push(arg),
 });
 
-// Launch interactive terminal for working with PostgreSQL
-spawn("psql", _, { stdio: "inherit" });
+// Load environment variables (PGHOST, PGUSER, etc.)
+envars.config({ env });
+
+// Ensure that the target database exists
+createDatabase().then(() => {
+  // Launch interactive terminal for working with PostgreSQL
+  spawn("psql", args, { stdio: "inherit" });
+});

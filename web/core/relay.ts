@@ -1,6 +1,5 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
 import { Environment, Network, RecordSource, Store } from "relay-runtime";
 
@@ -17,25 +16,18 @@ export function createRelay(config: Config = {}): Environment {
   const store = new Store(recordSource);
   const baseUrl = config.baseUrl || "";
 
-  const network = Network.create(
-    (operation, variables): Promise<any> =>
-      fetch(`${baseUrl}/graphql`, {
-        method: "POST",
-        headers: {
-          // Pass-through headers from the original HTTP request
-          // when used in Cloudflare Workers environment. See `proxy/index.ts`.
-          ...(config.request &&
-            (Array.from(config.request.headers).reduce(
-              (acc, [k, v]) => ({ ...acc, [k]: v }),
-              {},
-            ) as { [key: string]: string })),
-
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: operation.text, variables }),
-        ...(!config.request && { credentials: "include" }),
-      }).then((res) => res.json()),
-  );
+  const network = Network.create((operation, variables): Promise<any> => {
+    const cookie = config.request?.headers.get("cookie");
+    return fetch(`${baseUrl}/api`, {
+      method: "POST",
+      headers: {
+        ...(cookie && { cookie }),
+        "content-Type": "application/json",
+      },
+      body: JSON.stringify({ query: operation.text, variables }),
+      ...(!config.request && { credentials: "include" }),
+    }).then((res) => res.json());
+  });
 
   return new Environment({
     store,

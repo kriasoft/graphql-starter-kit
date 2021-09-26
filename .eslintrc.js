@@ -1,12 +1,12 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+
 /**
  * ESLint configuration
  *
  * @see https://eslint.org/docs/user-guide/configuring
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- *
  * @type {import("eslint").Linter.Config}
  */
-
 module.exports = {
   root: true,
 
@@ -67,6 +67,12 @@ module.exports = {
         node: false,
       },
     },
+    {
+      files: ["rollup.config.js"],
+      parserOptions: {
+        sourceType: "module",
+      },
+    },
   ],
 
   ignorePatterns: [
@@ -74,9 +80,11 @@ module.exports = {
     "/.git",
     "/.husky",
     "/.yarn",
+    "/*/dist/",
     "/**/__snapshots__",
     "/**/node_modules",
     "/coverage",
     "/dist/",
+    "/.pnp.cjs",
   ],
 };

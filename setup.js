@@ -17,7 +17,6 @@ const inquirer = require("inquirer");
 const environments = {
   prod: "production",
   test: "test (QA)",
-  dev: "development",
 };
 
 function replace(filename, searchValue, replaceValue) {
@@ -36,7 +35,7 @@ const questions = [
     type: "confirm",
     name: "setup",
     message:
-      "Configure this project for production, test (QA), and shared development environments?",
+      "Configure this project for production, test (QA), and local development environments?",
     default: true,
   },
   {
@@ -62,7 +61,6 @@ const questions = [
       return (
         replace("env/.env.prod", appOrigin, `$1=https://${domain}`) &&
         replace("env/.env.test", appOrigin, `$1=https://test.${domain}`) &&
-        replace("env/.env.dev", appOrigin, `$1=https://dev.${domain}`) &&
         replace("env/.env", appName, `$1=${appNameValue}`)
       );
     },
@@ -91,12 +89,16 @@ const questions = [
       if (!value.match(/^\w[\w-.]*\w$/)) {
         return "Requires a valid GCS bucket name.";
       }
-      const search = /^(STORAGE_BUCKET)=.*/m;
+      const storageBucket = /^(STORAGE_BUCKET)=.*/m;
+      const uploadBucket = /^(UPLOAD_BUCKET)=.*/m;
+      const uploadValue = value.replace(/^\w+./, "upload.");
       return (
-        replace("env/.env.prod", search, `$1=${value}`) &&
-        replace("env/.env.test", search, `$1=test-${value}`) &&
-        replace("env/.env.dev", search, `$1=dev-${value}`) &&
-        replace("env/.env.local", search, `$1=dev-${value}`)
+        replace("env/.env.prod", storageBucket, `$1=${value}`) &&
+        replace("env/.env.test", storageBucket, `$1=test-${value}`) &&
+        replace("env/.env.local", storageBucket, `$1=test-${value}`) &&
+        replace("env/.env.prod", uploadBucket, `$1=${uploadValue}`) &&
+        replace("env/.env.test", uploadBucket, `$1=test-${uploadValue}`) &&
+        replace("env/.env.local", uploadBucket, `$1=test-${uploadValue}`)
       );
     },
   },
@@ -110,12 +112,11 @@ const questions = [
       if (!value.match(/^\w[\w-.]*\w$/)) {
         return "Requires a valid GCS bucket name.";
       }
-      const search = /^(CACHE_BUCKET)=.*/m;
+      const cacheBucket = /^(CACHE_BUCKET)=.*/m;
       return (
-        replace("env/.env.prod", search, `$1=${value}`) &&
-        replace("env/.env.test", search, `$1=test-${value}`) &&
-        replace("env/.env.dev", search, `$1=dev-${value}`) &&
-        replace("env/.env.local", search, `$1=dev-${value}`)
+        replace("env/.env.prod", cacheBucket, `$1=${value}`) &&
+        replace("env/.env.test", cacheBucket, `$1=test-${value}`) &&
+        replace("env/.env.local", cacheBucket, `$1=test-${value}`)
       );
     },
   },
@@ -134,12 +135,12 @@ const questions = [
       const db = /^(PGDATABASE)=.*/gm;
       const dbName = value.replace(/-/g, "_");
       const dbServer = /(PGSERVERNAME)=.*/gm;
-      const localDb = dbName.replace(/_(dev|development)/, "_local");
+      const localDb = dbName.replace(/_test/, "_local");
       return (
         replace(`env/.env.${env}`, gcp, `$1=${value}`) &&
         replace(`env/.env.${env}`, db, `$1=${dbName}`) &&
         replace(`env/.env.${env}`, dbServer, `$1=${value}:pg12`) &&
-        (env === "dev"
+        (env === "test"
           ? replace(`env/.env.local`, gcp, `$1=${value}`) &&
             replace(`env/.env.local`, db, `$1=${localDb}`)
           : true)
@@ -150,7 +151,7 @@ const questions = [
     type: "confirm",
     name: "yarn",
     message: "Enable Yarn Zero-install?",
-    default: true,
+    default: false,
   },
   {
     type: "confirm",
@@ -177,7 +178,7 @@ async function done(answers) {
     await replace(
       `.github/workflows/pull_request.yaml`,
       /yarn install.*$/m,
-      `yarn install`,
+      `yarn install --frozen-lockfile`,
     );
   }
 
@@ -194,7 +195,7 @@ async function done(answers) {
 
   if (answers.setup) {
     // Generate JWT secret(s)
-    Object.keys(environments).forEach((env) => {
+    Object.keys({ ...environments, local: "local" }).forEach((env) => {
       let text = fs.readFileSync(`env/.env.${env}`, "utf8");
       let [, secret] = text.match(/^JWT_SECRET=(.*)/m) || [];
       if (secret === "n2127bOgmzao67RiW3umlVs16GL9fEj+JQRDaaN5E9G7yC/b") {

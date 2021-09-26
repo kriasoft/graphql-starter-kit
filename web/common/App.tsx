@@ -1,12 +1,13 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
-import { CssBaseline, PaletteMode, Toolbar } from "@material-ui/core";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { CssBaseline, PaletteMode, Toolbar } from "@mui/material";
+import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import { Action, Update } from "history";
 import * as React from "react";
 import { Environment, RelayEnvironmentProvider } from "react-relay";
+import type { Config } from "../config";
+import { ConfigContext } from "../core";
 import { History, HistoryContext, LocationContext } from "../core/history";
 import type { RouteResponse } from "../core/router";
 import { resolveRoute } from "../core/router";
@@ -16,6 +17,7 @@ import { AppToolbar } from "./AppToolbar";
 import { ErrorPage } from "./ErrorPage";
 
 type AppProps = {
+  config: Config;
   history: History;
   relay: Environment;
 };
@@ -60,6 +62,7 @@ export class App extends React.Component<AppProps> {
   renderPath = async (ctx: Update): Promise<void> => {
     resolveRoute({
       path: ctx.location.pathname,
+      query: new URLSearchParams(ctx.location.search),
       relay: this.props.relay,
     }).then((route) => {
       if (route.error) console.error(route.error);
@@ -76,33 +79,39 @@ export class App extends React.Component<AppProps> {
   };
 
   render(): JSX.Element {
-    const { history } = this.props;
+    const { config, history } = this.props;
     const { route, location, error } = this.state;
 
     if (error) {
       return (
-        <ThemeProvider theme={theme[this.state.theme]}>
-          <ErrorPage error={error} history={history} />;
-        </ThemeProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme[this.state.theme]}>
+            <ErrorPage error={error} history={history} />;
+          </ThemeProvider>
+        </StyledEngineProvider>
       );
     }
 
     return (
-      <ThemeProvider theme={theme[this.state.theme]}>
-        <RelayEnvironmentProvider environment={this.props.relay}>
-          <HistoryContext.Provider value={history}>
-            <LocationContext.Provider value={location}>
-              <CssBaseline />
-              <AppToolbar onChangeTheme={this.handleChangeTheme} />
-              <Toolbar />
-              {route?.component
-                ? React.createElement(route.component, route.props)
-                : null}
-              <LoginDialog />
-            </LocationContext.Provider>
-          </HistoryContext.Provider>
-        </RelayEnvironmentProvider>
-      </ThemeProvider>
+      <ConfigContext.Provider value={config}>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme[this.state.theme]}>
+            <RelayEnvironmentProvider environment={this.props.relay}>
+              <HistoryContext.Provider value={history}>
+                <LocationContext.Provider value={location}>
+                  <CssBaseline />
+                  <AppToolbar onChangeTheme={this.handleChangeTheme} />
+                  <Toolbar />
+                  {route?.component
+                    ? React.createElement(route.component, route.props)
+                    : null}
+                  <LoginDialog />
+                </LocationContext.Provider>
+              </HistoryContext.Provider>
+            </RelayEnvironmentProvider>
+          </ThemeProvider>
+        </StyledEngineProvider>
+      </ConfigContext.Provider>
     );
   }
 }

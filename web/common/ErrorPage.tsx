@@ -1,8 +1,7 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
-import { Container, CssBaseline, Typography } from "@material-ui/core";
+import { Container, CssBaseline, Typography } from "@mui/material";
 import * as React from "react";
 import type { History } from "../core/history";
 

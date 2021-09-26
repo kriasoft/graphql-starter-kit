@@ -1,11 +1,6 @@
-/**
- * Webpack configuration
- *
- * @see https://webpack.js.org/configuration/
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
-const env = require("env");
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -15,23 +10,32 @@ const InlineChunkHtmlPlugin = require("inline-chunk-html-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const { IgnoreAsyncImportsPlugin } = require("ignore-webpack-plugin");
-const pkg = require("./package.json");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+
+require("@babel/register")({ extensions: [".ts"], cache: false });
+const configs = require("./config");
+
+const imageInlineSizeLimit = 10000;
 
 /**
+ * Webpack configuration.
+ *
+ * @see https://webpack.js.org/configuration/
  * @param {Record<string, boolean> | undefined} envName
  * @param {{ mode: "production" | "development" }} options
  * @returns {import("webpack").Configuration}
  */
-module.exports = function config(envName, options) {
+module.exports = function config(env, options) {
   const isEnvProduction = options.mode === "production";
   const isEnvDevelopment = options.mode === "development";
   const isDevServer = isEnvDevelopment && process.argv.includes("serve");
   const isEnvProductionProfile =
     isEnvProduction && process.argv.includes("--profile");
-
-  const prodEnv = env.load("prod");
-  const testEnv = env.load("test");
-  const devEnv = env.load("dev");
+  const config = env.prod
+    ? configs.prod
+    : env.test
+    ? configs.test
+    : configs.local;
 
   process.env.BABEL_ENV = options.mode;
   process.env.BROWSERSLIST_ENV = options.mode;
@@ -48,10 +52,10 @@ module.exports = function config(envName, options) {
     target: isDevServer ? "web" : "browserslist",
     bail: isEnvProduction,
 
-    entry: "./main",
+    entry: "./index",
 
     output: {
-      path: path.resolve(__dirname, "../dist/web"),
+      path: path.resolve(__dirname, "dist/web"),
       pathinfo: isEnvDevelopment,
       filename: isEnvProduction
         ? "static/js/[name].[contenthash:8].js"
@@ -70,25 +74,17 @@ module.exports = function config(envName, options) {
       minimizer: [
         new TerserPlugin({
           terserOptions: {
-            parse: {
-              ecma: 8,
-            },
+            parse: { ecma: 8 },
             compress: {
               ecma: 5,
               warnings: false,
               comparisons: false,
               inline: 2,
             },
-            mangle: {
-              safari10: true,
-            },
+            mangle: { safari10: true },
             keep_classnames: isEnvProductionProfile,
             keep_fnames: isEnvProductionProfile,
-            output: {
-              ecma: 5,
-              comments: false,
-              ascii_only: true,
-            },
+            output: { ecma: 5, comments: false, ascii_only: true },
           },
         }),
       ],
@@ -108,8 +104,8 @@ module.exports = function config(envName, options) {
     },
 
     performance: {
-      maxAssetSize: 600 * 1024,
-      maxEntrypointSize: 600 * 1024,
+      maxAssetSize: 650 * 1024,
+      maxEntrypointSize: 650 * 1024,
     },
 
     resolve: {
@@ -123,14 +119,38 @@ module.exports = function config(envName, options) {
     },
 
     module: {
+      strictExportPresence: true,
       rules: [
+        // Disable require.ensure as it's not a standard language feature.
+        { parser: { requireEnsure: false } },
+        // Handle node_modules packages that contain sourcemaps
+        {
+          enforce: "pre",
+          exclude: /@babel(?:\/|\\{1,2})runtime/,
+          test: /\.(js|mjs|jsx|ts|tsx|css)$/,
+          use: "source-map-loader",
+        },
         {
           oneOf: [
+            // TODO: Merge this config once `image/avif` is in the mime-db
+            // https://github.com/jshttp/mime-db
+            {
+              test: [/\.avif$/],
+              loader: require.resolve("url-loader"),
+              options: {
+                limit: imageInlineSizeLimit,
+                mimetype: "image/avif",
+                name: "static/media/[name].[hash:8].[ext]",
+              },
+            },
+            // "url" loader works like "file" loader except that it embeds assets
+            // smaller than specified limit in bytes as data URLs to avoid requests.
+            // A missing `test` is equivalent to a match.
             {
               test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
               loader: require.resolve("url-loader"),
               options: {
-                limit: 10000,
+                limit: imageInlineSizeLimit,
                 name: "static/media/[name].[hash:8].[ext]",
               },
             },
@@ -145,27 +165,40 @@ module.exports = function config(envName, options) {
                   [
                     "babel-plugin-import",
                     {
-                      libraryName: "@material-ui/core",
+                      libraryName: "@mui/material",
                       libraryDirectory: "",
                       camel2DashComponentName: false,
                     },
-                    "core",
+                    "material",
                   ],
                   [
                     "babel-plugin-import",
                     {
-                      libraryName: "@material-ui/icons",
+                      libraryName: "@mui/icons-material",
                       libraryDirectory: "",
                       camel2DashComponentName: false,
                     },
-                    "icons",
+                    "icons-material",
+                  ],
+                  [
+                    "babel-plugin-import",
+                    {
+                      libraryName: "@mui/lab",
+                      libraryDirectory: "",
+                      camel2DashComponentName: false,
+                    },
+                    "lab",
                   ],
                   "relay",
                   isDevServer && "react-refresh/babel",
                 ].filter(Boolean),
-                cacheDirectory: `../.cache/${pkg.name}.babel-loader`,
+                cacheDirectory: path.join(
+                  __dirname,
+                  "../.cache/web-babel-loader",
+                ),
                 cacheCompression: false,
-                compact: isEnvProduction,
+                compact: false, // isEnvProduction,
+                sourceType: "unambiguous",
               },
             },
           ],
@@ -178,6 +211,9 @@ module.exports = function config(envName, options) {
       new HtmlWebpackPlugin({
         inject: true,
         template: path.resolve(__dirname, "public/index.html"),
+        templateParameters: {
+          config: JSON.stringify(config),
+        },
         ...(isEnvProduction && {
           minify: {
             removeComments: true,
@@ -205,17 +241,13 @@ module.exports = function config(envName, options) {
             },
           ],
         }),
-      new webpack.DefinePlugin({
-        "process.env.APP_NAME": JSON.stringify("React App"),
-        "process.env.APP_ORIGIN": JSON.stringify(prodEnv.APP_ORIGIN),
-      }),
       isDevServer && new webpack.HotModuleReplacementPlugin(),
       isDevServer && new ReactRefreshWebpackPlugin(),
-      new WebpackManifestPlugin({
-        fileName: "assets.json",
-        publicPath: "/",
+      new WebpackManifestPlugin({ fileName: "assets.json", publicPath: "/" }),
+      new webpack.IgnorePlugin({
+        resourceRegExp: /^\.\/locale$/,
+        contextRegExp: /moment$/,
       }),
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     ].filter(Boolean),
   };
 
@@ -227,10 +259,10 @@ module.exports = function config(envName, options) {
    */
   const proxyConfig = {
     ...appConfig,
-    name: "proxy",
-    entry: "./proxy",
+    name: "workers",
+    entry: "./workers/proxy",
     output: {
-      path: appConfig.output.path,
+      path: path.resolve(__dirname, "dist/workers"),
       filename: "proxy.js",
       uniqueName: "proxy",
     },
@@ -242,20 +274,17 @@ module.exports = function config(envName, options) {
     target: "browserslist:last 2 Chrome versions",
     plugins: [
       new IgnoreAsyncImportsPlugin(),
-      new webpack.DefinePlugin({
-        GOOGLE_CLOUD_REGION: JSON.stringify(prodEnv.GOOGLE_CLOUD_REGION),
-        GOOGLE_CLOUD_PROJECT: JSON.stringify({
-          prod: prodEnv.GOOGLE_CLOUD_PROJECT,
-          test: testEnv.GOOGLE_CLOUD_PROJECT,
-          dev: devEnv.GOOGLE_CLOUD_PROJECT,
-        }),
+      new webpack.IgnorePlugin({
+        resourceRegExp: /^\.\/locale$/,
+        contextRegExp: /moment$/,
       }),
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    ],
+      options.analyze && new BundleAnalyzerPlugin(),
+    ].filter(Boolean),
     optimization: {
       ...appConfig.optimization,
       splitChunks: {},
       runtimeChunk: false,
+      minimize: false,
     },
   };
 
@@ -266,23 +295,21 @@ module.exports = function config(envName, options) {
    * @type {import("webpack-dev-server").Configuration}
    */
   const devServer = {
-    compress: true,
     static: "./public",
-    historyApiFallback: {
-      disableDotRule: true,
-    },
+    compress: true,
+    historyApiFallback: { disableDotRule: true },
     port: 3000,
     hot: true,
     proxy: [
       {
-        context: ["/auth", "/graphql"],
-        target: "http://localhost:8080",
-      },
-      {
-        context: ["/img"],
-        target: process.env.APP_ORIGIN,
+        context: [config.api.path, "/auth"],
+        target: config.api.origin,
         changeOrigin: true,
-        secure: false,
+        pathRewrite: config.api.prefix ? { "^/": `${config.api.prefix}/` } : {},
+        onProxyReq(proxyReq, req) {
+          const origin = `${req.protocol}://${req.hostname}:3000`;
+          proxyReq.setHeader("origin", origin);
+        },
       },
     ],
   };

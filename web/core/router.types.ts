@@ -1,22 +1,22 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
 import type { ComponentClass, ComponentProps, FunctionComponent } from "react";
-import type { Environment, GraphQLTaggedNode } from "react-relay";
+import type { Environment, GraphQLTaggedNode, Variables } from "react-relay";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export type RouterContext = {
   path: string;
+  query: URLSearchParams;
+  params?: Record<string, string>;
   relay: Environment;
-  params?: { [key: string]: string };
 };
 
 export type RouterResponse<
   Component extends
     | FunctionComponent<any>
-    | ComponentClass<any> = FunctionComponent<any>
+    | ComponentClass<any> = FunctionComponent<any>,
 > = {
   title?: string;
   description?: string;
@@ -24,11 +24,13 @@ export type RouterResponse<
   props?: ComponentProps<Component>;
   error?: Error;
   redirect?: string;
+  status?: number;
+  layout?: boolean;
 };
 
 export type Route<
   Component extends FunctionComponent<any> | ComponentClass<any>,
-  QueryResponse = unknown
+  QueryResponse = unknown,
 > = {
   /**
    * URL path pattern.
@@ -41,7 +43,7 @@ export type Route<
   /**
    * GraphQL query variables.
    */
-  variables?: ((ctx: RouterContext) => any) | any;
+  variables?: ((ctx: RouterContext) => Variables) | Variables;
   /**
    * Authorization rule(s) / permissions.
    */

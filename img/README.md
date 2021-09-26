@@ -1,7 +1,8 @@
 # Cloud Image Resizing
 
 This cloud function is intended to be used for image resizing and optimization
-needs as a light and cheaper alternative to 3rd party services.
+needs as a lightweight and cheaper alternative to 3rd party services. For more
+info visit https://github.com/kriasoft/image-resizing.
 
 ```js
 const { createHandler } = require("image-resizing");
@@ -32,8 +33,3 @@ Ensure that the source and cache GCS bucket exist, then run:
 ```
 $ yarn img:deploy [--env #0]
 ```
-
-## License
-
-Copyright © 2016-present Kriasoft. This source code is licensed under the MIT license found in the
-[LICENSE](https://github.com/kriasoft/graphql-starter/blob/main/LICENSE) file.

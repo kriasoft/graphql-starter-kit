@@ -1,6 +1,5 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
 const fs = require("fs");
 const nanoid = require("nanoid");
@@ -12,8 +11,6 @@ const { name, date, image, internet, random } = require("faker");
 const alphabet = "0123456789abcdefghijklmnopqrstuvwxyz";
 const newUserId = nanoid.customAlphabet(alphabet, 6);
 
-const jsonFile = `${__filename.substring(0, __filename.lastIndexOf("."))}.json`;
-
 function stringify(obj) {
   return prettier.format(JSON.stringify(obj), { parser: "json" });
 }
@@ -24,11 +21,12 @@ function stringify(obj) {
  * @param {import("knex").Knex} db
  */
 module.exports.seed = async (db) => {
-  let users = fs.existsSync(jsonFile) ? require(jsonFile) : null;
+  const jsonFile = __filename.replace(/\.\w+$/, ".json");
+  let users = require(jsonFile);
 
   // Generates fake user accounts
   // https://github.com/marak/Faker.js
-  if (!users) {
+  if (users.length === 0) {
     console.log("Generating users.json...");
     const usernames = new Set();
 
@@ -54,9 +52,9 @@ module.exports.seed = async (db) => {
         name: `${firstName} ${lastName}`,
         given_name: firstName,
         family_name: lastName,
-        picture: image.avatar(),
-        created_at: createdAt,
-        updated_at: createdAt,
+        picture: { url: image.avatar() },
+        created: createdAt,
+        updated: createdAt,
         last_login:
           Math.random() > 0.5 ? date.between(createdAt, new Date()) : null,
       };

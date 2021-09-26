@@ -3,7 +3,7 @@
 Migration and seed files plus some administration scripts that help to design
 a PostgreSQL database.
 
-This project was bootstrapped with [GraphQL API Starter Kit](https://github.com/kriasoft/graphql-starter).
+This project was bootstrapped with [GraphQL API Starter Kit](https://github.com/kriasoft/relay-starter-kit).
 Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for
 assistance.
 
@@ -33,7 +33,7 @@ assistance.
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) v14, [Yarn](https://yarnpkg.com/) package manager
+- [Node.js](https://nodejs.org/) v16, [Yarn](https://yarnpkg.com/) package manager
 - Local or remote instance of [PostgreSQL](https://www.postgresql.org/) (see [Postgres.app](https://postgresapp.com/), [Google Cloud SQL](https://cloud.google.com/sql))
 - Optionally, [`psql`](https://www.postgresql.org/docs/current/app-psql.html), [`pg_dump`](https://www.postgresql.org/docs/current/app-pgdump.html), [`pg_restore`](https://www.postgresql.org/docs/current/app-pgrestore.html) client utilities (`brew install libpq` [❐](https://stackoverflow.com/a/49689589/82686))
 
@@ -128,4 +128,4 @@ $ yarn db:import-seeds [--env #0]
 ## License
 
 Copyright © 2016-present Kriasoft. This source code is licensed under the MIT license found in the
-[LICENSE](https://github.com/kriasoft/graphql-starter/blob/main/LICENSE) file.
+[LICENSE](https://github.com/kriasoft/relay-starter-kit/blob/main/LICENSE) file.

@@ -1,25 +1,33 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+
 /**
  * Restores database from a backup file. Usage:
  *
- *   yarn db:restore [--env #0] [--from #0]
- *
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
+ *   $ yarn db:restore [--env #0] [--from #0]
  */
 
 const fs = require("fs");
 const path = require("path");
 const spawn = require("cross-spawn");
+const envars = require("envars");
 const minimist = require("minimist");
+const { greenBright } = require("chalk");
+
+// Parse CLI arguments
+const args = [];
+const { env, from } = minimist(process.argv.slice(2), {
+  string: ["env", "from"],
+  unknown: (arg) => !args.push(arg),
+});
 
 // Load environment variables (PGHOST, PGUSER, etc.)
-require("env");
+envars.config({ env });
 
-const args = minimist(process.argv.slice(2));
-const toEnv = args.env || "dev";
-const fromEnv = args.from || toEnv;
+const { APP_ENV, PGDATABASE } = process.env;
+const fromEnv = from || APP_ENV;
 
 // Find the latest backup file for the selected environment
-const { PGDATABASE } = process.env;
 const file = fs
   .readdirSync(path.resolve(__dirname, "../backups"))
   .sort()
@@ -27,11 +35,15 @@ const file = fs
   .find((x) => x.endsWith(`_${fromEnv}.sql`));
 
 if (!file) {
-  console.log(`Cannot find the SQL backup file for "${fromEnv}" environment.`);
+  console.log(`Cannot find a SQL backup file of the "${fromEnv}" environment.`);
   process.exit(1);
 }
 
-console.log(`Restoring ${file} to ${PGDATABASE} (${toEnv})...`);
+console.log(
+  `Restoring ${greenBright(file)} to ${greenBright(
+    PGDATABASE,
+  )} (${APP_ENV})...`,
+);
 
 spawn(
   "psql",
@@ -40,7 +52,7 @@ spawn(
     path.resolve(__dirname, `../backups/${file}`),
     "--echo-errors",
     "--no-readline",
-    ...args._,
+    ...args,
   ],
   { stdio: "inherit" },
 ).on("exit", process.exit);

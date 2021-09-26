@@ -1,7 +1,7 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
+import { ArrowDropDown, NotificationsNone } from "@mui/icons-material";
 import {
   AppBar,
   AppBarProps,
@@ -12,11 +12,10 @@ import {
   Link,
   Toolbar,
   Typography,
-} from "@material-ui/core";
-import { ArrowDropDown, NotificationsNone } from "@material-ui/icons";
+} from "@mui/material";
 import * as React from "react";
-import { useCurrentUser, useLoginDialog, useNavigate } from "../hooks";
-import { NotificationsMenu, UserMenu } from "../menu";
+import { useAuth, useCurrentUser, useNavigate } from "../core";
+import { NotificationsMenu, UserMenu } from "../menus";
 
 type AppToolbarProps = AppBarProps & {
   onChangeTheme: () => void;
@@ -25,13 +24,13 @@ type AppToolbarProps = AppBarProps & {
 export function AppToolbar(props: AppToolbarProps): JSX.Element {
   const { onChangeTheme, ...other } = props;
   const menuAnchorRef = React.createRef<HTMLButtonElement>();
+  const auth = useAuth();
 
   const [anchorEl, setAnchorEl] = React.useState({
     userMenu: null as HTMLElement | null,
     notifications: null as HTMLElement | null,
   });
 
-  const loginDialog = useLoginDialog();
   const navigate = useNavigate();
   const user = useCurrentUser();
 
@@ -53,7 +52,7 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
 
   function signIn(event: React.MouseEvent): void {
     event.preventDefault();
-    loginDialog.show();
+    auth.signIn();
   }
 
   return (
@@ -85,7 +84,10 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
             }}
             component="a"
             avatar={
-              <Avatar alt={user.name || ""} src={user.picture || undefined} />
+              <Avatar
+                alt={user.name || ""}
+                src={user.picture.url || undefined}
+              />
             }
             label={getFirstName(user.name || "")}
             href={`/@${user.username}`}
@@ -105,6 +107,7 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
             }}
             children={<NotificationsNone />}
             onClick={openNotificationsMenu}
+            size="large"
           />
         )}
         {user && (
@@ -121,6 +124,7 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
             }}
             children={<ArrowDropDown />}
             onClick={openUserMenu}
+            size="large"
           />
         )}
         {!user && (

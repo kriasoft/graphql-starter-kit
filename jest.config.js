@@ -1,12 +1,12 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+
 /**
  * Jest configuration
  *
  * @see https://jestjs.io/docs/en/configuration
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- *
  * @type {import("@jest/types").Config.InitialOptions}
  */
-
 module.exports = {
   testPathIgnorePatterns: [
     "<rootDir>/.cache/",

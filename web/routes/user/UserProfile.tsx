@@ -1,6 +1,5 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
 import {
   Avatar,
@@ -9,7 +8,7 @@ import {
   CardContent,
   Container,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import * as React from "react";
 import type { userProfileQueryResponse as Props } from "./__generated__/userProfileQuery.graphql";
 
@@ -33,7 +32,7 @@ export default function UserProfile(props: Props): JSX.Element {
         <Avatar
           sx={{ width: 160, height: 160, marginBottom: (x) => x.spacing(2) }}
           alt={user?.name || ""}
-          src={user?.picture || undefined}
+          src={user?.picture?.url || undefined}
         />
         <Typography
           sx={{ fontSize: "1.125rem" }}

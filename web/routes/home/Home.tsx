@@ -1,21 +1,20 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
-import { Container, Link, Typography } from "@material-ui/core";
+import { Container, Link, Typography } from "@mui/material";
 import * as React from "react";
-import { useLoginDialog, useNavigate } from "../../hooks";
+import { useAuth, useNavigate } from "../../core";
 import type { homeQueryResponse as Props } from "./__generated__/homeQuery.graphql";
 
 export default function Home(props: Props): JSX.Element {
   const { me } = props;
-  const loginDialog = useLoginDialog();
   const navigate = useNavigate();
+  const auth = useAuth();
 
-  function signIn(event: React.MouseEvent<HTMLElement>) {
+  const signIn = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    loginDialog.show();
-  }
+    auth.signIn();
+  }, []);
 
   return (
     <Container

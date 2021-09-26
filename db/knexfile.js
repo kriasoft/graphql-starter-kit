@@ -1,31 +1,18 @@
-/**
- * Knex.js CLI configuration.
- *
- * @see https://knexjs.org/#knexfile
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
-const fs = require("fs");
+const envars = require("envars");
+const args = require("minimist")(process.argv.slice(2));
 
 // Load environment variables (PGHOST, PGUSER, etc.)
-require("env");
+envars.config({ env: args.env });
 
 /**
+ * Knex.js CLI configuration
+ *
+ * @see https://knexjs.org/#knexfile
  * @type {import("knex").Knex.Config}
  */
 module.exports = {
-  client: "pg",
-
-  connection: {
-    ssl: process.env.PGSSLMODE === "verify-ca" && {
-      cert: fs.readFileSync(process.env.PGSSLCERT, "ascii"),
-      key: fs.readFileSync(process.env.PGSSLKEY, "ascii"),
-      ca: fs.readFileSync(process.env.PGSSLROOTCERT, "ascii"),
-      servername: process.env.PGSERVERNAME,
-    },
-  },
-
-  pool: { min: 0, max: 1 },
-
-  migrations: { tableName: "migrations" },
+  ...require("../api/db/config"),
 };

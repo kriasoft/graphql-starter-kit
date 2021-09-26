@@ -1,8 +1,9 @@
-/**
- * GraphQL API mutations.
- *
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
 export * from "./auth";
-export * from "./user";
+export * from "./createUser";
+export * from "./getUploadURL";
+export * from "./resetPassword";
+export * from "./saveUpload";
+export * from "./updateUser";

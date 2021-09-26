@@ -1,12 +1,12 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+
 /**
  * Prettier configuration
  *
  * @see https://prettier.io/docs/en/configuration
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- *
  * @type {import("prettier").RequiredOptions}
  */
-
 module.exports = {
   printWidth: 80,
   tabWidth: 2,

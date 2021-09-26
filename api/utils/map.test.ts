@@ -1,8 +1,7 @@
-/**
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
- */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
 
-import { mapTo, mapToMany, mapToValues } from "./map";
+import { mapTo, mapToMany, mapToManyValues, mapToValues } from "./map";
 
 test("mapTo()", () => {
   const result = mapTo(
@@ -13,7 +12,18 @@ test("mapTo()", () => {
     [1, 2],
     (x) => x.id,
   );
-  expect(result).toMatchSnapshot();
+  expect(result).toMatchInlineSnapshot(`
+    Array [
+      Object {
+        "id": 1,
+        "name": "a",
+      },
+      Object {
+        "id": 2,
+        "name": "b",
+      },
+    ]
+  `);
 });
 
 test("mapToMany()", () => {
@@ -26,7 +36,26 @@ test("mapToMany()", () => {
     [1, 2],
     (x) => x.id,
   );
-  expect(result).toMatchSnapshot();
+  expect(result).toMatchInlineSnapshot(`
+    Array [
+      Array [
+        Object {
+          "id": 1,
+          "name": "a",
+        },
+        Object {
+          "id": 1,
+          "name": "c",
+        },
+      ],
+      Array [
+        Object {
+          "id": 2,
+          "name": "b",
+        },
+      ],
+    ]
+  `);
 });
 
 test("mapToValues()", () => {
@@ -40,5 +69,36 @@ test("mapToValues()", () => {
     (x) => x.id,
     (x) => x?.name || null,
   );
-  expect(result).toMatchSnapshot();
+  expect(result).toMatchInlineSnapshot(`
+    Array [
+      "a",
+      "b",
+      "c",
+      null,
+    ]
+  `);
+});
+
+test("mapToManyValues()", () => {
+  const result = mapToManyValues(
+    [
+      { id: 2, name: "b" },
+      { id: 2, name: "c" },
+      { id: 1, name: "a" },
+    ],
+    [1, 2],
+    (x) => x.id,
+    (x) => x?.name || null,
+  );
+  expect(result).toMatchInlineSnapshot(`
+    Array [
+      Array [
+        "a",
+      ],
+      Array [
+        "b",
+        "c",
+      ],
+    ]
+  `);
 });

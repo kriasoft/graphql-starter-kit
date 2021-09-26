@@ -2,15 +2,12 @@
 # Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
 
 # Compiled output
-/dist/
+/*/dist/
 
-# Dependencies
-node_modules/
-
-# Yarn Zero-installs
+# Yarn with PnP
 # https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 .yarn/*
-#!.yarn/cache
+!.yarn/patches
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
@@ -21,24 +18,28 @@ node_modules/
 yarn-debug.log*
 yarn-error.log
 
-# Testing
-/coverage
-
-# Configuration overrides
-.env.override
-.env.*.override
-
-# Editors and IDEs
-.vscode/*
-!.vscode/snippets
-!.vscode/db.code-snippets
-!.vscode/extensions.json
-!.vscode/launch.json
-!.vscode/settings.json
-
 # Cache
 /.cache
 .eslintcache
 
+# Testing
+/coverage
+*.lcov
+
+# Environment variables
+.env.override
+.env.*.override
+
+# Visual Studio Code
+# https://github.com/github/gitignore/blob/master/Global/VisualStudioCode.gitignore
+.vscode/*
+!.vscode/api.code-snippets
+!.vscode/db.code-snippets
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/web.code-snippets
+
 # macOS
+# https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
 .DS_Store
