@@ -25,7 +25,7 @@
     "api": "workspace:*",
     "chalk": "^4.1.2",
     "cross-spawn": "^7.0.3",
-    "envars": "^0.1.1",
+    "envars": "^0.2.0",
     "faker": "^5.5.3",
     "knex": "^0.95.11",
     "knex-types": "^0.3.1",

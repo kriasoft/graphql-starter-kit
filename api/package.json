@@ -77,7 +77,7 @@
     "@types/supertest": "^2.0.11",
     "@types/validator": "^13.6.3",
     "cross-spawn": "^7.0.3",
-    "envars": "^0.1.1",
+    "envars": "^0.2.0",
     "fs-extra": "^10.0.0",
     "knex-types": "^0.3.1",
     "prettier": "^2.4.1",
