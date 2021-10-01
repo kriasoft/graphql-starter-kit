@@ -10,9 +10,6 @@
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "jest.jestCommandLine": "yarn jest",
-  "files.associations": {
-    ".env.**": "dotenv"
-  },
   "files.exclude": {
     "**/.cache": true,
     "**/.DS_Store": true,

@@ -18,7 +18,7 @@
     "@octokit/rest": "^18.11.4",
     "api": "workspace:*",
     "cross-spawn": "^7.0.3",
-    "envars": "^0.1.1",
+    "envars": "^0.2.0",
     "file-type": "^16.5.3",
     "form-data": "^4.0.0",
     "globby": "^11.0.4",

@@ -17,6 +17,7 @@ const inquirer = require("inquirer");
 const environments = {
   prod: "production",
   test: "test (QA)",
+  local: "local",
 };
 
 function replace(filename, searchValue, replaceValue) {
@@ -35,7 +36,7 @@ const questions = [
     type: "confirm",
     name: "setup",
     message:
-      "Configure this project for production, test (QA), and local development environments?",
+      "Configure this project for local development, test (QA), and production environments?",
     default: true,
   },
   {
@@ -44,7 +45,7 @@ const questions = [
     message: "Domain name where the app will be hosted:",
     when: (answers) => answers.setup,
     default() {
-      const { parsed } = dotenv.config({ path: "env/.env.prod" });
+      const { parsed } = dotenv.config({ path: "env/.prod.env" });
       return new URL(parsed.APP_ORIGIN).hostname;
     },
     validate(domain) {
@@ -57,32 +58,40 @@ const questions = [
       const appNameValue = domain
         .substring(0, domain.lastIndexOf("."))
         .replace(/\./g, "_");
+      const pkgBucket = /^(PKG_BUCKET)=.*$/m;
+      const emailFrom = /^(EMAIL_FROM)=.*$/m;
+      const emailFromValue =
+        appNameValue[0].toUpperCase() +
+        appNameValue.substring(1) +
+        ` <no-reply@${domain}>`;
+      const emailReply = /^(EMAIL_REPLY_TO)=.*$/m;
+      const emailReplyValue =
+        appNameValue[0].toUpperCase() +
+        appNameValue.substring(1) +
+        ` <hello@${domain}>`;
 
       return (
-        replace("env/.env.prod", appOrigin, `$1=https://${domain}`) &&
-        replace("env/.env.test", appOrigin, `$1=https://test.${domain}`) &&
-        replace("env/.env", appName, `$1=${appNameValue}`)
+        replace("env/.local.env", appName, `$1=${appNameValue}`) &&
+        replace("env/.local.env", pkgBucket, `$1=pkg.${domain}`) &&
+        replace("env/.local.env", emailFrom, `$1=${emailFromValue}`) &&
+        replace("env/.local.env", emailReply, `$1=${emailReplyValue}`) &&
+        replace("env/.test.env", appName, `$1=${appNameValue}`) &&
+        replace("env/.test.env", appOrigin, `$1=https://test.${domain}`) &&
+        replace("env/.test.env", pkgBucket, `$1=pkg.${domain}`) &&
+        replace("env/.test.env", emailFrom, `$1=${emailFromValue}`) &&
+        replace("env/.test.env", emailReply, `$1=${emailReplyValue}`) &&
+        replace("env/.prod.env", appName, `$1=${appNameValue}`) &&
+        replace("env/.prod.env", appOrigin, `$1=https://${domain}`) &&
+        replace("env/.prod.env", pkgBucket, `$1=pkg.${domain}`) &&
+        replace("env/.prod.env", emailFrom, `$1=${emailFromValue}`) &&
+        replace("env/.prod.env", emailReply, `$1=${emailReplyValue}`)
       );
     },
   },
   {
     type: "input",
-    name: "pkg",
-    message: "GCS bucket for the app bundles:",
-    when: (answers) => answers.setup,
-    default: ({ domain }) => `pkg.${domain}`,
-    validate(value) {
-      if (!value.match(/^\w[\w-.]*\w$/)) {
-        return "Requires a valid GCS bucket name.";
-      }
-      const search = /^(PKG_BUCKET)=.*/m;
-      return replace("env/.env", search, `$1=${value}`);
-    },
-  },
-  {
-    type: "input",
     name: "storage",
-    message: "GCS bucket for user uploaded content:",
+    message: "GCS bucket for user uploaded content (profile pictures, etc.):",
     when: (answers) => answers.setup,
     default: ({ domain }) => `s.${domain}`,
     validate(value) {
@@ -93,12 +102,12 @@ const questions = [
       const uploadBucket = /^(UPLOAD_BUCKET)=.*/m;
       const uploadValue = value.replace(/^\w+./, "upload.");
       return (
-        replace("env/.env.prod", storageBucket, `$1=${value}`) &&
-        replace("env/.env.test", storageBucket, `$1=test-${value}`) &&
-        replace("env/.env.local", storageBucket, `$1=test-${value}`) &&
-        replace("env/.env.prod", uploadBucket, `$1=${uploadValue}`) &&
-        replace("env/.env.test", uploadBucket, `$1=test-${uploadValue}`) &&
-        replace("env/.env.local", uploadBucket, `$1=test-${uploadValue}`)
+        replace("env/.local.env", storageBucket, `$1=test-${value}`) &&
+        replace("env/.local.env", uploadBucket, `$1=test-${uploadValue}`) &&
+        replace("env/.test.env", storageBucket, `$1=test-${value}`) &&
+        replace("env/.test.env", uploadBucket, `$1=test-${uploadValue}`) &&
+        replace("env/.prod.env", storageBucket, `$1=${value}`) &&
+        replace("env/.prod.env", uploadBucket, `$1=${uploadValue}`)
       );
     },
   },
@@ -114,13 +123,13 @@ const questions = [
       }
       const cacheBucket = /^(CACHE_BUCKET)=.*/m;
       return (
-        replace("env/.env.prod", cacheBucket, `$1=${value}`) &&
-        replace("env/.env.test", cacheBucket, `$1=test-${value}`) &&
-        replace("env/.env.local", cacheBucket, `$1=test-${value}`)
+        replace("env/.local.env", cacheBucket, `$1=test-${value}`) &&
+        replace("env/.test.env", cacheBucket, `$1=test-${value}`) &&
+        replace("env/.prod.env", cacheBucket, `$1=${value}`)
       );
     },
   },
-  ...Object.keys(environments).map((env) => ({
+  ...["prod", "test"].map((env) => ({
     type: "input",
     name: `gcp_project_${env}`,
     message: `GCP project ID for ${environments[env]} (${env}):`,
@@ -137,22 +146,16 @@ const questions = [
       const dbServer = /(PGSERVERNAME)=.*/gm;
       const localDb = dbName.replace(/_test/, "_local");
       return (
-        replace(`env/.env.${env}`, gcp, `$1=${value}`) &&
-        replace(`env/.env.${env}`, db, `$1=${dbName}`) &&
-        replace(`env/.env.${env}`, dbServer, `$1=${value}:pg12`) &&
+        replace(`env/.${env}.env`, gcp, `$1=${value}`) &&
+        replace(`env/.${env}.env`, db, `$1=${dbName}`) &&
+        replace(`env/.${env}.env`, dbServer, `$1=${value}:pg13`) &&
         (env === "test"
-          ? replace(`env/.env.local`, gcp, `$1=${value}`) &&
-            replace(`env/.env.local`, db, `$1=${localDb}`)
+          ? replace(`env/.local.env`, gcp, `$1=${value}`) &&
+            replace(`env/.local.env`, db, `$1=${localDb}`)
           : true)
       );
     },
   })),
-  {
-    type: "confirm",
-    name: "yarn",
-    message: "Enable Yarn Zero-install?",
-    default: false,
-  },
   {
     type: "confirm",
     name: "clean",
@@ -163,25 +166,6 @@ const questions = [
 ];
 
 async function done(answers) {
-  // Enable/disable Yarn Zero-install
-  if (answers.yarn) {
-    await replace(`.gitignore`, /^#!\.yarn\/cache$/m, `!.yarn/cache`);
-    await replace(`.gitignore`, /^\.pnp\.\*$/m, `#.pnp.*`);
-    await replace(
-      `.github/workflows/pull_request.yaml`,
-      /yarn install$/m,
-      `yarn install --immutable --immutable-cache`,
-    );
-  } else {
-    await replace(`.gitignore`, /^!\.yarn\/cache$/m, `#!.yarn/cache`);
-    await replace(`.gitignore`, /^#\.pnp\.\*$/m, `.pnp.*`);
-    await replace(
-      `.github/workflows/pull_request.yaml`,
-      /yarn install.*$/m,
-      `yarn install --frozen-lockfile`,
-    );
-  }
-
   // Remove this script
   if (answers.clean) {
     fs.unlinkSync("./setup.js");
@@ -195,13 +179,13 @@ async function done(answers) {
 
   if (answers.setup) {
     // Generate JWT secret(s)
-    Object.keys({ ...environments, local: "local" }).forEach((env) => {
-      let text = fs.readFileSync(`env/.env.${env}`, "utf8");
+    Object.keys(environments).forEach((env) => {
+      let text = fs.readFileSync(`env/.${env}.env`, "utf8");
       let [, secret] = text.match(/^JWT_SECRET=(.*)/m) || [];
       if (secret === "n2127bOgmzao67RiW3umlVs16GL9fEj+JQRDaaN5E9G7yC/b") {
         secret = crypto.randomBytes(36).toString("base64");
         text = text.replace(/^(JWT_SECRET)=.*/m, `$1=${secret}`);
-        fs.writeFileSync(`env/.env.${env}`, text, "utf8");
+        fs.writeFileSync(`env/.${env}.env`, text, "utf8");
       }
     });
 
