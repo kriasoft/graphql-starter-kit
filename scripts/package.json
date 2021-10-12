@@ -12,10 +12,10 @@
     "gh:delete-deployment": "node ./github delete-deployment"
   },
   "dependencies": {
-    "@babel/core": "^7.15.5",
+    "@babel/core": "^7.15.8",
     "@babel/register": "^7.15.3",
-    "@google-cloud/storage": "^5.14.4",
-    "@octokit/rest": "^18.11.4",
+    "@google-cloud/storage": "^5.15.0",
+    "@octokit/rest": "^18.12.0",
     "api": "workspace:*",
     "cross-spawn": "^7.0.3",
     "envars": "^0.2.0",
