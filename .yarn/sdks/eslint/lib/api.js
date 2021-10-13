@@ -17,4 +17,4 @@ if (existsSync(absPnpApiPath)) {
 }
 
 // Defer to the real eslint/lib/api.js your application uses
-module.exports = absRequire(`eslint/lib/api.js`);
+module.exports = absRequire(`eslint`);
