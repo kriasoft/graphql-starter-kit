@@ -12,7 +12,7 @@
 .yarn/sdks
 .yarn/unplugged
 .yarn/*.*
-.pnp.cjs
+.pnp.*
 
 # Misc
 .husky

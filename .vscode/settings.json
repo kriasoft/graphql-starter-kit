@@ -20,6 +20,7 @@
     "**/.gitignore": true,
     "**/.husky": true,
     "**/.pnp.cjs": true,
+    "**/.pnp.loader.mjs": true,
     "**/.prettierignore": true,
     "**/.yarn": true,
     "**/.yarnrc.yml": true,

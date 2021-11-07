@@ -86,5 +86,6 @@ module.exports = {
     "/coverage",
     "/dist/",
     "/.pnp.cjs",
+    "/.pnp.loader.mjs",
   ],
 };

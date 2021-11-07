@@ -64,7 +64,12 @@ const config = {
           },
         },
         {
-          src: ["../.yarnrc.yml", "../yarn.lock"],
+          src: [
+            "../.yarnrc.yml",
+            "../yarn.lock",
+            "../.pnp.cjs",
+            "../.pnp.loader.mjs",
+          ],
           dest: "./dist",
           copyOnce: true,
         },
