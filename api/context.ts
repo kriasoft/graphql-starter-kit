@@ -11,10 +11,11 @@ import { mapTo, mapToMany } from "./utils";
  * GraphQL execution context.
  * @see https://graphql.org/learn/execution/
  */
-export class Context {
+export class Context extends Map<symbol, unknown> {
   readonly req: Request;
 
   constructor(req: Request) {
+    super();
     this.req = req;
 
     // Add the currently logged in user object to the cache
