@@ -58,5 +58,5 @@
     "@types/node": "^16.10.5",
     "@types/prettier": "^2.4.1"
   },
-  "packageManager": "yarn@3.1.0-rc.8"
+  "packageManager": "yarn@3.2.0-rc.2"
 }
