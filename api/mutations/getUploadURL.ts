@@ -28,14 +28,15 @@ export const getUploadURL: GraphQLFieldConfig<unknown, Context> = {
     ctx.ensureAuthorized();
 
     // Create a temporary for the uploaded content
+    // https://googleapis.dev/nodejs/storage/latest/Bucket.html#getSignedUrl
     const fileName = `${await newId()}${path.extname(args.fileName)}`;
     const [url] = await storage
       .bucket(env.UPLOAD_BUCKET)
       .file(fileName)
       .getSignedUrl({
         action: "write",
+        expires: Date.now() + 1.8e6 /* 30 min */,
         version: "v4",
-        expires: Date.now() + 600000 /* 10 min */,
         contentType: args.contentType,
         virtualHostedStyle: true,
         cname: `https://${env.UPLOAD_BUCKET}`,
