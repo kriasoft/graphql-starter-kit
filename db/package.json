@@ -21,17 +21,17 @@
     "db:psql": "node ./scripts/psql"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.175",
+    "@types/lodash": "^4.14.176",
     "api": "workspace:*",
     "chalk": "^4.1.2",
     "cross-spawn": "^7.0.3",
     "envars": "^0.2.0",
     "faker": "^5.5.3",
-    "knex": "^0.95.11",
+    "knex": "^0.95.13",
     "knex-types": "^0.3.1",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
-    "nanoid": "^3.1.29",
+    "nanoid": "^3.1.30",
     "ora": "^5.4.1",
     "pg": "^8.7.1",
     "prettier": "^2.4.1"

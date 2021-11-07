@@ -71,7 +71,7 @@ export const updateUser: GraphQLFieldConfig<unknown, Context> = {
     const input = args.input as UpdateUserInput;
     const dryRun = args.dryRun as boolean;
     const id = fromGlobalId(input.id, "User");
-    
+
     // Check permissions
     ctx.ensureAuthorized((user) => user.id === id || user.admin);
 

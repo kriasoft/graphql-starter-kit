@@ -13,8 +13,9 @@ module.exports = {
     "<rootDir>/.github/",
     "<rootDir>/.vscode/",
     "<rootDir>/.yarn/",
+    "<rootDir>/api/dist/",
     "<rootDir>/db/",
-    "<rootDir>/dist/",
     "<rootDir>/scripts/",
+    "<rootDir>/web/dist/",
   ],
 };

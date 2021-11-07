@@ -18,6 +18,7 @@ const envars = require("envars");
 const minimist = require("minimist");
 const FileType = require("file-type");
 const FormData = require("form-data");
+const { listNamespaces } = require("./cloudflare");
 
 const env = process.env;
 const cwd = path.resolve(__dirname, "../web/dist/web");
@@ -78,8 +79,8 @@ async function deploy() {
     (env.APP_ENV === `prod` ? `` : `_${env.APP_ENV}`) +
     (env.APP_ENV === `test` && args.version ? `_${args.version}` : ``);
 
-  let res = await cf.get({ url: "storage/kv/namespaces" });
-  let ns = res.find((x) => x.title === assetsNamespace);
+  const namespaces = await listNamespaces();
+  let ns = namespaces.find((x) => x.title === assetsNamespace);
 
   if (!ns) {
     console.log(`Creating KV namespace: ${assetsNamespace}`);

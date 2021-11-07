@@ -46,7 +46,7 @@ module.exports = {
       },
       settings: {
         react: {
-          version: "17.0.2",
+          version: "detect",
         },
       },
       rules: {
@@ -86,5 +86,6 @@ module.exports = {
     "/coverage",
     "/dist/",
     "/.pnp.cjs",
+    "/.pnp.loader.mjs",
   ],
 };

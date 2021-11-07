@@ -30,7 +30,6 @@ const cf = got.extend({
       (res) => {
         if (!res.body?.success) throw new Error(res.body.errors[0].message);
         res.body?.messages.forEach((x) => console.log(x));
-        res.body = res.body.result || res.body;
         return res;
       },
     ],
@@ -49,7 +48,7 @@ async function createTestSubdomain(version, content = "192.0.2.1") {
   const record = { type: "A", name, content, ttl: 1, proxied: true };
 
   // Check if the target subdomain already exists
-  const records = await cf.get(
+  const { result: records } = await cf.get(
     `zones/${CLOUDFLARE_ZONE_ID}/dns_records?type=${record.type}&name=${record.name}`,
   );
 
@@ -119,4 +118,27 @@ if (require.main.filename === __filename) {
   });
 }
 
-module.exports = { cf, createTestSubdomain, deleteTestSubdomain };
+async function listNamespaces() {
+  const { CLOUDFLARE_ACCOUNT_ID } = process.env;
+  let page = 0;
+  let result = [];
+
+  while (++page < 15) {
+    const res = await cf.get(
+      `accounts/${CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces?page=${page}&per_page=50`,
+    );
+    result = [...result, ...res.result];
+    if (res.result_info.total_pages === page) {
+      break;
+    }
+  }
+
+  return result;
+}
+
+module.exports = {
+  cf,
+  createTestSubdomain,
+  deleteTestSubdomain,
+  listNamespaces,
+};
