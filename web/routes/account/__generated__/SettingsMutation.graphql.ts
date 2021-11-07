@@ -7,13 +7,13 @@ import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type UpdateUserInput = {
     id: string;
-    username?: string | null;
-    email?: string | null;
-    name?: string | null;
-    givenName?: string | null;
-    familyName?: string | null;
-    timeZone?: string | null;
-    locale?: string | null;
+    username?: string | null | undefined;
+    email?: string | null | undefined;
+    name?: string | null | undefined;
+    givenName?: string | null | undefined;
+    familyName?: string | null | undefined;
+    timeZone?: string | null | undefined;
+    locale?: string | null | undefined;
 };
 export type SettingsMutationVariables = {
     input: UpdateUserInput;

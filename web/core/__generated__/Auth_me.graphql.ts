@@ -25,7 +25,7 @@ export type Auth_me = {
 };
 export type Auth_me$data = Auth_me;
 export type Auth_me$key = {
-    readonly " $data"?: Auth_me$data;
+    readonly " $data"?: Auth_me$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"Auth_me">;
 };
 

@@ -6,7 +6,7 @@ import { ConcreteRequest } from "relay-runtime";
 
 export type UploadMutationVariables = {
     fileName: string;
-    contentType?: string | null;
+    contentType?: string | null | undefined;
 };
 export type UploadMutationResponse = {
     readonly uploadURL: string | null;
