@@ -68,12 +68,12 @@ export const updateUser: GraphQLFieldConfig<unknown, Context> = {
   },
 
   async resolve(self, args, ctx) {
-    // Check permissions
-    ctx.ensureAuthorized((user) => user.id === id || user.admin);
-
     const input = args.input as UpdateUserInput;
     const dryRun = args.dryRun as boolean;
     const id = fromGlobalId(input.id, "User");
+    
+    // Check permissions
+    ctx.ensureAuthorized((user) => user.id === id || user.admin);
 
     // Validate and sanitize user input
     const [data, errors] = validate(input, (value) => ({
