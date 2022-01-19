@@ -1,35 +1,38 @@
+/**
+ * @generated SignedSource<<80521374fd63943deb5b3001c8d85c8f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type Auth_me = {
-    readonly id: string;
-    readonly username: string;
-    readonly email: string | null;
-    readonly emailVerified: boolean | null;
-    readonly name: string | null;
-    readonly givenName: string | null;
-    readonly familyName: string | null;
-    readonly picture: {
-        readonly url: string | null;
-    };
-    readonly timeZone: string | null;
-    readonly locale: string | null;
-    readonly created: string | null;
-    readonly updated: string | null;
-    readonly lastLogin: string | null;
-    readonly " $refType": "Auth_me";
+export type Auth_me$data = {
+  readonly id: string;
+  readonly username: string;
+  readonly email: string | null;
+  readonly emailVerified: boolean | null;
+  readonly name: string | null;
+  readonly givenName: string | null;
+  readonly familyName: string | null;
+  readonly picture: {
+    readonly url: string | null;
+  };
+  readonly timeZone: string | null;
+  readonly locale: string | null;
+  readonly created: string | null;
+  readonly updated: string | null;
+  readonly lastLogin: string | null;
+  readonly " $fragmentType": "Auth_me";
 };
-export type Auth_me$data = Auth_me;
+export type Auth_me = Auth_me$data;
 export type Auth_me$key = {
-    readonly " $data"?: Auth_me$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"Auth_me">;
+  readonly " $data"?: Auth_me$data;
+  readonly " $fragmentSpreads": FragmentRefs<"Auth_me">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -143,5 +146,7 @@ const node: ReaderFragment = {
   "type": "User",
   "abstractKey": null
 };
-(node as any).hash = '85410f40a47f853d395615a4874051d0';
+
+(node as any).hash = "85410f40a47f853d395615a4874051d0";
+
 export default node;

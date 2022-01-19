@@ -1,48 +1,36 @@
+/**
+ * @generated SignedSource<<1db0c5ec26c9dd267a97f0b03bbbc763>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type UploadType = "ClassCoverImage" | "ClassVideoImage" | "ProfilePicture" | "%future added value";
-export type UploadSaveMutationVariables = {
-    id: string;
-    uploadURL: string;
-    uploadType: UploadType;
+import { ConcreteRequest, Mutation } from 'relay-runtime';
+export type UploadType = "ProfilePicture" | "ClassCoverImage" | "ClassVideoImage" | "%future added value";
+export type UploadSaveMutation$variables = {
+  id: string;
+  uploadURL: string;
+  uploadType: UploadType;
 };
-export type UploadSaveMutationResponse = {
-    readonly saveUpload: {
-        readonly user: {
-            readonly id: string;
-            readonly picture: {
-                readonly url: string | null;
-            };
-        } | null;
+export type UploadSaveMutationVariables = UploadSaveMutation$variables;
+export type UploadSaveMutation$data = {
+  readonly saveUpload: {
+    readonly user: {
+      readonly id: string;
+      readonly picture: {
+        readonly url: string | null;
+      };
     } | null;
+  } | null;
 };
+export type UploadSaveMutationResponse = UploadSaveMutation$data;
 export type UploadSaveMutation = {
-    readonly response: UploadSaveMutationResponse;
-    readonly variables: UploadSaveMutationVariables;
+  variables: UploadSaveMutationVariables;
+  response: UploadSaveMutation$data;
 };
-
-
-
-/*
-mutation UploadSaveMutation(
-  $id: ID!
-  $uploadURL: String!
-  $uploadType: UploadType!
-) {
-  saveUpload(id: $id, uploadURL: $uploadURL, uploadType: $uploadType) {
-    user {
-      id
-      picture {
-        url
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -160,5 +148,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'c3fe880a4c49ada85c43a97648cdff3a';
+
+(node as any).hash = "c3fe880a4c49ada85c43a97648cdff3a";
+
 export default node;

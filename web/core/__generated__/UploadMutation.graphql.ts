@@ -1,31 +1,27 @@
+/**
+ * @generated SignedSource<<dc7bcacbf0dc23ef2f488e2fb48ecd17>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type UploadMutationVariables = {
-    fileName: string;
-    contentType?: string | null | undefined;
+import { ConcreteRequest, Mutation } from 'relay-runtime';
+export type UploadMutation$variables = {
+  fileName: string;
+  contentType?: string | null;
 };
-export type UploadMutationResponse = {
-    readonly uploadURL: string | null;
+export type UploadMutationVariables = UploadMutation$variables;
+export type UploadMutation$data = {
+  readonly uploadURL: string | null;
 };
+export type UploadMutationResponse = UploadMutation$data;
 export type UploadMutation = {
-    readonly response: UploadMutationResponse;
-    readonly variables: UploadMutationVariables;
+  variables: UploadMutationVariables;
+  response: UploadMutation$data;
 };
-
-
-
-/*
-mutation UploadMutation(
-  $fileName: String!
-  $contentType: String
-) {
-  uploadURL: getUploadURL(fileName: $fileName, contentType: $contentType)
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -91,5 +87,7 @@ return {
   }
 };
 })();
-(node as any).hash = '94565458336de3faade5557a49cdfd68';
+
+(node as any).hash = "94565458336de3faade5557a49cdfd68";
+
 export default node;

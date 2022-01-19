@@ -1,49 +1,27 @@
+/**
+ * @generated SignedSource<<8b2ba938c042cc316a5dce0db2dca27c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type LoginDialogMeQueryVariables = {};
-export type LoginDialogMeQueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"Auth_me">;
-    } | null;
+export type LoginDialogMeQuery$variables = {};
+export type LoginDialogMeQueryVariables = LoginDialogMeQuery$variables;
+export type LoginDialogMeQuery$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"Auth_me">;
+  } | null;
 };
+export type LoginDialogMeQueryResponse = LoginDialogMeQuery$data;
 export type LoginDialogMeQuery = {
-    readonly response: LoginDialogMeQueryResponse;
-    readonly variables: LoginDialogMeQueryVariables;
+  variables: LoginDialogMeQueryVariables;
+  response: LoginDialogMeQuery$data;
 };
-
-
-
-/*
-query LoginDialogMeQuery {
-  me {
-    ...Auth_me
-    id
-  }
-}
-
-fragment Auth_me on User {
-  id
-  username
-  email
-  emailVerified
-  name
-  givenName
-  familyName
-  picture {
-    url
-  }
-  timeZone
-  locale
-  created
-  updated
-  lastLogin
-}
-*/
 
 const node: ConcreteRequest = {
   "fragment": {
@@ -202,5 +180,7 @@ const node: ConcreteRequest = {
     "text": "query LoginDialogMeQuery {\n  me {\n    ...Auth_me\n    id\n  }\n}\n\nfragment Auth_me on User {\n  id\n  username\n  email\n  emailVerified\n  name\n  givenName\n  familyName\n  picture {\n    url\n  }\n  timeZone\n  locale\n  created\n  updated\n  lastLogin\n}\n"
   }
 };
-(node as any).hash = '43dd7d1d17c5490f57ec930a72d2600a';
+
+(node as any).hash = "43dd7d1d17c5490f57ec930a72d2600a";
+
 export default node;

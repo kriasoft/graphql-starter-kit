@@ -1,49 +1,27 @@
+/**
+ * @generated SignedSource<<e1c876423579492ed0cbd526b2774462>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type homeQueryVariables = {};
-export type homeQueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"Auth_me">;
-    } | null;
+export type homeQuery$variables = {};
+export type homeQueryVariables = homeQuery$variables;
+export type homeQuery$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"Auth_me">;
+  } | null;
 };
+export type homeQueryResponse = homeQuery$data;
 export type homeQuery = {
-    readonly response: homeQueryResponse;
-    readonly variables: homeQueryVariables;
+  variables: homeQueryVariables;
+  response: homeQuery$data;
 };
-
-
-
-/*
-query homeQuery {
-  me {
-    ...Auth_me
-    id
-  }
-}
-
-fragment Auth_me on User {
-  id
-  username
-  email
-  emailVerified
-  name
-  givenName
-  familyName
-  picture {
-    url
-  }
-  timeZone
-  locale
-  created
-  updated
-  lastLogin
-}
-*/
 
 const node: ConcreteRequest = {
   "fragment": {
@@ -202,5 +180,7 @@ const node: ConcreteRequest = {
     "text": "query homeQuery {\n  me {\n    ...Auth_me\n    id\n  }\n}\n\nfragment Auth_me on User {\n  id\n  username\n  email\n  emailVerified\n  name\n  givenName\n  familyName\n  picture {\n    url\n  }\n  timeZone\n  locale\n  created\n  updated\n  lastLogin\n}\n"
   }
 };
-(node as any).hash = '1085bde0d21af0b68182284bf1c43e79';
+
+(node as any).hash = "1085bde0d21af0b68182284bf1c43e79";
+
 export default node;
