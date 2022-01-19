@@ -3,43 +3,43 @@ schema {
   mutation: Mutation
 }
 
-# The top-level API
+"""The top-level API"""
 type Root {
-  # Fetches an object given its ID
+  """Fetches an object given its ID"""
   node(
-    # The ID of an object
+    """The ID of an object"""
     id: ID!
   ): Node
 
-  # Fetches objects given their IDs
+  """Fetches objects given their IDs"""
   nodes(
-    # The IDs of objects
+    """The IDs of objects"""
     ids: [ID!]!
   ): [Node]!
 
-  # The authenticated user.
+  """The authenticated user."""
   me: User
 
-  # Find user by username or email.
+  """Find user by username or email."""
   user(username: String, email: String): User
   users(
-    # Returns the items in the list that come after the specified cursor.
+    """Returns the items in the list that come after the specified cursor."""
     after: String
 
-    # Returns the first n items from the list.
+    """Returns the first n items from the list."""
     first: Int
   ): UserConnection
 }
 
-# An object with an ID
+"""An object with an ID"""
 interface Node {
-  # The id of the object.
+  """The id of the object."""
   id: ID!
 }
 
-# The registered user account.
+"""The registered user account."""
 type User implements Node {
-  # The ID of an object
+  """The ID of an object"""
   id: ID!
   username: String!
   email: String
@@ -60,9 +60,9 @@ type Picture {
   url: String
 }
 
-# The OAuth user identity (credentials).
+"""The OAuth user identity (credentials)."""
 type Identity {
-  # The ID of an object
+  """The ID of an object"""
   id: ID!
   provider: IdentityProvider!
   username: String
@@ -71,7 +71,7 @@ type Identity {
   updated(format: String): String
 }
 
-# OAuth identity provider
+"""OAuth identity provider"""
 enum IdentityProvider {
   Google
   Apple
@@ -85,67 +85,67 @@ enum IdentityProvider {
   PlayGames
 }
 
-# A connection to a list of items.
+"""A connection to a list of items."""
 type UserConnection {
-  # Information to aid in pagination.
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
 
-  # A list of edges.
+  """A list of edges."""
   edges: [UserEdge]
   totalCount: Int!
 }
 
-# Information about pagination in a connection.
+"""Information about pagination in a connection."""
 type PageInfo {
-  # When paginating forwards, are there more items?
+  """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
 
-  # When paginating backwards, are there more items?
+  """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
-  # When paginating backwards, the cursor to continue.
+  """When paginating backwards, the cursor to continue."""
   startCursor: String
 
-  # When paginating forwards, the cursor to continue.
+  """When paginating forwards, the cursor to continue."""
   endCursor: String
 }
 
-# An edge in a connection.
+"""An edge in a connection."""
 type UserEdge {
-  # The item at the end of the edge
+  """The item at the end of the edge"""
   node: User
 
-  # A cursor for use in pagination
+  """A cursor for use in pagination"""
   cursor: String!
 }
 
 type Mutation {
-  # Creates an authentication session
+  """Creates an authentication session"""
   signIn(input: SignInInput): SignInPayload
 
-  # Clears authentication session
+  """Clears authentication session"""
   signOut: String
 
-  # Creates a new user account
+  """Creates a new user account"""
   createUser(input: CreateUserInput, dryRun: Boolean! = false): CreateUserPayload
   getUploadURL(fileName: String!, contentType: String): String
 
-  # Sends password recovery code to the user's email address
+  """Sends password recovery code to the user's email address"""
   resetPassword(
-    # Username or email
+    """Username or email"""
     username: String
 
-    # New password
+    """New password"""
     password: String
 
-    # Verification code
+    """Verification code"""
     code: String
   ): ResetPasswordPayload
 
-  # Saves the uploaded file (URL path) to the database
+  """Saves the uploaded file (URL path) to the database"""
   saveUpload(id: ID!, uploadURL: String!, uploadType: UploadType!): SaveUploadPayload
 
-  # Updates the user account.
+  """Updates the user account."""
   updateUser(input: UpdateUserInput, dryRun: Boolean! = false): UpdateUserPayload
 }
 
@@ -154,10 +154,10 @@ type SignInPayload {
 }
 
 input SignInInput {
-  # Username or email
+  """Username or email"""
   username: String
 
-  # User's password
+  """User's password"""
   password: String
 }
 
@@ -184,7 +184,7 @@ type SaveUploadPayload {
   user: User
 }
 
-# The type of the uploaded file
+"""The type of the uploaded file"""
 enum UploadType {
   ProfilePicture
   ClassCoverImage

@@ -12,8 +12,8 @@
     "gh:delete-deployment": "node ./github delete-deployment"
   },
   "dependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/register": "^7.16.0",
+    "@babel/core": "^7.16.10",
+    "@babel/register": "^7.16.9",
     "@google-cloud/storage": "^5.15.5",
     "@octokit/rest": "^18.12.0",
     "api": "workspace:*",
@@ -28,6 +28,6 @@
     "web": "workspace:*"
   },
   "devDependencies": {
-    "@types/babel__core": "^7.1.16"
+    "@types/babel__core": "^7.1.18"
   }
 }

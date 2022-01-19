@@ -1,45 +1,34 @@
+/**
+ * @generated SignedSource<<af9a54aef829f903c01ea9a485a5d7d0>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type userProfileQueryVariables = {
-    username: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type userProfileQuery$variables = {
+  username: string;
 };
-export type userProfileQueryResponse = {
-    readonly user: {
-        readonly id: string;
-        readonly name: string | null;
-        readonly email: string | null;
-        readonly username: string;
-        readonly picture: {
-            readonly url: string | null;
-        };
-    } | null;
+export type userProfileQueryVariables = userProfileQuery$variables;
+export type userProfileQuery$data = {
+  readonly user: {
+    readonly id: string;
+    readonly name: string | null;
+    readonly email: string | null;
+    readonly username: string;
+    readonly picture: {
+      readonly url: string | null;
+    };
+  } | null;
 };
+export type userProfileQueryResponse = userProfileQuery$data;
 export type userProfileQuery = {
-    readonly response: userProfileQueryResponse;
-    readonly variables: userProfileQueryVariables;
+  variables: userProfileQueryVariables;
+  response: userProfileQuery$data;
 };
-
-
-
-/*
-query userProfileQuery(
-  $username: String!
-) {
-  user(username: $username) {
-    id
-    name
-    email
-    username
-    picture {
-      url
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -141,5 +130,7 @@ return {
   }
 };
 })();
-(node as any).hash = '86ea7b9247a97190d358a2c6fccba861';
+
+(node as any).hash = "86ea7b9247a97190d358a2c6fccba861";
+
 export default node;

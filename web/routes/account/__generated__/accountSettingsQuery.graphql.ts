@@ -1,49 +1,27 @@
+/**
+ * @generated SignedSource<<9e24dbbbeb0d56528d99be40fcd33a04>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type accountSettingsQueryVariables = {};
-export type accountSettingsQueryResponse = {
-    readonly me: {
-        readonly " $fragmentRefs": FragmentRefs<"Auth_me">;
-    } | null;
+export type accountSettingsQuery$variables = {};
+export type accountSettingsQueryVariables = accountSettingsQuery$variables;
+export type accountSettingsQuery$data = {
+  readonly me: {
+    readonly " $fragmentSpreads": FragmentRefs<"Auth_me">;
+  } | null;
 };
+export type accountSettingsQueryResponse = accountSettingsQuery$data;
 export type accountSettingsQuery = {
-    readonly response: accountSettingsQueryResponse;
-    readonly variables: accountSettingsQueryVariables;
+  variables: accountSettingsQueryVariables;
+  response: accountSettingsQuery$data;
 };
-
-
-
-/*
-query accountSettingsQuery {
-  me {
-    ...Auth_me
-    id
-  }
-}
-
-fragment Auth_me on User {
-  id
-  username
-  email
-  emailVerified
-  name
-  givenName
-  familyName
-  picture {
-    url
-  }
-  timeZone
-  locale
-  created
-  updated
-  lastLogin
-}
-*/
 
 const node: ConcreteRequest = {
   "fragment": {
@@ -202,5 +180,7 @@ const node: ConcreteRequest = {
     "text": "query accountSettingsQuery {\n  me {\n    ...Auth_me\n    id\n  }\n}\n\nfragment Auth_me on User {\n  id\n  username\n  email\n  emailVerified\n  name\n  givenName\n  familyName\n  picture {\n    url\n  }\n  timeZone\n  locale\n  created\n  updated\n  lastLogin\n}\n"
   }
 };
-(node as any).hash = '3ecc6da3d27d415da8a66d15dc52d0a0';
+
+(node as any).hash = "3ecc6da3d27d415da8a66d15dc52d0a0";
+
 export default node;

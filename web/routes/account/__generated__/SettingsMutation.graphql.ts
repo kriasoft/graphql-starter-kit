@@ -1,67 +1,41 @@
+/**
+ * @generated SignedSource<<a0cffd949736585b121aaed74039a038>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UpdateUserInput = {
-    id: string;
-    username?: string | null | undefined;
-    email?: string | null | undefined;
-    name?: string | null | undefined;
-    givenName?: string | null | undefined;
-    familyName?: string | null | undefined;
-    timeZone?: string | null | undefined;
-    locale?: string | null | undefined;
+  id: string;
+  username?: string | null;
+  email?: string | null;
+  name?: string | null;
+  givenName?: string | null;
+  familyName?: string | null;
+  timeZone?: string | null;
+  locale?: string | null;
 };
-export type SettingsMutationVariables = {
-    input: UpdateUserInput;
+export type SettingsMutation$variables = {
+  input: UpdateUserInput;
 };
-export type SettingsMutationResponse = {
-    readonly updateUser: {
-        readonly user: {
-            readonly " $fragmentRefs": FragmentRefs<"Auth_me">;
-        } | null;
+export type SettingsMutationVariables = SettingsMutation$variables;
+export type SettingsMutation$data = {
+  readonly updateUser: {
+    readonly user: {
+      readonly " $fragmentSpreads": FragmentRefs<"Auth_me">;
     } | null;
+  } | null;
 };
+export type SettingsMutationResponse = SettingsMutation$data;
 export type SettingsMutation = {
-    readonly response: SettingsMutationResponse;
-    readonly variables: SettingsMutationVariables;
+  variables: SettingsMutationVariables;
+  response: SettingsMutation$data;
 };
-
-
-
-/*
-mutation SettingsMutation(
-  $input: UpdateUserInput!
-) {
-  updateUser(input: $input) {
-    user {
-      ...Auth_me
-      id
-    }
-  }
-}
-
-fragment Auth_me on User {
-  id
-  username
-  email
-  emailVerified
-  name
-  givenName
-  familyName
-  picture {
-    url
-  }
-  timeZone
-  locale
-  created
-  updated
-  lastLogin
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -258,5 +232,7 @@ return {
   }
 };
 })();
-(node as any).hash = '94ecabb20b1ccc542532aea312505fec';
+
+(node as any).hash = "94ecabb20b1ccc542532aea312505fec";
+
 export default node;
