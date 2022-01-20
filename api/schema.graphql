@@ -20,7 +20,7 @@ type Root {
   """The authenticated user."""
   me: User
 
-  """Find user by username or email."""
+  """Fetches a user account by username or email."""
   user(username: String, email: String): User
   users(
     """Returns the items in the list that come after the specified cursor."""

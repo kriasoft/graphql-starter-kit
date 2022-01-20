@@ -11,7 +11,7 @@ const { name, date, image, internet, random } = require("faker");
 const alphabet = "0123456789abcdefghijklmnopqrstuvwxyz";
 const newUserId = nanoid.customAlphabet(alphabet, 6);
 
-function stringify(obj) {
+function stringify(/** @type {Record<string, unknown>} */ obj) {
   return prettier.format(JSON.stringify(obj), { parser: "json" });
 }
 

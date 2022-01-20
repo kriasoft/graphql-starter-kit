@@ -1,14 +1,11 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-const envars = require("envars");
-const minimist = require("minimist");
-require("api/utils/babel-register");
+import minimist from "minimist";
 
 const args = minimist(process.argv.slice(2));
-envars.config({ env: args.env, cwd: "../env" });
-
-const { updateSchema } = require("api/graphql");
+await import("envars").then((module) => module.config({ env: args.env }));
+const { updateSchema } = await import("api/dist/index.js");
 
 /**
  * Generates `schema.graphql` file from the actual GraphQL schema.

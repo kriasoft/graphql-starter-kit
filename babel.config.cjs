@@ -24,6 +24,15 @@ module.exports = function config(api) {
       "@babel/plugin-proposal-class-properties",
       "@babel/plugin-proposal-object-rest-spread",
       "babel-plugin-relay",
+      [
+        "babel-plugin-import",
+        {
+          libraryName: "lodash",
+          libraryDirectory: "",
+          camel2DashComponentName: false,
+        },
+        "lodash",
+      ],
     ],
 
     ignore: api.env() === "test" ? [] : ["**/__tests__/**", "**/*.test.ts"],

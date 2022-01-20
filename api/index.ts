@@ -59,3 +59,5 @@ if (process.env.NODE_ENV === "development") {
     server.close();
   });
 }
+
+export { env, updateSchema };

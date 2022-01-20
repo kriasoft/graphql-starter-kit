@@ -3,14 +3,14 @@
 
 import * as React from "react";
 import { graphql, useMutation } from "react-relay";
-import { useCurrentUser } from "../../core";
-import { UpdateUserInput } from "../__generated__/SettingsMutation.graphql";
+import { useAuth } from "../../core";
+import { UpdateUserInput } from "../../queries/SettingsMutation.graphql";
 
 const mutation = graphql`
   mutation SettingsMutation($input: UpdateUserInput!) {
     updateUser(input: $input) {
       user {
-        ...Auth_me
+        ...Auth_user
       }
     }
   }
@@ -26,7 +26,7 @@ export function useState(): {
   handleChange: React.ChangeEventHandler;
   handleSubmit: React.FormEventHandler;
 } {
-  const me = useCurrentUser();
+  const { me } = useAuth();
   const [commit, loading] = useMutation(mutation);
   const [errors, setErrors] = React.useState<InputErrors>({});
   const [input, setInput] = React.useState<Input>({
@@ -34,8 +34,6 @@ export function useState(): {
     username: me?.username || "",
     email: me?.email || "",
     name: me?.name || "",
-    givenName: me?.givenName || "",
-    familyName: me?.familyName || "",
   });
 
   const handleChange = React.useCallback(

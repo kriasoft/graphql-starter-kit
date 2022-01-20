@@ -2,7 +2,9 @@
 /* SPDX-License-Identifier: MIT */
 
 const envars = require("envars");
-const args = require("minimist")(process.argv.slice(2));
+const minimist = require("minimist");
+
+const args = minimist(process.argv.slice(2));
 
 // Load environment variables (PGHOST, PGUSER, etc.)
 envars.config({ env: args.env });
@@ -14,5 +16,5 @@ envars.config({ env: args.env });
  * @type {import("knex").Knex.Config}
  */
 module.exports = {
-  ...require("../api/db/config"),
+  ...require("api/db/config.cjs"),
 };

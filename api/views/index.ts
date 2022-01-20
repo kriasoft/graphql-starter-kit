@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { Express } from "express";
-import handlebars from "express-handlebars";
+import { engine } from "express-handlebars";
 
 /**
  * Configure Handlebars as the default Express.js view engine.
@@ -11,7 +11,7 @@ import handlebars from "express-handlebars";
  * @see https://www.npmjs.com/package/express-handlebars
  */
 export function withViews<T extends Express>(app: T): T {
-  app.engine(".hbs", handlebars({ extname: ".hbs", helpers: { json } }));
+  app.engine(".hbs", engine({ extname: ".hbs", helpers: { json } }));
   app.set("view engine", ".hbs");
   return app;
 }

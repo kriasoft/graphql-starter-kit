@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-const { createHandler } = require("image-resizing");
+import { createHandler } from "image-resizing";
 
 /**
  * Dynamic image resizing. Usage example:
@@ -11,12 +11,12 @@ const { createHandler } = require("image-resizing");
  *
  * @see https://github.com/kriasoft/image-resizing
  */
-module.exports.img = createHandler({
+export const img = createHandler({
   // Where the source images are located.
   // E.g. gs://s.example.com/image.jpg
-  sourceBucket: process.env.SOURCE_BUCKET,
+  sourceBucket: String(process.env.SOURCE_BUCKET),
 
   // Where the transformed images will be stored.
   // E.g. gs://c.example.com/image__w_80,h_60.jpg
-  cacheBucket: process.env.CACHE_BUCKET,
+  cacheBucket: String(process.env.CACHE_BUCKET),
 });

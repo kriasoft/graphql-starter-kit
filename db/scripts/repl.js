@@ -22,7 +22,7 @@ require("../knexfile");
 Promise.resolve()
   .then(() => createDatabase())
   .then(async function () {
-    require("api/utils/babel-register");
+    require("api/utils/babel-register.cjs");
     const db = (global.db = require("api/db").default);
     return db.select(db.raw("version(), current_database() as database"));
   })

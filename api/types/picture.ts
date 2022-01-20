@@ -28,6 +28,8 @@ export const PictureType = new GraphQLObjectType<Picture, Context>({
           ]
             .filter(Boolean)
             .join("");
+        } else {
+          return self.url;
         }
       },
     },

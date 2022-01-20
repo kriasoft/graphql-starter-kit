@@ -1,14 +1,12 @@
 import { GraphQLFieldConfig } from "graphql";
 import {
-  connectionDefinitions,
   connectionFromArraySlice,
   cursorToOffset,
   forwardConnectionArgs,
 } from "graphql-relay";
 import { Context } from "../context";
 import db, { User } from "../db";
-import { UserType } from "../types";
-import { countField } from "./fields";
+import { UserConnection } from "../types";
 
 /**
  * @example
@@ -24,12 +22,7 @@ import { countField } from "./fields";
  *   }
  */
 export const users: GraphQLFieldConfig<unknown, Context> = {
-  type: connectionDefinitions({
-    name: "User",
-    nodeType: UserType,
-    connectionFields: { totalCount: countField },
-  }).connectionType,
-
+  type: UserConnection,
   args: forwardConnectionArgs,
 
   async resolve(root, args, ctx) {

@@ -1,6 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
+import "express";
 import type { User } from "./db";
 
 declare global {

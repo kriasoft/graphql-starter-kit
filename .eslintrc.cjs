@@ -18,7 +18,8 @@ module.exports = {
   extends: ["eslint:recommended", "prettier"],
 
   parserOptions: {
-    ecmaVersion: 2020,
+    sourceType: "module",
+    ecmaVersion: "latest",
   },
 
   overrides: [
@@ -68,9 +69,9 @@ module.exports = {
       },
     },
     {
-      files: ["rollup.config.js"],
+      files: ["db/**/*.js"],
       parserOptions: {
-        sourceType: "module",
+        sourceType: "script",
       },
     },
   ],

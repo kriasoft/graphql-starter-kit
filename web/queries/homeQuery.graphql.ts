@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0864e8ad842657a81dd07eaa66aaf26e>>
+ * @generated SignedSource<<6879104881582fa3b0e98f6ac2c1cfc4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,17 +10,17 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AuthQuery$variables = {};
-export type AuthQueryVariables = AuthQuery$variables;
-export type AuthQuery$data = {
+export type homeQuery$variables = {};
+export type homeQueryVariables = homeQuery$variables;
+export type homeQuery$data = {
   readonly me: {
-    readonly " $fragmentSpreads": FragmentRefs<"Auth_me">;
+    readonly " $fragmentSpreads": FragmentRefs<"Auth_user">;
   } | null;
 };
-export type AuthQueryResponse = AuthQuery$data;
-export type AuthQuery = {
-  variables: AuthQueryVariables;
-  response: AuthQuery$data;
+export type homeQueryResponse = homeQuery$data;
+export type homeQuery = {
+  variables: homeQueryVariables;
+  response: homeQuery$data;
 };
 
 const node: ConcreteRequest = {
@@ -28,7 +28,7 @@ const node: ConcreteRequest = {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "AuthQuery",
+    "name": "homeQuery",
     "selections": [
       {
         "alias": null,
@@ -41,7 +41,7 @@ const node: ConcreteRequest = {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "Auth_me"
+            "name": "Auth_user"
           }
         ],
         "storageKey": null
@@ -54,7 +54,7 @@ const node: ConcreteRequest = {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "AuthQuery",
+    "name": "homeQuery",
     "selections": [
       {
         "alias": null,
@@ -89,28 +89,7 @@ const node: ConcreteRequest = {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "emailVerified",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
             "name": "name",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "givenName",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "familyName",
             "storageKey": null
           },
           {
@@ -130,41 +109,6 @@ const node: ConcreteRequest = {
               }
             ],
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "timeZone",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "locale",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "created",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "updated",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "lastLogin",
-            "storageKey": null
           }
         ],
         "storageKey": null
@@ -172,15 +116,15 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "d38a061dc1014dff4613ba0718537fdc",
+    "cacheID": "4d42fca65e564b0e12434142e2ef082e",
     "id": null,
     "metadata": {},
-    "name": "AuthQuery",
+    "name": "homeQuery",
     "operationKind": "query",
-    "text": "query AuthQuery {\n  me {\n    ...Auth_me\n    id\n  }\n}\n\nfragment Auth_me on User {\n  id\n  username\n  email\n  emailVerified\n  name\n  givenName\n  familyName\n  picture {\n    url\n  }\n  timeZone\n  locale\n  created\n  updated\n  lastLogin\n}\n"
+    "text": "query homeQuery {\n  me {\n    ...Auth_user\n    id\n  }\n}\n\nfragment Auth_user on User {\n  id\n  username\n  email\n  name\n  picture {\n    url\n  }\n}\n"
   }
 };
 
-(node as any).hash = "b9899a796354c58a2ac5c6405d58ccba";
+(node as any).hash = "14bc0c86e23445bd001bae7c08340de4";
 
 export default node;

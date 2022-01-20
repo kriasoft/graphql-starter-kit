@@ -40,6 +40,11 @@ export default cleanEnv(process.env, {
   FACEBOOK_APP_ID: str(),
   FACEBOOK_APP_SECRET: str(),
 
+  // GITHUB_APP_ID: str(),
+  // GITHUB_APP_KEY: str(),
+  // GITHUB_CLIENT_ID: str(),
+  // GITHUB_CLIENT_SECRET: str(),
+
   EMAIL_FROM: str(),
   EMAIL_REPLY_TO: str(),
   SENDGRID_API_KEY: str(),

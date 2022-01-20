@@ -2,17 +2,16 @@
 /* SPDX-License-Identifier: MIT */
 
 import { CssBaseline, PaletteMode, Toolbar } from "@mui/material";
-import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
+import { StyledEngineProvider } from "@mui/material/styles";
 import { Action, Update } from "history";
 import * as React from "react";
 import { Environment, RelayEnvironmentProvider } from "react-relay";
 import type { Config } from "../config";
-import { ConfigContext } from "../core";
+import { AuthProvider, ConfigContext } from "../core";
 import { History, HistoryContext, LocationContext } from "../core/history";
 import type { RouteResponse } from "../core/router";
 import { resolveRoute } from "../core/router";
-import { LoginDialog } from "../dialogs";
-import theme from "../theme";
+import { ThemeProvider } from "../theme";
 import { AppToolbar } from "./AppToolbar";
 import { ErrorPage } from "./ErrorPage";
 
@@ -70,14 +69,6 @@ export class App extends React.Component<AppProps> {
     });
   };
 
-  handleChangeTheme = (): void => {
-    this.setState((x: { theme: PaletteMode }) => {
-      const theme = x.theme === "light" ? "dark" : "light";
-      window.localStorage?.setItem("theme", theme);
-      return { ...x, theme };
-    });
-  };
-
   render(): JSX.Element {
     const { config, history } = this.props;
     const { route, location, error } = this.state;
@@ -85,7 +76,7 @@ export class App extends React.Component<AppProps> {
     if (error) {
       return (
         <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme[this.state.theme]}>
+          <ThemeProvider>
             <ErrorPage error={error} history={history} />;
           </ThemeProvider>
         </StyledEngineProvider>
@@ -95,19 +86,20 @@ export class App extends React.Component<AppProps> {
     return (
       <ConfigContext.Provider value={config}>
         <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme[this.state.theme]}>
+          <ThemeProvider>
             <RelayEnvironmentProvider environment={this.props.relay}>
-              <HistoryContext.Provider value={history}>
-                <LocationContext.Provider value={location}>
-                  <CssBaseline />
-                  <AppToolbar onChangeTheme={this.handleChangeTheme} />
-                  <Toolbar />
-                  {route?.component
-                    ? React.createElement(route.component, route.props)
-                    : null}
-                  <LoginDialog />
-                </LocationContext.Provider>
-              </HistoryContext.Provider>
+              <AuthProvider>
+                <HistoryContext.Provider value={history}>
+                  <LocationContext.Provider value={location}>
+                    <CssBaseline />
+                    <AppToolbar />
+                    <Toolbar />
+                    {route?.component
+                      ? React.createElement(route.component, route.props)
+                      : null}
+                  </LocationContext.Provider>
+                </HistoryContext.Provider>
+              </AuthProvider>
             </RelayEnvironmentProvider>
           </ThemeProvider>
         </StyledEngineProvider>

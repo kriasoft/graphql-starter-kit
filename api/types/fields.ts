@@ -1,16 +1,20 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
+import { formatISO } from "date-fns";
+import { format } from "date-fns-tz";
 import type { GraphQLFieldConfig } from "graphql";
-import { GraphQLString } from "graphql";
-import moment from "moment-timezone";
+import { GraphQLInt, GraphQLNonNull, GraphQLString } from "graphql";
+import type { Knex } from "knex";
 import { Context } from "../context";
+
+type Source = { query: Knex.QueryBuilder };
 
 /**
  * GraphQL field for returning dates in various formats (defaults to ISO)
  * with respect to the currently logged-in user's time zone.
  *
- * @see https://momentjs.com/docs/#/displaying/format/
+ * @see https://date-fns.org/docs/format
  * @example
  *   createdAt: dateField(self => self.createdAt)
  *
@@ -31,14 +35,35 @@ export function dateField<TSource>(
     },
 
     resolve(self, args, ctx) {
-      const date = resolve(self);
+      const value = resolve(self);
+      const date = typeof value === "string" ? new Date(value) : value;
 
       if (date) {
-        const timeZone = ctx.user?.time_zone;
-        return timeZone
-          ? moment(date).tz(timeZone).format(args.format)
-          : moment(date).format(args.format);
+        if (args.format) {
+          const timeZone = ctx.user?.time_zone || "America/New_York";
+          return format(date, args.format, { timeZone });
+        }
+        return formatISO(date);
       }
     },
   };
 }
+
+/**
+ * The total count field definition.
+ *
+ * @example
+ *   query {
+ *     users {
+ *       totalCount
+ *     }
+ *   }
+ */
+export const countField: GraphQLFieldConfig<Source, Context> = {
+  type: new GraphQLNonNull(GraphQLInt),
+
+  async resolve(self) {
+    const rows = await self.query.count();
+    return rows[0].count;
+  },
+};

@@ -15,6 +15,7 @@ module.exports = function config(api) {
     plugins: [
       "@babel/plugin-proposal-class-properties",
       "@babel/plugin-proposal-object-rest-spread",
+      "babel-plugin-relay",
     ],
 
     overrides: [
