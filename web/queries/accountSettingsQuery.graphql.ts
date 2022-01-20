@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8b2ba938c042cc316a5dce0db2dca27c>>
+ * @generated SignedSource<<7ea5295bb8f4f5676ba7cf709fccdc27>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,17 +10,17 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type LoginDialogMeQuery$variables = {};
-export type LoginDialogMeQueryVariables = LoginDialogMeQuery$variables;
-export type LoginDialogMeQuery$data = {
+export type accountSettingsQuery$variables = {};
+export type accountSettingsQueryVariables = accountSettingsQuery$variables;
+export type accountSettingsQuery$data = {
   readonly me: {
-    readonly " $fragmentSpreads": FragmentRefs<"Auth_me">;
+    readonly " $fragmentSpreads": FragmentRefs<"Auth_user">;
   } | null;
 };
-export type LoginDialogMeQueryResponse = LoginDialogMeQuery$data;
-export type LoginDialogMeQuery = {
-  variables: LoginDialogMeQueryVariables;
-  response: LoginDialogMeQuery$data;
+export type accountSettingsQueryResponse = accountSettingsQuery$data;
+export type accountSettingsQuery = {
+  variables: accountSettingsQueryVariables;
+  response: accountSettingsQuery$data;
 };
 
 const node: ConcreteRequest = {
@@ -28,7 +28,7 @@ const node: ConcreteRequest = {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "LoginDialogMeQuery",
+    "name": "accountSettingsQuery",
     "selections": [
       {
         "alias": null,
@@ -41,7 +41,7 @@ const node: ConcreteRequest = {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "Auth_me"
+            "name": "Auth_user"
           }
         ],
         "storageKey": null
@@ -54,7 +54,7 @@ const node: ConcreteRequest = {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "LoginDialogMeQuery",
+    "name": "accountSettingsQuery",
     "selections": [
       {
         "alias": null,
@@ -89,28 +89,7 @@ const node: ConcreteRequest = {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "emailVerified",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
             "name": "name",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "givenName",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "familyName",
             "storageKey": null
           },
           {
@@ -130,41 +109,6 @@ const node: ConcreteRequest = {
               }
             ],
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "timeZone",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "locale",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "created",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "updated",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "lastLogin",
-            "storageKey": null
           }
         ],
         "storageKey": null
@@ -172,15 +116,15 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "386b3c604a170e34d3ef4354faf08a2b",
+    "cacheID": "f620d2877606f3baf9be74c5ab316dee",
     "id": null,
     "metadata": {},
-    "name": "LoginDialogMeQuery",
+    "name": "accountSettingsQuery",
     "operationKind": "query",
-    "text": "query LoginDialogMeQuery {\n  me {\n    ...Auth_me\n    id\n  }\n}\n\nfragment Auth_me on User {\n  id\n  username\n  email\n  emailVerified\n  name\n  givenName\n  familyName\n  picture {\n    url\n  }\n  timeZone\n  locale\n  created\n  updated\n  lastLogin\n}\n"
+    "text": "query accountSettingsQuery {\n  me {\n    ...Auth_user\n    id\n  }\n}\n\nfragment Auth_user on User {\n  id\n  username\n  email\n  name\n  picture {\n    url\n  }\n}\n"
   }
 };
 
-(node as any).hash = "43dd7d1d17c5490f57ec930a72d2600a";
+(node as any).hash = "68953f2e119b4b707f6aa490610e0216";
 
 export default node;

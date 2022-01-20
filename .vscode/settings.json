@@ -28,9 +28,9 @@
     "**/yarn.lock": true
   },
   "search.exclude": {
-    "**/lib/": true,
-    "yarn-error.log": true,
-    "yarn.lock": true,
+    "**/dist/": true,
+    "**/yarn-error.log": true,
+    "**/yarn.lock": true,
     "**/.yarn": true,
     "**/.pnp.*": true
   },
@@ -57,10 +57,12 @@
     "globby",
     "GraphQLID",
     "gsutil",
+    "gtag",
     "jsonb",
     "knexfile",
     "kriasoft",
     "linkedin",
+    "nothrow",
     "octokit",
     "pathinfo",
     "pgappname",
@@ -83,6 +85,7 @@
     "sendgrid",
     "sourcemap",
     "spdx",
+    "timestamptz",
     "tslib",
     "typechecking",
     "unprocessable",

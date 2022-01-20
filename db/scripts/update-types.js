@@ -1,6 +1,12 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
+/**
+ * Generates TypeScript definitions from the database. Usage:
+ *
+ *   $ yarn db:update-types
+ */
+
 const { knex } = require("knex");
 const { updateTypes } = require("knex-types");
 const config = require("../knexfile");

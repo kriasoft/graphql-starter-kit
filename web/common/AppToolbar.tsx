@@ -14,25 +14,20 @@ import {
   Typography,
 } from "@mui/material";
 import * as React from "react";
-import { useAuth, useCurrentUser, useNavigate } from "../core";
+import { useAuth, useNavigate } from "../core";
 import { NotificationsMenu, UserMenu } from "../menus";
 
-type AppToolbarProps = AppBarProps & {
-  onChangeTheme: () => void;
-};
+type AppToolbarProps = Omit<AppBarProps, "children">;
 
 export function AppToolbar(props: AppToolbarProps): JSX.Element {
-  const { onChangeTheme, ...other } = props;
   const menuAnchorRef = React.createRef<HTMLButtonElement>();
-  const auth = useAuth();
+  const { me, signIn } = useAuth();
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState({
     userMenu: null as HTMLElement | null,
     notifications: null as HTMLElement | null,
   });
-
-  const navigate = useNavigate();
-  const user = useCurrentUser();
 
   function openNotificationsMenu() {
     setAnchorEl((x) => ({ ...x, notifications: menuAnchorRef.current }));
@@ -50,13 +45,13 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
     setAnchorEl((x) => ({ ...x, userMenu: null }));
   }
 
-  function signIn(event: React.MouseEvent): void {
+  function handleSignIn(event: React.MouseEvent): void {
     event.preventDefault();
-    auth.signIn();
+    signIn();
   }
 
   return (
-    <AppBar color="default" {...other}>
+    <AppBar color="default" {...props}>
       <Toolbar>
         {/* App Logo */}
 
@@ -70,7 +65,7 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
 
         {/* Account related controls (icon buttons) */}
 
-        {user && (
+        {me && (
           <Chip
             sx={{
               height: 40,
@@ -84,17 +79,14 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
             }}
             component="a"
             avatar={
-              <Avatar
-                alt={user.name || ""}
-                src={user.picture.url || undefined}
-              />
+              <Avatar alt={me.name || ""} src={me.picture.url || undefined} />
             }
-            label={getFirstName(user.name || "")}
-            href={`/@${user.username}`}
+            label={getFirstName(me.name || "")}
+            href={`/@${me.username}`}
             onClick={navigate}
           />
         )}
-        {user && (
+        {me && (
           <IconButton
             sx={{
               marginLeft: (x) => x.spacing(1),
@@ -110,7 +102,7 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
             size="large"
           />
         )}
-        {user && (
+        {me && (
           <IconButton
             ref={menuAnchorRef}
             sx={{
@@ -127,12 +119,12 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
             size="large"
           />
         )}
-        {!user && (
+        {!me && (
           <Button
             variant="outlined"
             href="/auth/google"
             color="primary"
-            onClick={signIn}
+            onClick={handleSignIn}
             children="Log in / Register"
           />
         )}
@@ -149,7 +141,6 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
         anchorEl={anchorEl.userMenu}
         onClose={closeUserMenu}
         PaperProps={{ sx: { marginTop: "8px" } }}
-        onChangeTheme={onChangeTheme}
       />
     </AppBar>
   );

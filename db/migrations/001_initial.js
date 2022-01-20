@@ -110,6 +110,7 @@ module.exports.down = async function down(db) {
   await db.raw("DROP DOMAIN IF EXISTS username");
   await db.raw("DROP DOMAIN IF EXISTS email");
   await db.raw("DROP TYPE IF EXISTS identity_provider");
+  await db.raw("DROP TYPE IF EXISTS user_action_type");
 };
 
 module.exports.configuration = { transaction: true };

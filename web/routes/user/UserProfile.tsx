@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import * as React from "react";
-import type { userProfileQueryResponse as Props } from "./__generated__/userProfileQuery.graphql";
+import type { userProfileQueryResponse as Props } from "../../queries/userProfileQuery.graphql";
 
 export default function UserProfile(props: Props): JSX.Element {
   const { user } = props;

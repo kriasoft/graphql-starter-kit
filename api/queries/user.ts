@@ -17,7 +17,7 @@ import { UserType } from "../types";
  *   }
  */
 export const user: GraphQLFieldConfig<User, Context> = {
-  description: "Find user by username or email.",
+  description: "Fetches a user account by username or email.",
   type: UserType,
 
   args: {

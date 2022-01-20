@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { subClass } from "gm";
+import GraphicsMagick from "gm";
 import {
   GraphQLFieldConfig,
   GraphQLID,
@@ -19,7 +19,7 @@ import db, { User } from "../db";
 import env from "../env";
 import { UploadTypeType, UserType } from "../types";
 
-const gm = subClass({ imageMagick: true });
+const gm = GraphicsMagick.subClass({ imageMagick: true });
 
 /**
  * Saves the uploaded file (URL path) to the database.

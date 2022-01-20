@@ -8,10 +8,10 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
-import { globalIdField } from "graphql-relay";
+import { connectionDefinitions, globalIdField } from "graphql-relay";
 import { Context } from "../context";
 import type { User } from "../db";
-import { dateField } from "./fields";
+import { countField, dateField } from "./fields";
 import { IdentityType } from "./identity";
 import { nodeInterface } from "./node";
 import { PictureType } from "./picture";
@@ -93,3 +93,12 @@ export const UserType = new GraphQLObjectType<User, Context>({
     lastLogin: dateField((self) => self.last_login),
   },
 });
+
+const connection = connectionDefinitions({
+  name: "User",
+  nodeType: UserType,
+  connectionFields: { totalCount: countField },
+});
+
+export const UserConnection = connection.connectionType;
+export const UserEdge = connection.edgeType;

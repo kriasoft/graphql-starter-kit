@@ -4,7 +4,7 @@
 import { Container, Link, Typography } from "@mui/material";
 import * as React from "react";
 import { useAuth, useNavigate } from "../../core";
-import type { homeQueryResponse as Props } from "./__generated__/homeQuery.graphql";
+import type { homeQueryResponse as Props } from "../../queries/homeQuery.graphql";
 
 export default function Home(props: Props): JSX.Element {
   const { me } = props;

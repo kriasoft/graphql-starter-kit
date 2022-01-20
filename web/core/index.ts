@@ -1,7 +1,8 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-export { auth, useAuth, useCurrentUser } from "./Auth";
+export type { LoginMethod } from "./Auth";
+export { AuthProvider, useAuth, useAuthCallback } from "./AuthProvider";
 export { ConfigContext, useConfig } from "./config";
 export {
   useGetSearchURL,
@@ -11,8 +12,9 @@ export {
   useURLSearchParam,
   useURLSearchParams,
 } from "./history";
-export { createRelay } from "./relay";
+export { createRelay, toRawId } from "./relay";
 export { resolveRoute } from "./router";
 export type { Route } from "./router.types";
+export { useTheme } from "./theme";
 export { getTimeZone } from "./timeZone";
 export { useUpload } from "./Upload";

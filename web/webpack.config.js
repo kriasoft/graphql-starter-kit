@@ -187,7 +187,7 @@ module.exports = function config(env, options) {
                     },
                     "lab",
                   ],
-                  "relay",
+                  "babel-plugin-relay",
                   isDevServer && "react-refresh/babel",
                 ].filter(Boolean),
                 cacheDirectory: path.join(

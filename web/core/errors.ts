@@ -9,3 +9,12 @@ export class NotFoundError extends Error {
     Object.setPrototypeOf(this, NotFoundError.prototype);
   }
 }
+
+export class ForbiddenError extends Error {
+  status = 403;
+
+  constructor(message = "Access denied.") {
+    super(message);
+    Object.setPrototypeOf(this, ForbiddenError.prototype);
+  }
+}

@@ -1,11 +1,14 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-const path = require("path");
-const assert = require("assert");
-const envars = require("envars");
-const minimist = require("minimist");
-const { default: got } = require("got");
+import envars from "envars";
+import got from "got";
+import minimist from "minimist";
+import assert from "node:assert";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
  * Cloudflare API client.
@@ -16,7 +19,7 @@ const { default: got } = require("got");
  *
  * @type {import("got").Got}
  */
-const cf = got.extend({
+export const cf = got.extend({
   prefixUrl: `https://api.cloudflare.com/client/v4`,
   responseType: "json",
   resolveBodyOnly: true,
@@ -42,7 +45,7 @@ const cf = got.extend({
  * @param {number | string} version
  * @param {string | undefined} content
  */
-async function createTestSubdomain(version, content = "192.0.2.1") {
+export async function createTestSubdomain(version, content = "192.0.2.1") {
   const { APP_ORIGIN, CLOUDFLARE_ZONE_ID } = process.env;
   const name = `${version}-${new URL(APP_ORIGIN).hostname}`;
   const record = { type: "A", name, content, ttl: 1, proxied: true };
@@ -75,10 +78,10 @@ async function createTestSubdomain(version, content = "192.0.2.1") {
  *
  * @param {number | string} version
  */
-async function deleteTestSubdomain(version) {
+export async function deleteTestSubdomain(version) {
   const { APP_ORIGIN, CLOUDFLARE_ZONE_ID } = process.env;
   const name = `${version}-${new URL(APP_ORIGIN).hostname}`;
-  const records = await cf.get(
+  const { result: records } = await cf.get(
     `zones/${CLOUDFLARE_ZONE_ID}/dns_records?type=A&name=${name}`,
   );
   return Promise.all(
@@ -88,8 +91,42 @@ async function deleteTestSubdomain(version) {
   );
 }
 
+export async function listNamespaces() {
+  const { CLOUDFLARE_ACCOUNT_ID } = process.env;
+  let page = 0;
+  let result = [];
+
+  while (++page < 15) {
+    const res = await cf.get(
+      `accounts/${CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces?page=${page}&per_page=50`,
+    );
+    result = [...result, ...res.result];
+    if (res.result_info.total_pages === page) {
+      break;
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Deletes a temporary KV Storage Namespace from Cloudflare.
+ *
+ * @param {number | string} version
+ */
+export async function deleteTestKVNamespace(version) {
+  const { CLOUDFLARE_ACCOUNT_ID } = process.env;
+  const namespaces = await listNamespaces();
+  const ns = namespaces.find((x) => x.title.endsWith(`_${version}`));
+  if (ns) {
+    await cf.delete(
+      `accounts/${CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces/${ns.id}`,
+    );
+  }
+}
+
 // Execute one of the commands when the script is launched directly
-if (require.main.filename === __filename) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   // Load environment variables (CLOUDFLARE_ACCOUNT_ID, etc.)
   const args = minimist(process.argv.slice(2));
   envars.config({
@@ -117,28 +154,3 @@ if (require.main.filename === __filename) {
     process.exit(1);
   });
 }
-
-async function listNamespaces() {
-  const { CLOUDFLARE_ACCOUNT_ID } = process.env;
-  let page = 0;
-  let result = [];
-
-  while (++page < 15) {
-    const res = await cf.get(
-      `accounts/${CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces?page=${page}&per_page=50`,
-    );
-    result = [...result, ...res.result];
-    if (res.result_info.total_pages === page) {
-      break;
-    }
-  }
-
-  return result;
-}
-
-module.exports = {
-  cf,
-  createTestSubdomain,
-  deleteTestSubdomain,
-  listNamespaces,
-};

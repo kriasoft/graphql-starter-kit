@@ -2,9 +2,10 @@
   "name": "img",
   "version": "0.0.0",
   "private": true,
-  "main": "index.js",
+  "type": "module",
+  "exports": "./index.js",
   "scripts": {
-    "deploy": "node ../scripts/deploy-img",
+    "deploy": "node --no-warnings ../scripts/img-deploy.js",
     "img:deploy": "yarn workspace img run deploy"
   },
   "dependencies": {

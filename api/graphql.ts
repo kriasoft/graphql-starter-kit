@@ -10,6 +10,7 @@ import {
   GraphQLSchema,
   printSchema,
 } from "graphql";
+import { HttpError } from "http-errors";
 import { noop } from "lodash";
 import { Context } from "./context";
 import { reportError } from "./core";
@@ -50,16 +51,20 @@ export const graphql = graphqlHTTP((req, res, params) => ({
   pretty: !env.isProduction,
   customFormatErrorFn: (err) => {
     if (err.originalError instanceof ValidationError) {
+      res.statusCode = 400;
       return { ...formatError(err), errors: err.originalError.errors };
     }
 
+    if (err.originalError instanceof HttpError) {
+      res.statusCode = err.originalError.statusCode;
+    }
+
     reportError(err.originalError || err, req as Request, params);
-    console.error(err.originalError || err);
     return formatError(err);
   },
 }));
 
-export function updateSchema(cb: fs.NoParamCallback = noop): void {
-  const output = printSchema(schema, { commentDescriptions: true });
-  fs.writeFile("./schema.graphql", output, { encoding: "utf-8" }, cb);
+export function updateSchema(cb?: fs.NoParamCallback): void {
+  const output = printSchema(schema);
+  fs.writeFile("./schema.graphql", output, { encoding: "utf-8" }, cb || noop);
 }

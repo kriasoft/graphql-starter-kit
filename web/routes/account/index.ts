@@ -3,8 +3,8 @@
 
 import { graphql } from "relay-runtime";
 import type { Route } from "../../core";
+import type { accountSettingsQueryResponse } from "../../queries/accountSettingsQuery.graphql";
 import type Settings from "./Settings";
-import type { accountSettingsQueryResponse } from "./__generated__/accountSettingsQuery.graphql";
 
 /**
  * User account settings route.
@@ -14,10 +14,11 @@ export default {
   query: graphql`
     query accountSettingsQuery {
       me {
-        ...Auth_me
+        ...Auth_user
       }
     }
   `,
+  authorize: true,
   component: () => import(/* webpackChunkName: "settings" */ "./Settings"),
   response: (data) => ({
     title: "Account Settings",

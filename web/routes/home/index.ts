@@ -3,8 +3,8 @@
 
 import { graphql } from "relay-runtime";
 import type { Route } from "../../core";
+import type { homeQueryResponse } from "../../queries/homeQuery.graphql";
 import type Home from "./Home";
-import type { homeQueryResponse } from "./__generated__/homeQuery.graphql";
 
 /**
  * Homepage route.
@@ -14,7 +14,7 @@ export default {
   query: graphql`
     query homeQuery {
       me {
-        ...Auth_me
+        ...Auth_user
       }
     }
   `,

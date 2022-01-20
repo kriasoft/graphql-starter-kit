@@ -2,45 +2,54 @@
 /* SPDX-License-Identifier: MIT */
 
 import * as React from "react";
+import { useCallback } from "react";
 import {
+  Environment,
   fetchQuery,
   graphql,
-  useFragment,
   useMutation,
   useRelayEnvironment,
 } from "react-relay";
-import { createOperationDescriptor, getRequest, Snapshot } from "relay-runtime";
-import { AuthQuery } from "./__generated__/AuthQuery.graphql";
-import { AuthSignOutMutation } from "./__generated__/AuthSignOutMutation.graphql";
-import { Auth_me$data, Auth_me$key } from "./__generated__/Auth_me.graphql";
+import {
+  createOperationDescriptor,
+  createReaderSelector,
+  getFragment,
+  getRequest,
+  getSingularSelector,
+  ROOT_ID,
+  Snapshot,
+} from "relay-runtime";
+import type { AuthQuery } from "../queries/AuthQuery.graphql";
+import { AuthSignOutMutation } from "../queries/AuthSignOutMutation.graphql";
+import { Auth_user$data } from "../queries/Auth_user.graphql";
+
+type LoginMethod = "Google" | "Facebook";
 
 const query = graphql`
   query AuthQuery {
-    me {
-      ...Auth_me
-    }
+    ...Auth_me
   }
 `;
 
-const meFragment = graphql`
-  fragment Auth_me on User {
+const meFragment = getFragment(graphql`
+  fragment Auth_me on Root {
+    me {
+      ...Auth_user
+    }
+  }
+`);
+
+const userFragment = getFragment(graphql`
+  fragment Auth_user on User {
     id
     username
     email
-    emailVerified
     name
-    givenName
-    familyName
     picture {
       url
     }
-    timeZone
-    locale
-    created
-    updated
-    lastLogin
   }
-`;
+`);
 
 const signOutMutation = graphql`
   mutation AuthSignOutMutation {
@@ -49,77 +58,68 @@ const signOutMutation = graphql`
 `;
 
 const variables = {};
-const operation = createOperationDescriptor(getRequest(query), variables);
+const { request } = createOperationDescriptor(getRequest(query), variables);
+const selector = createReaderSelector(meFragment, ROOT_ID, variables, request);
 
-export type User = Auth_me$data | null;
+type User = Auth_user$data | null;
 
-class Auth {
-  readonly signInCallbacks = new Set<() => void>();
+function getCurrentUser(
+  relay: Environment,
+  snap?: Snapshot,
+): User | null | undefined {
+  snap = snap ?? relay.lookup(selector);
 
-  signIn(): void {
-    if (this.signInCallbacks.size === 0) throw new Error();
-    this.signInCallbacks.forEach((fn) => fn());
-  }
+  if (snap.isMissingData) return undefined;
+  if (!snap.data?.me) return null;
 
-  signOut(): void {
-    throw new Error();
-  }
+  const userSelector = getSingularSelector(userFragment, snap.data.me);
+  snap = relay.lookup(userSelector);
 
-  listen(event: "signIn", callback: () => void): () => void {
-    if (this.signInCallbacks.has(callback)) throw new Error();
-    this.signInCallbacks.add(callback);
-    return this.signInCallbacks.delete.bind(this.signInCallbacks, callback);
-  }
+  if (snap.isMissingData) return undefined;
+  return snap.data as User | null;
 }
 
-export const auth = new Auth();
+function useSignOut(): () => Promise<void> {
+  const [commit] = useMutation<AuthSignOutMutation>(signOutMutation);
 
-export function useAuth(): Auth {
-  const [commitSignOut] = useMutation<AuthSignOutMutation>(signOutMutation);
-
-  const signOut = React.useCallback(
+  return useCallback(
     function () {
-      commitSignOut({
-        variables: {},
-        onCompleted(_, errors) {
-          if (errors) throw errors[0];
-          window.location.reload();
-        },
+      return new Promise((resolve, reject) => {
+        commit({
+          variables: {},
+          onCompleted(_, errors) {
+            const err = errors?.[0];
+            if (err) {
+              reject(err);
+            } else {
+              window.location.href = "/";
+              resolve();
+            }
+          },
+          onError(err) {
+            reject(err);
+          },
+        });
       });
     },
-    [commitSignOut],
+    [commit],
   );
-
-  return React.useMemo(() => Object.assign(auth, { signOut }), [auth, signOut]);
 }
 
-export function useCurrentUser(options = { forceFetch: false }): User {
-  const forceFetch =
-    typeof options.forceFetch === "boolean" ? options.forceFetch : false;
+function useFetchUser(): () => Promise<User | null> {
   const relay = useRelayEnvironment();
-
-  // Attempt to read the current user record (me) from the local store.
-  const [snap, setSnap] = React.useState<Snapshot>(() =>
-    relay.lookup(operation.fragment),
+  return React.useCallback(
+    function auth() {
+      return fetchQuery<AuthQuery>(relay, query, variables, {
+        networkCacheConfig: { force: true },
+        fetchPolicy: "network-only",
+      })
+        .toPromise()
+        .then(() => getCurrentUser(relay, relay.lookup(selector)) ?? null);
+    },
+    [relay],
   );
-
-  // Subscribe to updates
-  React.useEffect(() => {
-    const subscription = relay.subscribe(snap, (x) => setSnap(x));
-    return () => subscription.dispose();
-  }, [relay]);
-
-  // Once the component is mounted, attempt to load user record from the API.
-  React.useEffect(() => {
-    const timeout = setTimeout(() => {
-      fetchQuery<AuthQuery>(relay, query, variables, {
-        networkCacheConfig: { force: forceFetch },
-        fetchPolicy: "store-or-network",
-      }).toPromise();
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, [relay, forceFetch]);
-
-  const me = useFragment(meFragment, snap.data.me as Auth_me$key);
-  return snap.data.me === undefined ? undefined : me;
 }
+
+export { getCurrentUser, query, selector, useFetchUser, useSignOut, variables };
+export type { AuthQuery, User, LoginMethod };

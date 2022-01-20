@@ -33,7 +33,7 @@ const config = {
 
   output: {
     dir: "./dist",
-    format: "cjs",
+    format: "es",
     sourcemap: true,
     chunkFileNames: "[name].chunk.js",
   },
@@ -55,7 +55,7 @@ const config = {
           dest: "./dist",
           copyOnce: true,
           transform(content) {
-            const pkg = JSON.parse(content);
+            const pkg = JSON.parse(content.toString());
             delete pkg.scripts;
             delete pkg.devDependencies;
             delete pkg.envars;
@@ -105,7 +105,11 @@ const config = {
 
     isWatch &&
       run({
-        execArgv: ["-r", "../.pnp.cjs", "-r", "source-map-support/register"],
+        execArgv: [
+          "--require=../.pnp.cjs",
+          "--require=source-map-support/register",
+          "--no-warnings",
+        ],
       }),
 
     // Prepare the output bundle for Yarn Zero-install
@@ -128,7 +132,10 @@ const config = {
     },
   ],
 
-  external: Object.keys(pkg.dependencies),
+  external: Object.keys(pkg.dependencies).filter(
+    // Bundle modules that do not properly support ES
+    (dep) => !["@sendgrid/mail", "http-errors"].includes(dep),
+  ),
 
   // Suppress warnings in 3rd party libraries
   onwarn(warning, warn) {

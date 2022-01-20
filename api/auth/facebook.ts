@@ -10,7 +10,7 @@ import authorize from "./authorize";
 import { createState, verifyState } from "./state";
 
 const scope = ["email"];
-const version = "v10.0";
+const version = "v12.0";
 
 /**
  * OAuth 2.0 client for Facebook.
@@ -60,7 +60,7 @@ export const callback: RequestHandler = async function (req, res, next) {
       .json<{ id: string; name: string; email?: string; picture?: any }>();
 
     // Link OAuth credentials with the user account.
-    const me = await authorize(req, {
+    const user = await authorize(req, {
       provider: IdentityProvider.Facebook,
       id: profile.id,
       name: profile.name,
@@ -71,7 +71,7 @@ export const callback: RequestHandler = async function (req, res, next) {
       credentials: token,
     });
 
-    res.render("auth-callback", { data: { me }, layout: false });
+    res.render("auth-callback", { user, method: "Facebook", layout: false });
   } catch (err) {
     next(err);
   }

@@ -1,11 +1,13 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-const path = require("path");
-const envars = require("envars");
-const minimist = require("minimist");
-const { Octokit } = require("@octokit/rest");
+import { Octokit } from "@octokit/rest";
+import envars from "envars";
+import minimist from "minimist";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const env = process.env;
 
 /**

@@ -2,32 +2,36 @@
   "name": "scripts",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "cf:create-test-subdomain": "node ./cloudflare create-test-subdomain",
-    "cf:delete-test-subdomain": "node ./cloudflare delete-test-subdomain",
-    "gh:clean": "node ./clean",
-    "gh:deployments": "node ./github deployments",
-    "gh:deployment-status": "node ./github deployment-status",
-    "gh:create-deployment": "node ./github create-deployment",
-    "gh:delete-deployment": "node ./github delete-deployment"
+    "cf:create-test-subdomain": "node --no-warnings ./cloudflare.js create-test-subdomain",
+    "cf:delete-test-subdomain": "node --no-warnings ./cloudflare.js delete-test-subdomain",
+    "gh:clean": "node --no-warnings ./clean.js",
+    "gh:deployments": "node --no-warnings ./github.js deployments",
+    "gh:deployment-status": "node --no-warnings ./github.js deployment-status",
+    "gh:create-deployment": "node --no-warnings ./github.js create-deployment",
+    "gh:delete-deployment": "node --no-warnings ./github.js delete-deployment"
   },
   "dependencies": {
     "@babel/core": "^7.16.10",
     "@babel/register": "^7.16.9",
-    "@google-cloud/storage": "^5.15.5",
+    "@google-cloud/storage": "^5.18.0",
     "@octokit/rest": "^18.12.0",
     "api": "workspace:*",
     "cross-spawn": "^7.0.3",
-    "envars": "^0.2.0",
-    "file-type": "^16.5.3",
-    "form-data": "^4.0.0",
-    "globby": "^11.0.4",
-    "got": "^11.8.2",
+    "envars": "^0.3.0",
+    "formdata-node": "^4.3.2",
+    "globby": "^11.1.0",
+    "got": "^12.0.1",
     "make-dir": "^3.1.0",
     "minimist": "^1.2.5",
-    "web": "workspace:*"
+    "web": "workspace:*",
+    "zx": "^4.3.0"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.18"
+  },
+  "envars": {
+    "cwd": "../env"
   }
 }

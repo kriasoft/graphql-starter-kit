@@ -4,8 +4,10 @@
 import type { Match, MatchFunction } from "path-to-regexp";
 import { match as createMatchFn } from "path-to-regexp";
 import { fetchQuery } from "react-relay";
+import { getRequest } from "relay-runtime";
 import routes from "../routes";
-import { NotFoundError } from "./errors";
+import { getCurrentUser } from "./Auth";
+import { ForbiddenError, NotFoundError } from "./errors";
 import type { Route, RouterContext, RouterResponse } from "./router.types";
 
 /**
@@ -47,8 +49,17 @@ export async function resolveRoute(
           : route.variables
           ? route.variables
           : Object.keys(match.params).length === 0
-          ? undefined
+          ? {}
           : match.params;
+
+      // If `auth` variable is present in the route's GraphQL query
+      // and the user's authentication state is not known yet, set it to true.
+      if (route.query) {
+        const { operation } = getRequest(route.query);
+        if (operation.argumentDefinitions.some((x) => x.name === "auth")) {
+          variables.auth = getCurrentUser(ctx.relay) === undefined;
+        }
+      }
 
       // Fetch GraphQL query response and load React component in parallel
       const [component, data] = await Promise.all([
@@ -60,6 +71,17 @@ export async function resolveRoute(
           }).toPromise(),
       ]);
 
+      // Check if the route requires an authenticated user
+      if (route.authorize) {
+        const user = getCurrentUser(ctx.relay);
+        if (
+          !user ||
+          (typeof route.authorize === "function" && !route.authorize(user))
+        ) {
+          throw new ForbiddenError();
+        }
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response = route.response(data as any, ctx);
 
@@ -67,11 +89,11 @@ export async function resolveRoute(
     }
 
     throw new NotFoundError();
-  } catch (error) {
+  } catch (err) {
     return {
       title:
-        error instanceof NotFoundError ? "Page not found" : "Application error",
-      error: error as Error,
+        err instanceof NotFoundError ? "Page not found" : "Application error",
+      error: err as Error,
     };
   }
 }

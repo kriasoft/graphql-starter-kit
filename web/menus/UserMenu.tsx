@@ -11,9 +11,8 @@ import {
   MenuProps,
   Switch,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import * as React from "react";
-import { useAuth, useNavigate } from "../core";
+import { useAuth, useNavigate, useTheme } from "../core";
 import { Logout } from "../icons";
 
 type UserMenuProps = Omit<
@@ -24,16 +23,14 @@ type UserMenuProps = Omit<
   | "getContentAnchorEl"
   | "anchorOrigin"
   | "transformOrigin"
-> & {
-  onChangeTheme: () => void;
-};
+>;
 
 export function UserMenu(props: UserMenuProps): JSX.Element {
-  const { onChangeTheme, PaperProps, MenuListProps, ...other } = props;
+  const { PaperProps, MenuListProps, ...other } = props;
 
+  const [theme, toggleTheme] = useTheme();
   const navigate = useNavigate();
   const auth = useAuth();
-  const theme = useTheme();
 
   function handleClick(event: React.MouseEvent<HTMLAnchorElement>): void {
     props.onClose?.(event, "backdropClick");
@@ -62,7 +59,7 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
         <Switch
           name="theme"
           checked={theme?.palette?.mode === "dark"}
-          onChange={onChangeTheme}
+          onChange={toggleTheme}
         />
       </MenuItem>
 

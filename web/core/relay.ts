@@ -35,3 +35,7 @@ export function createRelay(config: Config = {}): Environment {
     handlerProvider: null,
   });
 }
+
+export function toRawId<T extends string | null | undefined>(globalId: T): T {
+  return globalId && (atob(globalId).split(":")[1] as T);
+}

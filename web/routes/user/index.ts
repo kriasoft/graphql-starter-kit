@@ -3,8 +3,8 @@
 
 import { graphql } from "relay-runtime";
 import type { Route } from "../../core";
+import type { userProfileQueryResponse } from "../../queries/userProfileQuery.graphql";
 import type UserProfile from "./UserProfile";
-import type { userProfileQueryResponse } from "./__generated__/userProfileQuery.graphql";
 
 /**
  * User profile (e.g. https://example.com/@koistya)

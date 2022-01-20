@@ -3,11 +3,11 @@
 
 import * as React from "react";
 import { graphql, useMutation } from "react-relay";
-import { UploadMutation } from "./__generated__/UploadMutation.graphql";
+import { UploadMutation } from "../queries/UploadMutation.graphql";
 import {
   UploadSaveMutation,
   UploadType,
-} from "./__generated__/UploadSaveMutation.graphql";
+} from "../queries/UploadSaveMutation.graphql";
 
 const uploadMutation = graphql`
   mutation UploadMutation($fileName: String!, $contentType: String) {

@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import knex from "knex";
-import config from "./config";
+import config from "./config.cjs";
 import { createNewId } from "./utils";
 export * from "../../db/types";
 
@@ -15,11 +15,6 @@ const db = knex(config);
 
 // Extend `db.fn` with an additional functionality.
 db.fn.constructor.prototype.newUserId = createNewId(db, "user", 6);
-db.fn.constructor.prototype.newTeamId = createNewId(db, "team", 6);
-db.fn.constructor.prototype.newClassId = createNewId(db, "class", 6);
-db.fn.constructor.prototype.newSessionId = createNewId(db, "session", 7);
-db.fn.constructor.prototype.newPostId = createNewId(db, "post", 8);
-db.fn.constructor.prototype.newCommentId = createNewId(db, "comment", 8);
 
 // Ensure that the database connections will be closed when
 // the Node.js process is being shut down.
