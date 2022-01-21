@@ -16,5 +16,5 @@ envars.config({ env: args.env });
  * @type {import("knex").Knex.Config}
  */
 module.exports = {
-  ...require("api/db/config.cjs"),
+  ...require("../api/db/config.cjs"),
 };

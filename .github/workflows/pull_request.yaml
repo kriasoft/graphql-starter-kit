@@ -38,6 +38,7 @@ jobs:
 
       # Test
       - run: yarn test
+      - run: yarn api:tsc
 
       # Compile
       - run: yarn api:build

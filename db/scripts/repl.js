@@ -12,8 +12,17 @@
  */
 
 const repl = require("repl");
+const path = require("node:path");
+const registerBabel = require("@babel/register");
 const { greenBright, blueBright } = require("chalk");
 const createDatabase = require("./create");
+
+registerBabel({
+  only: [(file) => !file?.includes(`${path.sep}.yarn${path.sep}`)],
+  extensions: [".ts", ".js"],
+  rootMode: "upward",
+  cache: false,
+});
 
 // Load environment variables (PGHOST, PGUSER, etc.)
 require("../knexfile");
@@ -22,8 +31,7 @@ require("../knexfile");
 Promise.resolve()
   .then(() => createDatabase())
   .then(async function () {
-    require("api/utils/babel-register.cjs");
-    const db = (global.db = require("api/db").default);
+    const db = (global.db = require("../../api/db").default);
     return db.select(db.raw("version(), current_database() as database"));
   })
   .then(([x]) => {
