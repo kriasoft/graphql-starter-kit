@@ -16,9 +16,9 @@ module.exports = {
 
   connection: {
     ssl: process.env.PGSSLMODE === "verify-ca" && {
-      cert: fs.readFileSync(process.env.PGSSLCERT, "ascii"),
-      key: fs.readFileSync(process.env.PGSSLKEY, "ascii"),
-      ca: fs.readFileSync(process.env.PGSSLROOTCERT, "ascii"),
+      cert: fs.readFileSync(String(process.env.PGSSLCERT), "ascii"),
+      key: fs.readFileSync(String(process.env.PGSSLKEY), "ascii"),
+      ca: fs.readFileSync(String(process.env.PGSSLROOTCERT), "ascii"),
       servername: process.env.PGSERVERNAME,
     },
   },
@@ -37,5 +37,5 @@ module.exports = {
     tableName: "migration",
   },
 
-  debug: process.env.PGDEBUG,
+  debug: process.env.PGDEBUG === "true",
 };

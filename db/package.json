@@ -22,8 +22,8 @@
     "db:psql": "node ./scripts/psql.js"
   },
   "devDependencies": {
+    "@babel/register": "^7.16.9",
     "@types/lodash": "^4.14.178",
-    "api": "workspace:*",
     "chalk": "^4.1.2",
     "cross-spawn": "^7.0.3",
     "envars": "^0.3.0",

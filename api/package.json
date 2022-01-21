@@ -9,6 +9,7 @@
     "build": "rollup -c",
     "update-schema": "node ../scripts/update-schema",
     "deploy": "node ../scripts/api-deploy",
+    "api:tsc": "tsc",
     "api:start": "yarn workspace api run start",
     "api:update-schema": "yarn workspace api run update-schema",
     "api:build": "yarn workspace api run build",

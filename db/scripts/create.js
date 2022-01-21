@@ -13,7 +13,7 @@ const minimist = require("minimist");
 const { greenBright } = require("chalk");
 
 module.exports = async function createDatabase() {
-  const config = require("api/db/config.cjs");
+  const config = require("../../api/db/config.cjs");
   const { PGUSER, PGDATABASE } = process.env;
   const schema = config.searchPath || "public";
 

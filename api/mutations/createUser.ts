@@ -87,7 +87,7 @@ export const createUser: GraphQLFieldConfig<unknown, Context> = {
     if (!("username" in errors)) {
       const exists = await db
         .table<User>("user")
-        .where({ username: input.username })
+        .where({ username: input.username as string })
         .first("id")
         .then((x) => Boolean(x));
       if (exists) {
