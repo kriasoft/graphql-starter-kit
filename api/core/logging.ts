@@ -3,7 +3,7 @@
 
 import { Logging } from "@google-cloud/logging";
 import { Request } from "express";
-import type { GraphQLParams } from "express-graphql";
+import type { GraphQLParams } from "graphql-helix";
 import PrettyError from "pretty-error";
 import env from "../env";
 

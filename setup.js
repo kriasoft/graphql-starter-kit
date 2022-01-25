@@ -8,11 +8,11 @@
  * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
-const fs = require("fs");
-const crypto = require("crypto");
-const dotenv = require("dotenv");
-const spawn = require("cross-spawn");
-const inquirer = require("inquirer");
+import spawn from "cross-spawn";
+import crypto from "crypto";
+import dotenv from "dotenv";
+import inquirer from "inquirer";
+import fs from "node:fs";
 
 const environments = {
   prod: "production",
