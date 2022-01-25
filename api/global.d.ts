@@ -13,3 +13,10 @@ declare global {
     }
   }
 }
+
+declare module "graphql" {
+  interface GraphQLFormattedError {
+    status?: number;
+    errors?: Record<string, string[]>;
+  }
+}

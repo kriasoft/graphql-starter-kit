@@ -1,70 +1,78 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import type { Request } from "express";
-import { graphqlHTTP } from "express-graphql";
-import fs from "fs";
+import type { NextFunction, Request, Response } from "express";
+import { GraphQLError, printSchema } from "graphql";
 import {
-  formatError,
-  GraphQLObjectType,
-  GraphQLSchema,
-  printSchema,
-} from "graphql";
+  getGraphQLParameters,
+  processRequest,
+  renderGraphiQL,
+  sendResult,
+  shouldRenderGraphiQL,
+} from "graphql-helix";
 import { HttpError } from "http-errors";
-import { noop } from "lodash";
+import fs from "node:fs/promises";
+import { ValidationError } from "validator-fluent";
 import { Context } from "./context";
 import { reportError } from "./core";
-import env from "./env";
-import * as mutations from "./mutations";
-import * as queries from "./queries";
-import { nodeField, nodesField } from "./types/node";
-import { ValidationError } from "./utils";
+import schema from "./schema";
 
-/**
- * GraphQL API schema.
- */
-export const schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: "Root",
-    description: "The top-level API",
+// Customize GraphQL error serialization
+GraphQLError.prototype.toJSON = ((serialize) =>
+  function toJSON(this: GraphQLError) {
+    // The original serialized GraphQL error output
+    const output = serialize.call(this as GraphQLError);
 
-    fields: {
-      node: nodeField,
-      nodes: nodesField,
-      ...queries,
-    },
-  }),
+    // Append the `HttpError` code
+    if (this.originalError instanceof HttpError) {
+      output.status = this.originalError.statusCode;
+    }
 
-  mutation: new GraphQLObjectType({
-    name: "Mutation",
-    fields: mutations,
-  }),
-});
+    // Append the list of user input validation errors
+    if (this.originalError instanceof ValidationError) {
+      output.status = 400;
+      output.errors = this.originalError.errors;
+    }
+
+    return output;
+  })(GraphQLError.prototype.toJSON);
 
 /**
  * GraphQL middleware for Express.js
  */
-export const graphql = graphqlHTTP((req, res, params) => ({
-  schema,
-  context: new Context(req as Request),
-  graphiql: env.APP_ENV !== "prod",
-  pretty: !env.isProduction,
-  customFormatErrorFn: (err) => {
-    if (err.originalError instanceof ValidationError) {
-      res.statusCode = 400;
-      return { ...formatError(err), errors: err.originalError.errors };
+async function handleGraphQL(req: Request, res: Response, next: NextFunction) {
+  try {
+    if (shouldRenderGraphiQL(req)) {
+      res.send(renderGraphiQL({ endpoint: "/api" }));
+    } else {
+      const params = getGraphQLParameters(req);
+      const result = await processRequest<Context>({
+        operationName: params.operationName,
+        query: params.query,
+        variables: params.variables,
+        request: req,
+        schema,
+        contextFactory: () => new Context(req),
+      });
+
+      sendResult(result, res, (result) => ({
+        data: result.data,
+        errors: result.errors?.map((err) => {
+          if (!(err.originalError instanceof ValidationError)) {
+            reportError(err, req, params);
+          }
+          return err;
+        }),
+      }));
     }
-
-    if (err.originalError instanceof HttpError) {
-      res.statusCode = err.originalError.statusCode;
-    }
-
-    reportError(err.originalError || err, req as Request, params);
-    return formatError(err);
-  },
-}));
-
-export function updateSchema(cb?: fs.NoParamCallback): void {
-  const output = printSchema(schema);
-  fs.writeFile("./schema.graphql", output, { encoding: "utf-8" }, cb || noop);
+  } catch (err) {
+    next(err);
+  }
 }
+
+function updateSchema(): Promise<void> {
+  const output = printSchema(schema);
+  return fs.writeFile("./schema.graphql", output, { encoding: "utf-8" });
+}
+
+export { handleGraphQL, updateSchema };

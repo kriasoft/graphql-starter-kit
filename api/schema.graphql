@@ -3,7 +3,7 @@ schema {
   mutation: Mutation
 }
 
-"""The top-level API"""
+"""The top-level GraphQL API."""
 type Root {
   """Fetches an object given its ID"""
   node(

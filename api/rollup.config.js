@@ -132,7 +132,7 @@ const config = {
     },
   ],
 
-  external: Object.keys(pkg.dependencies).filter(
+  external: [...Object.keys(pkg.dependencies), /^node:/].filter(
     // Bundle modules that do not properly support ES
     (dep) => !["@sendgrid/mail", "http-errors"].includes(dep),
   ),

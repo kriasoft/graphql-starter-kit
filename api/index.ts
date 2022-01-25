@@ -8,12 +8,12 @@ import { NotFound } from "http-errors";
 import { auth } from "./auth";
 import env from "./env";
 import { handleError } from "./errors";
-import { graphql, updateSchema } from "./graphql";
+import { handleGraphQL, updateSchema } from "./graphql";
 import { withViews } from "./views";
 
 SendGrid.setApiKey(env.SENDGRID_API_KEY);
 
-export const api = withViews(express());
+const api = withViews(express());
 
 api.enable("trust proxy");
 api.disable("x-powered-by");
@@ -22,7 +22,7 @@ api.disable("x-powered-by");
 api.use(auth);
 
 // GraphQL API middleware
-api.use("/api", graphql);
+api.use("/api", express.json(), handleGraphQL);
 
 api.get("/", (req, res) => {
   res.render("home");
@@ -60,4 +60,4 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
-export { env, updateSchema };
+export { api, env, updateSchema };
