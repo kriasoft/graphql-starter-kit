@@ -39,6 +39,18 @@ yarn-error.log
 !.vscode/settings.json
 !.vscode/web.code-snippets
 
+# Terraform
+# https://github.com/github/gitignore/blob/main/Terraform.gitignore
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+.terraformrc
+override.tf
+crash.log
+crash.*.log
+
 # macOS
 # https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
 .DS_Store

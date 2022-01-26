@@ -36,7 +36,9 @@ Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for as
 `├──`[`env`](./env) — environment variables that are used for local development (`local`, `test`, `prod`)<br>
 `├──`[`db`](./db) — database schema, seeds, and migrations ([Cloud SQL](https://cloud.google.com/sql), [Knex.js](https://knexjs.org/))<br>
 `├──`[`api`](./api) — GraphQL API and authentication ([Could SQL](https://cloud.google.com/sql), [Cloud Functions](https://cloud.google.com/functions), [GraphQL.js](https://graphql.org/graphql-js/))<br>
-`├──`[`img`](./img) — dynamic image resizing ([Cloud Functions](https://cloud.google.com/functions), [Cloud Storage](https://cloud.google.com/storage))<br>
+`├──`[`img`](./img) — dynamic image resizing ([Cloud Functions](https://cloud.google.com/functions), [Cloud Storage](https://
+cloud.google.com/storage))<br>
+`├──`[`infra`](./infra) — cloud infrastructure configuration ([Terraform](https://www.terraform.io/))<br>
 `├──`[`web`](./web) — [React](https://reactjs.org/) / [Relay](https://relay.dev/) web application with CDN rendering ([Webpack](https://webpack.js.org/), [Cloudflare Workers](https://workers.cloudflare.com/))<br>
 `├──`[`scripts`](./scripts) — Automation scripts shared across the project<br>
 `└── ...` — add more packages such as `worker`, `admin`, `mobile`, etc.

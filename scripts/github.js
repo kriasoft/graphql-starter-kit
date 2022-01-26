@@ -14,7 +14,7 @@ const env = process.env;
  * https://docs.github.com/en/rest/reference/repos#list-deployments
  */
 async function listDeployments(options = {}) {
-  const [owner, repo] = env.GITHUB_REPOSITORY.split("/");
+  const [owner, repo] = env.GITHUB_REPOSITORY?.split("/") ?? [];
   const gh = new Octokit({ auth: env.GITHUB_TOKEN });
   const res = await gh.repos.listDeployments({
     owner,
@@ -31,7 +31,7 @@ async function listDeployments(options = {}) {
  * https://docs.github.com/en/rest/reference/repos#create-a-deployment
  */
 async function createDeployment(options = {}) {
-  const [owner, repo] = env.GITHUB_REPOSITORY.split("/");
+  const [owner, repo] = env.GITHUB_REPOSITORY?.split("/") ?? [];
   const gh = new Octokit({ auth: env.GITHUB_TOKEN });
 
   console.log("Creating a new deployment...");
@@ -66,7 +66,7 @@ async function createDeployment(options = {}) {
  * https://docs.github.com/en/rest/reference/repos#delete-a-deployment
  */
 async function deleteDeployment(options = {}) {
-  const [owner, repo] = env.GITHUB_REPOSITORY.split("/");
+  const [owner, repo] = env.GITHUB_REPOSITORY?.split("/") ?? [];
   const gh = new Octokit({ auth: env.GITHUB_TOKEN });
 
   let res = await gh.repos.getDeployment({
@@ -91,7 +91,7 @@ async function deleteDeployment(options = {}) {
  */
 async function createDeploymentStatus(options = {}) {
   options.state === "cancelled" ? "inactive" : options.state;
-  const [owner, repo] = env.GITHUB_REPOSITORY.split("/");
+  const [owner, repo] = env.GITHUB_REPOSITORY?.split("/") ?? [];
   const gh = new Octokit({ auth: env.GITHUB_TOKEN });
 
   let id = options.id;
