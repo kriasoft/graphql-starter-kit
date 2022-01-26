@@ -10,6 +10,9 @@
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "jest.jestCommandLine": "yarn jest",
+  "files.associations": {
+    ".terraformrc": "terraform"
+  },
   "files.exclude": {
     "**/.cache": true,
     "**/.DS_Store": true,
@@ -85,6 +88,7 @@
     "sendgrid",
     "sourcemap",
     "spdx",
+    "tfvars",
     "timestamptz",
     "tslib",
     "typechecking",
@@ -93,5 +97,15 @@
     "webflow",
     "yarnpkg",
     "yarnrc"
-  ]
+  ],
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  "[terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  }
 }
