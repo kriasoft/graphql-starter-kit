@@ -71,19 +71,26 @@ const args = process.argv.slice(2);
 
 // See `infra/variables.tf`
 // https://www.terraform.io/language/values/variables
-if (["plan", "apply"].includes(args[0])) {
+if (["plan", "apply", "import"].includes(args[0])) {
   fs.writeFileSync(
     path.join(cwd, "infra/.auto.tfvars.json"),
-    JSON.stringify({
-      project: env.GOOGLE_CLOUD_PROJECT,
-      region: env.GOOGLE_CLOUD_REGION,
-      zone: env.GOOGLE_CLOUD_ZONE,
-      cloudflare_account_id: env.CLOUDFLARE_ACCOUNT_ID,
-      cloudflare_zone_id: env.CLOUDFLARE_ZONE_ID,
-      cloudflare_api_token: env.CLOUDFLARE_API_TOKEN,
-      database: env.PGDATABASE,
-      database_password: env.PGPASSWORD,
-    }),
+    JSON.stringify(
+      {
+        project: env.GOOGLE_CLOUD_PROJECT,
+        region: env.GOOGLE_CLOUD_REGION,
+        zone: env.GOOGLE_CLOUD_ZONE,
+        cloudflare_account_id: env.CLOUDFLARE_ACCOUNT_ID,
+        cloudflare_zone_id: env.CLOUDFLARE_ZONE_ID,
+        cloudflare_api_token: env.CLOUDFLARE_API_TOKEN,
+        database: env.PGDATABASE,
+        database_password: env.PGPASSWORD,
+        storage_bucket: env.STORAGE_BUCKET,
+        upload_bucket: env.UPLOAD_BUCKET,
+        cache_bucket: env.CACHE_BUCKET,
+      },
+      null,
+      "  ",
+    ),
     "utf-8",
   );
 }

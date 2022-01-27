@@ -33,3 +33,15 @@ variable "database" {
 variable "database_password" {
   description = "The root user password"
 }
+
+variable "storage_bucket" {
+  description = "The name of the main storage bucket"
+}
+
+variable "upload_bucket" {
+  description = "The name of the upload bucket"
+}
+
+variable "cache_bucket" {
+  description = "The name of the cache bucket"
+}

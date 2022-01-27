@@ -1,4 +1,4 @@
-# Cloud Infrastructure Configuration
+# Cloud Infrastructure
 
 The Google Cloud Platform (GCP) and Cloudflare infrastructure resources required
 by the app and that can be bootstrapped via [Terraform](https://www.terraform.io/).
@@ -77,5 +77,9 @@ $ TF_WORKSPACE=prod tf apply
 ```
 
 **NOTE**: You need to run Terraform commands via `yarn tf <command> [...args]`.
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=tomUWcQ0P3k"><img src="https://user-images.githubusercontent.com/197134/151321818-d47fe54f-c19e-4d4c-9834-c33e589a33e1.png" alt="" width="640" height="360" /></a>
+</p>
 
 Fore more information visit https://learn.hashicorp.com/terraform

@@ -2,15 +2,18 @@
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database
 
 resource "google_sql_database" "default" {
-  name     = var.database
-  instance = google_sql_database_instance.instance.name
+  name      = var.database
+  instance  = google_sql_database_instance.pg14.name
+  charset   = "UTF8"
+  collation = "en_US.UTF8"
+  timeouts {}
 }
 
 resource "google_sql_database_instance" "pg14" {
   name                = "pg14"
   region              = "us-central1"
   database_version    = "POSTGRES_14"
-  deletion_protection = "true"
+  deletion_protection = true
 
   settings {
     tier = "db-f1-micro"
@@ -18,7 +21,9 @@ resource "google_sql_database_instance" "pg14" {
     disk_size = 100
     disk_type = "PD_SSD"
 
-    root_password = var.database_password
+    ip_configuration {
+      require_ssl = true
+    }
 
     backup_configuration {
       enabled    = true
@@ -35,10 +40,8 @@ resource "google_sql_database_instance" "pg14" {
     }
 
     maintenance_window {
-      day  = 1
+      day  = 7
       hour = 0
     }
-
-    deletion_protection = true
   }
 }
