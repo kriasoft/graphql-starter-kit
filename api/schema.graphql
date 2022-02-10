@@ -22,6 +22,8 @@ type Root {
 
   """Fetches a user account by username or email."""
   user(username: String, email: String): User
+
+  """Fetches user accounts."""
   users(
     """Returns the items in the list that come after the specified cursor."""
     after: String

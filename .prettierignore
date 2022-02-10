@@ -1,8 +1,14 @@
-# Compiled output
+# API
+/api/dist
 /api/schema.graphql
+
+# DB
 /db/types.ts
+
+# Web
 /web/queries
-/.cache/
+
+# Compiled output
 /*/dist/
 
 # Yarn
@@ -14,7 +20,12 @@
 .yarn/*.*
 .pnp.*
 
+# Terraform
+.terraform
+*.tfvars.json
+
 # Misc
 .husky
+.cache
 *.hbs
 /tsconfig.json

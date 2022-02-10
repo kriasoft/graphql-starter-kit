@@ -21,7 +21,6 @@
     "@google-cloud/storage": "^5.18.0",
     "@sendgrid/mail": "^7.6.0",
     "argon2": "^0.28.3",
-    "chalk": "^4.1.2",
     "cookie": "^0.4.1",
     "dataloader": "^2.0.0",
     "date-fns": "^2.28.0",

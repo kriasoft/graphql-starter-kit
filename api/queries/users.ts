@@ -4,6 +4,7 @@ import {
   cursorToOffset,
   forwardConnectionArgs,
 } from "graphql-relay";
+import { Forbidden } from "http-errors";
 import { Context } from "../context";
 import db, { User } from "../db";
 import { UserConnection } from "../types";
@@ -22,12 +23,15 @@ import { UserConnection } from "../types";
  *   }
  */
 export const users: GraphQLFieldConfig<unknown, Context> = {
+  description: "Fetches user accounts.",
   type: UserConnection,
   args: forwardConnectionArgs,
 
   async resolve(root, args, ctx) {
     // Only admins are allowed to fetch the list of user accounts.
-    ctx.ensureAuthorized((user) => user.admin);
+    if (!ctx.user?.admin) {
+      throw new Forbidden();
+    }
 
     const query = db.table<User>("user");
 
