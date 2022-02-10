@@ -16,7 +16,7 @@
 
 # Logs
 yarn-debug.log*
-yarn-error.log
+yarn-error.log*
 
 # Cache
 /.cache

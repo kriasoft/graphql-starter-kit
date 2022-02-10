@@ -4109,7 +4109,6 @@ __metadata:
     "@types/supertest": ^2.0.11
     "@types/validator": ^13.7.1
     argon2: ^0.28.3
-    chalk: ^4.1.2
     cookie: ^0.4.1
     cross-spawn: ^7.0.3
     dataloader: ^2.0.0

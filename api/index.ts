@@ -2,7 +2,6 @@
 /* SPDX-License-Identifier: MIT */
 
 import SendGrid from "@sendgrid/mail";
-import chalk from "chalk";
 import express from "express";
 import { NotFound } from "http-errors";
 import { auth } from "./auth";
@@ -47,9 +46,9 @@ if (process.env.NODE_ENV === "development") {
   updateSchema();
 
   const port = process.env.PORT ?? 8080;
-  const envName = chalk.greenBright(process.env.APP_ENV);
-  const dbName = chalk.greenBright(process.env.PGDATABASE);
-  const url = chalk.blueBright(`http://localhost:${port}/`);
+  const envName = `\x1b[92m${process.env.APP_ENV}\x1b[0m`;
+  const dbName = `\x1b[92m${process.env.PGDATABASE}\x1b[0m`;
+  const url = `\x1b[94mhttp://localhost:${port}/\x1b[0m`;
 
   const server = api.listen(port, function () {
     console.log(`Listening on ${url} (env: ${envName}, db: ${dbName})`);
