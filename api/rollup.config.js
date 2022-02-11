@@ -117,7 +117,11 @@ const config = {
       async writeBundle() {
         // Update yarn.lock file to include only the production dependencies
         spawn.spawn("yarn", ["install"], {
-          env: { ...process.env, NODE_OPTIONS: undefined },
+          env: {
+            ...process.env,
+            NODE_OPTIONS: undefined,
+            YARN_ENABLE_IMMUTABLE_INSTALLS: "false",
+          },
           cwd: "./dist",
           stdio: "inherit",
         });
