@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import knex from "knex";
-import config from "./config.cjs";
+import config from "./config";
 import { createNewId } from "./utils";
 export * from "../../db/types";
 

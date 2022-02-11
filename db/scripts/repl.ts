@@ -1,19 +1,10 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-// @ts-expect-error @babel/register doesn't have types
-import registerBabel from "@babel/register";
 import { blueBright, greenBright } from "chalk";
 import { type Knex } from "knex";
 import repl from "node:repl";
 import createDatabase from "./create";
-
-registerBabel({
-  only: [".", "../api"],
-  extensions: [".ts", ".js"],
-  rootMode: "upward",
-  cache: false,
-});
 
 // Load environment variables (PGHOST, PGUSER, etc.)
 require("../knexfile");

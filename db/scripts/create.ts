@@ -2,10 +2,11 @@
 /* SPDX-License-Identifier: MIT */
 
 import { greenBright } from "chalk";
-import { config as init } from "envars";
+import envars from "envars";
 import knex from "knex";
 import minimist from "minimist";
 import { basename } from "node:path";
+import config from "../../api/db/config";
 
 /**
  * Bootstraps a new PostgreSQL database if it doesn't exist.
@@ -13,7 +14,6 @@ import { basename } from "node:path";
  *   $ yarn db:create [--env #0]
  */
 export default async function createDatabase() {
-  const config = await import("../../api/db/config.cjs").then((x) => x.default);
   const PGUSER = process.env.PGUSER as string;
   const PGDATABASE = process.env.PGDATABASE as string;
   const schema: string = (config.searchPath as string) || "public";
@@ -48,7 +48,7 @@ export default async function createDatabase() {
 
 if (basename(process.argv[1]) === "create.ts") {
   // Load environment variables (PGHOST, PGUSER, etc.)
-  init({ env: minimist(process.argv.slice(2)).env });
+  envars.config({ env: minimist(process.argv.slice(2)).env });
 
   createDatabase().catch((err) => {
     console.error(err);

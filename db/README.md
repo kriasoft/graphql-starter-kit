@@ -14,19 +14,19 @@ assistance.
 ├── backups                     # Database backup files
 │   └── ...                     #   - for example "20200101T120000_dev.sql"
 ├── migrations                  # Database schema migration files
-│   ├── 001_initial.js          #   - initial schema
+│   ├── 001_initial.ts          #   - initial schema
 │   └── ...                     #   - the reset of the migration files
 ├── scripts                     # Automation scripts (Knex.js REPL shell, etc.)
 │   └── ...                     #   - ...
 ├── seeds                       # Database seed files
-│   ├── 00_reset.js             #   - removes existing db records
-│   ├── 01_users.js             #   - creates user accounts
+│   ├── 00_reset.ts             #   - removes existing db records
 │   ├── 01_users.json           #   - user accounts dataset
-│   ├── id_identities.js        #   - creates user accounts
+│   ├── 01_users.ts             #   - creates user accounts
 │   ├── 02_identities.json      #   - user accounts dataset
+│   ├── id_identities.ts        #   - creates user accounts
 │   └── ...                     #   - the reset of the seed files
 ├── ssl                         # TLS/SSL certificates for database access
-├── knexfile.js                 # Configuration file for Knex.js CLI
+├── knexfile.ts                 # Configuration file for Knex.js CLI
 ├── package.json                # Node.js dependencies
 └── README.md                   # This file
 ```
@@ -54,7 +54,7 @@ Optionally pass the `--env #0` argument with one of the pre-configured
 
 ## How to create a new migration
 
-Create a new `.js` file inside of the [`migrations`](./migrations) folder,
+Create a new `.ts` file inside of the [`migrations`](./migrations) folder,
 give it a descriptive name prefixed with the migration version number, for
 example `002_products.ts`. Open it in the editor, start typing `migration`
 and hit `TAB` which should insert a VS Code snippet.
@@ -112,7 +112,7 @@ You can find backup files inside of the [`/backups`](./backups) folder.
 
 ## How to generate seed files
 
-Generate seed files by using Faker.js (see [`/seeds/*.js`](./seeds)).
+Generate seed files by using Faker.js (see [`/seeds/*.ts`](./seeds)).
 Alternatively, fetch the actual data from the database and save it into JSON
 files as seeds by running:
 

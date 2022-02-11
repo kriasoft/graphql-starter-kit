@@ -8,15 +8,21 @@
  * @param {import("@babel/core").ConfigAPI} api
  * @returns {import("@babel/core").TransformOptions}
  */
-
 module.exports = function config(api) {
+  const isNodeEnv = api.caller((caller) =>
+    [
+      "@babel/register",
+      "@babel/cli",
+      "@babel/node",
+      "@rollup/plugin-babel",
+    ].includes(caller?.name || ""),
+  );
+
   return {
     presets: [
       [
         "@babel/preset-env",
-        api.caller((x) => !x || x.target === "node" || x.target === undefined)
-          ? { targets: { node: "14" } }
-          : {},
+        isNodeEnv ? { targets: { node: "16", esmodules: false } } : {},
       ],
     ],
 

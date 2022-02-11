@@ -9,10 +9,10 @@
 
 import { greenBright } from "chalk";
 import spawn from "cross-spawn";
-import { config } from "envars";
-import fs from "fs";
+import envars from "envars";
 import minimist from "minimist";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 
 // Parse CLI arguments
 const args: string[] = [];
@@ -22,7 +22,7 @@ const { env, from } = minimist(process.argv.slice(2), {
 });
 
 // Load environment variables (PGHOST, PGUSER, etc.)
-config({ env });
+envars.config({ env });
 
 const { APP_ENV, PGDATABASE } = process.env;
 const fromEnv = from || APP_ENV;

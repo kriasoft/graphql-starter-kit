@@ -3,7 +3,7 @@
 
 import { greenBright } from "chalk";
 import spawn from "cross-spawn";
-import { config } from "envars";
+import envars from "envars";
 import minimist from "minimist";
 import fs from "node:fs";
 import { EOL } from "node:os";
@@ -19,7 +19,7 @@ const { env } = minimist(process.argv.slice(2), {
 });
 
 // Load environment variables (PGHOST, PGUSER, etc.)
-config({ env });
+envars.config({ env });
 
 const { APP_ENV, PGDATABASE } = process.env;
 const backupDir = path.join(__dirname, "../backups");

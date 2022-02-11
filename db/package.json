@@ -5,7 +5,7 @@
   "type": "commonjs",
   "types": "types.d.ts",
   "scripts": {
-    "db:create": "babel-node --root-mode=upward -x .ts ./scripts/create.ts && knex migrate:latest",
+    "db:create": "babel-node --root-mode=upward -o .,../api -x .ts ./scripts/create.ts && knex migrate:latest",
     "db:version": "knex migrate:currentVersion",
     "db:change": "knex migrate:make",
     "db:migrate": "knex migrate:latest",
@@ -18,7 +18,7 @@
     "db:restore": "babel-node --root-mode=upward -x .ts ./scripts/restore.ts",
     "db:import-seeds": "babel-node --root-mode=upward -x .ts ./scripts/import-seeds.ts",
     "db:update-types": "babel-node --root-mode=upward -x .ts ./scripts/update-types.ts",
-    "db:repl": "babel-node --root-mode=upward -x .ts --experimental-repl-await ./scripts/repl.ts",
+    "db:repl": "babel-node --root-mode=upward -o .,../api -x .ts --experimental-repl-await ./scripts/repl.ts",
     "db:psql": "babel-node --root-mode=upward -x .ts ./scripts/psql.ts"
   },
   "devDependencies": {
