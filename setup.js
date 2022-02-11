@@ -1,11 +1,11 @@
-/**
+/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-License-Identifier: MIT */
+/*
  * This script helps to configure all the required
  * environment variables such as application URL (origin),
  * Google Cloud project IDs, database name, etc. Usage example:
  *
  *   $ yarn setup
- *
- * @copyright 2016-present Kriasoft (https://git.io/Jt7GM)
  */
 
 import spawn from "cross-spawn";

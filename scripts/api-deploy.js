@@ -21,8 +21,8 @@ process.env.APP_ENV = args.env ?? process.env.APP_ENV ?? "test";
 envars.config({ env: process.env.APP_ENV });
 
 // Load the list of environment variables required by the app (api/env.ts)
-/** @type {import("api/env").default} */
-const env = await import("api/dist/index.js").then((x) => ({ ...x.env }));
+/** @type {import("../api/env").default} */
+const env = await import("../api/dist/index.js").then((x) => ({ ...x.env }));
 
 // Use Cloud SQL Proxy in Google Cloud Functions (GCF) environment
 const region = process.env.GOOGLE_CLOUD_REGION;
@@ -41,8 +41,10 @@ await $`gcloud functions deploy ${name} ${[
   `--region=${region}`,
   `--allow-unauthenticated`,
   `--entry-point=api`,
-  `--memory=1GB`,
+  // `--gen2`,
+  `--memory=1G`,
   `--runtime=nodejs16`,
+  // `--signature-type=http`,
   `--source=./dist`,
   `--timeout=30`,
   `--trigger-http`,

@@ -7,22 +7,22 @@
  *   $ yarn db:restore [--env #0] [--from #0]
  */
 
-const fs = require("fs");
-const path = require("path");
-const spawn = require("cross-spawn");
-const envars = require("envars");
-const minimist = require("minimist");
-const { greenBright } = require("chalk");
+import { greenBright } from "chalk";
+import spawn from "cross-spawn";
+import { config } from "envars";
+import fs from "fs";
+import minimist from "minimist";
+import path from "path";
 
 // Parse CLI arguments
-const args = [];
+const args: string[] = [];
 const { env, from } = minimist(process.argv.slice(2), {
   string: ["env", "from"],
   unknown: (arg) => !args.push(arg),
 });
 
 // Load environment variables (PGHOST, PGUSER, etc.)
-envars.config({ env });
+config({ env });
 
 const { APP_ENV, PGDATABASE } = process.env;
 const fromEnv = from || APP_ENV;
