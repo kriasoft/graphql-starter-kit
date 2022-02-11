@@ -13,7 +13,7 @@ assistance.
 
 ## Tech Stack
 
-- [Node.js](https://nodejs.org/) `v16`, [Yarn](https://yarnpkg.com/) `v2`, [TypeScript](https://www.typescriptlang.org/), [Babel](https://babeljs.io/), [Prettier](https://prettier.io/), [ESLint](https://eslint.org/) — core platform and dev tools
+- [Node.js](https://nodejs.org/) `v16`, [Yarn](https://yarnpkg.com/), [TypeScript](https://www.typescriptlang.org/), [Babel](https://babeljs.io/), [Prettier](https://prettier.io/), [ESLint](https://eslint.org/) — core platform and dev tools
 - [GraphQL.js](https://github.com/graphql/graphql-js), [GraphQL.js Relay](https://github.com/graphql/graphql-relay-js), [DataLoader](https://github.com/graphql/dataloader), [Validator.js](https://github.com/validatorjs/validator.js) — [GraphQL](https://graphql.org/) schema and API endpoint(s)
 - [PostgreSQL](https://www.postgresql.org/), [Knex.js](https://knexjs.org/), [`pg`](https://node-postgres.com/), [`@google-cloud/storage`](https://googleapis.dev/nodejs/storage/latest) — data access
 - [`jswonwebtoken`](https://github.com/auth0/node-jsonwebtoken), [`google-auth-library`](https://github.com/googleapis/google-auth-library-nodejs) — stateless JWT-based sessions and authentication

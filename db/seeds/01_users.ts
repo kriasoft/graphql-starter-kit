@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { date, image, internet, name, random } from "faker";
+import faker from "@faker-js/faker";
 import { type Knex } from "knex";
 import nanoid from "nanoid";
 import fs from "node:fs/promises";
@@ -11,6 +11,7 @@ import prettier from "prettier";
 // https://zelark.github.io/nano-id-cc/
 const alphabet = "0123456789abcdefghijklmnopqrstuvwxyz";
 const newUserId = nanoid.customAlphabet(alphabet, 6);
+const { date, image, internet, name, random } = faker;
 
 function stringify(obj: Record<string, unknown>) {
   return prettier.format(JSON.stringify(obj), { parser: "json" });
@@ -55,12 +56,14 @@ export async function seed(db: Knex) {
         created: createdAt,
         updated: createdAt,
         last_login:
-          Math.random() > 0.5 ? date.between(createdAt, new Date()) : null,
+          Math.random() > 0.5
+            ? date.between(createdAt.toString(), new Date().toString())
+            : null,
       };
     });
 
     await fs.writeFile(jsonFile, stringify(users));
   }
 
-  await db.table("user").insert(users);
+  await db.table("user").insert(users).onConflict(["id"]).ignore();
 }

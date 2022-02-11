@@ -11,7 +11,7 @@
 
 ## Features
 
-- Monorepo project structure powered by Yarn v2 with PnP
+- Monorepo project structure powered by Yarn with PnP
 - GraphQL API using code-first development approach (TypeScript, GraphQL.js, Knex, PostgreSQL)
 - Stateless JWT cookie-based authentication (supporting SSR, OAuth 2.0 via Google, Facebook, etc.)
 - Database tooling — seed files, migrations, Knex.js REPL shell, etc.

@@ -1749,6 +1749,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@faker-js/faker@npm:^6.0.0-alpha.6":
+  version: 6.0.0-alpha.6
+  resolution: "@faker-js/faker@npm:6.0.0-alpha.6"
+  checksum: 7da62a22a8e1bfbcd8b6517a6f3aa74cf468a681cea4b3cd306a285ec670dc591d48cb5191fc1131fba9fc669ba12f9c1b4849eb47f9be50c8476f72705bcc99
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.0.1":
   version: 1.1.2
   resolution: "@gar/promisify@npm:1.1.2"
@@ -3017,15 +3024,6 @@ __metadata:
     "@types/qs": "*"
     "@types/serve-static": "*"
   checksum: 12a2a0e6c4b993fc0854bec665906788aea0d8ee4392389d7a98a5de1eefdd33c9e1e40a91f3afd274011119c506f7b4126acb97fae62ae20b654974d44cba12
-  languageName: node
-  linkType: hard
-
-"@types/faker@npm:^6.6.9":
-  version: 6.6.9
-  resolution: "@types/faker@npm:6.6.9"
-  dependencies:
-    faker: "*"
-  checksum: 8fb069b6f2bf2cefec42a214395f49695b881d70e651a215a61c2fa7494bb173d1a598c895882ff89df3702ab51c49c23433b3d4bcfd8323cf4f608ed9fb6ce8
   languageName: node
   linkType: hard
 
@@ -5612,16 +5610,15 @@ __metadata:
     "@babel/core": ^7.17.2
     "@babel/node": ^7.16.8
     "@babel/register": ^7.17.0
+    "@faker-js/faker": ^6.0.0-alpha.6
     "@types/babel__core": ^7.1.18
     "@types/cross-spawn": ^6.0.2
-    "@types/faker": ^6.6.9
     "@types/lodash": ^4.14.178
     "@types/minimist": ^1.2.2
     "@types/prettier": ^2.4.4
     chalk: ^4.1.2
     cross-spawn: ^7.0.3
     envars: ^0.4.0
-    faker: ^6.6.6
     knex: ^1.0.3
     knex-types: ^0.3.2
     lodash: ^4.17.21
@@ -6705,13 +6702,6 @@ __metadata:
     iconv-lite: ^0.4.24
     tmp: ^0.0.33
   checksum: 1c2a616a73f1b3435ce04030261bed0e22d4737e14b090bb48e58865da92529c9f2b05b893de650738d55e692d071819b45e1669259b2b354bc3154d27a698c7
-  languageName: node
-  linkType: hard
-
-"faker@npm:*, faker@npm:^6.6.6":
-  version: 6.6.6
-  resolution: "faker@npm:6.6.6"
-  checksum: bfb0d581ab4d76095f2c6bff213fe1735ce077f0f8df849c144ad26035e105bce1b7a704cc030366338c52e25b636ac097a712426a78c9b8804af78f6f2bffe7
   languageName: node
   linkType: hard
 

@@ -19,6 +19,7 @@ const args = minimist(process.argv.slice(2));
 process.env.NODE_ENV = "production";
 process.env.APP_ENV = args.env ?? process.env.APP_ENV ?? "test";
 envars.config({ env: process.env.APP_ENV });
+delete process.env.PGSSLMODE;
 
 // Load the list of environment variables required by the app (api/env.ts)
 /** @type {import("../api/env").default} */
@@ -47,7 +48,8 @@ await $`gcloud functions deploy ${name} ${[
   // `--signature-type=http`,
   `--source=./dist`,
   `--timeout=30`,
-  `--trigger-http`,
   `--set-env-vars=NODE_OPTIONS=--require=./.pnp.cjs --require=source-map-support/register --no-warnings`,
   ...Object.keys(env).map((key) => `--set-env-vars=${key}=${env[key]}`),
+  `--max-instances=4`,
+  `--trigger-http`,
 ]}`;
