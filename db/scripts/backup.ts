@@ -1,31 +1,25 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-/**
- * Creates database backup (data only). Usage:
- *
- *   $ yarn db:backup [--env #0]
- */
-
-const fs = require("fs");
-const path = require("path");
-const readline = require("readline");
-const spawn = require("cross-spawn");
-const cp = require("child_process");
-const envars = require("envars");
-const minimist = require("minimist");
-const { greenBright } = require("chalk");
-const { EOL } = require("os");
+import { greenBright } from "chalk";
+import spawn from "cross-spawn";
+import { config } from "envars";
+import minimist from "minimist";
+import fs from "node:fs";
+import { EOL } from "node:os";
+import path from "node:path";
+import readline from "node:readline";
+import { type Readable } from "stream";
 
 // Parse CLI arguments
-const args = [];
+const args: string[] = [];
 const { env } = minimist(process.argv.slice(2), {
   string: ["env"],
   unknown: (arg) => !args.push(arg),
 });
 
 // Load environment variables (PGHOST, PGUSER, etc.)
-envars.config({ env });
+config({ env });
 
 const { APP_ENV, PGDATABASE } = process.env;
 const backupDir = path.join(__dirname, "../backups");
@@ -33,13 +27,12 @@ const backupDir = path.join(__dirname, "../backups");
 if (!fs.existsSync(backupDir)) fs.mkdirSync(backupDir);
 
 console.log(
-  `Creating a backup of the ${greenBright(
-    PGDATABASE,
-  )} (${APP_ENV}) database...`,
+  `Creating a backup of the %s (${APP_ENV}) database...`,
+  greenBright(PGDATABASE),
 );
 
 // Get the list of database tables
-let cmd = spawn.sync(
+const tablesCmd = spawn.sync(
   "psql",
   [
     "--no-align",
@@ -51,12 +44,12 @@ let cmd = spawn.sync(
   { stdio: ["inherit", "pipe", "inherit"] },
 );
 
-if (cmd.status !== 0) {
+if (tablesCmd.status && tablesCmd.status !== 0) {
   console.error("Failed to read the list of database tables.");
-  process.exit(cmd.status);
+  process.exit(tablesCmd.status);
 }
 
-const tables = cmd.stdout
+const tables = tablesCmd.stdout
   .toString("utf8")
   .trim()
   .split("|")
@@ -64,40 +57,45 @@ const tables = cmd.stdout
   .map((x) => `public."${x}"`)
   .join(", ");
 
-// Dump the database
-cmd = cp
-  .spawn(
-    "pg_dump",
-    [
-      "--verbose",
-      "--data-only",
-      "--schema=public",
-      "--no-owner",
-      "--no-privileges",
-      // '--column-inserts',
-      "--disable-triggers",
-      "--exclude-table=migration",
-      "--exclude-table=migration_lock",
-      "--exclude-table=migration_id_seq",
-      "--exclude-table=migration_lock_index_seq",
-      ...args,
-    ],
-    { stdio: ["pipe", "pipe", "inherit"] },
-  )
-  .on("exit", (code) => {
-    if (code !== 0) process.exit(code);
-  });
+/*
+ * Creates database backup (data only). Usage:
+ *
+ *   yarn db:backup [--env #0]
+ */
+const cmd = spawn(
+  "pg_dump",
+  [
+    "--verbose",
+    "--data-only",
+    "--schema=public",
+    "--no-owner",
+    "--no-privileges",
+    // '--column-inserts',
+    "--disable-triggers",
+    "--exclude-table=migration",
+    "--exclude-table=migration_lock",
+    "--exclude-table=migration_id_seq",
+    "--exclude-table=migration_lock_index_seq",
+    ...args,
+  ],
+  { stdio: ["pipe", "pipe", "inherit"] },
+).on("exit", (code) => {
+  if (code && code !== 0) process.exit(code);
+});
 
 const timestamp = new Date().toISOString().replace(/(-|:|\.\d{3})/g, "");
 const file = path.join(backupDir, `${timestamp}_${APP_ENV}.sql`);
 const out = fs.createWriteStream(file, { encoding: "utf8" });
-const rl = readline.createInterface({ input: cmd.stdout, terminal: false });
+const rl = readline.createInterface({
+  input: cmd.stdout as Readable,
+  terminal: false,
+});
 
 rl.on("line", (line) => {
   // Some (system) triggers cannot be disabled in a cloud environment
   // "DISABLE TRIGGER ALL" => "DISABLE TRIGGER USER"
   if (line.endsWith(" TRIGGER ALL;")) {
-    out.write(`${line.substr(0, line.length - 5)} USER;${EOL}`, "utf8");
+    out.write(`${line.substring(0, line.length - 5)} USER;${EOL}`, "utf8");
   }
   // Add a command that truncates all the database tables
   else if (line.startsWith("SET row_security")) {

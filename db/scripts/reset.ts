@@ -1,12 +1,12 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-const ora = require("ora");
-const knex = require("knex");
-const envars = require("envars");
-const minimist = require("minimist");
-const config = require("../knexfile");
-const updateTypes = require("./update-types");
+import envars from "envars";
+import knex, { type Knex } from "knex";
+import minimist from "minimist";
+import ora from "ora";
+import config from "../knexfile";
+import updateTypes from "./update-types";
 
 // Parse the command line arguments
 const args = minimist(process.argv.slice(2), {
@@ -17,8 +17,10 @@ const args = minimist(process.argv.slice(2), {
 // Load environment variables (PGHOST, PGUSER, etc.)
 envars.config({ env: args.env });
 
-/** @type {import("knex").Knex} */ let db;
-const { PGHOST, PGDATABASE, PGUSER } = process.env;
+let db: Knex;
+const PGHOST: string = process.env.PGHOST as string;
+const PGUSER: string = process.env.PGUSER as string;
+const PGDATABASE: string = process.env.PGDATABASE as string;
 const schema = config.migrations?.schemaName ?? "public";
 const role = PGHOST === "localhost" ? "postgres" : "cloudsqlsuperuser";
 
@@ -30,15 +32,18 @@ const role = PGHOST === "localhost" ? "postgres" : "cloudsqlsuperuser";
  */
 async function reset() {
   // Ensure that the target database exists
-  const database = "template1";
-  db = knex({ ...config, connection: { ...config.connection, database } });
+  process.env.PGDATABASE = "template1";
+  db = knex(config);
   let cmd = db.raw(`CREATE DATABASE ?? WITH OWNER ??`, [PGDATABASE, PGUSER]);
   let spinner = ora(cmd.toSQL().sql).start();
   await cmd
-    .catch((err) => err.code === "42P04" && Promise.resolve())
+    .catch((err) =>
+      err.code === "42P04" ? Promise.resolve() : Promise.reject(err),
+    )
     .finally(() => db.destroy())
     .then(() => spinner.succeed());
 
+  process.env.PGDATABASE = PGDATABASE;
   db = knex(config);
 
   // Drop open database connections
@@ -47,7 +52,7 @@ async function reset() {
       FROM pg_stat_activity
       WHERE pg_stat_activity.datname = ?
       AND pid <> pg_backend_pid()`,
-    [PGDATABASE],
+    [PGDATABASE as string],
   );
 
   cmd = db.raw(`DROP SCHEMA ?? CASCADE`, [schema]);
@@ -85,6 +90,6 @@ async function reset() {
 reset()
   .finally(() => db?.destroy())
   .catch((err) => {
-    console.error(err.stack);
-    process.exit(1);
+    console.error(err);
+    process.exitCode = 1;
   });

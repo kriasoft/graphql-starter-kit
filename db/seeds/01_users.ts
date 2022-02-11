@@ -1,28 +1,27 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-const fs = require("fs");
-const nanoid = require("nanoid");
-const prettier = require("prettier");
-const { name, date, image, internet, random } = require("faker");
+import { date, image, internet, name, random } from "faker";
+import { type Knex } from "knex";
+import nanoid from "nanoid";
+import fs from "node:fs/promises";
+import prettier from "prettier";
 
 // Short ID generator
 // https://zelark.github.io/nano-id-cc/
 const alphabet = "0123456789abcdefghijklmnopqrstuvwxyz";
 const newUserId = nanoid.customAlphabet(alphabet, 6);
 
-function stringify(/** @type {Record<string, unknown>} */ obj) {
+function stringify(obj: Record<string, unknown>) {
   return prettier.format(JSON.stringify(obj), { parser: "json" });
 }
 
 /**
  * Seeds the database with test / reference user accounts.
- *
- * @param {import("knex").Knex} db
  */
-module.exports.seed = async (db) => {
+export async function seed(db: Knex) {
   const jsonFile = __filename.replace(/\.\w+$/, ".json");
-  let users = require(jsonFile);
+  let users = JSON.parse(await fs.readFile(jsonFile, "utf-8"));
 
   // Generates fake user accounts
   // https://github.com/marak/Faker.js
@@ -60,8 +59,8 @@ module.exports.seed = async (db) => {
       };
     });
 
-    fs.writeFileSync(jsonFile, stringify(users), "utf8");
+    await fs.writeFile(jsonFile, stringify(users));
   }
 
   await db.table("user").insert(users);
-};
+}

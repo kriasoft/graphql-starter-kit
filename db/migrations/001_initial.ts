@@ -1,13 +1,13 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
+import { type Knex } from "knex";
+
 /**
  * The initial database schema (migration).
- *
  * @see https://knexjs.org/#Schema
- * @param {import("knex").Knex} db
  */
-module.exports.up = async function up(db) {
+export async function up(db: Knex) {
   // OAuth identity providers
   const idps = [
     "google",     // Google (google.com)
@@ -48,7 +48,7 @@ module.exports.up = async function up(db) {
     table.string("given_name", 50);
     table.string("family_name", 50);
     // Profile picture, e.g. { filename: "/u/abc.jpg", width: 60, height: 60, version: 1 }
-    table.jsonb("picture").notNullable().defaultTo({});
+    table.jsonb("picture").notNullable().defaultTo("{}");
     table.string("time_zone", 50); // E.g. "America/New_York"
     table.string("locale", 10); // E.g. "en-US"
     table.boolean("admin").notNullable().defaultTo(false).index();
@@ -70,8 +70,8 @@ module.exports.up = async function up(db) {
       .onUpdate("CASCADE");
     table.specificType("username", "citext").index();
     table.specificType("email", "citext").index();
-    table.jsonb("profile").notNullable().defaultTo({});
-    table.jsonb("credentials").notNullable().defaultTo({});
+    table.jsonb("profile").notNullable().defaultTo("{}");
+    table.jsonb("credentials").notNullable().defaultTo("{}");
     table.timestamp("created").notNullable().defaultTo(db.fn.now());
     table.timestamp("updated").notNullable().defaultTo(db.fn.now());
     table.primary(["provider", "id"]);
@@ -91,18 +91,16 @@ module.exports.up = async function up(db) {
       .onDelete("CASCADE")
       .index();
     table.specificType("action", "user_action_type").notNullable().index();
-    table.jsonb("metadata").notNullable().defaultTo({});
+    table.jsonb("metadata").notNullable().defaultTo("{}");
     table.timestamp("created").notNullable().defaultTo(db.fn.now()).index();
     table.timestamp("updated").notNullable().defaultTo(db.fn.now());
   });
-};
+}
 
 /**
  * Rollback function for the migration.
- *
- * @param {import("knex").Knex} db
  */
-module.exports.down = async function down(db) {
+export async function down(db: Knex) {
   await db.schema.dropTableIfExists("user_action");
   await db.schema.dropTableIfExists("identity");
   await db.schema.dropTableIfExists("user");
@@ -111,6 +109,6 @@ module.exports.down = async function down(db) {
   await db.raw("DROP DOMAIN IF EXISTS email");
   await db.raw("DROP TYPE IF EXISTS identity_provider");
   await db.raw("DROP TYPE IF EXISTS user_action_type");
-};
+}
 
-module.exports.configuration = { transaction: true };
+export const configuration = { transaction: true };

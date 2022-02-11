@@ -1,25 +1,26 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
+import knex from "knex";
+import fs from "node:fs/promises";
+import path from "node:path";
+import prettier from "prettier";
+import config from "../knexfile";
+
+const db = knex(config);
+
+async function saveSync(filename: string, data: unknown) {
+  await fs.writeFile(
+    path.resolve(__dirname, filename),
+    prettier.format(JSON.stringify(data), { parser: "json" }),
+  );
+}
+
 /**
  * Imports reference (seed) data from the database.
  *
  *   yarn db:import-seeds [--env #0]
  */
-
-const fs = require("fs");
-const path = require("path");
-const prettier = require("prettier");
-const db = require("knex")(require("../knexfile"));
-
-function saveSync(filename, data) {
-  fs.writeFileSync(
-    path.resolve(__dirname, filename),
-    prettier.format(JSON.stringify(data), { parser: "json" }),
-    "utf-8",
-  );
-}
-
 async function importData() {
   const users = await db.table("user").orderBy("created").select();
   saveSync("../seeds/01_users.json", users);

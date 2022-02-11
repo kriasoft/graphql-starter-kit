@@ -9,8 +9,8 @@ import replace from "@rollup/plugin-replace";
 import run from "@rollup/plugin-run";
 import spawn from "cross-spawn";
 import envars from "envars";
-import fs from "fs-extra";
 import minimist from "minimist";
+import fs from "node:fs/promises";
 import copy from "rollup-plugin-copy";
 import del from "rollup-plugin-delete";
 import pkg from "./package.json";
@@ -112,22 +112,19 @@ const config = {
         ],
       }),
 
-    // Prepare the output bundle for Yarn Zero-install
     !isWatch && {
       name: "yarn",
       async writeBundle() {
-        await new Promise((resolve) => {
-          spawn("yarn", ["install"], {
-            stdio: ["ignore", "inherit", "ignore"],
-            cwd: "./dist",
-            env: { ...process.env, YARN_ENABLE_IMMUTABLE_INSTALLS: "false" },
-          }).on("exit", (code) => {
-            if (code !== 0) process.exit(code);
-            resolve();
-          });
+        // Update yarn.lock file to include only the production dependencies
+        spawn.spawn("yarn", ["install"], {
+          env: { ...process.env, NODE_OPTIONS: undefined },
+          cwd: "./dist",
+          stdio: "inherit",
         });
-        await fs.remove("./dist/.yarn/unplugged");
-        await fs.remove("./dist/.yarn/install-state.gz");
+        await fs.writeFile(
+          "dist/.gcloudignore",
+          "node_modules\n.yarn/unplugged\n.yarn/install-state.gz\n.gcloudignore\n",
+        );
       },
     },
   ],
