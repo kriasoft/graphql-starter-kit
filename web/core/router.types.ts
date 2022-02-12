@@ -30,7 +30,10 @@ export type RouterResponse<
 
 export type Route<
   Component extends FunctionComponent<any> | ComponentClass<any>,
-  QueryResponse = unknown,
+  Query extends { variables: Variables; response: unknown } = {
+    variables: Variables;
+    response: any;
+  },
 > = {
   /**
    * URL path pattern.
@@ -43,7 +46,7 @@ export type Route<
   /**
    * GraphQL query variables.
    */
-  variables?: ((ctx: RouterContext) => Variables) | Variables;
+  variables?: ((ctx: RouterContext) => Query["variables"]) | Query["variables"];
   /**
    * Authorization rule(s) / permissions.
    */
@@ -57,7 +60,7 @@ export type Route<
    * once the route was successfully resolved.
    */
   response: (
-    queryResponse: QueryResponse,
+    queryResponse: Query["response"],
     context: RouterContext,
   ) => RouterResponse<Component>;
 };

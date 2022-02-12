@@ -3,7 +3,7 @@
 
 import { graphql } from "relay-runtime";
 import type { Route } from "../../core";
-import type { userProfileQueryResponse } from "../../queries/userProfileQuery.graphql";
+import type { userProfileQuery } from "../../queries/userProfileQuery.graphql";
 import type UserProfile from "./UserProfile";
 
 /**
@@ -32,4 +32,4 @@ export default {
       title: `${data.user.name} (@${data.user.username}) · React App`,
       props: data,
     },
-} as Route<typeof UserProfile, userProfileQueryResponse>;
+} as Route<typeof UserProfile, userProfileQuery>;
