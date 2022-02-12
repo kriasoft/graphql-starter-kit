@@ -22,7 +22,7 @@ export default {
           process.env.PGSSLCERT,
           process.env.PGSSLKEY,
           process.env.PGSSLROOTCERT,
-        ].map((file) => fs.readFile(file, "ascii")),
+        ].map((file) => fs.readFile(file as string, "ascii")),
       );
       config.ssl = { cert, key, ca, servername: process.env.PGSERVERNAME };
     }
