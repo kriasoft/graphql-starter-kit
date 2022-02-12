@@ -66,8 +66,7 @@ function handleClick(event: React.MouseEvent<HTMLAnchorElement>): void {
     !isModifiedEvent(event) // ignore clicks with modifier keys
   ) {
     event.preventDefault();
-    import("history/browser").then((x) =>
-      x.default.push(event.currentTarget.href),
-    );
+    const { href } = event.currentTarget;
+    import("history/browser").then((x) => x.default.push(href));
   }
 }
