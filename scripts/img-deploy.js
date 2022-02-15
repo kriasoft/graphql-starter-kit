@@ -31,15 +31,19 @@ const envVars = [
   `CACHE_BUCKET=${env.CACHE_BUCKET}`,
 ];
 
-await $`gcloud functions deploy img ${[
+await $`gcloud beta functions deploy img ${[
   `--project=${env.GOOGLE_CLOUD_PROJECT}`,
   `--region=${env.GOOGLE_CLOUD_REGION}`,
   `--allow-unauthenticated`,
   `--entry-point=img`,
+  `--gen2`,
   `--memory=2GB`,
   `--runtime=nodejs16`,
+  `--signature-type=http`,
   `--source=${path.resolve(__dirname, "../img")}`,
-  `--timeout=30`,
+  `--timeout=30s`,
   `--set-env-vars=${envVars.join(",")}`,
+  `--min-instances=0`,
+  `--max-instances=4`,
   `--trigger-http`,
 ]}`;

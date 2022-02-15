@@ -37,19 +37,20 @@ delete env.PGSERVERNAME;
 
 const name = args.version ? `api_${args.version}` : `api`;
 
-await $`gcloud functions deploy ${name} ${[
+await $`gcloud beta functions deploy ${name} ${[
   `--project=${process.env.GOOGLE_CLOUD_PROJECT}`,
   `--region=${region}`,
   `--allow-unauthenticated`,
   `--entry-point=api`,
-  // `--gen2`,
+  `--gen2`,
   `--memory=1G`,
   `--runtime=nodejs16`,
-  // `--signature-type=http`,
+  `--signature-type=http`,
   `--source=./dist`,
-  `--timeout=30`,
+  `--timeout=30s`,
   `--set-env-vars=NODE_OPTIONS=--require=./.pnp.cjs --require=source-map-support/register --no-warnings`,
   ...Object.keys(env).map((key) => `--set-env-vars=${key}=${env[key]}`),
+  `--min-instances=0`,
   `--max-instances=4`,
   `--trigger-http`,
 ]}`;
