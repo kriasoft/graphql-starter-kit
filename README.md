@@ -69,6 +69,7 @@ The web application front-end must become available at [http://localhost:3000/](
 
 ## References
 
+- [Getting Started with Cloud Functions (2nd gen)](https://codelabs.developers.google.com/codelabs/cloud-starting-cloudfunctions-v2)
 - [Yarn 2 (Berry) - Plug'n'play, constraints and workspaces](https://www.youtube.com/watch?v=HUVawJXeHfU) by [@jherr](https://github.com/jherr)
 - [Google Cloud SQL — Tips & Tricks](https://medium.com/@koistya/google-cloud-sql-tips-tricks-d0fe7106c68a?sk=fe65df6e858c9b57edbda07bc67ed0e9) by [@koistya](https://github.com/koistya)
 - [Database change management with Node.js](https://dev.to/koistya/database-change-management-with-node-js-12dk) by [@koistya](https://github.com/koistya)
