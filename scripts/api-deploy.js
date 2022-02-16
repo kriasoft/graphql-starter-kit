@@ -1,15 +1,6 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-/**
- * Deploys the "api" package to Google Cloud Functions (GCF). Usage:
- *
- *   $ yarn api:deploy [--env #0]
- *
- * @see https://cloud.google.com/functions
- * @see https://cloud.google.com/sdk/gcloud/reference/functions/deploy
- */
-
 import envars from "envars";
 import minimist from "minimist";
 import { $ } from "zx";
@@ -35,8 +26,16 @@ delete env.PGSSLKEY;
 delete env.PGSSLROOTCERT;
 delete env.PGSERVERNAME;
 
-const name = args.version ? `api_${args.version}` : `api`;
+const name = args.version ? `api-${args.version}` : `api`;
 
+/**
+ * Deploys the "api" package to Google Cloud Functions (GCF). Usage:
+ *
+ *   $ yarn api:deploy [--env #0]
+ *
+ * @see https://cloud.google.com/functions
+ * @see https://cloud.google.com/sdk/gcloud/reference/functions/deploy
+ */
 await $`gcloud beta functions deploy ${name} ${[
   `--project=${process.env.GOOGLE_CLOUD_PROJECT}`,
   `--region=${region}`,

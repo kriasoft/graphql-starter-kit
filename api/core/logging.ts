@@ -1,68 +1,70 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { Logging } from "@google-cloud/logging";
-import { Request } from "express";
-import type { GraphQLParams } from "graphql-helix";
+import { type Request, type Response } from "express";
+import { type GraphQLParams } from "graphql-helix";
+import { HttpError } from "http-errors";
 import PrettyError from "pretty-error";
 import env from "../env";
-
-// https://googleapis.dev/nodejs/logging/latest/
-const logging = new Logging();
-const log = logging.log("cloudfunctions.googleapis.com/cloud-functions");
 
 // https://github.com/AriaMinaei/pretty-error#readme
 const pe = new PrettyError();
 
+pe.skipNodeFiles();
+pe.skipPackage("express");
+
+export type LogSeverity =
+  | "DEFAULT"
+  | "DEBUG"
+  | "INFO"
+  | "NOTICE"
+  | "WARNING"
+  | "ERROR"
+  | "CRITICAL"
+  | "ALERT"
+  | "EMERGENCY";
+
 /**
- * Logs application errors to Google StackDriver when in production,
- * otherwise just print them to the console using PrettyError formatter.
+ * Write log messages alongside the required metadata to stdin/stdout.
+ *
+ * @see https://cloud.google.com/functions/docs/monitoring/logging
  */
-export function reportError(
-  err: Error,
+export function log(
   req: Request,
+  res: Response,
+  severity: LogSeverity,
+  data: string | Record<string, unknown> | Error | HttpError,
   context?: GraphQLParams | Record<string, unknown>,
-): void {
-  if (!env.isProduction) {
-    console.error(pe.render(err));
-    return;
+) {
+  if (env.isProduction) {
+    const traceId = req.get("x-cloud-trace-context")?.split("/")?.[0] as string;
+    const message = JSON.stringify({
+      severity,
+      httpRequest: {
+        requestMethod: req.method,
+        requestUrl: `${req.protocol}://${req.get("host")}/${req.originalUrl}`,
+        userAgent: req.get("user-agent"),
+        referrer: req.headers.referer,
+        responseStatusCode: res.headersSent
+          ? res.statusCode
+          : (data as { statusCode: number }).statusCode ?? undefined,
+        remoteIp: req.ip,
+      },
+      "logging.googleapis.com/trace": `projects/${env.GOOGLE_CLOUD_PROJECT}/traces/${traceId}`,
+      ...(typeof data === "string"
+        ? { message: data }
+        : data instanceof Error
+        ? { message: data.stack }
+        : data),
+      context,
+    });
+
+    console.log(message);
+  } else {
+    if (data instanceof Error || data instanceof HttpError) {
+      console.error(pe.render(data));
+    } else {
+      console.log(severity, data, context);
+    }
   }
-
-  // E.g. us-central-example.cloudfunctions.net
-  const host = req.get("host") as string;
-
-  // https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry
-  log.error(
-    log.entry(
-      {
-        resource: {
-          type: "cloud_function",
-          labels: {
-            region: host.substring(0, host.indexOf("-", host.indexOf("-") + 1)),
-            function_name: process.env.FUNCTION_TARGET as string,
-          },
-        },
-        httpRequest: {
-          requestMethod: req.method,
-          requestUrl: req.originalUrl,
-          userAgent: req.get("user-agent"),
-          remoteIp: req.ip,
-          referer: req.headers.referer,
-          latency: null,
-        },
-        labels: {
-          execution_id: req.get("function-execution-id") as string,
-        },
-      },
-      {
-        message: err.stack,
-        context: {
-          ...context,
-          user: req.user
-            ? { id: req.user.id, username: req.user.username }
-            : null,
-        },
-      },
-    ),
-  );
 }

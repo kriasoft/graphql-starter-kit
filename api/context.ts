@@ -2,8 +2,10 @@
 /* SPDX-License-Identifier: MIT */
 
 import DataLoader from "dataloader";
-import { Request } from "express";
+import { type Request, type Response } from "express";
+import { type GraphQLParams } from "graphql-helix";
 import { Forbidden, Unauthorized } from "http-errors";
+import { log, type LogSeverity } from "./core";
 import db, { Identity, User } from "./db";
 import { mapTo, mapToMany } from "./utils";
 
@@ -12,17 +14,28 @@ import { mapTo, mapToMany } from "./utils";
  * @see https://graphql.org/learn/execution/
  */
 export class Context extends Map<symbol, unknown> {
-  readonly req: Request;
+  readonly #req: Request;
+  readonly #res: Response;
+  readonly params: GraphQLParams;
 
-  constructor(req: Request) {
+  constructor(req: Request, res: Response, params: GraphQLParams) {
     super();
-    this.req = req;
+    this.#req = req;
+    this.#res = res;
+    this.params = params;
 
     // Add the currently logged in user object to the cache
-    if (req.user) {
-      this.userById.prime(req.user.id, req.user);
-      this.userByUsername.prime(req.user.username, req.user);
+    if (this.#req.user) {
+      this.userById.prime(this.#req.user.id, this.#req.user);
+      this.userByUsername.prime(this.#req.user.username, this.#req.user);
     }
+  }
+
+  log(
+    severity: LogSeverity,
+    data: string | Record<string, unknown> | Error,
+  ): void {
+    log(this.#req, this.#res, severity, data, this.params);
   }
 
   /*
@@ -30,23 +43,23 @@ export class Context extends Map<symbol, unknown> {
    * ------------------------------------------------------------------------ */
 
   get user(): User | null {
-    return this.req.user;
+    return this.#req.user;
   }
 
   signIn(user: User | null | undefined): Promise<User | null> {
-    return this.req.signIn(user);
+    return this.#req.signIn(user);
   }
 
   signOut(): void {
-    this.req.signOut();
+    this.#req.signOut();
   }
 
   ensureAuthorized(check?: (user: User) => boolean): void {
-    if (!this.req.user) {
+    if (!this.#req.user) {
       throw new Unauthorized();
     }
 
-    if (check && !check(this.req.user)) {
+    if (check && !check(this.#req.user)) {
       throw new Forbidden();
     }
   }

@@ -3,7 +3,7 @@
 
 import { ErrorRequestHandler } from "express";
 import { isHttpError } from "http-errors";
-import { reportError } from "./core";
+import { log } from "./core";
 
 /**
  * Renders an error page.
@@ -14,7 +14,7 @@ export const handleError: ErrorRequestHandler = function (
   res,
   next, // eslint-disable-line @typescript-eslint/no-unused-vars
 ) {
-  reportError(err, req);
+  log(req, res, "ERROR", err);
 
   const statusCode = isHttpError(err) ? err.statusCode : 500;
   res.status(statusCode);

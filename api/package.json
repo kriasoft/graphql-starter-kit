@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^2.1.1",
-    "@google-cloud/logging": "^9.6.9",
     "@google-cloud/storage": "^5.18.1",
     "@sendgrid/mail": "^7.6.1",
     "argon2": "^0.28.4",

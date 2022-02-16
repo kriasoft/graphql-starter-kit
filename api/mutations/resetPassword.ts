@@ -5,7 +5,6 @@ import sgMail, { ResponseError } from "@sendgrid/mail";
 import argon2 from "argon2";
 import { GraphQLFieldConfig, GraphQLObjectType, GraphQLString } from "graphql";
 import { Context } from "../context";
-import { reportError } from "../core";
 import db, { User, UserAction, UserActionType } from "../db";
 import env from "../env";
 import { UserType } from "../types";
@@ -97,7 +96,7 @@ export const resetPassword: GraphQLFieldConfig<unknown, Context> = {
         });
       } catch (err) {
         if (err instanceof ResponseError) {
-          reportError(err, ctx.req, { body: err.response?.body });
+          ctx.log("ERROR", err.response?.body);
         }
         throw new Error("Failed to send the verification code.");
       }

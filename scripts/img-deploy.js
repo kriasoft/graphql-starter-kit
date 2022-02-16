@@ -1,15 +1,6 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-/**
- * Deploys the "img" package to Google Cloud Functions (GCF). Usage:
- *
- *   $ yarn img:deploy [--env #0]
- *
- * @see https://cloud.google.com/functions
- * @see https://cloud.google.com/sdk/gcloud/reference/functions/deploy
- */
-
 import envars from "envars";
 import minimist from "minimist";
 import path from "node:path";
@@ -31,6 +22,14 @@ const envVars = [
   `CACHE_BUCKET=${env.CACHE_BUCKET}`,
 ];
 
+/**
+ * Deploys the "img" package to Google Cloud Functions (GCF). Usage:
+ *
+ *   $ yarn img:deploy [--env #0]
+ *
+ * @see https://cloud.google.com/functions
+ * @see https://cloud.google.com/sdk/gcloud/reference/functions/deploy
+ */
 await $`gcloud beta functions deploy img ${[
   `--project=${env.GOOGLE_CLOUD_PROJECT}`,
   `--region=${env.GOOGLE_CLOUD_REGION}`,
