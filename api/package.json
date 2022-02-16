@@ -17,8 +17,8 @@
     "api:deploy": "yarn workspace api run deploy"
   },
   "dependencies": {
-    "@google-cloud/functions-framework": "^2.1.1",
-    "@google-cloud/storage": "^5.18.1",
+    "@google-cloud/functions-framework": "^3.0.0",
+    "@google-cloud/storage": "^5.18.2",
     "@sendgrid/mail": "^7.6.1",
     "argon2": "^0.28.4",
     "cookie": "^0.4.2",
@@ -51,8 +51,8 @@
     "validator-fluent": "^0.4.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.0",
-    "@babel/core": "^7.17.2",
+    "@babel/cli": "^7.17.3",
+    "@babel/core": "^7.17.4",
     "@babel/node": "^7.16.8",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
