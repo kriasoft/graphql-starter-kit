@@ -11,6 +11,9 @@ const appName = process.env.APP_NAME?.replace(/^W/g, "");
  * @see https://github.com/af/envalid
  */
 export default cleanEnv(process.env, {
+  GOOGLE_CLOUD_PROJECT: str(),
+  GOOGLE_CLOUD_REGION: str(),
+
   APP_NAME: str(),
   APP_ORIGIN: url(),
   APP_ENV: str({ choices: ["prod", "test", "local"] }),

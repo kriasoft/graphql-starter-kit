@@ -14,7 +14,7 @@ import { HttpError } from "http-errors";
 import fs from "node:fs/promises";
 import { ValidationError } from "validator-fluent";
 import { Context } from "./context";
-import { reportError } from "./core";
+import { log } from "./core";
 import schema from "./schema";
 
 // Customize GraphQL error serialization
@@ -52,14 +52,14 @@ async function handleGraphQL(req: Request, res: Response, next: NextFunction) {
         variables: params.variables,
         request: req,
         schema,
-        contextFactory: () => new Context(req),
+        contextFactory: () => new Context(req, res, params),
       });
 
       sendResult(result, res, (result) => ({
         data: result.data,
         errors: result.errors?.map((err) => {
           if (!(err.originalError instanceof ValidationError)) {
-            reportError(err, req, params);
+            log(req, res, "ERROR", err, params);
           }
           return err;
         }),
