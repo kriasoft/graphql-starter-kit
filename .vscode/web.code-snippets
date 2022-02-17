@@ -42,7 +42,7 @@
       "type Input = ${1/(.)(.*)/${1:/upcase}$2/}Input;",
       "type InputErrors = { [key in keyof Input | \"_\"]?: string[] };",
       "",
-      "export function use${1/(.)(.*)/${1:/upcase}$2/}(): {",
+      "function use${1/(.)(.*)/${1:/upcase}$2/}(): {",
       "  input: Input;",
       "  errors: InputErrors;",
       "  loading: boolean;",
@@ -86,6 +86,8 @@
       "    [input, errors, loading, handleChange, handleSubmit],",
       "  );",
       "}",
+      "",
+      "export { use${1}, type Input, type InputErrors };",
       ""
     ],
     "description": "Mutation React Hook"
