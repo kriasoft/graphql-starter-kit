@@ -3,10 +3,10 @@
 
 import { Container, Link, Typography } from "@mui/material";
 import * as React from "react";
-import { useAuth, useNavigate } from "../../core";
-import type { homeQueryResponse as Props } from "../../queries/homeQuery.graphql";
+import { useAuth, useNavigate } from "../core";
+import { type HomeQuery$data } from "../queries/HomeQuery.graphql";
 
-export default function Home(props: Props): JSX.Element {
+function Home(props: HomeQuery$data): JSX.Element {
   const { me } = props;
   const navigate = useNavigate();
   const auth = useAuth();
@@ -48,3 +48,6 @@ export default function Home(props: Props): JSX.Element {
     </Container>
   );
 }
+
+export default Home;
+export type Home = typeof Home;

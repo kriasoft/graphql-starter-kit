@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1db0c5ec26c9dd267a97f0b03bbbc763>>
+ * @generated SignedSource<<e96d350c3be167325c3543ec0b55289c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,6 @@ export type UploadSaveMutation$variables = {
   uploadURL: string;
   uploadType: UploadType;
 };
-export type UploadSaveMutationVariables = UploadSaveMutation$variables;
 export type UploadSaveMutation$data = {
   readonly saveUpload: {
     readonly user: {
@@ -26,9 +25,8 @@ export type UploadSaveMutation$data = {
     } | null;
   } | null;
 };
-export type UploadSaveMutationResponse = UploadSaveMutation$data;
 export type UploadSaveMutation = {
-  variables: UploadSaveMutationVariables;
+  variables: UploadSaveMutation$variables;
   response: UploadSaveMutation$data;
 };
 

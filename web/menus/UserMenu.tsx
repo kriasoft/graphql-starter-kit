@@ -25,7 +25,7 @@ type UserMenuProps = Omit<
   | "transformOrigin"
 >;
 
-export function UserMenu(props: UserMenuProps): JSX.Element {
+function UserMenu(props: UserMenuProps): JSX.Element {
   const { PaperProps, MenuListProps, ...other } = props;
 
   const [theme, toggleTheme] = useTheme();
@@ -92,3 +92,5 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
     </Menu>
   );
 }
+
+export { UserMenu, type UserMenuProps };

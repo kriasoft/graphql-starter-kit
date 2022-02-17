@@ -8,7 +8,7 @@
       "",
       "type ${TM_FILENAME_BASE}Props = Omit<${1}Props, \"children\">;",
       "",
-      "export function ${TM_FILENAME_BASE}(props: ${TM_FILENAME_BASE}Props): JSX.Element {",
+      "function ${TM_FILENAME_BASE}(props: ${TM_FILENAME_BASE}Props): JSX.Element {",
       "  const { sx, ...other } = props;",
       "",
       "  return (",
@@ -17,6 +17,8 @@
       "    </$1>",
       "  );",
       "}",
+      "",
+      "export { ${TM_FILENAME_BASE}, type ${TM_FILENAME_BASE}Props };",
       ""
     ],
     "description": "React Component"
@@ -40,7 +42,7 @@
       "type Input = ${1/(.)(.*)/${1:/upcase}$2/}Input;",
       "type InputErrors = { [key in keyof Input | \"_\"]?: string[] };",
       "",
-      "export function use${1/(.)(.*)/${1:/upcase}$2/}(): {",
+      "function use${1/(.)(.*)/${1:/upcase}$2/}(): {",
       "  input: Input;",
       "  errors: InputErrors;",
       "  loading: boolean;",
@@ -84,6 +86,8 @@
       "    [input, errors, loading, handleChange, handleSubmit],",
       "  );",
       "}",
+      "",
+      "export { use${1}, type Input, type InputErrors };",
       ""
     ],
     "description": "Mutation React Hook"

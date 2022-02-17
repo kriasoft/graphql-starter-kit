@@ -21,7 +21,7 @@ type AppProps = {
   relay: Environment;
 };
 
-export class App extends React.Component<AppProps> {
+class App extends React.Component<AppProps> {
   state = {
     route: undefined as RouteResponse | undefined,
     location: this.props.history.location,
@@ -107,3 +107,5 @@ export class App extends React.Component<AppProps> {
     );
   }
 }
+
+export { App };

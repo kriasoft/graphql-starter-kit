@@ -1,14 +1,21 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import type { Match, MatchFunction } from "path-to-regexp";
-import { match as createMatchFn } from "path-to-regexp";
+import {
+  match as createMatchFn,
+  type Match,
+  type MatchFunction,
+} from "path-to-regexp";
 import { fetchQuery } from "react-relay";
 import { getRequest } from "relay-runtime";
 import routes from "../routes";
 import { getCurrentUser } from "./Auth";
 import { ForbiddenError, NotFoundError } from "./errors";
-import type { Route, RouterContext, RouterResponse } from "./router.types";
+import {
+  type Route,
+  type RouterContext,
+  type RouterResponse,
+} from "./router.types";
 
 /**
  * Converts the URL path string to a RegExp matching function.
@@ -30,9 +37,7 @@ const matchUrlPath: (
   };
 })();
 
-export async function resolveRoute(
-  ctx: RouterContext,
-): Promise<RouterResponse> {
+async function resolveRoute(ctx: RouterContext): Promise<RouterResponse> {
   try {
     // Find the first route matching the provided URL path string
     for (let i = 0, route; i < routes.length, (route = routes[i]); i++) {
@@ -98,4 +103,9 @@ export async function resolveRoute(
   }
 }
 
-export type { RouterContext, RouterResponse as RouteResponse, Route };
+export {
+  resolveRoute,
+  type Route,
+  type RouterContext,
+  type RouterResponse as RouteResponse,
+};

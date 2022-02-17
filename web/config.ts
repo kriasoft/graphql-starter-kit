@@ -4,7 +4,7 @@
 /**
  * Client-side application settings for the local development environment.
  */
-export const local = {
+const local = {
   // Core application settings
   app: {
     name: "Example",
@@ -24,12 +24,18 @@ export const local = {
     authDomain: "https://example-test.firebaseapp.com",
     projectId: "example-test",
   },
+  // Google Analytics
+  // https://developers.google.com/analytics/devguides/collection
+  gtag: {
+    trackingID: "G-XXXXXXXX",
+    anonymizeIP: true,
+  },
 };
 
 /**
  * Client-side application settings for the test / QA environment.
  */
-export const test: typeof local = {
+const test: typeof local = {
   app: {
     ...local.app,
     origin: "https://test.example.com",
@@ -44,12 +50,13 @@ export const test: typeof local = {
     authDomain: "https://example-test.firebaseapp.com",
     projectId: "example-test",
   },
+  gtag: local.gtag,
 };
 
 /**
  * Client-side application settings for the production environment.
  */
-export const prod: typeof local = {
+const prod: typeof local = {
   app: {
     ...local.app,
     origin: "https://example.com",
@@ -64,7 +71,9 @@ export const prod: typeof local = {
     authDomain: "https://example.firebaseapp.com",
     projectId: "example",
   },
+  gtag: local.gtag,
 };
 
 export type Config = typeof local;
+export { local, test, prod };
 export default { local, test, prod };

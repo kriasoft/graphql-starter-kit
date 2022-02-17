@@ -3,11 +3,11 @@
 
 import * as React from "react";
 import { graphql, useMutation } from "react-relay";
-import { useAuth } from "../../core";
-import { UpdateUserInput } from "../../queries/SettingsMutation.graphql";
+import { useAuth } from "../core";
+import { type UpdateUserInput } from "../queries/AccountSettingsMutation.graphql";
 
 const mutation = graphql`
-  mutation SettingsMutation($input: UpdateUserInput!) {
+  mutation AccountSettingsMutation($input: UpdateUserInput!) {
     updateUser(input: $input) {
       user {
         ...Auth_user
@@ -16,10 +16,10 @@ const mutation = graphql`
   }
 `;
 
-export type Input = UpdateUserInput;
-export type InputErrors = { [key in keyof Input | "_"]?: string[] };
+type Input = UpdateUserInput;
+type InputErrors = { [key in keyof Input | "_"]?: string[] };
 
-export function useState(): {
+function useState(): {
   input: Input;
   errors: InputErrors;
   loading: boolean;
@@ -67,3 +67,5 @@ export function useState(): {
     [input, errors, loading, handleChange, handleSubmit],
   );
 }
+
+export { useState, type Input, type InputErrors };

@@ -9,9 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import * as React from "react";
-import type { Input } from "./Settings.hooks";
-import { useState } from "./Settings.hooks";
+import { useState, type Input } from "./AccountSettings.hooks";
 
 const fields: { key: keyof Input; label: string }[] = [
   { key: "name", label: "Display Name" },
@@ -19,7 +17,7 @@ const fields: { key: keyof Input; label: string }[] = [
   { key: "username", label: "Username" },
 ];
 
-export default function Settings(): JSX.Element {
+function AccountSettings(): JSX.Element {
   const { input, errors, loading, handleChange, handleSubmit } = useState();
 
   return (
@@ -30,7 +28,7 @@ export default function Settings(): JSX.Element {
       <Typography
         sx={{ marginBottom: (theme) => theme.spacing(2) }}
         variant="h2"
-        children="Account Settings"
+        children="Account AccountSettings"
       />
 
       <Box
@@ -53,8 +51,8 @@ export default function Settings(): JSX.Element {
         {fields.map((x) => (
           <TextField
             sx={{ marginBottom: (theme) => theme.spacing(2) }}
-            key={x.key}
-            name={x.key}
+            key={x.key as string}
+            name={x.key as string}
             type={x.key === "email" ? "email" : "text"}
             label={x.label}
             value={input[x.key]}
@@ -71,3 +69,6 @@ export default function Settings(): JSX.Element {
     </Container>
   );
 }
+
+export default AccountSettings;
+export type AccountSettings = typeof AccountSettings;

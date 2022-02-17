@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cc256733c8546e8ceb912bfea77197b8>>
+ * @generated SignedSource<<2d54313240795035ec2265dce22778a2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,7 +20,6 @@ export type Auth_user$data = {
   };
   readonly " $fragmentType": "Auth_user";
 };
-export type Auth_user = Auth_user$data;
 export type Auth_user$key = {
   readonly " $data"?: Auth_user$data;
   readonly " $fragmentSpreads": FragmentRefs<"Auth_user">;

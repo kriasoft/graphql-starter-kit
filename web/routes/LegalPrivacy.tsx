@@ -2,13 +2,12 @@
 /* SPDX-License-Identifier: MIT */
 
 import { Container, Link, Typography } from "@mui/material";
-import * as React from "react";
-import { useConfig } from "../../core";
+import { useConfig } from "../core";
 
 /**
  * Generated with https://getterms.io
  */
-export default function Privacy(): JSX.Element {
+function Privacy(): JSX.Element {
   const config = useConfig();
   const appName = config.app.name;
   const email = `support@${new URL(config.app.origin).hostname}`;
@@ -311,3 +310,6 @@ export default function Privacy(): JSX.Element {
     </Container>
   );
 }
+
+export default Privacy;
+export type Privacy = typeof Privacy;

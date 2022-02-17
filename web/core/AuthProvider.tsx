@@ -138,11 +138,13 @@ function AuthProvider(props: AuthProviderProps): JSX.Element {
           const width = 520;
           const height = 600;
           const left =
-            window.top?.outerWidth ??
-            0 / 2 + (window.top?.screenX ?? 0) - width / 2;
+            (window.top?.outerWidth ?? 0) / 2 +
+            (window.top?.screenX ?? 0) -
+            width / 2;
           const top =
-            window.top?.outerHeight ??
-            0 / 2 + (window.top?.screenY ?? 0) - height / 2;
+            (window.top?.outerHeight ?? 0) / 2 +
+            (window.top?.screenY ?? 0) -
+            height / 2;
           loginWindow = window.open(
             url,
             "login",

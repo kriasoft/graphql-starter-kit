@@ -19,7 +19,7 @@ import { NotificationsMenu, UserMenu } from "../menus";
 
 type AppToolbarProps = Omit<AppBarProps, "children">;
 
-export function AppToolbar(props: AppToolbarProps): JSX.Element {
+function AppToolbar(props: AppToolbarProps): JSX.Element {
   const menuAnchorRef = React.createRef<HTMLButtonElement>();
   const { me, signIn } = useAuth();
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
               <Avatar alt={me.name || ""} src={me.picture.url || undefined} />
             }
             label={getFirstName(me.name || "")}
-            href={`/@${me.username}`}
+            href={`/u/${me.username}`}
             onClick={navigate}
           />
         )}
@@ -121,11 +121,12 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
         )}
         {!me && (
           <Button
+            sx={{ textTransform: "none" }}
             variant="outlined"
             href="/auth/google"
             color="primary"
             onClick={handleSignIn}
-            children="Log in / Register"
+            children="Log In / Sign Up"
           />
         )}
       </Toolbar>
@@ -149,3 +150,5 @@ export function AppToolbar(props: AppToolbarProps): JSX.Element {
 function getFirstName(displayName: string): string {
   return displayName && displayName.split(" ")[0];
 }
+
+export { AppToolbar };

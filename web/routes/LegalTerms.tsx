@@ -2,13 +2,12 @@
 /* SPDX-License-Identifier: MIT */
 
 import { Container, Link, Typography } from "@mui/material";
-import * as React from "react";
-import { useConfig } from "../../core";
+import { useConfig } from "../core";
 
 /**
  * Generated with https://getterms.io
  */
-export default function Terms(): JSX.Element {
+function Terms(): JSX.Element {
   const config = useConfig();
   const appName = config.app.name;
   const appOrigin = config.app.origin;
@@ -183,3 +182,6 @@ export default function Terms(): JSX.Element {
     </Container>
   );
 }
+
+export default Terms;
+export type Terms = typeof Terms;
