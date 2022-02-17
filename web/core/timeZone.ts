@@ -3,7 +3,7 @@
 
 let timeZone: string;
 
-export function getTimeZone(): string | null {
+function getTimeZone(): string | null {
   if (!timeZone) {
     try {
       timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -15,3 +15,5 @@ export function getTimeZone(): string | null {
 
   return timeZone;
 }
+
+export { getTimeZone };

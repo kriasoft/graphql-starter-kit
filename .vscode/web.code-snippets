@@ -8,7 +8,7 @@
       "",
       "type ${TM_FILENAME_BASE}Props = Omit<${1}Props, \"children\">;",
       "",
-      "export function ${TM_FILENAME_BASE}(props: ${TM_FILENAME_BASE}Props): JSX.Element {",
+      "function ${TM_FILENAME_BASE}(props: ${TM_FILENAME_BASE}Props): JSX.Element {",
       "  const { sx, ...other } = props;",
       "",
       "  return (",
@@ -17,6 +17,8 @@
       "    </$1>",
       "  );",
       "}",
+      "",
+      "export { ${TM_FILENAME_BASE}, type ${TM_FILENAME_BASE}Props };",
       ""
     ],
     "description": "React Component"

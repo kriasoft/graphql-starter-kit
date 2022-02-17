@@ -11,7 +11,7 @@ type Config = {
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export function createRelay(config: Config = {}): Environment {
+function createRelay(config: Config = {}): Environment {
   const recordSource = new RecordSource(config.records);
   const store = new Store(recordSource);
   const baseUrl = config.baseUrl || "";
@@ -36,6 +36,8 @@ export function createRelay(config: Config = {}): Environment {
   });
 }
 
-export function toRawId<T extends string | null | undefined>(globalId: T): T {
+function toRawId<T extends string | null | undefined>(globalId: T): T {
   return globalId && (atob(globalId).split(":")[1] as T);
 }
+
+export { createRelay, toRawId };

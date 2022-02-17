@@ -14,7 +14,7 @@ type NotificationsMenuProps = Omit<
   | "transformOrigin"
 >;
 
-export function NotificationsMenu(props: NotificationsMenuProps): JSX.Element {
+function NotificationsMenu(props: NotificationsMenuProps): JSX.Element {
   const { PaperProps, ...other } = props;
 
   return (
@@ -33,3 +33,5 @@ export function NotificationsMenu(props: NotificationsMenuProps): JSX.Element {
     </Menu>
   );
 }
+
+export { NotificationsMenu, type NotificationsMenuProps };

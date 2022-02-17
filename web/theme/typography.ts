@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import type { ThemeOptions } from "@mui/material/styles";
+import { type ThemeOptions } from "@mui/material/styles";
 
 type Func = () => NonNullable<ThemeOptions["typography"]>;
 
@@ -11,7 +11,7 @@ type Func = () => NonNullable<ThemeOptions["typography"]>;
  * @see https://mui.com/customization/typography/
  * @see https://mui.com/customization/default-theme/?expand-path=$.typography
  */
-export const createTypography: Func = () => ({
+const createTypography: Func = () => ({
   fontFamily: [
     `system-ui`,
     `-apple-system`,
@@ -43,3 +43,5 @@ export const createTypography: Func = () => ({
     fontSize: "1rem",
   },
 });
+
+export { createTypography };

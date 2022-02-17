@@ -121,5 +121,14 @@ function useFetchUser(): () => Promise<User | null> {
   );
 }
 
-export { getCurrentUser, query, selector, useFetchUser, useSignOut, variables };
-export type { AuthQuery, User, LoginMethod };
+export {
+  getCurrentUser,
+  query,
+  selector,
+  useFetchUser,
+  useSignOut,
+  variables,
+  type AuthQuery,
+  type LoginMethod,
+  type User,
+};

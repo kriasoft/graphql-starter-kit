@@ -5,12 +5,12 @@ import { Container, CssBaseline, Typography } from "@mui/material";
 import * as React from "react";
 import type { History } from "../core/history";
 
-export type ErrorPageProps = {
+type ErrorPageProps = {
   error: Error;
   history: History;
 };
 
-export function ErrorPage(props: ErrorPageProps): JSX.Element {
+function ErrorPage(props: ErrorPageProps): JSX.Element {
   const { error } = props;
 
   return (
@@ -35,3 +35,5 @@ export function ErrorPage(props: ErrorPageProps): JSX.Element {
     </Container>
   );
 }
+
+export { ErrorPage, type ErrorPageProps };

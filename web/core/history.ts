@@ -4,23 +4,22 @@
 import type {
   History as HistoryBase,
   Location as LocationBase,
-  State,
   To,
 } from "history";
 import { Action } from "history";
 import * as React from "react";
 
-export type History = HistoryBase<State>;
-export type Location = LocationBase<State>;
+type History = HistoryBase;
+type Location = LocationBase;
 
 // Provide the default history object (for unit testing)
-export const HistoryContext = React.createContext<History>({
+const HistoryContext = React.createContext<History>({
   action: Action.Pop,
   location: { key: "", pathname: "/", search: "" },
 } as History);
 
 // Provide the default location object (for unit testing)
-export const LocationContext = React.createContext<Location>({
+const LocationContext = React.createContext<Location>({
   key: "",
   pathname: "/",
   search: "",
@@ -34,20 +33,20 @@ function isModifiedEvent(event: React.MouseEvent<HTMLElement>) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
-export function useHistory(): History {
+function useHistory(): History {
   return React.useContext(HistoryContext);
 }
 
-export function useLocation(): Location {
+function useLocation(): Location {
   return React.useContext(LocationContext);
 }
 
-export function useURLSearchParams(): URLSearchParams {
+function useURLSearchParams(): URLSearchParams {
   const { search } = React.useContext(LocationContext);
   return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-export function useURLSearchParam(name: string): Set<string> {
+function useURLSearchParam(name: string): Set<string> {
   const param = useURLSearchParams().get(name);
   return React.useMemo(() => new Set(param?.split(",") ?? []), [param]);
 }
@@ -55,9 +54,7 @@ export function useURLSearchParam(name: string): Set<string> {
 /**
  * Generates a new URL with added or removed URL search parameter.
  */
-export function useGetSearchURL(
-  name: string,
-): (value?: string | null) => string {
+function useGetSearchURL(name: string): (value?: string | null) => string {
   const location = React.useContext(LocationContext);
   const selected = useURLSearchParam(name);
 
@@ -85,7 +82,7 @@ export function useGetSearchURL(
   );
 }
 
-export function useNavigate<T extends HTMLElement = HTMLAnchorElement>(
+function useNavigate<T extends HTMLElement = HTMLAnchorElement>(
   method: "push" | "replace" = "push",
 ): (event: React.MouseEvent<T>) => void {
   const history = useHistory();
@@ -106,3 +103,16 @@ export function useNavigate<T extends HTMLElement = HTMLAnchorElement>(
     [history],
   );
 }
+
+export {
+  HistoryContext,
+  LocationContext,
+  useGetSearchURL,
+  useHistory,
+  useLocation,
+  useNavigate,
+  useURLSearchParam,
+  useURLSearchParams,
+  type History,
+  type Location,
+};

@@ -48,7 +48,7 @@ type FileInput = {
   error?: string;
 };
 
-export function useUpload<Opt extends Options>(
+function useUpload<Opt extends Options>(
   options: Opt,
 ): Opt["multiple"] extends true
   ? [JSX.Element, FileInput[] | undefined]
@@ -145,3 +145,5 @@ export function useUpload<Opt extends Options>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return [fileInput, (multiple ? files : files?.[0]) as any];
 }
+
+export { useUpload };

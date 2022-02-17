@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import type { PaletteMode, Theme } from "@mui/material";
+import { type PaletteMode, type Theme } from "@mui/material";
 import {
   createTheme as createMuiTheme,
   ThemeProvider as MuiThemeProvider,
@@ -30,9 +30,9 @@ function createTheme(mode: PaletteMode): Theme {
 }
 
 /* eslint-disable-next-line @typescript-eslint/no-empty-function */
-export const ToggleThemeContext = React.createContext(() => {});
+const ToggleThemeContext = React.createContext(() => {});
 
-export function ThemeProvider(props: ThemeProviderProps): JSX.Element {
+function ThemeProvider(props: ThemeProviderProps): JSX.Element {
   const [theme, setTheme] = React.useState(() => createTheme("light"));
 
   const toggleTheme = React.useCallback(() => {
@@ -49,3 +49,5 @@ export function ThemeProvider(props: ThemeProviderProps): JSX.Element {
     </MuiThemeProvider>
   );
 }
+
+export { ThemeProvider, ToggleThemeContext };
