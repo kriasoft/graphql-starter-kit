@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f5ea0c88d8118e4422233578e0213dfa>>
+ * @generated SignedSource<<4c2777ebe433e619550235816295c4af>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,13 +11,11 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AuthQuery$variables = {};
-export type AuthQueryVariables = AuthQuery$variables;
 export type AuthQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"Auth_me">;
 };
-export type AuthQueryResponse = AuthQuery$data;
 export type AuthQuery = {
-  variables: AuthQueryVariables;
+  variables: AuthQuery$variables;
   response: AuthQuery$data;
 };
 

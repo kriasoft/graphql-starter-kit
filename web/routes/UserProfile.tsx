@@ -9,10 +9,9 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import * as React from "react";
-import type { userProfileQueryResponse as Props } from "../../queries/userProfileQuery.graphql";
+import { type UserProfileQuery$data } from "../queries/UserProfileQuery.graphql";
 
-export default function UserProfile(props: Props): JSX.Element {
+function UserProfile(props: UserProfileQuery$data): JSX.Element {
   const { user } = props;
 
   return (
@@ -44,7 +43,7 @@ export default function UserProfile(props: Props): JSX.Element {
           sx={{ marginBottom: (x) => x.spacing(2) }}
           variant="h4"
           color="textSecondary"
-          children={`@${user?.username}`}
+          children={`u/${user?.username}`}
           gutterBottom
         />
 
@@ -67,3 +66,6 @@ export default function UserProfile(props: Props): JSX.Element {
     </Container>
   );
 }
+
+export default UserProfile;
+export type UserProfile = typeof UserProfile;

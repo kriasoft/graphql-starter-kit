@@ -16,6 +16,8 @@
     "**/*.hooks.tsx",
     "**/*.lazy.ts",
     "**/*.lazy.tsx",
+    "**/*.route.ts",
+    "**/*.route.tsx",
     "**/*.ts",
     "**/*.tsx"
   ]

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6879104881582fa3b0e98f6ac2c1cfc4>>
+ * @generated SignedSource<<b7119c2935a10c38d39f70b046e6a7a4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,17 +10,15 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type homeQuery$variables = {};
-export type homeQueryVariables = homeQuery$variables;
-export type homeQuery$data = {
+export type AccountSettingsQuery$variables = {};
+export type AccountSettingsQuery$data = {
   readonly me: {
     readonly " $fragmentSpreads": FragmentRefs<"Auth_user">;
   } | null;
 };
-export type homeQueryResponse = homeQuery$data;
-export type homeQuery = {
-  variables: homeQueryVariables;
-  response: homeQuery$data;
+export type AccountSettingsQuery = {
+  variables: AccountSettingsQuery$variables;
+  response: AccountSettingsQuery$data;
 };
 
 const node: ConcreteRequest = {
@@ -28,7 +26,7 @@ const node: ConcreteRequest = {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "homeQuery",
+    "name": "AccountSettingsQuery",
     "selections": [
       {
         "alias": null,
@@ -54,7 +52,7 @@ const node: ConcreteRequest = {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "homeQuery",
+    "name": "AccountSettingsQuery",
     "selections": [
       {
         "alias": null,
@@ -116,15 +114,15 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "4d42fca65e564b0e12434142e2ef082e",
+    "cacheID": "653620c740367d9bc43578ca39f672dd",
     "id": null,
     "metadata": {},
-    "name": "homeQuery",
+    "name": "AccountSettingsQuery",
     "operationKind": "query",
-    "text": "query homeQuery {\n  me {\n    ...Auth_user\n    id\n  }\n}\n\nfragment Auth_user on User {\n  id\n  username\n  email\n  name\n  picture {\n    url\n  }\n}\n"
+    "text": "query AccountSettingsQuery {\n  me {\n    ...Auth_user\n    id\n  }\n}\n\nfragment Auth_user on User {\n  id\n  username\n  email\n  name\n  picture {\n    url\n  }\n}\n"
   }
 };
 
-(node as any).hash = "14bc0c86e23445bd001bae7c08340de4";
+(node as any).hash = "b9f9159e4532f9a00b08ac5dc528aaa6";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<42dd23709e26e80e4e1496a3501361dd>>
+ * @generated SignedSource<<348a6efa9907cbab209df3ee8695eab8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,13 +10,11 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type AuthSignOutMutation$variables = {};
-export type AuthSignOutMutationVariables = AuthSignOutMutation$variables;
 export type AuthSignOutMutation$data = {
   readonly signOut: string | null;
 };
-export type AuthSignOutMutationResponse = AuthSignOutMutation$data;
 export type AuthSignOutMutation = {
-  variables: AuthSignOutMutationVariables;
+  variables: AuthSignOutMutation$variables;
   response: AuthSignOutMutation$data;
 };
 

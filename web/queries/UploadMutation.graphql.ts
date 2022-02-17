@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dc7bcacbf0dc23ef2f488e2fb48ecd17>>
+ * @generated SignedSource<<56003c1e31d3fd3eeae58a69dc414390>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,13 +13,11 @@ export type UploadMutation$variables = {
   fileName: string;
   contentType?: string | null;
 };
-export type UploadMutationVariables = UploadMutation$variables;
 export type UploadMutation$data = {
   readonly uploadURL: string | null;
 };
-export type UploadMutationResponse = UploadMutation$data;
 export type UploadMutation = {
-  variables: UploadMutationVariables;
+  variables: UploadMutation$variables;
   response: UploadMutation$data;
 };
 

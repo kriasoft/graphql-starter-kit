@@ -2,9 +2,9 @@
 /* SPDX-License-Identifier: MIT */
 
 import { graphql } from "relay-runtime";
-import type { Route } from "../../core";
-import type { homeQuery } from "../../queries/homeQuery.graphql";
-import type Home from "./Home";
+import { type Route } from "../core";
+import { type HomeQuery } from "../queries/HomeQuery.graphql";
+import { type Home } from "./Home";
 
 /**
  * Homepage route.
@@ -12,7 +12,7 @@ import type Home from "./Home";
 export default {
   path: "/",
   query: graphql`
-    query homeQuery {
+    query HomeQuery {
       me {
         ...Auth_user
       }
@@ -24,4 +24,4 @@ export default {
     description: "Web application built with React and Relay",
     props: data,
   }),
-} as Route<typeof Home, homeQuery>;
+} as Route<Home, HomeQuery>;

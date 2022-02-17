@@ -2,19 +2,19 @@
 /* SPDX-License-Identifier: MIT */
 
 import { graphql } from "relay-runtime";
-import type { Route } from "../../core";
-import type { userProfileQuery } from "../../queries/userProfileQuery.graphql";
-import type UserProfile from "./UserProfile";
+import { type Route } from "../core";
+import { type UserProfileQuery } from "../queries/UserProfileQuery.graphql";
+import { type UserProfile } from "./UserProfile";
 
 /**
- * User profile (e.g. https://example.com/@koistya)
+ * User profile (e.g. https://example.com/u/koistya)
  *
  * @see https://github.com/pillarjs/path-to-regexp
  */
 export default {
-  path: "/@:username(\\w+)",
+  path: "/u/:username(\\w+)",
   query: graphql`
-    query userProfileQuery($username: String!) {
+    query UserProfileQuery($username: String!) {
       user(username: $username) {
         id
         name
@@ -32,4 +32,4 @@ export default {
       title: `${data.user.name} (@${data.user.username}) · React App`,
       props: data,
     },
-} as Route<typeof UserProfile, userProfileQuery>;
+} as Route<UserProfile, UserProfileQuery>;

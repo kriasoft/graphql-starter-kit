@@ -82,7 +82,7 @@ function AppToolbar(props: AppToolbarProps): JSX.Element {
               <Avatar alt={me.name || ""} src={me.picture.url || undefined} />
             }
             label={getFirstName(me.name || "")}
-            href={`/@${me.username}`}
+            href={`/u/${me.username}`}
             onClick={navigate}
           />
         )}
@@ -121,11 +121,12 @@ function AppToolbar(props: AppToolbarProps): JSX.Element {
         )}
         {!me && (
           <Button
+            sx={{ textTransform: "none" }}
             variant="outlined"
             href="/auth/google"
             color="primary"
             onClick={handleSignIn}
-            children="Log in / Register"
+            children="Log In / Sign Up"
           />
         )}
       </Toolbar>

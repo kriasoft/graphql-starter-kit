@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<af9a54aef829f903c01ea9a485a5d7d0>>
+ * @generated SignedSource<<500269faff0f49098157e7f5bfad70d7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,11 +9,10 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type userProfileQuery$variables = {
+export type UserProfileQuery$variables = {
   username: string;
 };
-export type userProfileQueryVariables = userProfileQuery$variables;
-export type userProfileQuery$data = {
+export type UserProfileQuery$data = {
   readonly user: {
     readonly id: string;
     readonly name: string | null;
@@ -24,10 +23,9 @@ export type userProfileQuery$data = {
     };
   } | null;
 };
-export type userProfileQueryResponse = userProfileQuery$data;
-export type userProfileQuery = {
-  variables: userProfileQueryVariables;
-  response: userProfileQuery$data;
+export type UserProfileQuery = {
+  variables: UserProfileQuery$variables;
+  response: UserProfileQuery$data;
 };
 
 const node: ConcreteRequest = (function(){
@@ -108,7 +106,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "userProfileQuery",
+    "name": "UserProfileQuery",
     "selections": (v1/*: any*/),
     "type": "Root",
     "abstractKey": null
@@ -117,20 +115,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "userProfileQuery",
+    "name": "UserProfileQuery",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "8e56c32d1475b9bc1d6934da447a0d74",
+    "cacheID": "f9bbe6698cd508940ed45fccc35de685",
     "id": null,
     "metadata": {},
-    "name": "userProfileQuery",
+    "name": "UserProfileQuery",
     "operationKind": "query",
-    "text": "query userProfileQuery(\n  $username: String!\n) {\n  user(username: $username) {\n    id\n    name\n    email\n    username\n    picture {\n      url\n    }\n  }\n}\n"
+    "text": "query UserProfileQuery(\n  $username: String!\n) {\n  user(username: $username) {\n    id\n    name\n    email\n    username\n    picture {\n      url\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "86ea7b9247a97190d358a2c6fccba861";
+(node as any).hash = "a5ccee5ad3f62c9ab9cce575c77e3c66";
 
 export default node;

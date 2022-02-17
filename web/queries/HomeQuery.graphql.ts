@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7ea5295bb8f4f5676ba7cf709fccdc27>>
+ * @generated SignedSource<<f577aefaa515af78a7b39b46592068d0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,17 +10,15 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type accountSettingsQuery$variables = {};
-export type accountSettingsQueryVariables = accountSettingsQuery$variables;
-export type accountSettingsQuery$data = {
+export type HomeQuery$variables = {};
+export type HomeQuery$data = {
   readonly me: {
     readonly " $fragmentSpreads": FragmentRefs<"Auth_user">;
   } | null;
 };
-export type accountSettingsQueryResponse = accountSettingsQuery$data;
-export type accountSettingsQuery = {
-  variables: accountSettingsQueryVariables;
-  response: accountSettingsQuery$data;
+export type HomeQuery = {
+  variables: HomeQuery$variables;
+  response: HomeQuery$data;
 };
 
 const node: ConcreteRequest = {
@@ -28,7 +26,7 @@ const node: ConcreteRequest = {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "accountSettingsQuery",
+    "name": "HomeQuery",
     "selections": [
       {
         "alias": null,
@@ -54,7 +52,7 @@ const node: ConcreteRequest = {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "accountSettingsQuery",
+    "name": "HomeQuery",
     "selections": [
       {
         "alias": null,
@@ -116,15 +114,15 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "f620d2877606f3baf9be74c5ab316dee",
+    "cacheID": "d2e96a083e438709f2df41115e5bfadb",
     "id": null,
     "metadata": {},
-    "name": "accountSettingsQuery",
+    "name": "HomeQuery",
     "operationKind": "query",
-    "text": "query accountSettingsQuery {\n  me {\n    ...Auth_user\n    id\n  }\n}\n\nfragment Auth_user on User {\n  id\n  username\n  email\n  name\n  picture {\n    url\n  }\n}\n"
+    "text": "query HomeQuery {\n  me {\n    ...Auth_user\n    id\n  }\n}\n\nfragment Auth_user on User {\n  id\n  username\n  email\n  name\n  picture {\n    url\n  }\n}\n"
   }
 };
 
-(node as any).hash = "68953f2e119b4b707f6aa490610e0216";
+(node as any).hash = "4538e8c32f72df3b2a7c7d556846a858";
 
 export default node;
