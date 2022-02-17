@@ -3,17 +3,18 @@
 
 import type { ComponentClass, ComponentProps, FunctionComponent } from "react";
 import type { Environment, GraphQLTaggedNode, Variables } from "react-relay";
+import type { User } from "./Auth";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export type RouterContext = {
+type RouterContext = {
   path: string;
   query: URLSearchParams;
   params?: Record<string, string>;
   relay: Environment;
 };
 
-export type RouterResponse<
+type RouterResponse<
   Component extends
     | FunctionComponent<any>
     | ComponentClass<any> = FunctionComponent<any>,
@@ -28,7 +29,7 @@ export type RouterResponse<
   layout?: boolean;
 };
 
-export type Route<
+type Route<
   Component extends FunctionComponent<any> | ComponentClass<any>,
   Query extends { variables: Variables; response: unknown } = {
     variables: Variables;
@@ -50,7 +51,7 @@ export type Route<
   /**
    * Authorization rule(s) / permissions.
    */
-  authorize?: ((ctx: RouterContext) => boolean) | boolean;
+  authorize?: ((user: User) => boolean) | boolean;
   /**
    * React component (loader).
    */
@@ -64,3 +65,5 @@ export type Route<
     context: RouterContext,
   ) => RouterResponse<Component>;
 };
+
+export type { RouterContext, RouterResponse, Route };
