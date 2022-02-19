@@ -5,6 +5,7 @@ import SendGrid from "@sendgrid/mail";
 import express from "express";
 import { NotFound } from "http-errors";
 import { auth } from "./auth";
+import db from "./db";
 import env from "./env";
 import { handleError } from "./errors";
 import { handleGraphQL, updateSchema } from "./graphql";
@@ -59,4 +60,4 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
-export { api, env, updateSchema };
+export { api, db, env, updateSchema };

@@ -148,7 +148,7 @@ const questions = [
       return (
         replace(`env/.${env}.env`, gcp, `$1=${value}`) &&
         replace(`env/.${env}.env`, db, `$1=${dbName}`) &&
-        replace(`env/.${env}.env`, dbServer, `$1=${value}:pg13`) &&
+        replace(`env/.${env}.env`, dbServer, `$1=${value}:pg14`) &&
         (env === "test"
           ? replace(`env/.local.env`, gcp, `$1=${value}`) &&
             replace(`env/.local.env`, db, `$1=${localDb}`)

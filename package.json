@@ -96,14 +96,24 @@
     }
   },
   "jest": {
-    "testPathIgnorePatterns": [
-      "<rootDir>/.cache/",
-      "<rootDir>/.github/",
-      "<rootDir>/.vscode/",
-      "<rootDir>/.yarn/",
-      "<rootDir>/*/dist/",
-      "<rootDir>/db/",
-      "<rootDir>/scripts/"
+    "projects": [
+      {
+        "displayName": "api",
+        "testMatch": [
+          "<rootDir>/api/**/*.test.ts"
+        ],
+        "testPathIgnorePatterns": [
+          "<rootDir>/api/dist/"
+        ],
+        "setupFiles": [
+          "envars/config"
+        ],
+        "transformIgnorePatterns": [],
+        "transform": {
+          "^.*[\\\\\\/](api|db)[\\\\\\/].*\\.ts$": "babel-jest",
+          "node_modules[\\\\\\/](got|p-cancelable|@szmarczak|lowercase-keys)[\\\\\\/].*\\.js$": "babel-jest"
+        }
+      }
     ]
   },
   "prettier": {

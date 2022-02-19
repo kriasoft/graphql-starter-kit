@@ -19,6 +19,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: postgres
+
+    services:
+      postgres:
+        image: postgres:14-alpine
+        env:
+          POSTGRES_USER: ${{ env.PGUSER }}
+          POSTGRES_PASSWORD: ${{ env.PGPASSWORD }}
+          POSTGRES_DB: ${{ env.PGDATABASE }}
+        ports:
+          - 5432:5432
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
@@ -37,8 +54,9 @@ jobs:
       - run: yarn lint --no-cache
 
       # Test
-      - run: yarn test
       - run: yarn api:tsc
+      - run: yarn db:migrate
+      - run: yarn test
 
       # Compile
       - run: yarn api:build
