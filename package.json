@@ -51,6 +51,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "graphql-config": "^4.1.0",
     "husky": "^7.0.4",
     "inquirer": "^8.2.0",
     "jest": "^27.5.1",
@@ -71,6 +72,28 @@
   },
   "envars": {
     "cwd": "./env"
+  },
+  "graphql": {
+    "projects": {
+      "api": {
+        "schema": "./api/schema.graphql",
+        "documents": "./api/**/*.ts",
+        "extensions": {
+          "endpoints": {
+            "default": "http://localhost:8080/api"
+          }
+        }
+      },
+      "web": {
+        "schema": "./api/schema.graphql",
+        "documents": "./web/**/*.{ts,tsx}",
+        "extensions": {
+          "endpoints": {
+            "default": "http://localhost:8080/api"
+          }
+        }
+      }
+    }
   },
   "jest": {
     "testPathIgnorePatterns": [
