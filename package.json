@@ -78,10 +78,9 @@
       "<rootDir>/.github/",
       "<rootDir>/.vscode/",
       "<rootDir>/.yarn/",
-      "<rootDir>/api/dist/",
+      "<rootDir>/*/dist/",
       "<rootDir>/db/",
-      "<rootDir>/scripts/",
-      "<rootDir>/web/dist/"
+      "<rootDir>/scripts/"
     ]
   },
   "prettier": {
