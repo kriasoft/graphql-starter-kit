@@ -11,6 +11,7 @@
 module.exports = function config(api) {
   const isNodeEnv = api.caller((caller) =>
     [
+      "babel-jest",
       "@babel/register",
       "@babel/cli",
       "@babel/node",
