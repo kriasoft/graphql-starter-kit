@@ -86,7 +86,7 @@
     "envars": "^0.4.0",
     "knex-types": "^0.3.2",
     "prettier": "^2.5.1",
-    "rollup": "^2.67.2",
+    "rollup": "^2.67.3",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-delete": "^2.0.0",
     "supertest": "^6.2.2",
