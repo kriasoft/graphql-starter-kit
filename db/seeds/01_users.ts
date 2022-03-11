@@ -4,8 +4,6 @@
 import faker from "@faker-js/faker";
 import { type Knex } from "knex";
 import nanoid from "nanoid";
-import fs from "node:fs/promises";
-import prettier from "prettier";
 
 // Short ID generator
 // https://zelark.github.io/nano-id-cc/
@@ -13,24 +11,19 @@ const alphabet = "0123456789abcdefghijklmnopqrstuvwxyz";
 const newUserId = nanoid.customAlphabet(alphabet, 6);
 const { date, image, internet, name, random } = faker;
 
-function stringify(obj: Record<string, unknown>) {
-  return prettier.format(JSON.stringify(obj), { parser: "json" });
-}
-
 /**
  * Seeds the database with test / reference user accounts.
  */
 export async function seed(db: Knex) {
-  const jsonFile = __filename.replace(/\.\w+$/, ".json");
-  let users = JSON.parse(await fs.readFile(jsonFile, "utf-8"));
+  let { default: records } = await import("./01_users.json");
 
   // Generates fake user accounts
-  // https://github.com/marak/Faker.js
-  if (users.length === 0) {
-    console.log("Generating users.json...");
+  // https://github.com/faker-js/faker
+  if (records.length === 0) {
+    console.log("Generating fake user accounts...");
     const usernames = new Set();
 
-    users = Array.from({ length: 200 }).map(() => {
+    records = Array.from({ length: 200 }).map(() => {
       const id = newUserId();
       const gender = random.arrayElement(["male", "female"]);
       const firstName = name.firstName(gender);
@@ -60,10 +53,8 @@ export async function seed(db: Knex) {
             ? date.between(createdAt.toString(), new Date().toString())
             : null,
       };
-    });
-
-    await fs.writeFile(jsonFile, stringify(users));
+    }) as any; /* eslint-disable-line @typescript-eslint/no-explicit-any */
   }
 
-  await db.table("user").insert(users).onConflict(["id"]).ignore();
+  await db.table("user").insert(records).onConflict(["id"]).ignore();
 }
