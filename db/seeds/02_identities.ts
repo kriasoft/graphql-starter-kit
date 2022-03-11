@@ -7,9 +7,13 @@ import { type Knex } from "knex";
  * Seeds the database with test / reference user identities.
  */
 export async function seed(db: Knex) {
-  const records = await import(__filename.replace(/\.\w+$/, ".json"));
+  const { default: records } = await import("./02_identities.json");
 
   if (records.length > 0) {
-    await db.table("identity").insert(records).onConflict().ignore();
+    await db
+      .table("identity")
+      .insert(records)
+      .onConflict(["provider", "id"])
+      .ignore();
   }
 }
