@@ -3,6 +3,11 @@
 
 import "relay-runtime";
 
+declare global {
+  const APP_ENV: string;
+  const API_URL: string;
+}
+
 declare module "relay-runtime" {
   interface PayloadError {
     errors?: Record<string, string[] | undefined>;

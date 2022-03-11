@@ -1,108 +1,64 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-/**
- * Deploys web application bundle to Cloudflare. Usage:
- *
- *   $ yarn web:deploy [--version #0] [--env #0] [--no-download]
- *
- * @see https://developers.cloudflare.com/workers/
- * @see https://api.cloudflare.com/#worker-script-upload-worker
- */
-
 import envars from "envars";
-import { FormData } from "formdata-node";
-import { fileFromPath } from "formdata-node/file-from-path";
-import { globby } from "globby";
-import got from "got";
-import minimist from "minimist";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { listNamespaces } from "./cloudflare.js";
+import { fileURLToPath, URL } from "node:url";
+import { $, argv, cd, fs, path } from "zx";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const env = process.env;
-const cwd = path.resolve(__dirname, "../web/dist/web");
-const args = minimist(process.argv.slice(2), {
-  default: { env: "test", version: env.VERSION, download: false },
-});
 
-// Load environment variables
-envars.config({ env: args.env, cwd: path.resolve(__dirname, "../env") });
+// Load environment variables from the `/env/.{envName}.env` file
+envars.config({ env: argv.env ?? "test" });
+process.env.CF_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
 
-// The name of the worker script (e.g. "main", "main-test", etc.)
-const name = `main${env.APP_ENV === "prod" ? "" : `-${env.APP_ENV}`}`;
+// Get the URL of the API endpoint (Google Cloud Function)
+// https://cloud.google.com/sdk/gcloud/reference/beta/functions
+const API_URL = await $`gcloud beta functions describe api --gen2 ${[
+  `--project=${process.env.GOOGLE_CLOUD_PROJECT}`,
+  `--region=${process.env.GOOGLE_CLOUD_REGION}`,
+  `--format=value(serviceConfig.uri)`,
+]}`.then((cmd) => `${cmd.stdout.trim()}/api`);
 
-// Configure an HTTP client for accessing Cloudflare REST API
-const cf = got.extend({
-  prefixUrl: `https://api.cloudflare.com/client/v4/accounts/${env.CLOUDFLARE_ACCOUNT_ID}/`,
-  headers: { authorization: `Bearer ${env.CLOUDFLARE_API_TOKEN}` },
-  responseType: "json",
-  resolveBodyOnly: true,
-});
+const hostname = new URL(process.env.APP_ORIGIN).hostname;
+const envName = process.env.APP_ENV;
+const isProductionEnv = envName === "prod";
 
-// Create a KV storage namespace
-// https://api.cloudflare.com/#workers-kv-namespace-list-namespaces
-const assetsNamespace =
-  env.APP_NAME +
-  (env.APP_ENV === `prod` ? `` : `_${env.APP_ENV}`) +
-  (env.APP_ENV === `test` && args.version ? `_${args.version}` : ``);
-
-const namespaces = await listNamespaces();
-let ns = namespaces.find((x) => x.title === assetsNamespace);
-
-if (!ns) {
-  console.log(`Creating KV namespace: ${assetsNamespace}`);
-  ns = await cf
-    .post({ url: "storage/kv/namespaces", json: { title: assetsNamespace } })
-    .then((x) => x.body);
-}
-
-// Upload website assets to KV storage.
-// https://api.cloudflare.com/#workers-kv-namespace-write-multiple-key-value-pairs
-console.log(`Uploading assets to KV storage: ${ns.title}, id: ${ns.id}`);
-
-const files = await globby(["."], { cwd });
-
-async function uploadNext() {
-  while (files.length > 0) {
-    const file = files.shift();
-    console.log(`Uploading`, file);
-    const form = new FormData();
-    form.set("value", await fileFromPath(path.resolve(cwd, file)));
-    form.set("metadata", JSON.stringify({}));
-    await cf.put({
-      url: `storage/kv/namespaces/${ns.id}/values/${file}`,
-      body: form,
-    });
-  }
-}
-
-await Promise.all(Array.from({ length: 10 }, uploadNext));
-
-// Upload the reverse proxy script to Cloudflare Workers.
-console.log(`Uploading Cloudflare Worker script: ${name}`);
-
-const form = new FormData();
-form.set(
-  "script",
-  await fileFromPath(path.resolve(cwd, "../workers/proxy.js")),
-);
-form.set(
-  "metadata",
-  JSON.stringify({
-    body_part: "script",
-    bindings: [
-      { type: "kv_namespace", name: "__STATIC_CONTENT", namespace_id: ns.id },
-      { type: "plain_text", name: "__STATIC_CONTENT_MANIFEST", text: "false" },
-    ],
-  }),
+// Configure Cloudflare Wrangler
+// https://developers.cloudflare.com/workers/cli-wrangler/configuration
+await fs.writeFile(
+  path.resolve(__dirname, "../web/dist/wrangler.toml"),
+  `
+    name = "${process.env.CLOUDFLARE_WORKER ?? "proxy"}"
+    type = "javascript"
+    account_id = "${process.env.CLOUDFLARE_ACCOUNT_ID}"
+    zone_id = "${process.env.CLOUDFLARE_ZONE_ID}"
+    compatibility_date = "2022-02-19"
+    ${isProductionEnv ? `` : `[env.${envName}]`}
+    routes = ["${hostname}/*"]
+    ${isProductionEnv ? `[vars]` : `[env.${envName}.vars]`}
+    APP_ENV = "${envName}"
+    API_URL = "${API_URL}"
+    [site]
+    bucket = "${path.resolve(__dirname, "../web/dist/web")}"
+    entry-point = "${path.resolve(__dirname, "../web/dist/workers")}"
+    [build]
+    command = ""
+    [build.upload]
+    format = "service-worker"
+  `.replace(/^\s+/gm, ""),
+  "utf-8",
 );
 
-await cf.put({
-  url: `workers/scripts/${name}`,
-  body: form,
-  retry: { limit: 5 },
-});
+// Create package.json file required by Cloudflare Wrangler CLI
+await fs.writeFile(
+  path.resolve(__dirname, "../web/dist/workers/package.json"),
+  `{"main": "./proxy.js"}`,
+  "utf-8",
+);
 
-console.log("Done!");
+// Deploy web application to Cloudflare Workers
+// https://developers.cloudflare.com/workers/
+cd(__dirname);
+await $`yarn wrangler publish --verbose --config ../web/dist/wrangler.toml ${
+  isProductionEnv ? [] : ["--env", envName]
+}`;

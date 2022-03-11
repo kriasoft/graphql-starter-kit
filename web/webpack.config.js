@@ -21,7 +21,7 @@ const imageInlineSizeLimit = 10000;
  * Webpack configuration.
  *
  * @see https://webpack.js.org/configuration/
- * @param {Record<string, boolean> | undefined} envName
+ * @param {Record<string, boolean> | undefined} env
  * @param {{ mode: "production" | "development" }} options
  * @returns {import("webpack").Configuration}
  */
