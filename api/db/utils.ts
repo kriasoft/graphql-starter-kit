@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { Knex } from "knex";
+import { type Knex } from "knex";
 import { customAlphabet } from "nanoid/async";
 
 // An alphabet for generating short IDs.
@@ -9,7 +9,8 @@ const alphabet = "0123456789abcdefghijklmnopqrstuvwxyz";
 
 // Creates a function that generates a short ID of specified length.
 export function createNewId(
-  db: Knex,
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  db: Knex<any, unknown[]>,
   table: string,
   size: number,
 ): (unique: boolean) => Promise<string> {
