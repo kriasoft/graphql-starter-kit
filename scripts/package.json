@@ -13,24 +13,24 @@
     "gh:delete-deployment": "node --no-warnings ./github.js delete-deployment"
   },
   "dependencies": {
-    "@babel/core": "^7.17.5",
-    "@babel/register": "^7.17.0",
-    "@cloudflare/wrangler": "^1.19.8",
-    "@google-cloud/storage": "^5.18.2",
+    "@babel/core": "^7.17.10",
+    "@babel/register": "^7.17.7",
+    "@cloudflare/wrangler": "^1.19.12",
+    "@google-cloud/storage": "^5.19.4",
     "@octokit/rest": "^18.12.0",
     "api": "workspace:*",
     "cross-spawn": "^7.0.3",
     "envars": "^0.4.0",
     "formdata-node": "^4.3.2",
     "globby": "^13.1.1",
-    "got": "^12.0.1",
+    "got": "^12.0.4",
     "make-dir": "^3.1.0",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "web": "workspace:*",
-    "zx": "^4.3.0"
+    "zx": "^6.1.0"
   },
   "devDependencies": {
-    "@types/babel__core": "^7.1.18"
+    "@types/babel__core": "^7.1.19"
   },
   "envars": {
     "cwd": "../env"
