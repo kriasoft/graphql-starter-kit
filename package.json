@@ -12,7 +12,7 @@
     "web"
   ],
   "scripts": {
-    "postinstall": "husky install",
+    "postinstall": "node ./scripts/postinstall.js",
     "setup": "node ./setup",
     "start": "yarn workspaces foreach -ip run start",
     "build": "yarn workspaces foreach -p run build",

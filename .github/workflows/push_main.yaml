@@ -1,8 +1,7 @@
-# Compile, bundle, and upload application bundles
-# to a cloud storage on each pull request to "main".
+# GitHub Actions workflow
 # https://help.github.com/actions
 
-name: Push
+name: Push (main)
 
 on:
   push:
@@ -12,16 +11,17 @@ env:
   VERSION: ${{ github.event.pull_request.number }}
   GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
   CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_TOKEN }}
+  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         with:
           path: |
             ${{ github.workspace }}/.yarn/cache
@@ -29,8 +29,20 @@ jobs:
             ${{ github.workspace }}/.yarn/install-state.gz
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
-      - run: yarn install
 
-      # TODO: Deploy from the previously built artifacts
+      # Authenticate Google Cloud SDK
+      - name: gcloud auth activate-service-account
+        run: |
+          echo "$GCP_SA_KEY" | base64 --decode > "$GOOGLE_APPLICATION_CREDENTIALS"
+          gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
+
+      # Build
+      - run: yarn install
       - run: yarn web:build
       - run: yarn api:build
+
+      # Deploy
+      # - run: yarn db:migrate --env=test
+      # - run: yarn db:seed --env=test
+      # - run: yarn api:deploy --env=test
+      # - run: yarn web:deploy --env=test
