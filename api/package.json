@@ -7,7 +7,7 @@
   "scripts": {
     "start": "rollup -c --watch",
     "build": "rollup -c",
-    "update-schema": "babel-node ../scripts/update-schema",
+    "update-schema": "cross-env BABEL_DISABLE_CACHE=1 babel-node ../scripts/update-schema",
     "deploy": "node ../scripts/api-deploy",
     "api:tsc": "tsc",
     "api:start": "yarn workspace api run start",
@@ -82,6 +82,7 @@
     "@types/simple-oauth2": "^4.1.1",
     "@types/supertest": "^2.0.12",
     "@types/validator": "^13.7.2",
+    "cross-env": "^7.0.3",
     "cross-spawn": "^7.0.3",
     "envars": "^0.4.0",
     "knex-types": "^0.4.0",

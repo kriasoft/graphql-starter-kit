@@ -4415,6 +4415,7 @@ __metadata:
     "@types/validator": "npm:^13.7.2"
     argon2: "npm:^0.28.5"
     cookie: "npm:^0.5.0"
+    cross-env: "npm:^7.0.3"
     cross-spawn: "npm:^7.0.3"
     dataloader: "npm:^2.1.0"
     date-fns: "npm:^2.28.0"
@@ -5771,6 +5772,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cross-env@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "cross-env@npm:7.0.3"
+  dependencies:
+    cross-spawn: "npm:^7.0.1"
+  bin:
+    cross-env: src/bin/cross-env.js
+    cross-env-shell: src/bin/cross-env-shell.js
+  checksum: ea325d0a0461ec6e850ce37887fbbc8794ca6aa906f7955550a62493974581a61e41ad4416d7358aa8bc442a6baa6469c842ffddf6e833e3b346739b43ba840c
+  languageName: node
+  linkType: hard
+
 "cross-fetch@npm:^3.1.5":
   version: 3.1.5
   resolution: "cross-fetch@npm:3.1.5"
@@ -5790,7 +5803,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
+"cross-spawn@npm:^7.0.1, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -5908,6 +5921,7 @@ __metadata:
     "@types/minimist": "npm:^1.2.2"
     "@types/prettier": "npm:^2.6.0"
     chalk: "npm:^4.1.2"
+    cross-env: "npm:^7.0.3"
     cross-spawn: "npm:^7.0.3"
     envars: "npm:^0.4.0"
     knex: "npm:^2.0.0"
