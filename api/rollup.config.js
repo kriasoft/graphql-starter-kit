@@ -40,7 +40,7 @@ const config = {
 
   plugins: [
     del({
-      targets: ["./dist/*", "./dist/.yarn/releases"],
+      targets: ["./dist/*", "./dist/.yarn/*"],
       runOnce: true,
     }),
 
@@ -64,12 +64,7 @@ const config = {
           },
         },
         {
-          src: [
-            "../.yarnrc.yml",
-            "../yarn.lock",
-            "../.pnp.cjs",
-            "../.pnp.loader.mjs",
-          ],
+          src: ["../.yarnrc.yml", "../yarn.lock"],
           dest: "./dist",
           copyOnce: true,
         },
@@ -115,19 +110,21 @@ const config = {
     !isWatch && {
       name: "yarn",
       async writeBundle() {
+        const options = { cwd: "./dist", stdio: "inherit" };
+        // TODO: Deploying to GCF using Yarn v4.0.0 doesn't work ATM
+        spawn.sync("yarn", ["set", "version", "3.2.0"], options);
         // Update yarn.lock file to include only the production dependencies
-        spawn.spawn("yarn", ["install"], {
+        spawn.sync("yarn", ["install", "--mode=update-lockfile"], {
+          ...options,
           env: {
             ...process.env,
             NODE_OPTIONS: undefined,
             YARN_ENABLE_IMMUTABLE_INSTALLS: "false",
           },
-          cwd: "./dist",
-          stdio: "inherit",
         });
         await fs.writeFile(
           "dist/.gcloudignore",
-          "node_modules\n.yarn/unplugged\n.yarn/install-state.gz\n.gcloudignore\n",
+          ".pnp.*\n.yarn/*\n!.yarn/patches\n!.yarn/plugins\n!.yarn/releases\n.gcloudignore\n",
         );
       },
     },
