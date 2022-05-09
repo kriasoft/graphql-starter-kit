@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "packageManager": "yarn@4.0.0-rc.4",
+  "packageManager": "yarn@4.0.0-rc.5",
   "workspaces": [
     "api",
     "db",
@@ -38,24 +38,24 @@
     "@emotion/babel-plugin": "^11.9.2",
     "@emotion/eslint-plugin": "^11.7.0",
     "@emotion/react": "^11.9.0",
-    "@typescript-eslint/eslint-plugin": "^5.22.0",
-    "@typescript-eslint/parser": "^5.22.0",
-    "babel-jest": "^28.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "babel-jest": "^28.1.0",
     "babel-plugin-import": "^1.13.5",
     "babel-plugin-relay": "^13.2.0",
     "chalk": "^4.1.2",
     "cross-spawn": "^7.0.3",
     "dotenv": "^16.0.0",
     "envars": "^0.4.0",
-    "eslint": "^8.14.0",
+    "eslint": "^8.15.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
     "graphql-config": "^4.3.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.1",
     "inquirer": "^8.2.4",
-    "jest": "^28.0.3",
+    "jest": "^28.1.0",
     "minimist": "^1.2.6",
     "prettier": "^2.6.2",
     "react": "^18.1.0",
@@ -63,13 +63,16 @@
     "zx": "^6.1.0"
   },
   "devDependencies": {
-    "@jest/types": "^28.0.2",
+    "@jest/types": "^28.1.0",
     "@types/babel__core": "^7.1.19",
     "@types/cross-spawn": "^6.0.2",
     "@types/inquirer": "^8.2.1",
     "@types/jest": "^27.5.0",
     "@types/minimist": "^1.2.2",
     "@types/node": "^17.0.31"
+  },
+  "resolutions": {
+    "chalk@npm:^5.0.1": "^4.1.2"
   },
   "envars": {
     "cwd": "./env"
