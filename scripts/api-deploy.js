@@ -44,7 +44,6 @@ await $`gcloud beta functions deploy ${name} ${[
   `--gen2`,
   `--memory=1G`,
   `--runtime=nodejs16`,
-  `--signature-type=http`,
   `--source=./dist`,
   `--timeout=30s`,
   `--set-env-vars=NODE_OPTIONS=--require=./.pnp.cjs --require=source-map-support/register --no-warnings`,

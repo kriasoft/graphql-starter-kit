@@ -6,6 +6,7 @@ name: PR
 on: [pull_request]
 
 env:
+  HUSKY: 0
   VERSION: ${{ github.event.pull_request.number }}
   GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
   CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

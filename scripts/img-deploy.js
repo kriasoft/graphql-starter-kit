@@ -38,7 +38,6 @@ await $`gcloud beta functions deploy img ${[
   `--gen2`,
   `--memory=2GB`,
   `--runtime=nodejs16`,
-  `--signature-type=http`,
   `--source=${path.resolve(__dirname, "../img")}`,
   `--timeout=30s`,
   `--set-env-vars=${envVars.join(",")}`,
