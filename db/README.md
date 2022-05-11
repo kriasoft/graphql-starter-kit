@@ -19,7 +19,7 @@ a PostgreSQL database.
 │   ├── 01_users.json           #   - user accounts dataset
 │   ├── 01_users.ts             #   - creates user accounts
 │   ├── 02_identities.json      #   - user accounts dataset
-│   ├── id_identities.ts        #   - creates user accounts
+│   ├── 02_identities.ts        #   - creates user accounts
 │   └── ...                     #   - the reset of the seed files
 ├── ssl                         # TLS/SSL certificates for database access
 ├── knexfile.ts                 # Configuration file for Knex.js CLI
