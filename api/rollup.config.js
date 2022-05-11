@@ -69,7 +69,7 @@ const config = {
           copyOnce: true,
         },
         {
-          src: ["../.yarn/releases", "../.yarn/plugins"],
+          src: ["../.yarn/releases"],
           dest: "./dist/.yarn",
           copyOnce: true,
         },
@@ -110,17 +110,20 @@ const config = {
     !isWatch && {
       name: "yarn",
       async writeBundle() {
-        const options = { cwd: "./dist", stdio: "inherit" };
-        // TODO: Deploying to GCF using Yarn v4.0.0 doesn't work ATM
-        spawn.sync("yarn", ["set", "version", "3.2.0"], options);
+        // Disable global cache to make it work with Google Cloud Buildpacks
+        spawn.sync("yarn", ["config", "set", "enableGlobalCache", "false"], {
+          cwd: "./dist",
+          stdio: "inherit",
+        });
         // Update yarn.lock file to include only the production dependencies
         spawn.sync("yarn", ["install", "--mode=update-lockfile"], {
-          ...options,
           env: {
             ...process.env,
             NODE_OPTIONS: undefined,
             YARN_ENABLE_IMMUTABLE_INSTALLS: "false",
           },
+          cwd: "./dist",
+          stdio: "inherit",
         });
         await fs.writeFile(
           "dist/.gcloudignore",
