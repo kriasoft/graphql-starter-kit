@@ -5,6 +5,7 @@
     "eamodio.gitlens",
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
+    "firsttris.vscode-jest-runner",
     "graphql.vscode-graphql",
     "hashicorp.terraform",
     "mgmcdermott.vscode-language-babel",

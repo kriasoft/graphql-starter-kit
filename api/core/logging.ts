@@ -1,7 +1,8 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { type Request, type Response } from "express";
+import { type Request } from "express";
+import { RequestError } from "got";
 import { type GraphQLParams } from "graphql-helix";
 import { HttpError } from "http-errors";
 import PrettyError from "pretty-error";
@@ -31,35 +32,45 @@ export type LogSeverity =
  */
 export function log(
   req: Request,
-  res: Response,
   severity: LogSeverity,
   data: string | Record<string, unknown> | Error | HttpError,
   context?: GraphQLParams | Record<string, unknown>,
 ) {
   if (env.isProduction) {
     const traceId = req.get("x-cloud-trace-context")?.split("/")?.[0] as string;
-    const message = JSON.stringify({
+    const message = {
       severity,
-      httpRequest: {
-        requestMethod: req.method,
-        requestUrl: `${req.protocol}://${req.get("host")}/${req.originalUrl}`,
-        userAgent: req.get("user-agent"),
-        referrer: req.headers.referer,
-        responseStatusCode: res.headersSent
-          ? res.statusCode
-          : (data as { statusCode: number }).statusCode ?? undefined,
-        remoteIp: req.ip,
-      },
       "logging.googleapis.com/trace": `projects/${env.GOOGLE_CLOUD_PROJECT}/traces/${traceId}`,
-      ...(typeof data === "string"
-        ? { message: data }
-        : data instanceof Error
-        ? { message: data.stack }
-        : data),
-      context,
-    });
+    };
 
-    console.log(message);
+    // Logs the original HTTP request/response
+    // https://github.com/sindresorhus/got#documentation
+    if (data instanceof RequestError) {
+      console.log(
+        JSON.stringify({
+          ...message,
+          url: data.request?.requestUrl,
+          code: data.code,
+          statusCode: data.response?.statusCode,
+          statusMessage: data.response?.statusMessage,
+          ...context,
+          ...((data.response?.body as string)?.startsWith("{")
+            ? JSON.parse(data.response?.body as string)
+            : { message: data.response?.body }),
+        }),
+      );
+    }
+
+    console.log(
+      JSON.stringify({
+        ...message,
+        ...(typeof data === "string"
+          ? { message: data }
+          : data instanceof Error || typeof data.stack === "string"
+          ? { message: (data.stack as string).replace(/\(file:\/\//g, "") }
+          : data),
+      }),
+    );
   } else {
     if (data instanceof Error || data instanceof HttpError) {
       console.error(pe.render(data));

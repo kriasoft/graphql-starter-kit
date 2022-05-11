@@ -52,14 +52,14 @@ async function handleGraphQL(req: Request, res: Response, next: NextFunction) {
         variables: params.variables,
         request: req,
         schema,
-        contextFactory: () => new Context(req, res, params),
+        contextFactory: () => new Context(req, params),
       });
 
       sendResult(result, res, (result) => ({
         data: result.data,
         errors: result.errors?.map((err) => {
           if (!(err.originalError instanceof ValidationError)) {
-            log(req, res, "ERROR", err, params);
+            log(req, "ERROR", err.originalError ?? err, params);
           }
           return err;
         }),

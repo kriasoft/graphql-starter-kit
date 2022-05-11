@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import DataLoader from "dataloader";
-import { type Request, type Response } from "express";
+import { type Request } from "express";
 import { type GraphQLParams } from "graphql-helix";
 import { Forbidden, Unauthorized } from "http-errors";
 import { log, type LogSeverity } from "./core";
@@ -15,13 +15,11 @@ import { mapTo, mapToMany } from "./utils";
  */
 export class Context extends Map<symbol, unknown> {
   readonly #req: Request;
-  readonly #res: Response;
   readonly params: GraphQLParams;
 
-  constructor(req: Request, res: Response, params: GraphQLParams) {
+  constructor(req: Request, params: GraphQLParams) {
     super();
     this.#req = req;
-    this.#res = res;
     this.params = params;
 
     // Add the currently logged in user object to the cache
@@ -35,7 +33,7 @@ export class Context extends Map<symbol, unknown> {
     severity: LogSeverity,
     data: string | Record<string, unknown> | Error,
   ): void {
-    log(this.#req, this.#res, severity, data, this.params);
+    log(this.#req, severity, data, this.params);
   }
 
   /*

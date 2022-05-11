@@ -10,6 +10,7 @@
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "jest.jestCommandLine": "yarn jest",
+  "jestrunner.jestCommand": "yarn jest",
   "files.associations": {
     ".terraformrc": "terraform"
   },
