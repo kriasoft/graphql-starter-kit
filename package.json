@@ -45,7 +45,7 @@
     "babel-plugin-relay": "^13.2.0",
     "chalk": "^4.1.2",
     "cross-spawn": "^7.0.3",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.0.1",
     "envars": "^0.4.0",
     "eslint": "^8.15.0",
     "eslint-config-prettier": "^8.5.0",
@@ -69,7 +69,7 @@
     "@types/inquirer": "^8.2.1",
     "@types/jest": "^27.5.0",
     "@types/minimist": "^1.2.2",
-    "@types/node": "^17.0.31"
+    "@types/node": "^17.0.32"
   },
   "resolutions": {
     "chalk@npm:^5.0.1": "^4.1.2"

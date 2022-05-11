@@ -77,7 +77,7 @@
     "@types/jsonwebtoken": "^8.5.8",
     "@types/lodash": "^4.14.182",
     "@types/minimist": "^1.2.2",
-    "@types/node": "^17.0.31",
+    "@types/node": "^17.0.32",
     "@types/pg": "^8.6.5",
     "@types/simple-oauth2": "^4.1.1",
     "@types/supertest": "^2.0.12",
