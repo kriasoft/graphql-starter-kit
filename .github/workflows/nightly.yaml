@@ -1,5 +1,4 @@
-# Compile, bundle, and upload application bundles
-# to a cloud storage on each pull request to "main".
+# GitHub Actions workflow
 # https://help.github.com/actions
 
 name: "Nightly"
@@ -18,8 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         with:
           path: |
             ${{ github.workspace }}/.yarn/cache
