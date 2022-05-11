@@ -4,8 +4,8 @@
 import cookie from "cookie";
 import { Request, RequestHandler, Response } from "express";
 import jwt from "jsonwebtoken";
-import type { User } from "../db";
-import db from "../db";
+import { log } from "../core";
+import db, { User } from "../db";
 import env from "../env";
 
 // The name of the session (ID) cookie.
@@ -26,7 +26,7 @@ async function getUser(req: Request): Promise<User | null> {
       const user = await db.table("user").where({ id: token.sub }).first();
       return user || null;
     } catch (err) {
-      console.error(err);
+      log(req, "WARNING", err as Error);
     }
   }
 
@@ -93,7 +93,7 @@ const session: RequestHandler = async function session(req, res, next) {
       next();
     }
   } catch (err) {
-    console.error(err);
+    log(req, "WARNING", err as Error);
     next();
   }
 };

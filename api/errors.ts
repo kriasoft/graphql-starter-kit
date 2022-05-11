@@ -2,6 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { ErrorRequestHandler } from "express";
+import { RequestError } from "got";
 import { isHttpError } from "http-errors";
 import { log } from "./core";
 
@@ -14,13 +15,23 @@ export const handleError: ErrorRequestHandler = function (
   res,
   next, // eslint-disable-line @typescript-eslint/no-unused-vars
 ) {
-  log(req, res, "ERROR", err);
+  log(req, "ERROR", err);
 
-  const statusCode = isHttpError(err) ? err.statusCode : 500;
+  let statusCode = 500;
+
+  if (err instanceof RequestError && err.response?.statusCode) {
+    statusCode = err.response.statusCode;
+  } else if (isHttpError(err)) {
+    statusCode = err.statusCode ?? 400;
+  }
+
   res.status(statusCode);
 
-  if (/application\/json;/.test(req.get("accept") ?? "")) {
-    res.send(err);
+  if (
+    /application\/json/.test(req.get("accept") ?? "") ||
+    req.path.startsWith("/api/")
+  ) {
+    res.send(err instanceof RequestError ? { message: err.message } : err);
   } else if (statusCode === 404) {
     res.render("error", {
       title: "Page Not Found",
