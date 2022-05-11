@@ -1,9 +1,12 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
+import spawn from "cross-spawn";
 import envars from "envars";
 import knex, { type Knex } from "knex";
 import minimist from "minimist";
+import fs from "node:fs";
+import path from "node:path";
 import ora from "ora";
 import config from "../knexfile";
 import updateTypes from "./update-types";
@@ -11,7 +14,12 @@ import updateTypes from "./update-types";
 // Parse the command line arguments
 const args = minimist(process.argv.slice(2), {
   boolean: ["seed"],
-  default: { env: "local", seed: true },
+  string: ["from"],
+  default: {
+    env: "local",
+    seed: true,
+    restore: false,
+  },
 });
 
 // Load environment variables (PGHOST, PGUSER, etc.)
@@ -75,6 +83,38 @@ async function reset() {
   let res = await db.migrate.latest();
   spinner.succeed(`${spinner.text} to (${res[1].length})`);
 
+  if (args.restore) {
+    spinner = ora("Restore backup");
+    // Find the latest backup file for the selected environment
+    const fromEnv = typeof args.restore === "string" ? args.restore : args.env;
+    const file = fs
+      .readdirSync(path.resolve(__dirname, "../backups"))
+      .sort()
+      .reverse()
+      .find((x) => x.endsWith(`_${fromEnv}.sql`));
+
+    if (!file) {
+      throw new Error(
+        `Cannot find a SQL backup file of the "${fromEnv}" environment.`,
+      );
+    }
+
+    await new Promise<void>((resolve, reject) => {
+      spawn(
+        "psql",
+        [
+          "--file",
+          path.resolve(__dirname, `../backups/${file}`),
+          "--echo-errors",
+          "--no-readline",
+        ],
+        { stdio: "inherit" },
+      ).on("exit", (code) => (code === 0 ? resolve() : reject()));
+    });
+
+    spinner.succeed();
+  }
+
   if (args.seed) {
     spinner = ora("Import reference (seed) data");
     res = await db.seed.run();
@@ -90,6 +130,6 @@ async function reset() {
 reset()
   .finally(() => db?.destroy())
   .catch((err) => {
-    console.error(err);
+    if (err) console.error(err);
     process.exitCode = 1;
   });

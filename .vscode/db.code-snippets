@@ -9,7 +9,6 @@
       " * Migrates database schema to the next version.",
       " * @see https://knexjs.org/#Schema",
       " */",
-      "",
       "export async function up(db: Knex) {",
       "  await db.schema.createTable(\"${1:table}\", (table) => {",
       "    table$0",
