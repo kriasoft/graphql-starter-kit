@@ -4,7 +4,7 @@
     "prefix": "query-list",
     "body": [
       "import { GraphQLFieldConfig, GraphQLList, GraphQLNonNull } from \"graphql\";",
-      "import { Context } from \"../context\";",
+      "import { type Context } from \"../context\";",
       "import db, { ${1/^(.)(.*?)s?$/${1:/upcase}$2/} } from \"../db\";",
       "import { ${1/^(.)(.*?)s?$/${1:/upcase}$2/}Type } from \"../types\";",
       "",
