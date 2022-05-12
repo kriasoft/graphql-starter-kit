@@ -3,7 +3,7 @@
 
 import { RequestHandler } from "express";
 import { OAuth2Client } from "google-auth-library";
-import { IdentityProvider } from "../db";
+import { IdentityProvider } from "../core";
 import env from "../env";
 import authorize from "./authorize";
 

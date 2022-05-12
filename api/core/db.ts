@@ -2,9 +2,8 @@
 /* SPDX-License-Identifier: MIT */
 
 import knex from "knex";
-import config from "./config";
+import config from "./dbConfig";
 import { createNewId } from "./utils";
-export * from "../../db/types";
 
 /**
  * Knex.js database client and query builder for PostgreSQL.
@@ -22,4 +21,4 @@ process.once("SIGTERM", function () {
   db.destroy();
 });
 
-export default db;
+export { db };

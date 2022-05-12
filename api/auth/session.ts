@@ -4,8 +4,7 @@
 import cookie from "cookie";
 import { Request, RequestHandler, Response } from "express";
 import jwt from "jsonwebtoken";
-import { log } from "../core";
-import db, { User } from "../db";
+import { db, log, User } from "../core";
 import env from "../env";
 
 // The name of the session (ID) cookie.

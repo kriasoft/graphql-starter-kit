@@ -81,7 +81,7 @@ async function reset() {
 
   spinner = ora("Migrate database schema");
   let res = await db.migrate.latest();
-  spinner.succeed(`${spinner.text} to (${res[1].length})`);
+  spinner.succeed(`${spinner.text} (${res[1].length})`);
 
   if (args.restore) {
     spinner = ora("Restore backup");

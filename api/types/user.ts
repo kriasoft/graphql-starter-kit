@@ -9,8 +9,7 @@ import {
   GraphQLString,
 } from "graphql";
 import { connectionDefinitions, globalIdField } from "graphql-relay";
-import { Context } from "../context";
-import type { User } from "../db";
+import { Context, User } from "../core";
 import { countField, dateField } from "./fields";
 import { IdentityType } from "./identity";
 import { nodeInterface } from "./node";

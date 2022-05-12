@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { GraphQLObjectType, GraphQLString } from "graphql";
-import { Context } from "../context";
+import { Context } from "../core";
 import env from "../env";
 
 type Picture = {

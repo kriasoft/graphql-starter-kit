@@ -4,8 +4,7 @@
 import sgMail, { ResponseError } from "@sendgrid/mail";
 import argon2 from "argon2";
 import { GraphQLFieldConfig, GraphQLObjectType, GraphQLString } from "graphql";
-import { Context } from "../context";
-import db, { User, UserAction, UserActionType } from "../db";
+import { Context, db, User, UserAction, UserActionType } from "../core";
 import env from "../env";
 import { UserType } from "../types";
 import { ValidationError } from "../utils";
@@ -14,14 +13,14 @@ import { ValidationError } from "../utils";
  * @example
  *   # Request a password reset code
  *   mutation {
- *     resetPassword(username: "tarkus") {
+ *     resetPassword(username: "koistya") {
  *       user { id }
  *     }
  *   }
  *
  *   # Update user's password
  *   mutation {
- *     resetPassword(username: "tarkus", password: "Passw0rd", code: "224466") {
+ *     resetPassword(username: "koistya", password: "Passw0rd", code: "224466") {
  *       user { id }
  *     }
  *   }

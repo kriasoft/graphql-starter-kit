@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { type Knex } from "knex";
+import { Knex } from "knex";
 import fs from "node:fs/promises";
 
 /**

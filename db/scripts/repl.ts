@@ -21,7 +21,7 @@ require("../knexfile");
 Promise.resolve()
   .then(() => createDatabase())
   .then(async function () {
-    const db = await import("../../api/db").then((x) => x.default);
+    const db = await import("../../api/core/db").then((x) => x.db);
     Object.defineProperty(globalThis, "db", { value: db });
     return db.select(db.raw("version(), current_database() as database"));
   })

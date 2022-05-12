@@ -13,8 +13,7 @@ import {
 import { HttpError } from "http-errors";
 import fs from "node:fs/promises";
 import { ValidationError } from "validator-fluent";
-import { Context } from "./context";
-import { log } from "./core";
+import { Context, log } from "./core";
 import schema from "./schema";
 
 // Customize GraphQL error serialization

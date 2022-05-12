@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { fromGlobalId, nodeDefinitions } from "graphql-relay";
-import { Context } from "../context";
+import { Context } from "../core";
 
 /**
  * The `Node` interface for global object identification.

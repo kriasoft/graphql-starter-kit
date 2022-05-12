@@ -8,8 +8,7 @@ import {
   forwardConnectionArgs,
 } from "graphql-relay";
 import { Forbidden } from "http-errors";
-import { Context } from "../context";
-import db, { User } from "../db";
+import { Context, db, User } from "../core";
 import { UserConnection } from "../types";
 
 /**

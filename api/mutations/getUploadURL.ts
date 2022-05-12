@@ -1,8 +1,7 @@
 import { GraphQLFieldConfig, GraphQLNonNull, GraphQLString } from "graphql";
 import { customAlphabet } from "nanoid/async";
-import path from "path";
-import { Context } from "../context";
-import { storage } from "../core";
+import path from "node:path";
+import { Context, storage } from "../core";
 import env from "../env";
 
 const newId = customAlphabet("0123456789abcdefghijklmnopqrstuvwxyz", 12);

@@ -5,9 +5,8 @@ import SendGrid from "@sendgrid/mail";
 import express from "express";
 import { NotFound } from "http-errors";
 import { auth } from "./auth";
-import db from "./db";
+import { db, handleError } from "./core";
 import env from "./env";
-import { handleError } from "./errors";
 import { handleGraphQL, updateSchema } from "./graphql";
 import { withViews } from "./views";
 

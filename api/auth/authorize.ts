@@ -3,8 +3,7 @@
 
 import { Request } from "express";
 import { toGlobalId } from "graphql-relay";
-import type { Identity, User } from "../db";
-import db from "../db";
+import { db, Identity, User } from "../core";
 
 /**
  * Links OAuth credentials (identity) to a user account.

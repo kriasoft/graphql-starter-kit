@@ -2,11 +2,10 @@
 /* SPDX-License-Identifier: MIT */
 
 import DataLoader from "dataloader";
-import { type Request } from "express";
-import { type GraphQLParams } from "graphql-helix";
+import { Request } from "express";
+import { GraphQLParams } from "graphql-helix";
 import { Forbidden, Unauthorized } from "http-errors";
-import { log, type LogSeverity } from "./core";
-import db, { Identity, User } from "./db";
+import { db, Identity, log, LogSeverity, User } from "./core";
 import { mapTo, mapToMany } from "./utils";
 
 /**

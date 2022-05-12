@@ -2,9 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { GraphQLFieldConfig, GraphQLString } from "graphql";
-import type { Context } from "../context";
-import type { User } from "../db";
-import db from "../db";
+import { Context, db, User } from "../core";
 import { UserType } from "../types";
 
 /**

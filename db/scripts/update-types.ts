@@ -3,9 +3,9 @@
 
 import { knex } from "knex";
 import { updateTypes } from "knex-types";
+import { basename } from "node:path";
+import { nextTick } from "node:process";
 import { promise as oraPromise } from "ora";
-import { basename } from "path";
-import { nextTick } from "process";
 import config from "../knexfile";
 
 /**

@@ -11,11 +11,9 @@ import {
 } from "graphql";
 import { fromGlobalId } from "graphql-relay";
 import { BadRequest } from "http-errors";
-import { extname } from "path";
-import { URL } from "url";
-import { Context } from "../context";
-import { uploadBucket } from "../core";
-import db, { User } from "../db";
+import { extname } from "node:path";
+import { URL } from "node:url";
+import { Context, db, uploadBucket, User } from "../core";
 import env from "../env";
 import { UploadTypeType, UserType } from "../types";
 
