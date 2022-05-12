@@ -117,11 +117,19 @@ $ yarn db:restore [--env #0] [--from #0]
 
 You can find backup files inside of the [`/backups`](./backups) folder.
 
-## How to generate seed files
+## How to generate fake (reference) data
 
-Generate seed files by using Faker.js (see [`/seeds/*.ts`](./seeds)).
-Alternatively, fetch the actual data from the database and save it into JSON
-files as seeds by running:
+You can generate and populate the database with some fake (but reasonable) data
+that can be used for unit testing, performance testing, demos, etc.
+
+```
+$ yarn db:generate [--env #0]
+```
+
+See [`/scripts/generate.ts`](./scripts/generate.ts) script file.
+
+You can also import data from the database into [`/seeds/*.json`](./seeds))
+files by running:
 
 ```
 $ yarn db:import-seeds [--env #0]
