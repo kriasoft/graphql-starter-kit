@@ -5,5 +5,6 @@ export * from "../../db/types"; // Generated db types
 export * from "../context";
 export * from "./db";
 export * from "./handleError";
+export * from "./jwt";
 export * from "./logging";
 export * from "./storage";

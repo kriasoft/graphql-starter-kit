@@ -3,22 +3,26 @@
 
 import { RequestHandler } from "express";
 import { OAuth2Client } from "google-auth-library";
+import { memoize } from "lodash";
 import { IdentityProvider } from "../core";
 import env from "../env";
 import authorize from "./authorize";
 
 /**
- * OAuth 2.0 client for Google.
+ * Initializes an OAuth 2.0 client for Google.
  */
-const oauth = new OAuth2Client({
-  clientId: env.GOOGLE_CLIENT_ID,
-  clientSecret: env.GOOGLE_CLIENT_SECRET,
+export const getGoogleOAuth2Client = memoize(function () {
+  return new OAuth2Client({
+    clientId: env.GOOGLE_CLIENT_ID,
+    clientSecret: env.GOOGLE_CLIENT_SECRET,
+  });
 });
 
 /**
  * Redirects user to Google login page.
  */
 export const redirect: RequestHandler = function (req, res) {
+  const oauth = getGoogleOAuth2Client();
   const authorizeUrl = oauth.generateAuthUrl({
     access_type: "offline",
     scope: [
@@ -39,6 +43,7 @@ export const redirect: RequestHandler = function (req, res) {
  */
 export const callback: RequestHandler = async function (req, res, next) {
   try {
+    const oauth = getGoogleOAuth2Client();
     const { code } = req.query as { code: string };
     const { redirect_uri } = req.app.locals;
     const { tokens } = await oauth.getToken({ code, redirect_uri });
