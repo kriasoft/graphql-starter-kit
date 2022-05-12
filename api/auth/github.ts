@@ -1,6 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
+// import { memoize } from "lodash";
 // import { RequestHandler } from "express";
 // import { App, Octokit } from "octokit";
 // import { IdentityProvider } from "../core";
@@ -8,23 +9,26 @@
 // import authorize from "./authorize";
 
 /**
- * OAuth 2.0 client for GitHub.
+ * Initializes an OAuth 2.0 client for GitHub
  *
  * @see https://github.com/octokit/octokit.js#github-app
  */
-// const app = new App({
-//   appId: env.GITHUB_APP_ID,
-//   privateKey: env.GITHUB_APP_KEY,
-//   oauth: {
-//     clientId: env.GITHUB_CLIENT_ID,
-//     clientSecret: env.GITHUB_CLIENT_SECRET,
-//   },
+// export const getGitHubApp = memoize(function () {
+//   return new App({
+//     appId: env.GITHUB_APP_ID,
+//     privateKey: env.GITHUB_APP_KEY,
+//     oauth: {
+//       clientId: env.GITHUB_CLIENT_ID,
+//       clientSecret: env.GITHUB_CLIENT_SECRET,
+//     },
+//   });
 // });
 
 /**
  * Redirects user to GitHub login page.
  */
 // export const redirect: RequestHandler = function (req, res) {
+//   const app = getGitHubApp();
 //   const authorization = app.oauth.getWebFlowAuthorizationUrl({
 //     redirectUrl: req.app.locals.redirect_uri,
 //     allowSignup: true,
@@ -39,6 +43,7 @@
  */
 // export const callback: RequestHandler = async function (req, res, next) {
 //   try {
+//     const app = getGitHubApp();
 //     const { authentication: credentials } = await app.oauth.createToken({
 //       code: req.query.code as string,
 //       state: req.query.state as string,

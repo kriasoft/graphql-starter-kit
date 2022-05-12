@@ -3,6 +3,7 @@
 
 import { RequestHandler } from "express";
 import got from "got";
+import { memoize } from "lodash";
 import { AuthorizationCode } from "simple-oauth2";
 import { IdentityProvider } from "../core";
 import env from "../env";
@@ -13,18 +14,20 @@ const scope = ["email"];
 const version = "v12.0";
 
 /**
- * OAuth 2.0 client for Facebook.
+ * Initializes an OAuth 2.0 client for Facebook.
  *
  * @see https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow
  */
-const oauth = new AuthorizationCode({
-  client: { id: env.FACEBOOK_APP_ID, secret: env.FACEBOOK_APP_SECRET },
-  auth: {
-    tokenHost: "https://graph.facebook.com",
-    tokenPath: `/${version}/oauth/access_token`,
-    authorizeHost: "https://www.facebook.com",
-    authorizePath: `/${version}/dialog/oauth`,
-  },
+export const getFacebookOAuth2Client = memoize(function () {
+  return new AuthorizationCode({
+    client: { id: env.FACEBOOK_APP_ID, secret: env.FACEBOOK_APP_SECRET },
+    auth: {
+      tokenHost: "https://graph.facebook.com",
+      tokenPath: `/${version}/oauth/access_token`,
+      authorizeHost: "https://www.facebook.com",
+      authorizePath: `/${version}/dialog/oauth`,
+    },
+  });
 });
 
 /**
@@ -32,6 +35,7 @@ const oauth = new AuthorizationCode({
  */
 export const redirect: RequestHandler = function (req, res) {
   const { redirect_uri } = req.app.locals;
+  const oauth = getFacebookOAuth2Client();
   const state = createState({});
   const authorizeUrl = oauth.authorizeURL({ redirect_uri, scope, state });
   res.redirect(authorizeUrl);
@@ -44,6 +48,7 @@ export const redirect: RequestHandler = function (req, res) {
 export const callback: RequestHandler = async function (req, res, next) {
   try {
     verifyState(req.query.state as string);
+    const oauth = getFacebookOAuth2Client();
     const { code } = req.query as { code: string };
     const { redirect_uri } = req.app.locals;
     const { token } = await oauth.getToken({ code, redirect_uri, scope });

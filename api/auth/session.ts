@@ -3,9 +3,18 @@
 
 import cookie from "cookie";
 import { Request, RequestHandler, Response } from "express";
-import jwt from "jsonwebtoken";
-import { db, log, User } from "../core";
+import { Unauthorized } from "http-errors";
+import {
+  createIdToken,
+  db,
+  decodeIdToken,
+  IdentityProvider,
+  log,
+  User,
+  verifyIdToken,
+} from "../core";
 import env from "../env";
+import { getGoogleOAuth2Client } from "./google";
 
 // The name of the session (ID) cookie.
 const cookieName = env.isProduction
@@ -14,18 +23,53 @@ const cookieName = env.isProduction
 
 async function getUser(req: Request): Promise<User | null> {
   const cookies = cookie.parse(req.headers.cookie || "");
-  const sessionCookie = cookies[cookieName];
+  const idToken =
+    req.headers.authorization?.startsWith("Bearer ") ||
+    req.headers.authorization?.startsWith("bearer ")
+      ? req.headers.authorization.substring(7)
+      : cookies[cookieName];
 
-  if (sessionCookie) {
+  if (idToken) {
     try {
-      const token = jwt.verify(sessionCookie, env.JWT_SECRET, {
-        issuer: env.APP_ORIGIN,
-        audience: env.APP_NAME,
-      }) as { sub: string };
+      let token = decodeIdToken(idToken);
+
+      // If the token was issued by Google, verify it using
+      // Google's OAuth 2.0 client ID
+      if (token?.iss === "https://accounts.google.com") {
+        const oauth = getGoogleOAuth2Client();
+        const login = await oauth.verifyIdToken({ idToken }).catch((err) => {
+          throw new Unauthorized(err.message);
+        });
+        const userId = login.getUserId();
+        if (!userId) return null;
+
+        const user = await db
+          .table("identity")
+          .leftJoin("user", "user.id", "identity.user_id")
+          .where("identity.provider", "=", IdentityProvider.Google)
+          .andWhere("identity.id", "=", userId)
+          .first("user.*");
+
+        if (!user) {
+          throw new Unauthorized(
+            `Not a registered user (Google User ID: ${userId}).`,
+          );
+        }
+
+        return user;
+      }
+
+      token = token && verifyIdToken(idToken);
+      if (!token) return null;
       const user = await db.table("user").where({ id: token.sub }).first();
-      return user || null;
+      return user ?? null;
     } catch (err) {
-      log(req, "WARNING", err as Error);
+      if (err instanceof Unauthorized) {
+        throw err;
+      } else {
+        log(req, "WARNING", err as Error);
+        return null;
+      }
     }
   }
 
@@ -52,16 +96,11 @@ async function signIn(
     return null;
   }
 
-  const sessionCookie = jwt.sign({}, env.JWT_SECRET, {
-    issuer: env.APP_ORIGIN,
-    audience: env.APP_NAME,
-    subject: String(user.id),
-    expiresIn: env.JWT_EXPIRES,
-  });
+  const idToken = createIdToken(user);
 
   res.setHeader(
     "Set-Cookie",
-    cookie.serialize(cookieName, sessionCookie, {
+    cookie.serialize(cookieName, idToken, {
       httpOnly: true,
       maxAge: env.JWT_EXPIRES,
       secure: env.isProduction,
@@ -92,8 +131,7 @@ const session: RequestHandler = async function session(req, res, next) {
       next();
     }
   } catch (err) {
-    log(req, "WARNING", err as Error);
-    next();
+    next(err);
   }
 };
 
