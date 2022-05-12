@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { type Knex } from "knex";
+import { Knex } from "knex";
 
 /**
  * The initial database schema (migration).
@@ -31,7 +31,7 @@ export async function up(db: Knex) {
   await db.raw(`CREATE EXTENSION IF NOT EXISTS "citext"`);
 
   // Custom data types (username, email, custom IDs, enums, etc.)
-  await db.raw(`CREATE DOMAIN short_id AS text CHECK(VALUE ~ '^[0-9a-z]{4,8}$')`); // prettier-ignore
+  await db.raw(`CREATE DOMAIN short_id AS text CHECK(VALUE ~ '^[0-9a-z]{3,10}$')`); // prettier-ignore
   await db.raw(`CREATE DOMAIN username AS citext CHECK (VALUE ~ '^[0-9a-zA-Z._]{2,30}$')`); // prettier-ignore
   await db.raw(`CREATE DOMAIN email AS citext CHECK (VALUE ~ '^[^\\s@]+@([^\\s@.,]+\\.)+[^\\s@.,]{2,}$')`); // prettier-ignore
   await db.raw(`CREATE TYPE identity_provider AS ENUM (${idps.map((x) => `'${x}'`).join(", ")})`); // prettier-ignore

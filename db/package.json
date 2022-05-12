@@ -14,6 +14,7 @@
     "db:reset": "cross-env BABEL_DISABLE_CACHE=1 babel-node --root-mode=upward -o .,../api -x .ts ./scripts/reset.ts",
     "db:backup": "cross-env BABEL_DISABLE_CACHE=1 babel-node --root-mode=upward -x .ts ./scripts/backup.ts",
     "db:restore": "cross-env BABEL_DISABLE_CACHE=1 babel-node --root-mode=upward -x .ts ./scripts/restore.ts",
+    "db:generate": "cross-env BABEL_DISABLE_CACHE=1 babel-node --root-mode=upward -o .,../api -x .ts ./scripts/generate.ts",
     "db:import-seeds": "cross-env BABEL_DISABLE_CACHE=1 babel-node --root-mode=upward -o .,../api -x .ts ./scripts/import-seeds.ts",
     "db:update-types": "cross-env BABEL_DISABLE_CACHE=1 babel-node --root-mode=upward -o .,../api -x .ts ./scripts/update-types.ts",
     "db:repl": "cross-env BABEL_DISABLE_CACHE=1 babel-node --root-mode=upward -o .,../api -x .ts --experimental-repl-await ./scripts/repl.ts",

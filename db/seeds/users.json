@@ -1,0 +1,86 @@
+[
+  {
+    "id": "bot",
+    "username": "bot",
+    "email": "bot@example.com",
+    "email_verified": true,
+    "name": "Bot",
+    "picture": { "url": "https://avatars.githubusercontent.com/u/29953658" },
+    "admin": true,
+    "created": "2016-01-01T00:00:00.000Z",
+    "updated": "2016-01-01T00:00:00.000Z",
+    "last_login": "2016-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "test1",
+    "username": "test1",
+    "email": "jaylon.johns@example.com",
+    "email_verified": true,
+    "name": "Jaylon Johns",
+    "picture": { "url": "https://randomuser.me/api/portraits/men/58.jpg" },
+    "admin": true,
+    "created": "2016-01-01T00:01:00.000Z",
+    "updated": "2016-01-01T00:01:00.000Z",
+    "last_login": "2016-01-01T00:01:00.000Z"
+  },
+  {
+    "id": "test2",
+    "username": "test2",
+    "email": "rusty.miller@example.com",
+    "email_verified": true,
+    "name": "Rusty Miller",
+    "picture": { "url": "https://randomuser.me/api/portraits/men/37.jpg" },
+    "admin": false,
+    "created": "2016-01-01T00:02:00.000Z",
+    "updated": "2016-01-01T00:02:00.000Z",
+    "last_login": "2016-01-01T00:02:00.000Z"
+  },
+  {
+    "id": "test3",
+    "username": "test3",
+    "email": "rashawn.marvin@example.com",
+    "email_verified": true,
+    "name": "Rashawn Marvin",
+    "picture": { "url": "https://randomuser.me/api/portraits/men/34.jpg" },
+    "admin": false,
+    "created": "2016-01-01T00:03:00.000Z",
+    "updated": "2016-01-01T00:03:00.000Z",
+    "last_login": "2016-01-01T00:03:00.000Z"
+  },
+  {
+    "id": "test4",
+    "username": "test4",
+    "email": "rosario.ohara@example.com",
+    "email_verified": true,
+    "name": "Rosario O'Hara",
+    "picture": { "url": "https://randomuser.me/api/portraits/men/34.jpg" },
+    "admin": false,
+    "created": "2016-01-01T00:04:00.000Z",
+    "updated": "2016-01-01T00:04:00.000Z",
+    "last_login": "2016-01-01T00:04:00.000Z"
+  },
+  {
+    "id": "test5",
+    "username": "test5",
+    "email": "kale.bauch@example.com",
+    "email_verified": true,
+    "name": "Kale Bauch",
+    "picture": { "url": "https://randomuser.me/api/portraits/men/34.jpg" },
+    "admin": false,
+    "created": "2016-01-01T00:05:00.000Z",
+    "updated": "2016-01-01T00:05:00.000Z",
+    "last_login": "2016-01-01T00:05:00.000Z"
+  },
+  {
+    "id": "wp60xu",
+    "username": "koistya",
+    "email": "hello@tarkus.me",
+    "email_verified": true,
+    "name": "Konstantin Tarkus",
+    "picture": { "url": "https://avatars.githubusercontent.com/u/197134" },
+    "admin": true,
+    "created": "2019-01-01T00:00:00.000Z",
+    "updated": "2019-01-01T00:00:00.000Z",
+    "last_login": "2019-01-01T00:00:00.000Z"
+  }
+]

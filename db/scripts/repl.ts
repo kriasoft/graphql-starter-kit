@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { blueBright, greenBright } from "chalk";
-import { type Knex } from "knex";
+import { Knex } from "knex";
 import repl from "node:repl";
 import createDatabase from "./create";
 
