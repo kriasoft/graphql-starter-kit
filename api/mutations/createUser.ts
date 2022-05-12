@@ -10,9 +10,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
-import "knex";
-import { Context } from "../context";
-import db, { User } from "../db";
+import { Context, db, User } from "../core";
 import { UserType } from "../types";
 import { validate, ValidationError } from "../utils";
 

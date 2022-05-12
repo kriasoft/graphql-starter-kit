@@ -3,10 +3,14 @@
 
 import { formatISO } from "date-fns";
 import { format } from "date-fns-tz";
-import type { GraphQLFieldConfig } from "graphql";
-import { GraphQLInt, GraphQLNonNull, GraphQLString } from "graphql";
-import type { Knex } from "knex";
-import { Context } from "../context";
+import {
+  GraphQLFieldConfig,
+  GraphQLInt,
+  GraphQLNonNull,
+  GraphQLString,
+} from "graphql";
+import { Knex } from "knex";
+import { Context } from "../core";
 
 type Source = { query: Knex.QueryBuilder };
 

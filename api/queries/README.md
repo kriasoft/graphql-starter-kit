@@ -28,7 +28,7 @@ query field. For example:
 ```js
 import { GraphQLNonNull, GraphQLString } from "graphql";
 
-import db from "../db";
+import { db } from "../core";
 import { StoryType } from "../types";
 
 export default {

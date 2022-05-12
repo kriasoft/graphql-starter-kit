@@ -11,8 +11,7 @@ import {
   GraphQLString,
 } from "graphql";
 import { BadRequest } from "http-errors";
-import { Context } from "../context";
-import db, { User } from "../db";
+import { Context, db, User } from "../core";
 import { UserType } from "../types";
 import { fromGlobalId, validate, ValidationError } from "../utils";
 

@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import "express";
-import type { User } from "./db";
+import { User } from "./core";
 
 declare global {
   namespace Express {

@@ -1,9 +1,9 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { type Request } from "express";
+import { Request } from "express";
 import { RequestError } from "got";
-import { type GraphQLParams } from "graphql-helix";
+import { GraphQLParams } from "graphql-helix";
 import { HttpError } from "http-errors";
 import PrettyError from "pretty-error";
 import env from "../env";

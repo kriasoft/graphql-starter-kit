@@ -3,7 +3,7 @@
 
 import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import { globalIdField } from "graphql-relay";
-import type { Identity } from "../db";
+import { Identity } from "../core";
 import { IdentityProviderType } from "./enums";
 import { dateField } from "./fields";
 

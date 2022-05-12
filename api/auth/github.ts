@@ -3,7 +3,7 @@
 
 // import { RequestHandler } from "express";
 // import { App, Octokit } from "octokit";
-// import { IdentityProvider } from "../db";
+// import { IdentityProvider } from "../core";
 // import env from "../env";
 // import authorize from "./authorize";
 

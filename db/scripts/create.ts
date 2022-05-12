@@ -6,7 +6,7 @@ import envars from "envars";
 import knex from "knex";
 import minimist from "minimist";
 import { basename } from "node:path";
-import config from "../../api/db/config";
+import config from "../../api/core/dbConfig";
 
 /**
  * Bootstraps a new PostgreSQL database if it doesn't exist.

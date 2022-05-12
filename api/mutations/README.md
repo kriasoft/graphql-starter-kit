@@ -6,7 +6,7 @@ Please, prefer creating UPSERT mutations in instead of CREATE + UPDATE whenever 
 import { mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLID, GraphQLString } from "graphql";
 
-import db from "../db";
+import { db } from "../core";
 import { StoryType } from "../types";
 import { fromGlobalId } from "../utils";
 

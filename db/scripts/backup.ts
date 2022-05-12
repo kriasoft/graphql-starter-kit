@@ -9,7 +9,7 @@ import fs from "node:fs";
 import { EOL } from "node:os";
 import path from "node:path";
 import readline from "node:readline";
-import { type Readable } from "stream";
+import { type Readable } from "node:stream";
 
 // Parse CLI arguments
 const args: string[] = [];
