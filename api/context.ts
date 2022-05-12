@@ -5,7 +5,9 @@ import DataLoader from "dataloader";
 import { Request } from "express";
 import { GraphQLParams } from "graphql-helix";
 import { Forbidden, Unauthorized } from "http-errors";
-import { db, Identity, log, LogSeverity, User } from "./core";
+import { Identity, User } from "../db/types";
+import { db } from "./core/db";
+import { log, LogSeverity } from "./core/logging";
 import { mapTo, mapToMany } from "./utils";
 
 /**
