@@ -67,9 +67,9 @@
     "@types/babel__core": "^7.1.19",
     "@types/cross-spawn": "^6.0.2",
     "@types/inquirer": "^8.2.1",
-    "@types/jest": "^27.5.0",
+    "@types/jest": "^27.5.1",
     "@types/minimist": "^1.2.2",
-    "@types/node": "^17.0.32"
+    "@types/node": "^17.0.33"
   },
   "resolutions": {
     "chalk@npm:^5.0.1": "^4.1.2"

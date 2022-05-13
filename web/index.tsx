@@ -3,7 +3,7 @@
 
 import history from "history/browser";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import type { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import { App } from "./common";
 import type { Config } from "./config";
@@ -17,12 +17,10 @@ function load<T = unknown>(elementId: string): T {
   return el.text ? JSON.parse(el.text) : undefined;
 }
 
+const root = createRoot(document.getElementById("root") as HTMLElement);
 const data = load<RecordMap>("data");
 const config = load<Config>("config");
 const relay = createRelay({ records: data });
 
 // Render the top-level React component
-ReactDOM.render(
-  <App config={config} history={history} relay={relay} />,
-  document.getElementById("root"),
-);
+root.render(<App config={config} history={history} relay={relay} />);

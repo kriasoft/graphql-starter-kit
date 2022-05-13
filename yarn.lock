@@ -3453,13 +3453,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:^27.5.0":
-  version: 27.5.0
-  resolution: "@types/jest@npm:27.5.0"
+"@types/jest@npm:^27.5.1":
+  version: 27.5.1
+  resolution: "@types/jest@npm:27.5.1"
   dependencies:
     jest-matcher-utils: "npm:^27.0.0"
     pretty-format: "npm:^27.0.0"
-  checksum: 206caafdb869b1e9ec25d984e5996fcd115459f82869dcdab40bb4a8091a301631860c659cc1fa025bb4c24bedd2216efce6c623d98e16e71a4ace0cd659ecf9
+  checksum: 21e447212fab9fc490700ee3ee2c9db3b93b5d7eca0c78731c48e2f9b9fa7452cdb1fe3b0607441e85d6017eba6e0d97ae1dba17ad903b74d55c8b375636fd81
   languageName: node
   linkType: hard
 
@@ -3537,10 +3537,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^17.0.32":
-  version: 17.0.32
-  resolution: "@types/node@npm:17.0.32"
-  checksum: a40e2670e158cb8ef88c5110d35e73b94265c5fcb808402e9fe57a900ab1de6f993a176694f765f0c0cc5346a96c9fc3cc16cde46666052b4ea10ba55a63690e
+"@types/node@npm:^17.0.33":
+  version: 17.0.33
+  resolution: "@types/node@npm:17.0.33"
+  checksum: 44c0436db2851ddbfc2133e132e48f1a261f115cddad0dc3e52ce6dd66f3e667f419d0a0b13f873cd280a2f4ade2128174f4c0b4c4c58ff94639a249e392f8ee
   languageName: node
   linkType: hard
 
@@ -3569,10 +3569,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:^2.1.5, @types/prettier@npm:^2.6.0":
+"@types/prettier@npm:^2.1.5":
   version: 2.6.0
   resolution: "@types/prettier@npm:2.6.0"
   checksum: 65e5d937e0cca8ddaed5b8e871be0da20d8e43b97bff34a8cd4b59f287b76b52a1d196109f5024c0cf2cffa3435f6961020e3350cc06022d8c656155687787ae
+  languageName: node
+  linkType: hard
+
+"@types/prettier@npm:^2.6.1":
+  version: 2.6.1
+  resolution: "@types/prettier@npm:2.6.1"
+  checksum: 88f8324f32e7bfe02736988a38e4108183884831dd42ac881590a53432c0fa4f08a79b207c76c6f2fa9a49b1139de6ef70c006144323fb352a447c762d66c21d
   languageName: node
   linkType: hard
 
@@ -3597,12 +3604,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.3":
-  version: 18.0.3
-  resolution: "@types/react-dom@npm:18.0.3"
+"@types/react-dom@npm:^18.0.4":
+  version: 18.0.4
+  resolution: "@types/react-dom@npm:18.0.4"
   dependencies:
     "@types/react": "npm:*"
-  checksum: a5a4029aa6646ecb6dc33acedebe781bd281eee7a73e9d706aaefb721b1aae5b57275ca30c40698666970c71ccedb571d1d0857e288ed146f587b7e1d31fcbba
+  checksum: 72e54014afe46d1efbaf6b518ea51e6ca1feb18fe537829f45110af53441a2ba2e3fd81207a49d8724fd68e37f57cbbc717386b655d492f8a1c6404deaa02f6f
   languageName: node
   linkType: hard
 
@@ -4436,11 +4443,11 @@ __metadata:
     "@types/express-handlebars": "npm:^6.0.0"
     "@types/gm": "npm:^1.18.11"
     "@types/http-errors": "npm:^1.8.2"
-    "@types/jest": "npm:^27.5.0"
+    "@types/jest": "npm:^27.5.1"
     "@types/jsonwebtoken": "npm:^8.5.8"
     "@types/lodash": "npm:^4.14.182"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^17.0.32"
+    "@types/node": "npm:^17.0.33"
     "@types/pg": "npm:^8.6.5"
     "@types/simple-oauth2": "npm:^4.1.1"
     "@types/supertest": "npm:^2.0.12"
@@ -4455,7 +4462,7 @@ __metadata:
     envalid: "npm:^7.3.1"
     envars: "npm:^0.4.0"
     express: "npm:^4.18.1"
-    express-handlebars: "npm:^6.0.5"
+    express-handlebars: "npm:^6.0.6"
     gm: "npm:^1.23.1"
     google-auth-library: "npm:^8.0.2"
     got: "npm:^12.0.4"
@@ -4508,9 +4515,9 @@ __metadata:
     "@types/babel__core": "npm:^7.1.19"
     "@types/cross-spawn": "npm:^6.0.2"
     "@types/inquirer": "npm:^8.2.1"
-    "@types/jest": "npm:^27.5.0"
+    "@types/jest": "npm:^27.5.1"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^17.0.32"
+    "@types/node": "npm:^17.0.33"
     "@typescript-eslint/eslint-plugin": "npm:^5.23.0"
     "@typescript-eslint/parser": "npm:^5.23.0"
     babel-jest: "npm:^28.1.0"
@@ -5944,7 +5951,7 @@ __metadata:
     "@types/cross-spawn": "npm:^6.0.2"
     "@types/lodash": "npm:^4.14.182"
     "@types/minimist": "npm:^1.2.2"
-    "@types/prettier": "npm:^2.6.0"
+    "@types/prettier": "npm:^2.6.1"
     chalk: "npm:^4.1.2"
     cross-env: "npm:^7.0.3"
     cross-spawn: "npm:^7.0.3"
@@ -6922,7 +6929,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-handlebars@npm:*, express-handlebars@npm:^6.0.5":
+"express-handlebars@npm:*":
   version: 6.0.5
   resolution: "express-handlebars@npm:6.0.5"
   dependencies:
@@ -6930,6 +6937,17 @@ __metadata:
     graceful-fs: "npm:^4.2.10"
     handlebars: "npm:^4.7.7"
   checksum: d7e79fe4bb960ea70e83fa7eb3e663169f875f5432298b33b208a096795e6d6119727ff4ca60c42dcac37e32d3b1128c75c958042262b9ab969b72f702ab1003
+  languageName: node
+  linkType: hard
+
+"express-handlebars@npm:^6.0.6":
+  version: 6.0.6
+  resolution: "express-handlebars@npm:6.0.6"
+  dependencies:
+    glob: "npm:^8.0.2"
+    graceful-fs: "npm:^4.2.10"
+    handlebars: "npm:^4.7.7"
+  checksum: db9bf777cc41157a14c5016b72251281cc134877a5926cb563588aa136df67077a2b62299d145f375122f0c86e12437f05c565bb9bce8038ef92a17fd4c63e59
   languageName: node
   linkType: hard
 
@@ -7620,6 +7638,19 @@ __metadata:
     once: "npm:^1.3.0"
     path-is-absolute: "npm:^1.0.0"
   checksum: 9845e7cb8afd2e8b90bfe411d9199899b3d0c14078fb2b30a336991a8db59ed00ac5a6011e488fe8016ae9a1e7a309e4abadb1c31847324cbdde38b9e3a9e34f
+  languageName: node
+  linkType: hard
+
+"glob@npm:^8.0.2":
+  version: 8.0.2
+  resolution: "glob@npm:8.0.2"
+  dependencies:
+    fs.realpath: "npm:^1.0.0"
+    inflight: "npm:^1.0.4"
+    inherits: "npm:2"
+    minimatch: "npm:^5.0.1"
+    once: "npm:^1.3.0"
+  checksum: 84c8fb6a2d8617480c4dfe576ab1b4482f3ed7a0cd112c52d3b24ff27b33a7ce475af0f745d2af94164a4789568b4670cdfd8aeeedc5a1157de4740773c6964c
   languageName: node
   linkType: hard
 
@@ -13450,10 +13481,10 @@ __metadata:
     "@types/babel__plugin-transform-runtime": "npm:^7.9.2"
     "@types/babel__preset-env": "npm:^7.9.2"
     "@types/gtag.js": "npm:^0.0.10"
-    "@types/jest": "npm:^27.5.0"
-    "@types/node": "npm:^17.0.32"
+    "@types/jest": "npm:^27.5.1"
+    "@types/node": "npm:^17.0.33"
     "@types/react": "npm:^18.0.9"
-    "@types/react-dom": "npm:^18.0.3"
+    "@types/react-dom": "npm:^18.0.4"
     "@types/react-relay": "npm:^13.0.2"
     "@types/relay-compiler": "npm:^8.0.2"
     "@types/relay-runtime": "npm:^13.0.3"
