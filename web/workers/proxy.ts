@@ -67,7 +67,8 @@ async function handleEvent(event: FetchEvent) {
   const route = await resolveRoute({ path, relay });
 
   if (route.redirect) {
-    return Response.redirect(route.redirect, route.status);
+    const redirectURL = new URL(route.redirect, url.toString());
+    return Response.redirect(redirectURL.toString(), route.status ?? 302);
   }
 
   if (route.error) {
