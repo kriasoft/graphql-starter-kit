@@ -65,7 +65,11 @@ class App extends React.Component<AppProps> {
       relay: this.props.relay,
     }).then((route) => {
       if (route.error) console.error(route.error);
-      this.setState({ route, location: ctx.location, error: route.error });
+      if (route.redirect) {
+        this.props.history.push(route.redirect);
+      } else {
+        this.setState({ route, location: ctx.location, error: route.error });
+      }
     });
   };
 
