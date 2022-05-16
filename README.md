@@ -51,7 +51,8 @@ cloud.google.com/storage))<br>
 
 ## Getting Started
 
-Just clone the repo and run `yarn setup` followed by `yarn start`:
+Just [clone](https://github.com/kriasoft/relay-starter-kit/generate) the repo
+and run `yarn install` followed by `yarn start`:
 
 ```bash
 $ git clone --origin=seed --branch=main --single-branch \

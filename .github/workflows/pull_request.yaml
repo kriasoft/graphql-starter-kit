@@ -53,6 +53,7 @@ jobs:
 
       # Test
       - run: yarn api:tsc
+      - run: yarn web:tsc
       - run: yarn db:migrate
       - run: yarn db:seed
       - run: yarn test
