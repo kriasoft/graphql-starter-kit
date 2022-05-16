@@ -17,6 +17,9 @@ async function handleEvent(event: FetchEvent) {
   const { pathname: path } = url;
   /* @ts-expect-error "123-test" => "test" */
   const config = configs[APP_ENV.replace(/^\d+-/, "")];
+  const cf = (req as CfRequestInit).cf as
+    | IncomingRequestCfProperties
+    | undefined;
   const api = new URL(API_URL);
 
   // Serve static assets from KV storage
@@ -45,7 +48,14 @@ async function handleEvent(event: FetchEvent) {
     path.startsWith("/auth/")
   ) {
     url.hostname = api.hostname;
-    return fetch(new Request(url.toString(), req));
+    return fetch(url.toString(), {
+      headers: {
+        ...Object.fromEntries(req.headers.entries()),
+        ...(cf?.continent && { "x-continent": cf.continent }),
+        ...(cf?.country && { "x-country": cf.country }),
+        ...(cf?.timezone && { "x-timezone": cf.timezone }),
+      },
+    });
   }
 
   // Image resizing
@@ -57,14 +67,19 @@ async function handleEvent(event: FetchEvent) {
   // Fetch index.html page from KV storage
   url.pathname = "/index.html";
   const resPromise = getAssetFromKV(
-    { ...event, request: new Request(url.toString(), req) },
+    {
+      request: new Request(url.toString(), req),
+      waitUntil(promise) {
+        return event.waitUntil(promise);
+      },
+    },
     { cacheControl: { bypassCache: config.app.env !== "prod" } },
   );
 
   // Find application route matching the URL pathname
   const apiBaseUrl = API_URL;
   const relay = createRelay({ baseUrl: apiBaseUrl, request: req });
-  const route = await resolveRoute({ path, relay });
+  const route = await resolveRoute({ path, query: url.searchParams, relay });
 
   if (route.redirect) {
     const redirectURL = new URL(route.redirect, url.toString());
