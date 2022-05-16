@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2020", "WebWorker"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "types": [
       "@types/webpack-env",
       "@emotion/react/types/css-prop",
