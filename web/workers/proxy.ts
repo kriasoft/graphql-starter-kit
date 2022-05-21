@@ -48,14 +48,17 @@ async function handleEvent(event: FetchEvent) {
     path.startsWith("/auth/")
   ) {
     url.hostname = api.hostname;
-    return fetch(url.toString(), {
-      headers: {
-        ...Object.fromEntries(req.headers.entries()),
-        ...(cf?.continent && { "x-continent": cf.continent }),
-        ...(cf?.country && { "x-country": cf.country }),
-        ...(cf?.timezone && { "x-timezone": cf.timezone }),
-      },
-    });
+    return fetch(
+      url.toString(),
+      new Request(req, {
+        headers: {
+          ...Object.fromEntries(req.headers.entries()),
+          ...(cf?.continent && { "x-continent": cf.continent }),
+          ...(cf?.country && { "x-country": cf.country }),
+          ...(cf?.timezone && { "x-timezone": cf.timezone }),
+        },
+      }),
+    );
   }
 
   // Image resizing

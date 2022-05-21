@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { CssBaseline, PaletteMode, Toolbar } from "@mui/material";
+import { CssBaseline, Toolbar } from "@mui/material";
 import { StyledEngineProvider } from "@mui/material/styles";
 import { Action, Update } from "history";
 import * as React from "react";
@@ -26,9 +26,6 @@ class App extends React.Component<AppProps> {
     route: undefined as RouteResponse | undefined,
     location: this.props.history.location,
     error: undefined as Error | undefined,
-    theme: (window?.localStorage?.getItem("theme") === "dark"
-      ? "dark"
-      : "light") as PaletteMode,
   };
 
   static getDerivedStateFromError(error: Error): { error: Error } {
