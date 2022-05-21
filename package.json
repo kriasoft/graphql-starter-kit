@@ -80,8 +80,8 @@
   "graphql": {
     "projects": {
       "api": {
-        "schema": "./api/schema.graphql",
-        "documents": "./api/**/*.ts",
+        "schema": "api/schema.graphql",
+        "documents": "api/**/*.ts",
         "extensions": {
           "endpoints": {
             "default": "http://localhost:8080/api"
@@ -89,11 +89,14 @@
         }
       },
       "web": {
-        "schema": "./api/schema.graphql",
-        "documents": "./web/**/*.{ts,tsx}",
+        "schema": [
+          "api/schema.graphql",
+          "web/schema.graphql"
+        ],
+        "documents": "web/**/*.{ts,tsx}",
         "extensions": {
           "endpoints": {
-            "default": "http://localhost:8080/api"
+            "default": "http://localhost:3000/api"
           }
         }
       }
