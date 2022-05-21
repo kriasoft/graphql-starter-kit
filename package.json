@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "packageManager": "yarn@4.0.0-rc.5",
+  "packageManager": "yarn@4.0.0-rc.6",
   "workspaces": [
     "api",
     "db",
@@ -26,20 +26,20 @@
   },
   "dependencies": {
     "@babel/cli": "^7.17.10",
-    "@babel/core": "^7.17.12",
+    "@babel/core": "^7.18.0",
     "@babel/node": "^7.17.10",
     "@babel/plugin-proposal-class-properties": "^7.17.12",
-    "@babel/plugin-proposal-object-rest-spread": "^7.17.12",
-    "@babel/plugin-transform-runtime": "^7.17.12",
-    "@babel/preset-env": "^7.17.12",
+    "@babel/plugin-proposal-object-rest-spread": "^7.18.0",
+    "@babel/plugin-transform-runtime": "^7.18.0",
+    "@babel/preset-env": "^7.18.0",
     "@babel/preset-react": "^7.17.12",
     "@babel/preset-typescript": "^7.17.12",
     "@babel/register": "^7.17.7",
     "@emotion/babel-plugin": "^11.9.2",
     "@emotion/eslint-plugin": "^11.7.0",
     "@emotion/react": "^11.9.0",
-    "@typescript-eslint/eslint-plugin": "^5.24.0",
-    "@typescript-eslint/parser": "^5.24.0",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
     "babel-jest": "^28.1.0",
     "babel-plugin-import": "^1.13.5",
     "babel-plugin-relay": "^13.2.0",
@@ -47,10 +47,10 @@
     "cross-spawn": "^7.0.3",
     "dotenv": "^16.0.1",
     "envars": "^0.4.0",
-    "eslint": "^8.15.0",
+    "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0",
     "graphql-config": "^4.3.0",
     "husky": "^8.0.1",
@@ -69,10 +69,12 @@
     "@types/inquirer": "^8.2.1",
     "@types/jest": "^27.5.1",
     "@types/minimist": "^1.2.2",
-    "@types/node": "^17.0.33"
+    "@types/node": "^17.0.35"
   },
   "resolutions": {
-    "chalk@npm:^5.0.1": "^4.1.2"
+    "@rollup/plugin-commonjs@npm:^22.0.0": "^21.1.0",
+    "chalk@npm:^5.0.1": "^4.1.2",
+    "ora@npm:^6.1.0": "^5.4.1"
   },
   "envars": {
     "cwd": "./env"
