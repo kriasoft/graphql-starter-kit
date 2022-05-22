@@ -93,6 +93,7 @@
       "web": {
         "schema": [
           "api/schema.graphql",
+          "api/schema.relay.graphql",
           "web/schema.graphql"
         ],
         "documents": "web/**/*.{ts,tsx}",
