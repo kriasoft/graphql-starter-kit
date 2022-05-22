@@ -18,10 +18,17 @@ function createRelay(config: Config = {}): Environment {
 
   const network = Network.create((operation, variables): Promise<any> => {
     const cookie = config.request?.headers.get("cookie");
+    const cf = (config.request as CfRequestInit | undefined)?.cf as
+      | IncomingRequestCfProperties
+      | undefined;
+
     return fetch(`${baseUrl}/api`, {
       method: "POST",
       headers: {
         ...(cookie && { cookie }),
+        ...(cf?.continent && { "x-continent": cf.continent }),
+        ...(cf?.country && { "x-country": cf.country }),
+        ...(cf?.timezone && { "x-timezone": cf.timezone }),
         "content-Type": "application/json",
       },
       body: JSON.stringify({ query: operation.text, variables }),

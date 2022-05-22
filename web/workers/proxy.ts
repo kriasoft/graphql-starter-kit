@@ -76,12 +76,11 @@ async function handleEvent(event: FetchEvent) {
         return event.waitUntil(promise);
       },
     },
-    { cacheControl: { bypassCache: config.app.env !== "prod" } },
+    { cacheControl: { bypassCache: true } },
   );
 
   // Find application route matching the URL pathname
-  const apiBaseUrl = API_URL;
-  const relay = createRelay({ baseUrl: apiBaseUrl, request: req });
+  const relay = createRelay({ baseUrl: api.origin, request: req });
   const route = await resolveRoute({ path, query: url.searchParams, relay });
 
   if (route.redirect) {
