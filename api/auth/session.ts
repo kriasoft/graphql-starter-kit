@@ -19,7 +19,7 @@ import { getGoogleOAuth2Client } from "./google";
 // The name of the session (ID) cookie.
 const cookieName = env.isProduction
   ? "id"
-  : `id_${env.APP_NAME?.replace(/^W/g, "")}`;
+  : `id_${env.APP_NAME?.replace(/\W/g, "")}`;
 
 async function getUser(req: Request): Promise<User | null> {
   const cookies = cookie.parse(req.headers.cookie || "");
