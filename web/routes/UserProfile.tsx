@@ -21,15 +21,14 @@ function UserProfile(props: UserProfileQuery$data): JSX.Element {
         display: "grid",
         gridGap: 24,
         gridTemplateColumns: "160px auto",
-        marginTop: (x) => x.spacing(3),
-        marginBottom: (x) => x.spacing(3),
+        my: 3,
       }}
     >
       {/* User summary: name, avatar, etc. */}
 
       <aside>
         <Avatar
-          sx={{ width: 160, height: 160, marginBottom: (x) => x.spacing(2) }}
+          sx={{ width: 160, height: 160, mb: 2 }}
           alt={user?.name || ""}
           src={user?.picture?.url || undefined}
         />
@@ -40,7 +39,7 @@ function UserProfile(props: UserProfileQuery$data): JSX.Element {
           gutterBottom
         />
         <Typography
-          sx={{ marginBottom: (x) => x.spacing(2) }}
+          sx={{ mb: 2 }}
           variant="h4"
           color="textSecondary"
           children={`u/${user?.username}`}
@@ -55,7 +54,7 @@ function UserProfile(props: UserProfileQuery$data): JSX.Element {
       {/* User activity, etc. */}
 
       <div>
-        <Card sx={{ marginBottom: (x) => x.spacing(2) }}>
+        <Card sx={{ mb: 2 }}>
           <CardContent>...</CardContent>
         </Card>
 

@@ -74,8 +74,7 @@ function UserMenu(props: UserMenuProps): JSX.Element {
         sx={{
           "&:hover": { background: "none" },
           color: (x) => x.palette.grey[500],
-          paddingTop: (x) => x.spacing(0.5),
-          paddingBottom: (x) => x.spacing(0.5),
+          py: 0.5,
           fontSize: "0.75rem",
         }}
       >
