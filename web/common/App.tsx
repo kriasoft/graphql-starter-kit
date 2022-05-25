@@ -6,8 +6,7 @@ import { StyledEngineProvider } from "@mui/material/styles";
 import { Action, Update } from "history";
 import * as React from "react";
 import { Environment, RelayEnvironmentProvider } from "react-relay";
-import type { Config } from "../config";
-import { AuthProvider, ConfigContext } from "../core";
+import { AuthProvider } from "../core";
 import { History, HistoryContext, LocationContext } from "../core/history";
 import type { RouteResponse } from "../core/router";
 import { resolveRoute } from "../core/router";
@@ -16,7 +15,6 @@ import { AppToolbar } from "./AppToolbar";
 import { ErrorPage } from "./ErrorPage";
 
 type AppProps = {
-  config: Config;
   history: History;
   relay: Environment;
 };
@@ -71,7 +69,7 @@ class App extends React.Component<AppProps> {
   };
 
   render(): JSX.Element {
-    const { config, history } = this.props;
+    const { history } = this.props;
     const { route, location, error } = this.state;
 
     if (error) {
@@ -85,26 +83,24 @@ class App extends React.Component<AppProps> {
     }
 
     return (
-      <ConfigContext.Provider value={config}>
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider>
-            <RelayEnvironmentProvider environment={this.props.relay}>
-              <AuthProvider>
-                <HistoryContext.Provider value={history}>
-                  <LocationContext.Provider value={location}>
-                    <CssBaseline />
-                    <AppToolbar />
-                    <Toolbar />
-                    {route?.component
-                      ? React.createElement(route.component, route.props)
-                      : null}
-                  </LocationContext.Provider>
-                </HistoryContext.Provider>
-              </AuthProvider>
-            </RelayEnvironmentProvider>
-          </ThemeProvider>
-        </StyledEngineProvider>
-      </ConfigContext.Provider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider>
+          <RelayEnvironmentProvider environment={this.props.relay}>
+            <AuthProvider>
+              <HistoryContext.Provider value={history}>
+                <LocationContext.Provider value={location}>
+                  <CssBaseline />
+                  <AppToolbar />
+                  <Toolbar />
+                  {route?.component
+                    ? React.createElement(route.component, route.props)
+                    : null}
+                </LocationContext.Provider>
+              </HistoryContext.Provider>
+            </AuthProvider>
+          </RelayEnvironmentProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     );
   }
 }
