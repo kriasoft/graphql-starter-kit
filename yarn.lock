@@ -13624,6 +13624,7 @@ __metadata:
     copy-webpack-plugin: "npm:^11.0.0"
     cross-spawn: "npm:^7.0.3"
     dotenv: "npm:^16.0.1"
+    envars: "npm:^0.4.0"
     eslint: "npm:^8.16.0"
     eslint-config-prettier: "npm:^8.5.0"
     eslint-plugin-jsx-a11y: "npm:^6.5.1"

@@ -66,6 +66,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "cross-spawn": "^7.0.3",
     "dotenv": "^16.0.1",
+    "envars": "^0.4.0",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
