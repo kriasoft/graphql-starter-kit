@@ -28,7 +28,7 @@ function AccountSettings(): JSX.Element {
       <Typography
         sx={{ marginBottom: (theme) => theme.spacing(2) }}
         variant="h2"
-        children="Account AccountSettings"
+        children="Account Settings"
       />
 
       <Box
