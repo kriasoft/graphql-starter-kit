@@ -22,6 +22,11 @@ async function handleEvent(event: FetchEvent) {
     | undefined;
   const api = new URL(API_URL);
 
+  // Restrict access to crawlers for non-production deployments
+  if (path === "/robots.txt" && config.app.env !== "prod") {
+    return new Response(`User-agent: *\nDisallow: /\n`, { status: 200 });
+  }
+
   // Serve static assets from KV storage
   // https://github.com/cloudflare/kv-asset-handler
   if (
