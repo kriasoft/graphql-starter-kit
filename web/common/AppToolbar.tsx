@@ -89,7 +89,7 @@ function AppToolbar(props: AppToolbarProps): JSX.Element {
         {me && (
           <IconButton
             sx={{
-              marginLeft: (x) => x.spacing(1),
+              ml: 1,
               backgroundColor: (x) =>
                 x.palette.mode === "light"
                   ? x.palette.grey[300]
@@ -106,7 +106,7 @@ function AppToolbar(props: AppToolbarProps): JSX.Element {
           <IconButton
             ref={menuAnchorRef}
             sx={{
-              marginLeft: (x) => x.spacing(1),
+              ml: 1,
               backgroundColor: (x) =>
                 x.palette.mode === "light"
                   ? x.palette.grey[300]

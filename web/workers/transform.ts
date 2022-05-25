@@ -2,7 +2,6 @@
 /* SPDX-License-Identifier: MIT */
 
 import type { Environment } from "relay-runtime";
-import type { Config } from "../config";
 import type { RouteResponse } from "../core/router";
 
 /**
@@ -13,7 +12,6 @@ export function transform(
   res: Response,
   route: RouteResponse,
   relay: Environment,
-  config: Config,
 ): Response {
   return new HTMLRewriter()
     .on("title:first-of-type", {
@@ -44,20 +42,21 @@ export function transform(
         el.setInnerContent(json, { html: true });
       },
     })
-    .on("script#config", {
+    .on("script#env", {
       element(el) {
-        // <script id="config" type="application/json"></script>
+        // <script id="env"></script>
         // https://developer.mozilla.org/docs/Web/HTML/Element/script#embedding_data_in_html
         el.setInnerContent(
-          JSON.stringify({
-            ...config,
-            api: {
-              ...config.api,
-              origin: config.app.origin,
-              prefix: "",
-              path: "/api",
-            },
-          }),
+          [
+            `Object.defineProperty(window,"env",{value:Object.freeze({`,
+            `APP_ENV:${JSON.stringify(APP_ENV)},`,
+            `APP_NAME:${JSON.stringify(APP_NAME)},`,
+            `APP_ORIGIN:${JSON.stringify(APP_ORIGIN)},`,
+            `FIREBASE_AUTH_KEY:${JSON.stringify(FIREBASE_AUTH_KEY)},`,
+            `GOOGLE_CLOUD_PROJECT:${JSON.stringify(GOOGLE_CLOUD_PROJECT)},`,
+            `GA_MEASUREMENT_ID:${JSON.stringify(GA_MEASUREMENT_ID)}`,
+            `})});`,
+          ].join(""),
           { html: true },
         );
       },

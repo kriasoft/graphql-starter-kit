@@ -2,78 +2,29 @@
 /* SPDX-License-Identifier: MIT */
 
 /**
- * Client-side application settings for the local development environment.
+ * Client-side application settings.
  */
-const local = {
+const config = {
   // Core application settings
   app: {
-    name: "Example",
-    origin: "http://localhost:3000",
-    env: "local" as "local" | "test" | "prod",
-  },
-  // GraphQL API and OAuth endpoint(s)
-  api: {
-    origin: "http://localhost:8080",
-    prefix: "",
-    path: "/api",
+    env: `${process.env.APP_ENV}` as "local" | "test" | "prod",
+    name: `${process.env.APP_NAME}`,
+    origin: `${process.env.APP_ORIGIN}`,
   },
   // Firebase / Firestore (optional)
   // https://firebase.google.com/docs/firestore
   firebase: {
-    authKey: "xxxxx",
-    authDomain: "https://example-test.firebaseapp.com",
-    projectId: "example-test",
+    authKey: `${process.env.FIREBASE_AUTH_KEY}`,
+    authDomain: `https://${process.env.GOOGLE_CLOUD_PROJECT}.firebaseapp.com`,
+    projectId: `${process.env.GOOGLE_CLOUD_PROJECT}`,
   },
   // Google Analytics
   // https://developers.google.com/analytics/devguides/collection
   gtag: {
-    trackingID: "G-XXXXXXXX",
+    trackingID: `${process.env.GA_MEASUREMENT_ID}`,
     anonymizeIP: true,
   },
 };
 
-/**
- * Client-side application settings for the test / QA environment.
- */
-const test: typeof local = {
-  app: {
-    ...local.app,
-    origin: "https://test.example.com",
-    env: "test",
-  },
-  api: {
-    ...local.api,
-    origin: "https://us-central1-example-test.cloudfunctions.net",
-  },
-  firebase: {
-    authKey: "xxxxx",
-    authDomain: "https://example-test.firebaseapp.com",
-    projectId: "example-test",
-  },
-  gtag: local.gtag,
-};
-
-/**
- * Client-side application settings for the production environment.
- */
-const prod: typeof local = {
-  app: {
-    ...local.app,
-    origin: "https://example.com",
-    env: "prod",
-  },
-  api: {
-    ...local.api,
-    origin: "https://us-central1-example.cloudfunctions.net",
-  },
-  firebase: {
-    authKey: "xxxxx",
-    authDomain: "https://example.firebaseapp.com",
-    projectId: "example",
-  },
-  gtag: local.gtag,
-};
-
-export type Config = typeof local;
-export { local, test, prod };
-export default { local, test, prod };
+export default config;
+export type Config = typeof config;

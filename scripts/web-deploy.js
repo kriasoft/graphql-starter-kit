@@ -13,7 +13,7 @@ process.env.CF_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
 
 // Get the URL of the API endpoint (Google Cloud Function)
 // https://cloud.google.com/sdk/gcloud/reference/beta/functions
-const API_URL = await $`gcloud beta functions describe api --gen2 ${[
+const API_ORIGIN = await $`gcloud beta functions describe api --gen2 ${[
   `--project=${process.env.GOOGLE_CLOUD_PROJECT}`,
   `--region=${process.env.GOOGLE_CLOUD_REGION}`,
   `--format=value(serviceConfig.uri)`,
@@ -37,7 +37,12 @@ await fs.writeFile(
     routes = ["${hostname}/*"]
     ${isProductionEnv ? `[vars]` : `[env.${envName}.vars]`}
     APP_ENV = "${envName}"
-    API_URL = "${API_URL}"
+    APP_NAME = "${process.env.APP_NAME}"
+    APP_ORIGIN = "${process.env.APP_ORIGIN}"
+    API_ORIGIN = "${API_ORIGIN}"
+    FIREBASE_AUTH_KEY = "${process.env.FIREBASE_AUTH_KEY}"
+    GOOGLE_CLOUD_PROJECT = "${process.env.GOOGLE_CLOUD_PROJECT}"
+    GA_MEASUREMENT_ID = "${process.env.GA_MEASUREMENT_ID}"
     [site]
     bucket = "${path.resolve(__dirname, "../web/dist/web")}"
     entry-point = "${path.resolve(__dirname, "../web/dist/workers")}"

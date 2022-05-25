@@ -1,7 +1,8 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-const path = require("path");
+const path = require("node:path");
+const envars = require("envars");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -11,11 +12,21 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const { IgnoreAsyncImportsPlugin } = require("ignore-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-
-require("@babel/register")({ extensions: [".ts"], cache: false });
-const configs = require("./config");
+const { sync: spawnSync } = require("cross-spawn");
 
 const imageInlineSizeLimit = 10000;
+
+// The list of environment variables (found in `/env/*.env` files)
+// that need to be injected into the client-side app
+const envVars = [
+  "APP_ENV",
+  "APP_NAME",
+  "APP_ORIGIN",
+  "API_ORIGIN",
+  "FIREBASE_AUTH_KEY",
+  "GOOGLE_CLOUD_PROJECT",
+  "GA_MEASUREMENT_ID",
+];
 
 /**
  * Webpack configuration.
@@ -26,16 +37,28 @@ const imageInlineSizeLimit = 10000;
  * @returns {import("webpack").Configuration}
  */
 module.exports = function config(env, options) {
+  // Load environment variables (API_ORIGIN, etc.)
+  const envName = env.prod ? "prod" : env.test ? "test" : "local";
+  envars.config({ env: envName });
+
+  // Fetch the API origin URL from Google Cloud Functions (GCF)
+  if (envName !== "local") {
+    const cp = spawnSync("gcloud", [
+      ...[`beta`, `functions`, `describe`, `api`, `--gen2`],
+      `--project=${process.env.GOOGLE_CLOUD_PROJECT}`,
+      `--region=${process.env.GOOGLE_CLOUD_REGION}`,
+      `--format=value(serviceConfig.uri)`,
+    ]);
+    process.env.API_ORIGIN = cp.stdout.toString().trim();
+  } else {
+    process.env.API_ORIGIN = "http://localhost:8080";
+  }
+
   const isEnvProduction = options.mode === "production";
   const isEnvDevelopment = options.mode === "development";
   const isDevServer = isEnvDevelopment && process.argv.includes("serve");
   const isEnvProductionProfile =
     isEnvProduction && process.argv.includes("--profile");
-  const config = env.prod
-    ? configs.prod
-    : env.test
-    ? configs.test
-    : configs.local;
 
   process.env.BABEL_ENV = options.mode;
   process.env.BROWSERSLIST_ENV = options.mode;
@@ -205,13 +228,21 @@ module.exports = function config(env, options) {
     },
 
     plugins: [
+      new webpack.DefinePlugin(
+        envVars.reduce(
+          (acc, name) => ({
+            ...acc,
+            [`process.env.${name}`]: isEnvProduction
+              ? `window.env.${name}`
+              : JSON.stringify(process.env[name]),
+          }),
+          {},
+        ),
+      ),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin({
         inject: true,
         template: path.resolve(__dirname, "public/index.html"),
-        templateParameters: {
-          config: JSON.stringify(config),
-        },
         ...(isEnvProduction && {
           minify: {
             removeComments: true,
@@ -271,6 +302,12 @@ module.exports = function config(env, options) {
     devtool: false,
     target: "browserslist:last 2 Chrome versions",
     plugins: [
+      new webpack.DefinePlugin(
+        envVars.reduce(
+          (acc, name) => ({ ...acc, [`process.env.${name}`]: `${name}` }),
+          {},
+        ),
+      ),
       new IgnoreAsyncImportsPlugin(),
       new webpack.IgnorePlugin({
         resourceRegExp: /^\.\/locale$/,
@@ -300,10 +337,9 @@ module.exports = function config(env, options) {
     hot: true,
     proxy: [
       {
-        context: [config.api.path, "/auth"],
-        target: config.api.origin,
+        context: ["/api", "/auth"],
+        target: process.env.API_ORIGIN,
         changeOrigin: true,
-        pathRewrite: config.api.prefix ? { "^/": `${config.api.prefix}/` } : {},
         onProxyReq(proxyReq, req) {
           const origin = `${req.protocol}://${req.hostname}:3000`;
           proxyReq.setHeader("origin", origin);

@@ -2,7 +2,6 @@
 /* SPDX-License-Identifier: MIT */
 
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import * as configs from "../config";
 import { createRelay, resolveRoute } from "../core";
 import { transform } from "./transform";
 
@@ -15,15 +14,13 @@ async function handleEvent(event: FetchEvent) {
   const req = event.request;
   const url = new URL(req.url);
   const { pathname: path } = url;
-  /* @ts-expect-error "123-test" => "test" */
-  const config = configs[APP_ENV.replace(/^\d+-/, "")];
   const cf = (req as CfRequestInit).cf as
     | IncomingRequestCfProperties
     | undefined;
-  const api = new URL(API_URL);
+  const api = new URL(API_ORIGIN);
 
   // Restrict access to crawlers for non-production deployments
-  if (path === "/robots.txt" && config.app.env !== "prod") {
+  if (path === "/robots.txt" && APP_ENV !== "prod") {
     return new Response(`User-agent: *\nDisallow: /\n`, { status: 200 });
   }
 
@@ -39,7 +36,7 @@ async function handleEvent(event: FetchEvent) {
   ) {
     try {
       return getAssetFromKV(event, {
-        cacheControl: { bypassCache: config.app.env !== "prod" },
+        cacheControl: { bypassCache: APP_ENV !== "prod" },
       });
     } catch (err) {
       console.error(err);
@@ -85,7 +82,7 @@ async function handleEvent(event: FetchEvent) {
   );
 
   // Find application route matching the URL pathname
-  const relay = createRelay({ baseUrl: api.origin, request: req });
+  const relay = createRelay({ baseUrl: API_ORIGIN, request: req });
   const route = await resolveRoute({ path, query: url.searchParams, relay });
 
   if (route.redirect) {
@@ -103,7 +100,7 @@ async function handleEvent(event: FetchEvent) {
   // Inject page metadata such as <title>, <meta name="description" contents="..." />, etc.
   // and serialized API response <script id="data" type="application/json">...</script>
   // https://developer.mozilla.org/docs/Web/HTML/Element/script#embedding_data_in_html
-  const res = transform(await resPromise, route, relay, config);
+  const res = transform(await resPromise, route, relay);
   return new Response(res.body, {
     status: (route.error as unknown as { status: number })?.status || 200,
     headers: res.headers,

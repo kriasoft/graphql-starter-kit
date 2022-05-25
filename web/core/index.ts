@@ -3,7 +3,6 @@
 
 export { type LoginMethod } from "./Auth";
 export { AuthProvider, useAuth, useAuthCallback } from "./AuthProvider";
-export { ConfigContext, useConfig } from "./config";
 export {
   useGetSearchURL,
   useHistory,

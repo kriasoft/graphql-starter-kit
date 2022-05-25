@@ -2,21 +2,17 @@
 /* SPDX-License-Identifier: MIT */
 
 import { Container, Link, Typography } from "@mui/material";
-import { useConfig } from "../core";
+import config from "../config";
 
 /**
  * Generated with https://getterms.io
  */
 function Privacy(): JSX.Element {
-  const config = useConfig();
   const appName = config.app.name;
   const email = `support@${new URL(config.app.origin).hostname}`;
 
   return (
-    <Container
-      maxWidth="sm"
-      sx={{ marginTop: (x) => x.spacing(3), marginBottom: (x) => x.spacing(3) }}
-    >
+    <Container sx={{ my: 3 }} maxWidth="sm">
       <Typography variant="h1" gutterBottom>
         Privacy Policy
       </Typography>

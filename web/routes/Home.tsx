@@ -17,9 +17,7 @@ function Home(props: HomeQuery$data): JSX.Element {
   }, []);
 
   return (
-    <Container
-      sx={{ marginTop: (x) => x.spacing(3), marginBottom: (x) => x.spacing(3) }}
-    >
+    <Container sx={{ my: 3 }}>
       <Typography
         sx={{ marginTop: "32vh" }}
         variant="h1"

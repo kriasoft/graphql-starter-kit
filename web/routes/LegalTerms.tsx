@@ -2,26 +2,22 @@
 /* SPDX-License-Identifier: MIT */
 
 import { Container, Link, Typography } from "@mui/material";
-import { useConfig } from "../core";
+import config from "../config";
 
 /**
  * Generated with https://getterms.io
  */
 function Terms(): JSX.Element {
-  const config = useConfig();
   const appName = config.app.name;
   const appOrigin = config.app.origin;
 
   return (
-    <Container
-      maxWidth="sm"
-      sx={{ marginTop: (x) => x.spacing(3), marginBottom: (x) => x.spacing(3) }}
-    >
+    <Container sx={{ my: 3 }} maxWidth="sm">
       <Typography variant="h1" gutterBottom>
         Terms of Service
       </Typography>
       <Typography paragraph>
-        These Terms of Service govern your use of the website located at
+        These Terms of Service govern your use of the website located at{" "}
         <Link href={appOrigin}>{appOrigin}</Link> and any related services
         provided by {appName}.
       </Typography>

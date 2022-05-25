@@ -21,15 +21,8 @@ function AccountSettings(): JSX.Element {
   const { input, errors, loading, handleChange, handleSubmit } = useState();
 
   return (
-    <Container
-      maxWidth="sm"
-      sx={{ marginTop: (x) => x.spacing(3), marginBottom: (x) => x.spacing(3) }}
-    >
-      <Typography
-        sx={{ marginBottom: (theme) => theme.spacing(2) }}
-        variant="h2"
-        children="Account Settings"
-      />
+    <Container sx={{ my: 3 }} maxWidth="sm">
+      <Typography sx={{ mb: 2 }} variant="h2" children="Account Settings" />
 
       <Box
         component="form"
@@ -50,7 +43,7 @@ function AccountSettings(): JSX.Element {
 
         {fields.map((x) => (
           <TextField
-            sx={{ marginBottom: (theme) => theme.spacing(2) }}
+            sx={{ mb: 2 }}
             key={x.key as string}
             name={x.key as string}
             type={x.key === "email" ? "email" : "text"}
