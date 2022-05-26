@@ -23,6 +23,7 @@ class App extends React.Component<AppProps> {
   state = {
     route: undefined as RouteResponse | undefined,
     location: this.props.history.location,
+    action: Action.Pop,
     error: undefined as Error | undefined,
   };
 
@@ -35,12 +36,15 @@ class App extends React.Component<AppProps> {
   componentDidMount(): void {
     const { history } = this.props;
     this.dispose = history.listen(this.renderPath);
-    this.renderPath({ location: history.location, action: Action.Pop });
+    this.renderPath(this.state);
   }
 
   componentDidUpdate(): void {
     if (this.state.route?.title) {
       self.document.title = this.state.route.title;
+    }
+    if (this.state.action === Action.Push) {
+      window.scrollTo(0, 0);
     }
   }
 
@@ -63,7 +67,12 @@ class App extends React.Component<AppProps> {
       if (route.redirect) {
         this.props.history.push(route.redirect);
       } else {
-        this.setState({ route, location: ctx.location, error: route.error });
+        this.setState({
+          route,
+          location: ctx.location,
+          action: ctx.action,
+          error: route.error,
+        });
       }
     });
   };
