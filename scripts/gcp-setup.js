@@ -4,7 +4,7 @@
 import { sync as spawnSync } from "cross-spawn";
 import envars from "envars";
 import { URL } from "node:url";
-import { $, argv, chalk, path, question } from "zx";
+import { $, argv, chalk, fs, path, question } from "zx";
 
 /**
  * This script can be used as a lightweight alternative to Terraform
@@ -19,6 +19,7 @@ const envName = argv.env ?? "test";
 const env = envars.config({ env: envName });
 const project = env.GOOGLE_CLOUD_PROJECT;
 const region = env.GOOGLE_CLOUD_REGION;
+const cwd = process.cwd();
 
 await question(
   [
@@ -127,17 +128,43 @@ while (true) {
 
 // Fetch the list of existing GCS buckets
 cmd = spawnSync("gcloud", ["alpha", "storage", "ls", "--project", project]);
+const corsFile = path.relative(cwd, path.join(__dirname, "cors.json"));
 const existingBuckets = cmd.stdout.toString().trim().split("\n");
 const buckets = Object.keys(env)
   .filter((key) => key.endsWith("_BUCKET"))
   .filter((key) => envName === "prod" || env[key] !== prodEnv[key])
-  .map((key) => env[key])
-  .filter((bucket) => !existingBuckets.includes(`gs://${bucket}/`));
+  .map((key) => env[key]);
 
 // Create missing GCS buckets if any
 for (const bucket of buckets) {
-  await $`gsutil mb ${[
-    ...["-p", project, "-l", region.split("-")[0], "-b", "on"],
-    ...["-c", "standard", `gs://${bucket}/`],
-  ]}`;
+  if (!existingBuckets.includes(`gs://${bucket}/`)) {
+    await $`gsutil mb ${[
+      ...["-p", project, "-l", region.split("-")[0], "-b", "on"],
+      ...["-c", "standard", `gs://${bucket}/`],
+    ]}`;
+  }
+
+  // Write CORS settings to a temporary file
+  await fs.writeFile(
+    corsFile,
+    JSON.stringify([
+      {
+        origin: [
+          env.APP_ORIGIN,
+          envName !== "prod" && "http://localhost:3000",
+        ].filter(Boolean),
+        responseHeader: ["Content-Type"],
+        method: ["GET"],
+        maxAgeSeconds: 3600,
+      },
+    ]),
+    { encoding: "utf-8" },
+  );
+
+  // Apply CORS settings to the target bucket
+  try {
+    await $`gsutil cors set ${corsFile} ${`gs://${bucket}`}`;
+  } finally {
+    await fs.unlink(corsFile);
+  }
 }
