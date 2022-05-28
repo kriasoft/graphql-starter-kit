@@ -1894,10 +1894,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@faker-js/faker@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "@faker-js/faker@npm:7.0.1"
-  checksum: b17b69265d2426567e9cd5436996cd9f84aacc4d533e5ddf21547a91603a6ece62867fa35013c58acd081043eb25895a8b59f1074140406e54af5e0b3ed8b7d1
+"@faker-js/faker@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@faker-js/faker@npm:7.1.0"
+  checksum: caae8d850337c927b6ba8328e50b1e29966911bb772032f2802a95deab7bb948b107ef67c97a74861f4bea67d136d482f17d19572a69a5d571f4d971d8fafbe7
   languageName: node
   linkType: hard
 
@@ -1989,9 +1989,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@google-cloud/storage@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "@google-cloud/storage@npm:6.0.0"
+"@google-cloud/storage@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "@google-cloud/storage@npm:6.0.1"
   dependencies:
     "@google-cloud/paginator": "npm:^3.0.7"
     "@google-cloud/projectify": "npm:^2.0.0"
@@ -2000,7 +2000,6 @@ __metadata:
     arrify: "npm:^2.0.0"
     async-retry: "npm:^1.3.3"
     compressible: "npm:^2.0.12"
-    date-and-time: "npm:^2.0.0"
     duplexify: "npm:^4.0.0"
     ent: "npm:^2.2.0"
     extend: "npm:^3.0.2"
@@ -2014,7 +2013,7 @@ __metadata:
     stream-events: "npm:^1.0.4"
     teeny-request: "npm:^8.0.0"
     uuid: "npm:^8.0.0"
-  checksum: 1f10e281993de2796f7a4272a0a7117f379e6467f59c6b300a2d47830a0191d4562b77aa7d24ca44d7346e114cebedb19b6be51c1af1bf6b151d83d1714523ad
+  checksum: 419164a64d5b6d090fb4b3e07bc47e3cc88ebb8f7a9aa60b150038bdddd10c67c4cc891a14e1a7c338bf561052f1524ae43b388180843b220f30e8d5e621f034
   languageName: node
   linkType: hard
 
@@ -3677,7 +3676,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^17.0, @types/node@npm:^17.0.35":
+"@types/node@npm:*, @types/node@npm:^17.0":
   version: 17.0.35
   resolution: "@types/node@npm:17.0.35"
   checksum: 89b978da7d7926f71b241a54a020b2981cc50312d481f3c22fc6aac31f2db7405a1cfce5727b2b16741f7f6553716ed52053f9510971ce26b247fe4d123adc51
@@ -3688,6 +3687,13 @@ __metadata:
   version: 14.0.26
   resolution: "@types/node@npm:14.0.26"
   checksum: a733000b332bde23e17853f6153a4c6744f7f8b43060159ee2e337424181f2009a548acca31d9beba199395b68d7a71b5bf5257e30caa0e0973cb77183fb4490
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^17.0.36":
+  version: 17.0.36
+  resolution: "@types/node@npm:17.0.36"
+  checksum: 2f7b53130e92a3375188e775faa50e36592f3554a73fd19a12c6820cb63da9d48c65040fd6d38107ac3b766656313b29de36f9100dc423feb6bef81f4531ea2c
   languageName: node
   linkType: hard
 
@@ -3716,10 +3722,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:^2.1.5, @types/prettier@npm:^2.6.1":
+"@types/prettier@npm:^2.1.5":
   version: 2.6.1
   resolution: "@types/prettier@npm:2.6.1"
   checksum: 88f8324f32e7bfe02736988a38e4108183884831dd42ac881590a53432c0fa4f08a79b207c76c6f2fa9a49b1139de6ef70c006144323fb352a447c762d66c21d
+  languageName: node
+  linkType: hard
+
+"@types/prettier@npm:^2.6.3":
+  version: 2.6.3
+  resolution: "@types/prettier@npm:2.6.3"
+  checksum: 8a25ff9ebd6e2d2614cc351894c332b01d306ddb7363e0b1fa56ae5ff5b5639ae58905e213608dff311ef987d6834f532c92964860272e4fc3e95b4824d76e58
   languageName: node
   linkType: hard
 
@@ -4566,7 +4579,7 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.17.12"
     "@babel/register": "npm:^7.17.7"
     "@google-cloud/functions-framework": "npm:^3.1.1"
-    "@google-cloud/storage": "npm:^6.0.0"
+    "@google-cloud/storage": "npm:^6.0.1"
     "@jest/types": "npm:^28.1.0"
     "@rollup/plugin-babel": "npm:^5.3.1"
     "@rollup/plugin-commonjs": "npm:^22.0.0"
@@ -4587,7 +4600,7 @@ __metadata:
     "@types/jsonwebtoken": "npm:^8.5.8"
     "@types/lodash": "npm:^4.14.182"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^17.0.35"
+    "@types/node": "npm:^17.0.36"
     "@types/pg": "npm:^8.6.5"
     "@types/simple-oauth2": "npm:^4.1.1"
     "@types/supertest": "npm:^2.0.12"
@@ -4605,7 +4618,7 @@ __metadata:
     express-handlebars: "npm:^6.0.6"
     gm: "npm:^1.23.1"
     google-auth-library: "npm:^8.0.2"
-    got: "npm:^12.0.4"
+    got: "npm:^12.1.0"
     graphql: "npm:^16.5.0"
     graphql-helix: "npm:^1.12.0"
     graphql-relay: "npm:^0.10.0"
@@ -4613,7 +4626,7 @@ __metadata:
     http-errors: "npm:^2.0.0"
     image-size: "npm:^1.0.1"
     jsonwebtoken: "npm:^8.5.1"
-    knex: "npm:^2.0.0"
+    knex: "npm:^2.1.0"
     knex-types: "npm:^0.4.0"
     lodash: "npm:^4.17.21"
     minimist: "npm:^1.2.6"
@@ -4621,7 +4634,7 @@ __metadata:
     pg: "npm:^8.7.3"
     prettier: "npm:^2.6.2"
     pretty-error: "npm:^4.0.0"
-    rollup: "npm:^2.74.1"
+    rollup: "npm:^2.75.1"
     rollup-plugin-copy: "npm:^3.4.0"
     rollup-plugin-delete: "npm:^2.0.0"
     simple-oauth2: "npm:^4.3.0"
@@ -4657,7 +4670,7 @@ __metadata:
     "@types/inquirer": "npm:^8.2.1"
     "@types/jest": "npm:^27.5.1"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^17.0.35"
+    "@types/node": "npm:^17.0.36"
     "@typescript-eslint/eslint-plugin": "npm:^5.26.0"
     "@typescript-eslint/parser": "npm:^5.26.0"
     babel-jest: "npm:^28.1.0"
@@ -6062,13 +6075,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-and-time@npm:^2.0.0":
-  version: 2.3.1
-  resolution: "date-and-time@npm:2.3.1"
-  checksum: 3d8329d4686e5e2315521ffb06f21ec0cc661648e75047077e2a2a82aa63fca13c85a8529f348d55e641978f4bb5ceb0d4d7d47e28421ae8ba7aa4720e5a08c4
-  languageName: node
-  linkType: hard
-
 "date-fns-tz@npm:^1.3.4":
   version: 1.3.4
   resolution: "date-fns-tz@npm:1.3.4"
@@ -6092,17 +6098,17 @@ __metadata:
     "@babel/core": "npm:^7.18.2"
     "@babel/node": "npm:^7.17.10"
     "@babel/register": "npm:^7.17.7"
-    "@faker-js/faker": "npm:^7.0.1"
+    "@faker-js/faker": "npm:^7.1.0"
     "@types/babel__core": "npm:^7.1.19"
     "@types/cross-spawn": "npm:^6.0.2"
     "@types/lodash": "npm:^4.14.182"
     "@types/minimist": "npm:^1.2.2"
-    "@types/prettier": "npm:^2.6.1"
+    "@types/prettier": "npm:^2.6.3"
     chalk: "npm:^5.0.1"
     cross-env: "npm:^7.0.3"
     cross-spawn: "npm:^7.0.3"
     envars: "npm:^0.4.0"
-    knex: "npm:^2.0.0"
+    knex: "npm:^2.1.0"
     knex-types: "npm:^0.4.0"
     lodash: "npm:^4.17.21"
     minimist: "npm:^1.2.6"
@@ -7909,9 +7915,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"got@npm:^12.0.4":
-  version: 12.0.4
-  resolution: "got@npm:12.0.4"
+"got@npm:^12.1.0":
+  version: 12.1.0
+  resolution: "got@npm:12.1.0"
   dependencies:
     "@sindresorhus/is": "npm:^4.6.0"
     "@szmarczak/http-timer": "npm:^5.0.1"
@@ -7926,7 +7932,7 @@ __metadata:
     lowercase-keys: "npm:^3.0.0"
     p-cancelable: "npm:^3.0.0"
     responselike: "npm:^2.0.0"
-  checksum: 5ab0eb306ce150d8904447b71bfe2001cfbd5e43e8c887204e82b329ecf6c9888726f06b157cdc6927476f7de174620e2393e76cc4fda892e39a2b63489237d0
+  checksum: a07b585c9babf9a49456b135925c86439f6e1ba98a201eb52528dbd7f1a31666e19a9f9a1e7ae888b65d812af9c30f5563dce9c3b8b3b30fa6c648c5b8fb3920
   languageName: node
   linkType: hard
 
@@ -9779,9 +9785,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knex@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "knex@npm:2.0.0"
+"knex@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "knex@npm:2.1.0"
   dependencies:
     colorette: "npm:2.0.16"
     commander: "npm:^9.1.0"
@@ -9814,7 +9820,7 @@ __metadata:
       optional: true
   bin:
     knex: bin/cli.js
-  checksum: 141bdd03dc418287fe5a20458891855da24331ea6fa115be7c8f480323852cfffeac887070c85e597d1e58a5826e11604b065ac42ad85b354b98cb73661f1e36
+  checksum: 650228db15f3b648c60358e7ab3e65903a1260d04aa90c0c89c4c40a10d4a6ccd86e119df796b3c3066942e2a35f2b3df45e1d03bf0baba1879b43ab1f86022d
   languageName: node
   linkType: hard
 
@@ -12029,9 +12035,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^2.74.1":
-  version: 2.74.1
-  resolution: "rollup@npm:2.74.1"
+"rollup@npm:^2.75.1":
+  version: 2.75.1
+  resolution: "rollup@npm:2.75.1"
   dependencies:
     fsevents: "npm:~2.3.2"
   dependenciesMeta:
@@ -12039,7 +12045,7 @@ __metadata:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 8fceae53349d77da14a3dc00eb83a6877020e5c1d3b1d03781da28a631c50eace21696d4c1332d87dee6d0ab2f0a83dc09d8dd952c959aa219f980a020020024
+  checksum: c13b451039a3df31d2851474c9d8c298598de95589475cbd2eb1e22caa63c064be3e988470eb84f4cb5e9fd4b93d54b265b88206128be1742b237bc653a8669f
   languageName: node
   linkType: hard
 
@@ -12139,15 +12145,16 @@ __metadata:
     "@babel/core": "npm:^7.18.2"
     "@babel/register": "npm:^7.17.7"
     "@cloudflare/wrangler": "npm:^1.19.12"
-    "@google-cloud/storage": "npm:^6.0.0"
+    "@google-cloud/storage": "npm:^6.0.1"
     "@octokit/rest": "npm:^18.12.0"
     "@types/babel__core": "npm:^7.1.19"
+    "@types/cross-spawn": "npm:^6.0.2"
     api: "workspace:*"
     cross-spawn: "npm:^7.0.3"
     envars: "npm:^0.4.0"
     formdata-node: "npm:^4.3.2"
     globby: "npm:^13.1.1"
-    got: "npm:^12.0.4"
+    got: "npm:^12.1.0"
     make-dir: "npm:^3.1.0"
     minimist: "npm:^1.2.6"
     web: "workspace:*"
@@ -13608,7 +13615,7 @@ __metadata:
     "@types/babel__preset-env": "npm:^7.9.2"
     "@types/gtag.js": "npm:^0.0.10"
     "@types/jest": "npm:^27.5.1"
-    "@types/node": "npm:^17.0.35"
+    "@types/node": "npm:^17.0.36"
     "@types/react": "npm:^18.0.9"
     "@types/react-dom": "npm:^18.0.5"
     "@types/react-relay": "npm:^13.0.2"
@@ -13630,7 +13637,7 @@ __metadata:
     eslint-plugin-jsx-a11y: "npm:^6.5.1"
     eslint-plugin-react: "npm:^7.30.0"
     eslint-plugin-react-hooks: "npm:^4.5.0"
-    got: "npm:^12.0.4"
+    got: "npm:^12.1.0"
     graphql: "npm:^16.5.0"
     history: "npm:^5.3.0"
     html-webpack-plugin: "npm:^5.5.0"

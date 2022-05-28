@@ -17,11 +17,15 @@ const api = withViews(express());
 api.enable("trust proxy");
 api.disable("x-powered-by");
 
+// Enable body parsing middleware
+// http://expressjs.com/en/api.html#express.json
+api.use(express.json({ limit: "1024mb" }));
+
 // OAuth 2.0 authentication endpoints and user sessions
 api.use(auth);
 
 // GraphQL API middleware
-api.use("/api", express.json(), handleGraphQL);
+api.use("/api", handleGraphQL);
 
 api.get("/", (req, res) => {
   res.render("home");
