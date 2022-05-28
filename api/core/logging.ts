@@ -36,6 +36,10 @@ export function log(
   data: string | Record<string, unknown> | Error | HttpError,
   context?: GraphQLParams | Record<string, unknown>,
 ) {
+  if (req.get("x-log-level") === "none") {
+    return;
+  }
+
   if (env.isProduction) {
     const traceId = req.get("x-cloud-trace-context")?.split("/")?.[0] as string;
     const message = {

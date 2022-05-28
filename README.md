@@ -68,6 +68,43 @@ $ yarn web:start                # Launch React/Relay front-end app
 The API server must become available at [http://localhost:8080/api](http://localhost:8080/api).<br>
 The web application front-end must become available at [http://localhost:3000/](http://localhost:3000/).
 
+## How to Deploy
+
+Before you can deploy the app, ensure that the target
+[GCP project](https://console.cloud.google.com/cloud-resource-manager) exists
+and that all the environment variables (found in [`/env/*.env`](/env) files) are
+up-to-date, for both `test` (QA) and `prod` (production) environments.
+
+If you just created a brand new GCP project, you can configure it by running:
+
+```bash
+$ yarn gcp:setup --env=test
+$ yarn gcp:setup --env=prod
+```
+
+OR, by using Terraform (found in [`/infra`](./infra/)), which one is more
+convenient for you.
+
+Once a new commit or PR lands onto the `main` (or, `release`) branch, it's going
+to be deployed automatically using a GitHub Actions workflow. Alternatively,
+you can deploy the app manually by running:
+
+```bash
+# Build and deploy the GraphQL API (GCF)
+$ yarn api:build
+$ yarn api:deploy --env=prod
+
+# Build and deploy the web front-end to Cloudflare Workers (CDN)
+$ yarn web:build
+$ yarn web:deploy --env=prod
+
+# Migrate the target database to the latest version
+$ yarn db:migrate --env=prod
+```
+
+Where `--env=prod` is the target (production) deployment environment,
+using `--env=test` when not specified.
+
 ## References
 
 - [Getting Started with Cloud Functions (2nd gen)](https://codelabs.developers.google.com/codelabs/cloud-starting-cloudfunctions-v2)

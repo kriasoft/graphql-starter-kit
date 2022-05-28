@@ -28,6 +28,7 @@ yarn-error.log*
 
 # Environment variables
 .*.override.env
+/env/*.prod.json
 
 # Visual Studio Code
 # https://github.com/github/gitignore/blob/master/Global/VisualStudioCode.gitignore
