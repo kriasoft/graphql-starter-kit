@@ -1,9 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { bool, cleanEnv, num, str, url } from "envalid";
-
-const appName = process.env.APP_NAME?.replace(/^W/g, "");
+import { bool, cleanEnv, json, num, str, url } from "envalid";
 
 /**
  * Ensures that all of the environment dependencies are met.
@@ -20,9 +18,9 @@ export default cleanEnv(process.env, {
 
   VERSION: str(),
 
-  JWT_COOKIE: str({ default: "id" as string, devDefault: `id_${appName}` }),
-  JWT_SECRET: str(),
-  JWT_EXPIRES: num({ default: 60 * 60 * 24 * 14 /* 2 weeks */ }),
+  PUBLIC_KEY: json(),
+  PRIVATE_KEY: json(),
+  SESSION_EXPIRES: num({ default: 60 * 60 * 24 * 30 /* 30 days */ }),
 
   PGHOST: str(),
   PGPORT: num({ default: 5432 }),

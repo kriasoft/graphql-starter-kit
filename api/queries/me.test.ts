@@ -30,7 +30,7 @@ test(`fetch me (as anonymous)`, async () => {
 test(`fetch me (as a registered user)`, async () => {
   const res = await request(api)
     .post("/api")
-    .auth(createIdToken({ id: "test1" }), { type: "bearer" })
+    .auth(await createIdToken({ id: "test1" }), { type: "bearer" })
     .send({
       query: `#graphql
         query {
