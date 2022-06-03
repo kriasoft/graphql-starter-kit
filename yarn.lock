@@ -12239,6 +12239,7 @@ __metadata:
     got: "npm:^12.1.0"
     make-dir: "npm:^3.1.0"
     minimist: "npm:^1.2.6"
+    ora: "npm:^6.1.0"
     web: "workspace:*"
     zx: "npm:^6.2.1"
   languageName: unknown

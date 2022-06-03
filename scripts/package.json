@@ -8,6 +8,7 @@
     "img:deploy": "zx ./img-deploy.js",
     "web:deploy": "zx ./web-deploy.js",
     "gcp:setup": "zx ./gcp-setup.js",
+    "generate:keys": "yarn node --experimental-global-webcrypto $(yarn bin zx) ./generate-keys.js",
     "cf:create-test-subdomain": "node --no-warnings ./cloudflare.js create-test-subdomain",
     "cf:delete-test-subdomain": "node --no-warnings ./cloudflare.js delete-test-subdomain",
     "gh:clean": "node --no-warnings ./clean.js",
@@ -31,6 +32,7 @@
     "got": "^12.1.0",
     "make-dir": "^3.1.0",
     "minimist": "^1.2.6",
+    "ora": "^6.1.0",
     "web": "workspace:*",
     "zx": "^6.2.1"
   },
