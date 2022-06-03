@@ -2,31 +2,24 @@
 /* SPDX-License-Identifier: MIT */
 
 import envars from "envars";
-import minimist from "minimist";
-import { $ } from "zx";
+import { execa as $ } from "execa";
+import { argv, chalk, path } from "zx";
+import { saveEnvVars } from "./utils.js";
+
+// The name of the Cloud Function
+const functionName = argv.version ? `api-${argv.version}` : `api`;
 
 // Load environment variables (PGHOST, PGUSER, etc.)
-const args = minimist(process.argv.slice(2));
-process.env.NODE_ENV = "production";
-process.env.APP_ENV = args.env ?? process.env.APP_ENV ?? "test";
-envars.config({ env: process.env.APP_ENV });
-delete process.env.PGSSLMODE;
+envars.config({ env: argv.env ?? "test" });
 
 // Load the list of environment variables required by the app (api/env.ts)
-/** @type {import("../api/env").default} */
+process.env.NODE_ENV = "production";
 const env = await import("../api/dist/index.js").then((x) => ({ ...x.env }));
 
-// Use Cloud SQL Proxy in Google Cloud Functions (GCF) environment
-const region = process.env.GOOGLE_CLOUD_REGION;
-env.PGHOST = `/cloudsql/${env.PGSERVERNAME.replace(":", `:${region}:`)}`;
-env.PGAPPNAME = `api ${env.APP_ENV} ${new Date().toISOString()}`;
-delete env.PGSSLMODE;
-delete env.PGSSLCERT;
-delete env.PGSSLKEY;
-delete env.PGSSLROOTCERT;
-delete env.PGSERVERNAME;
-
-const name = args.version ? `api-${args.version}` : `api`;
+// Normalize and save the required environment variables to `dist/env.yml`
+env.PGAPPNAME = `${functionName} ${env.APP_ENV} ${new Date().toISOString()}`;
+env.NODE_OPTIONS = `--require=./.pnp.cjs --require=source-map-support/register --no-warnings`;
+await saveEnvVars(env, path.resolve(__dirname, "../api/dist/env.yml"));
 
 /**
  * Deploys the "api" package to Google Cloud Functions (GCF). Usage:
@@ -36,19 +29,27 @@ const name = args.version ? `api-${args.version}` : `api`;
  * @see https://cloud.google.com/functions
  * @see https://cloud.google.com/sdk/gcloud/reference/functions/deploy
  */
-await $`gcloud beta functions deploy ${name} ${[
-  `--project=${process.env.GOOGLE_CLOUD_PROJECT}`,
-  `--region=${region}`,
-  `--allow-unauthenticated`,
-  `--entry-point=api`,
-  `--gen2`,
-  `--memory=1G`,
-  `--runtime=nodejs16`,
-  `--source=./dist`,
-  `--timeout=30s`,
-  `--set-env-vars=NODE_OPTIONS=--require=./.pnp.cjs --require=source-map-support/register --no-warnings`,
-  ...Object.keys(env).map((key) => `--set-env-vars=${key}=${env[key]}`),
-  `--min-instances=0`,
-  `--max-instances=4`,
-  `--trigger-http`,
-]}`;
+await $(
+  `gcloud`,
+  [
+    ...["beta", "functions", "deploy", functionName],
+    `--project=${env.GOOGLE_CLOUD_PROJECT}`,
+    `--region=${env.GOOGLE_CLOUD_REGION}`,
+    `--allow-unauthenticated`,
+    `--entry-point=api`,
+    `--gen2`,
+    `--memory=1G`,
+    `--runtime=nodejs16`,
+    `--source=.`,
+    `--timeout=30s`,
+    `--env-vars-file=env.yml`,
+    `--min-instances=0`,
+    `--max-instances=4`,
+    `--trigger-http`,
+  ],
+  { stdio: "inherit", cwd: path.resolve(__dirname, "../api/dist") },
+).catch((err) => {
+  process.exitCode = err.exitCode;
+  console.error("\n" + chalk.redBright(err.command));
+  return Promise.resolve();
+});

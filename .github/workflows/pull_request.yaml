@@ -45,7 +45,11 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
 
-      - run: yarn install
+      # Install dependencies
+      - name: yarn install
+        run: |
+          yarn config set enableGlobalCache false
+          yarn install
 
       # Analyze code for potential problems
       - run: yarn prettier --check .
@@ -80,7 +84,12 @@ jobs:
             ${{ github.workspace }}/.yarn/install-state.gz
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
-      - run: yarn install
+
+      # Install dependencies
+      - name: yarn install
+        run: |
+          yarn config set enableGlobalCache false
+          yarn install
 
       # TODO: Deploy from the previously built artifacts
       # - run: yarn workspaces foreach -p run deploy

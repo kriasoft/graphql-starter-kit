@@ -55,6 +55,7 @@
     "eslintcache",
     "esmodules",
     "esnext",
+    "execa",
     "firestore",
     "gamecenter",
     "gcloud",

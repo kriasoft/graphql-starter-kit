@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { bool, cleanEnv, num, str, url } from "envalid";
+import { bool, cleanEnv, json, num, str, url } from "envalid";
 
 const appName = process.env.APP_NAME?.replace(/^W/g, "");
 
@@ -13,6 +13,7 @@ const appName = process.env.APP_NAME?.replace(/^W/g, "");
 export default cleanEnv(process.env, {
   GOOGLE_CLOUD_PROJECT: str(),
   GOOGLE_CLOUD_REGION: str(),
+  GOOGLE_CLOUD_CREDENTIALS: json<GoogleCloudCredentials>(),
 
   APP_NAME: str(),
   APP_ORIGIN: url(),
@@ -55,3 +56,16 @@ export default cleanEnv(process.env, {
   UPLOAD_BUCKET: str(),
   STORAGE_BUCKET: str(),
 });
+
+type GoogleCloudCredentials = {
+  type: string;
+  project_id: string;
+  private_key_id: string;
+  private_key: string;
+  client_id: string;
+  client_email: string;
+  auth_uri: string;
+  token_uri: string;
+  auth_provider_x509_cert_url: string;
+  client_x509_cert_url: string;
+};

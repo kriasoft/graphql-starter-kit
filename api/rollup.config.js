@@ -127,7 +127,7 @@ const config = {
         });
         await fs.writeFile(
           "dist/.gcloudignore",
-          ".pnp.*\n.yarn/*\n!.yarn/patches\n!.yarn/plugins\n!.yarn/releases\n.gcloudignore\n",
+          ".pnp.*\n.yarn/*\n!.yarn/patches\n!.yarn/plugins\n!.yarn/releases\n.gcloudignore\nenv.yml\n",
         );
       },
     },
