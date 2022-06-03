@@ -13,7 +13,6 @@
   ],
   "scripts": {
     "postinstall": "node ./scripts/postinstall.js",
-    "gcp:setup": "zx ./scripts/gcp-setup.js",
     "start": "yarn workspaces foreach -ip run start",
     "build": "yarn workspaces foreach -p run build",
     "lint": "eslint --cache --report-unused-disable-directives .",
@@ -38,8 +37,8 @@
     "@emotion/babel-plugin": "^11.9.2",
     "@emotion/eslint-plugin": "^11.7.0",
     "@emotion/react": "^11.9.0",
-    "@typescript-eslint/eslint-plugin": "^5.26.0",
-    "@typescript-eslint/parser": "^5.26.0",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
     "babel-jest": "^28.1.0",
     "babel-plugin-import": "^1.13.5",
     "babel-plugin-relay": "^13.2.0",
@@ -60,16 +59,16 @@
     "prettier": "^2.6.2",
     "react": "^18.1.0",
     "typescript": "^4.7.2",
-    "zx": "^6.1.0"
+    "zx": "^6.2.1"
   },
   "devDependencies": {
     "@jest/types": "^28.1.0",
     "@types/babel__core": "^7.1.19",
     "@types/cross-spawn": "^6.0.2",
     "@types/inquirer": "^8.2.1",
-    "@types/jest": "^27.5.1",
+    "@types/jest": "^28.1.0",
     "@types/minimist": "^1.2.2",
-    "@types/node": "^17.0.36"
+    "@types/node": "^17.0.38"
   },
   "resolutions": {
     "@rollup/plugin-commonjs@npm:^22.0.0": "^21.1.0",

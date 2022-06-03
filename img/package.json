@@ -5,8 +5,7 @@
   "type": "module",
   "exports": "./index.js",
   "scripts": {
-    "deploy": "node --no-warnings ../scripts/img-deploy.js",
-    "img:deploy": "yarn workspace img run deploy"
+    "deploy": "yarn img:deploy"
   },
   "dependencies": {
     "image-resizing": "^0.1.3"

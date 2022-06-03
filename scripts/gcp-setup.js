@@ -1,8 +1,8 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { sync as spawnSync } from "cross-spawn";
 import envars from "envars";
+import { execa as spawn } from "execa";
 import { URL } from "node:url";
 import { $, argv, chalk, fs, path, question } from "zx";
 
@@ -33,12 +33,10 @@ await question(
 );
 
 // Get the GCP project number
-const projectNum = spawnSync("gcloud", [
+const projectNum = await spawn("gcloud", [
   ...["projects", "list", `--filter`, project],
   ...["--format", "value(project_number)"],
-])
-  .stdout.toString()
-  .trim();
+]).then((cmd) => cmd.stdout.toString());
 
 // The list of Google Cloud services that needs to be enabled
 const services = [
@@ -52,28 +50,26 @@ const services = [
   "cloudbuild.googleapis.com",
   "artifactregistry.googleapis.com",
   "sourcerepo.googleapis.com",
+  "identitytoolkit.googleapis.com",
 ];
 
 for (const service of services) {
   await $`gcloud services enable ${service} --project=${project}`;
 }
 
-let cmd = spawnSync(`gsutil`, [`kms`, `serviceaccount`, `-p`, projectNum]);
+let cmd = await spawn(`gsutil`, [`kms`, `serviceaccount`, `-p`, projectNum]);
 
 // The list of IAM service accounts
 const appAccount = `service@${project}.iam.gserviceaccount.com`; // GCS, URL signing
 const computeAccount = `${projectNum}-compute@developer.gserviceaccount.com`; // GCF
 const pubSubAccount = `service-${projectNum}@gcp-sa-pubsub.iam.gserviceaccount.com`;
-const storageAccount = cmd.stdout.toString().trim();
+const storageAccount = cmd.stdout.toString();
 
 // Fetch the list of IAM service accounts
-const serviceAccounts = spawnSync("gcloud", [
+const serviceAccounts = await spawn("gcloud", [
   ...["iam", "service-accounts", "list"],
   ...["--project", project, "--format", "value(email)"],
-])
-  .stdout.toString()
-  .split("\n")
-  .filter(Boolean);
+]).then((cmd) => cmd.stdout.toString().split("\n").filter(Boolean));
 
 // Create a custom service account for the app if not exists
 if (!serviceAccounts.includes(appAccount)) {
@@ -95,17 +91,16 @@ await addRole(storageAccount, "roles/pubsub.publisher");
 await addRole(computeAccount, "roles/eventarc.eventReceiver");
 await addRole(computeAccount, "roles/iam.serviceAccountTokenCreator");
 await addRole(appAccount, "roles/iam.serviceAccountTokenCreator");
-await addRole(appAccount, "roles/storage.objectCreator");
-await addRole(appAccount, "roles/storage.objectViewer");
+await addRole(appAccount, "roles/storage.objectAdmin");
 
 // Fetch the list of service account keys
-cmd = spawnSync("gcloud", [
+cmd = await spawn("gcloud", [
   ...["iam", "service-accounts", "keys", "list"],
   ...["--iam-account", appAccount, "--managed-by", "user"],
 ]);
 
 // Create a new service account (JSON) key if not exists
-if (!cmd.stdout.toString().trim()) {
+if (!cmd.stdout.toString()) {
   await $`gcloud iam service-accounts keys create ${[
     path.resolve(__dirname, `../env/gcp-key.${envName}.json`),
     `--iam-account=${appAccount}`,
@@ -119,17 +114,17 @@ const domain = new URL(prodEnv.APP_ORIGIN).hostname;
 // Ensure that the domain name is verified
 /* eslint-disable-next-line no-constant-condition */
 while (true) {
-  cmd = spawnSync("gcloud", ["domains", "list-user-verified"]);
-  const verifiedDomains = cmd.stdout.toString().trim().split("\n").slice(1);
+  cmd = await spawn("gcloud", ["domains", "list-user-verified"]);
+  const verifiedDomains = cmd.stdout.toString().split("\n").slice(1);
   if (verifiedDomains.includes(domain)) break;
   await $`gcloud domains verify ${domain} --project ${project}`;
   await question(chalk.grey(`Click ${chalk.bold(`[Enter]`)} to continue...\n`));
 }
 
 // Fetch the list of existing GCS buckets
-cmd = spawnSync("gcloud", ["alpha", "storage", "ls", "--project", project]);
+cmd = await spawn("gcloud", ["alpha", "storage", "ls", "--project", project]);
 const corsFile = path.relative(cwd, path.join(__dirname, "cors.json"));
-const existingBuckets = cmd.stdout.toString().trim().split("\n");
+const existingBuckets = cmd.stdout.toString().split("\n");
 const buckets = Object.keys(env)
   .filter((key) => key.endsWith("_BUCKET"))
   .filter((key) => envName === "prod" || env[key] !== prodEnv[key])

@@ -2,10 +2,11 @@
 /* SPDX-License-Identifier: MIT */
 
 import envars from "envars";
-import { fileURLToPath, URL } from "node:url";
-import { $, argv, cd, fs, path } from "zx";
+import { execa as $ } from "execa";
+import { URL } from "node:url";
+import { argv, cd, chalk, fs, path } from "zx";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const apiFuncName = argv.version ? `api-${argv.version}` : "api";
 
 // Load environment variables from the `/env/.{envName}.env` file
 envars.config({ env: argv.env ?? "test" });
@@ -13,11 +14,12 @@ process.env.CF_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
 
 // Get the URL of the API endpoint (Google Cloud Function)
 // https://cloud.google.com/sdk/gcloud/reference/beta/functions
-const API_ORIGIN = await $`gcloud beta functions describe api --gen2 ${[
-  `--project=${process.env.GOOGLE_CLOUD_PROJECT}`,
-  `--region=${process.env.GOOGLE_CLOUD_REGION}`,
-  `--format=value(serviceConfig.uri)`,
-]}`.then((cmd) => `${cmd.stdout.trim()}/api`);
+const API_ORIGIN = await $("gcloud", [
+  ...["beta", "functions", "describe", apiFuncName, "--gen2"],
+  ...["--project", process.env.GOOGLE_CLOUD_PROJECT],
+  ...["--region", process.env.GOOGLE_CLOUD_REGION],
+  ...["--format", "value(serviceConfig.uri)"],
+]).then((cmd) => cmd.stdout.toString());
 
 const hostname = new URL(process.env.APP_ORIGIN).hostname;
 const envName = process.env.APP_ENV;
@@ -64,6 +66,15 @@ await fs.writeFile(
 // Deploy web application to Cloudflare Workers
 // https://developers.cloudflare.com/workers/
 cd(__dirname);
-await $`yarn wrangler publish --verbose --config ../web/dist/wrangler.toml ${
-  isProductionEnv ? [] : ["--env", envName]
-}`;
+await $(
+  "wrangler",
+  [
+    ...["publish", "--verbose", "--config", "../web/dist/wrangler.toml"],
+    ...(isProductionEnv ? [] : ["--env", envName]),
+  ],
+  { stdio: "inherit", cwd: __dirname },
+).catch((err) => {
+  process.exitCode = err.exitCode;
+  console.error("\n" + chalk.redBright(err.command));
+  return Promise.resolve();
+});

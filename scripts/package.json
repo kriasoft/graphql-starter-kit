@@ -4,6 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "api:deploy": "zx ./api-deploy.js",
+    "img:deploy": "zx ./img-deploy.js",
+    "web:deploy": "zx ./web-deploy.js",
+    "gcp:setup": "zx ./gcp-setup.js",
     "cf:create-test-subdomain": "node --no-warnings ./cloudflare.js create-test-subdomain",
     "cf:delete-test-subdomain": "node --no-warnings ./cloudflare.js delete-test-subdomain",
     "gh:clean": "node --no-warnings ./clean.js",
@@ -21,13 +25,14 @@
     "api": "workspace:*",
     "cross-spawn": "^7.0.3",
     "envars": "^0.4.0",
+    "execa": "^6.1.0",
     "formdata-node": "^4.3.2",
     "globby": "^13.1.1",
     "got": "^12.1.0",
     "make-dir": "^3.1.0",
     "minimist": "^1.2.6",
     "web": "workspace:*",
-    "zx": "^6.1.0"
+    "zx": "^6.2.1"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.19",

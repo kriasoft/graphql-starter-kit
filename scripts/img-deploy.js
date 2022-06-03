@@ -2,25 +2,11 @@
 /* SPDX-License-Identifier: MIT */
 
 import envars from "envars";
-import minimist from "minimist";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { $ } from "zx";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import { execa as $ } from "execa";
+import { argv, chalk, path } from "zx";
 
 // Load environment variables
-const args = minimist(process.argv.slice(2));
-const env = envars.config({
-  env: args.env || "test",
-  cwd: path.relative(__dirname, "../env"),
-});
-
-// The list of required environment variables
-const envVars = [
-  `SOURCE_BUCKET=${env.STORAGE_BUCKET}`,
-  `CACHE_BUCKET=${env.CACHE_BUCKET}`,
-];
+const env = envars.config({ env: argv.env ?? "test" });
 
 /**
  * Deploys the "img" package to Google Cloud Functions (GCF). Usage:
@@ -30,18 +16,28 @@ const envVars = [
  * @see https://cloud.google.com/functions
  * @see https://cloud.google.com/sdk/gcloud/reference/functions/deploy
  */
-await $`gcloud beta functions deploy img ${[
-  `--project=${env.GOOGLE_CLOUD_PROJECT}`,
-  `--region=${env.GOOGLE_CLOUD_REGION}`,
-  `--allow-unauthenticated`,
-  `--entry-point=img`,
-  `--gen2`,
-  `--memory=2GB`,
-  `--runtime=nodejs16`,
-  `--source=${path.resolve(__dirname, "../img")}`,
-  `--timeout=30s`,
-  `--set-env-vars=${envVars.join(",")}`,
-  `--min-instances=0`,
-  `--max-instances=4`,
-  `--trigger-http`,
-]}`;
+await $(
+  `gcloud`,
+  [
+    ...["beta", "functions", "deploy", "img"],
+    `--project=${env.GOOGLE_CLOUD_PROJECT}`,
+    `--region=${env.GOOGLE_CLOUD_REGION}`,
+    `--allow-unauthenticated`,
+    `--entry-point=img`,
+    `--gen2`,
+    `--memory=2GB`,
+    `--runtime=nodejs16`,
+    `--source=.`,
+    `--timeout=30s`,
+    `--set-env-vars=SOURCE_BUCKET=${env.STORAGE_BUCKET}`,
+    `--set-env-vars=CACHE_BUCKET=${env.CACHE_BUCKET}`,
+    `--min-instances=0`,
+    `--max-instances=4`,
+    `--trigger-http`,
+  ],
+  { stdio: "inherit", cwd: path.resolve(__dirname, "../img") },
+).catch((err) => {
+  process.exitCode = err.exitCode;
+  console.error("\n" + chalk.redBright(err.command));
+  return Promise.resolve();
+});
