@@ -1,14 +1,13 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import spawn from "cross-spawn";
-import { existsSync } from "node:fs";
-import fs from "node:fs/promises";
+import { execa as $ } from "execa";
 import { EOL } from "node:os";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fs } from "zx";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+if (process.env.CI === "true") process.exit();
+
+process.cwd(__dirname);
 
 const environments = [
   { name: "local", description: "development" },
@@ -18,14 +17,14 @@ const environments = [
 
 // Enable Git hooks
 // https://typicode.github.io/husky/
-spawn.sync("yarn", ["husky", "install"], { stdio: "inherit" });
+await $("yarn", ["husky", "install"], { stdio: "inherit" });
 
 // Create environment variable override files
 // such as `env/.prod.override.env`.
 for (const env of environments) {
-  const filename = join(__dirname, `../env/.${env.name}.override.env`);
+  const filename = `./env/.${env.name}.override.env`;
 
-  if (!existsSync(filename)) {
+  if (!fs.existsSync(filename)) {
     await fs.writeFile(
       filename,
       [

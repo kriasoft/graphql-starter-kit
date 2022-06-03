@@ -12,7 +12,7 @@
     "web"
   ],
   "scripts": {
-    "postinstall": "node ./scripts/postinstall.js",
+    "postinstall": "zx ./scripts/postinstall.js",
     "start": "yarn workspaces foreach -ip run start",
     "build": "yarn workspaces foreach -p run build",
     "lint": "eslint --cache --report-unused-disable-directives .",

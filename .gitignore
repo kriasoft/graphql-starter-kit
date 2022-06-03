@@ -28,7 +28,9 @@ yarn-error.log*
 
 # Environment variables
 .*.override.env
-/env/*.prod.json
+/env/gcp-key.*.json
+!/env/gcp-key.test.json
+!/env/gcp-key.local.json
 
 # Visual Studio Code
 # https://github.com/github/gitignore/blob/master/Global/VisualStudioCode.gitignore
