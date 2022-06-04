@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
 /* SPDX-License-Identifier: MIT */
 
-import { fs, YAML } from "zx";
+import { $, fs, YAML } from "zx";
 
 /**
  * Normalizes and saves the environment variables to a YAML file (for deployment).
@@ -26,4 +26,19 @@ export async function saveEnvVars(env, dest) {
   });
 
   await fs.writeFile(dest, YAML.stringify(env));
+}
+
+/**
+ * Fetches the URL of the Google Cloud Function (GCF).
+ *
+ * @param {string} name - The name of the Cloud Function
+ */
+export function getApiOrigin(name) {
+  return $`gcloud beta functions describe ${name} --gen2 ${[
+    ...["--project", process.env.GOOGLE_CLOUD_PROJECT],
+    ...["--region", process.env.GOOGLE_CLOUD_REGION],
+    ...["--format", "value(serviceConfig.uri)"],
+  ]}`
+    .then((cmd) => cmd.stdout.toString().trim())
+    .catch(() => Promise.resolve(process.env.API_ORIGIN /* fallback */));
 }

@@ -24,25 +24,6 @@ async function handleEvent(event: FetchEvent) {
     return new Response(`User-agent: *\nDisallow: /\n`, { status: 200 });
   }
 
-  // Serve static assets from KV storage
-  // https://github.com/cloudflare/kv-asset-handler
-  if (
-    path.startsWith("/static/") ||
-    path.startsWith("/favicon.") ||
-    path.startsWith("/logo") ||
-    path.startsWith("/manifest.") ||
-    path.startsWith("/robots.") ||
-    path.endsWith(".png")
-  ) {
-    try {
-      return getAssetFromKV(event, {
-        cacheControl: { bypassCache: APP_ENV !== "prod" },
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
   // GraphQL API and authentication
   if (
     path === "/api" ||
@@ -64,9 +45,19 @@ async function handleEvent(event: FetchEvent) {
   }
 
   // Image resizing
+  // https://github.com/kriasoft/image-resizing
   if (path.startsWith("/img/")) {
     url.hostname = api.hostname;
-    return fetch(new Request(url.toString(), req));
+    return fetch(url.toString(), req);
+  }
+
+  // Serve static assets from KV storage
+  // https://github.com/cloudflare/kv-asset-handler
+  if (
+    path.startsWith("/static/") ||
+    path.match(/\.(ico|json|png|jpg|jpeg|gif|text)$/)
+  ) {
+    return getAssetFromKV(event);
   }
 
   // Fetch index.html page from KV storage

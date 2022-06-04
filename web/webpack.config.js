@@ -78,7 +78,7 @@ module.exports = function config(env, options) {
     entry: "./index",
 
     output: {
-      path: path.resolve(__dirname, "dist/web"),
+      path: path.resolve(__dirname, "dist"),
       pathinfo: isEnvDevelopment,
       filename: isEnvProduction
         ? "static/js/[name].[contenthash:8].js"
@@ -291,7 +291,7 @@ module.exports = function config(env, options) {
     name: "workers",
     entry: "./workers/proxy",
     output: {
-      path: path.resolve(__dirname, "dist/workers"),
+      path: path.resolve(__dirname, "dist"),
       filename: "proxy.js",
       uniqueName: "proxy",
     },
