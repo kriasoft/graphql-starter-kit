@@ -6,7 +6,8 @@
   "scripts": {
     "api:deploy": "zx ./api-deploy.js",
     "img:deploy": "zx ./img-deploy.js",
-    "web:deploy": "zx ./web-deploy.js",
+    "web:cf": "zx ./cf.js",
+    "web:deploy": "zx ./cf.js publish",
     "gcp:setup": "zx ./gcp-setup.js",
     "generate:keys": "yarn node --experimental-global-webcrypto $(yarn bin zx) ./generate-keys.js",
     "cf:create-test-subdomain": "node --no-warnings ./cloudflare.js create-test-subdomain",
@@ -20,7 +21,6 @@
   "dependencies": {
     "@babel/core": "^7.18.2",
     "@babel/register": "^7.17.7",
-    "@cloudflare/wrangler": "^1.19.12",
     "@google-cloud/storage": "^6.0.1",
     "@octokit/rest": "^18.12.0",
     "api": "workspace:*",
@@ -34,7 +34,8 @@
     "minimist": "^1.2.6",
     "ora": "^6.1.0",
     "web": "workspace:*",
-    "zx": "^6.2.1"
+    "wrangler": "^2.0.7",
+    "zx": "^6.2.2"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.19",
