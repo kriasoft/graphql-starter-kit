@@ -33,10 +33,10 @@ export const getFacebookOAuth2Client = memoize(function () {
 /**
  * Redirects user to Facebook login page.
  */
-export const redirect: RequestHandler = function (req, res) {
+export const redirect: RequestHandler = async function (req, res) {
   const { redirect_uri } = req.app.locals;
   const oauth = getFacebookOAuth2Client();
-  const state = createState({});
+  const state = await createState({});
   const authorizeUrl = oauth.authorizeURL({ redirect_uri, scope, state });
   res.redirect(authorizeUrl);
 };
@@ -47,7 +47,7 @@ export const redirect: RequestHandler = function (req, res) {
  */
 export const callback: RequestHandler = async function (req, res, next) {
   try {
-    verifyState(req.query.state as string);
+    await verifyState(req.query.state as string);
     const oauth = getFacebookOAuth2Client();
     const { code } = req.query as { code: string };
     const { redirect_uri } = req.app.locals;

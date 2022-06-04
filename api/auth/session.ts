@@ -59,7 +59,7 @@ async function getUser(req: Request): Promise<User | null> {
         return user;
       }
 
-      token = token && verifyIdToken(idToken);
+      token = token && (await verifyIdToken(idToken));
       if (!token) return null;
       const user = await db.table("user").where({ id: token.sub }).first();
       return user ?? null;
@@ -96,13 +96,13 @@ async function signIn(
     return null;
   }
 
-  const idToken = createIdToken(user);
+  const idToken = await createIdToken(user);
 
   res.setHeader(
     "Set-Cookie",
     cookie.serialize(cookieName, idToken, {
       httpOnly: true,
-      maxAge: env.JWT_EXPIRES,
+      maxAge: env.SESSION_EXPIRES,
       secure: env.isProduction,
       path: "/",
     }),
