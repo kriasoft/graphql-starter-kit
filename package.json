@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "packageManager": "yarn@4.0.0-rc.6",
+  "packageManager": "yarn@4.0.0-rc.15",
   "workspaces": [
     "api",
     "db",
@@ -13,8 +13,8 @@
   ],
   "scripts": {
     "postinstall": "zx ./scripts/postinstall.js",
-    "start": "yarn workspaces foreach -ip run start",
-    "build": "yarn workspaces foreach -p run build",
+    "start": "yarn workspaces foreach -ip -j unlimited run start",
+    "build": "yarn workspaces foreach -p -j unlimited run build",
     "lint": "eslint --cache --report-unused-disable-directives .",
     "test": "jest",
     "tf": "node --no-warnings ./scripts/tf.js",
