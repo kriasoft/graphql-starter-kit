@@ -73,6 +73,11 @@ const config = {
           dest: "./dist/.yarn",
           copyOnce: true,
         },
+        {
+          src: ["../.yarn/plugins"],
+          dest: "./dist/.yarn",
+          copyOnce: true,
+        },
       ],
       copyOnce: true,
     }),
