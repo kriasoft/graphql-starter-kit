@@ -15,6 +15,7 @@
     "postinstall": "zx ./scripts/postinstall.js",
     "start": "yarn workspaces foreach -ip -j unlimited run start",
     "build": "yarn workspaces foreach -p -j unlimited run build",
+    "setup": "node ./setup",
     "lint": "eslint --cache --report-unused-disable-directives .",
     "test": "jest",
     "tf": "node --no-warnings ./scripts/tf.js",
