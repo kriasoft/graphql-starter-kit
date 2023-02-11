@@ -34,7 +34,7 @@
     "graphql-relay": "^0.10.0",
     "handlebars": "^4.7.7",
     "http-errors": "^2.0.0",
-    "image-size": "^1.0.1",
+    "image-size": "^1.0.2",
     "jose": "^4.8.1",
     "knex": "^2.1.0",
     "lodash": "^4.17.21",
