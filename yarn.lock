@@ -3818,6 +3818,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/express-serve-static-core@npm:^4.17.33":
+  version: 4.17.33
+  resolution: "@types/express-serve-static-core@npm:4.17.33"
+  dependencies:
+    "@types/node": "npm:*"
+    "@types/qs": "npm:*"
+    "@types/range-parser": "npm:*"
+  checksum: 9c465f534676699df2b52c157fcd9cfe0994d01b89d70d8f6ff81fd86f990b95d280e75f624a609941e6ed2395b2d731ac6af06a05c026871dc9a6c150e7eff9
+  languageName: node
+  linkType: hard
+
 "@types/express@npm:*, @types/express@npm:4.17.13, @types/express@npm:^4.17.11, @types/express@npm:^4.17.13":
   version: 4.17.13
   resolution: "@types/express@npm:4.17.13"
@@ -3827,6 +3838,18 @@ __metadata:
     "@types/qs": "npm:*"
     "@types/serve-static": "npm:*"
   checksum: 114a3b85cd27a5d7873321499d4af2e8964d4f1a6344b224555d356be2d90e8024cba0dcf1159c30a8d39d8cb8312dff85b1a79a23c139122879499c568ac06e
+  languageName: node
+  linkType: hard
+
+"@types/express@npm:^4.17.17":
+  version: 4.17.17
+  resolution: "@types/express@npm:4.17.17"
+  dependencies:
+    "@types/body-parser": "npm:*"
+    "@types/express-serve-static-core": "npm:^4.17.33"
+    "@types/qs": "npm:*"
+    "@types/serve-static": "npm:*"
+  checksum: 79fc9a17e54bf87b12ed65003fae24bf9b32b1bd8964bdfbab37cd3e53e0e4d596f293aa2f0ab1ed7c6a18dee033019e06461a5ce416904515bf764cdbf7d85f
   languageName: node
   linkType: hard
 
@@ -4974,7 +4997,7 @@ __metadata:
     "@types/babel__core": "npm:^7.20.0"
     "@types/cookie": "npm:^0.5.1"
     "@types/cross-spawn": "npm:^6.0.2"
-    "@types/express": "npm:^4.17.13"
+    "@types/express": "npm:^4.17.17"
     "@types/express-handlebars": "npm:^6.0.0"
     "@types/gm": "npm:^1.18.12"
     "@types/http-errors": "npm:^1.8.2"
@@ -4995,8 +5018,8 @@ __metadata:
     date-fns-tz: "npm:^1.3.4"
     envalid: "npm:^7.3.1"
     envars: "npm:^0.4.0"
-    express: "npm:^4.18.1"
-    express-handlebars: "npm:^6.0.6"
+    express: "npm:^4.18.2"
+    express-handlebars: "npm:^6.0.7"
     gm: "npm:^1.23.1"
     google-auth-library: "npm:^8.0.2"
     got: "npm:^12.1.0"
@@ -5574,6 +5597,26 @@ __metadata:
     type-is: "npm:~1.6.18"
     unpipe: "npm:1.0.0"
   checksum: 38cafb558592481cf3a65d1c25b1efe790283638d005bace09191e67e8495e4ae4e83dce761bef6164bde548eb64cdeccf8e81bbbad91af8c9d58a0256542ed4
+  languageName: node
+  linkType: hard
+
+"body-parser@npm:1.20.1":
+  version: 1.20.1
+  resolution: "body-parser@npm:1.20.1"
+  dependencies:
+    bytes: "npm:3.1.2"
+    content-type: "npm:~1.0.4"
+    debug: "npm:2.6.9"
+    depd: "npm:2.0.0"
+    destroy: "npm:1.2.0"
+    http-errors: "npm:2.0.0"
+    iconv-lite: "npm:0.4.24"
+    on-finished: "npm:2.4.1"
+    qs: "npm:6.11.0"
+    raw-body: "npm:2.5.1"
+    type-is: "npm:~1.6.18"
+    unpipe: "npm:1.0.0"
+  checksum: 33f202c9d5e21f9364ecbcc6704b637104e3a802c81e3cc0b05af94681ce3984e2792bb8d05fe5e3471ac0179c13c8d9da80034178a513ebf4b4ab0d56823617
   languageName: node
   linkType: hard
 
@@ -7904,7 +7947,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-handlebars@npm:*, express-handlebars@npm:^6.0.6":
+"express-handlebars@npm:*":
   version: 6.0.6
   resolution: "express-handlebars@npm:6.0.6"
   dependencies:
@@ -7915,7 +7958,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:^4.16.4, express@npm:^4.17.3, express@npm:^4.18.1":
+"express-handlebars@npm:^6.0.7":
+  version: 6.0.7
+  resolution: "express-handlebars@npm:6.0.7"
+  dependencies:
+    glob: "npm:^8.1.0"
+    graceful-fs: "npm:^4.2.10"
+    handlebars: "npm:^4.7.7"
+  checksum: 96c4d8f0e70f8d015089eb2a1779e23bdd0f0ce0ab819899e6f75457d2bac2c738261f206152f7f3d001202eaaad2f00e4dbb030031353f9087876eaee34573e
+  languageName: node
+  linkType: hard
+
+"express@npm:^4.16.4, express@npm:^4.17.3":
   version: 4.18.1
   resolution: "express@npm:4.18.1"
   dependencies:
@@ -7951,6 +8005,45 @@ __metadata:
     utils-merge: "npm:1.0.1"
     vary: "npm:~1.1.2"
   checksum: 22dbd588b0c2b24786166404b9be416a4909a3e90a85f0076e7bf24a010a5d979240c79e8956c529b8cc133230a3493706a8b3648aa13cb0cd1b2c66fe08e4a8
+  languageName: node
+  linkType: hard
+
+"express@npm:^4.18.2":
+  version: 4.18.2
+  resolution: "express@npm:4.18.2"
+  dependencies:
+    accepts: "npm:~1.3.8"
+    array-flatten: "npm:1.1.1"
+    body-parser: "npm:1.20.1"
+    content-disposition: "npm:0.5.4"
+    content-type: "npm:~1.0.4"
+    cookie: "npm:0.5.0"
+    cookie-signature: "npm:1.0.6"
+    debug: "npm:2.6.9"
+    depd: "npm:2.0.0"
+    encodeurl: "npm:~1.0.2"
+    escape-html: "npm:~1.0.3"
+    etag: "npm:~1.8.1"
+    finalhandler: "npm:1.2.0"
+    fresh: "npm:0.5.2"
+    http-errors: "npm:2.0.0"
+    merge-descriptors: "npm:1.0.1"
+    methods: "npm:~1.1.2"
+    on-finished: "npm:2.4.1"
+    parseurl: "npm:~1.3.3"
+    path-to-regexp: "npm:0.1.7"
+    proxy-addr: "npm:~2.0.7"
+    qs: "npm:6.11.0"
+    range-parser: "npm:~1.2.1"
+    safe-buffer: "npm:5.2.1"
+    send: "npm:0.18.0"
+    serve-static: "npm:1.15.0"
+    setprototypeof: "npm:1.2.0"
+    statuses: "npm:2.0.1"
+    type-is: "npm:~1.6.18"
+    utils-merge: "npm:1.0.1"
+    vary: "npm:~1.1.2"
+  checksum: 997d5407a0865f35ef7218c68ad23e846a1139d2cfc524ba9f58b7f3a54d9735edc0d992d896aaee62753ccd97be83d77a507511916972f0dfcd8f938216bc3e
   languageName: node
   linkType: hard
 
@@ -8610,7 +8703,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^8.0.3":
+"glob@npm:^8.0.3, glob@npm:^8.1.0":
   version: 8.1.0
   resolution: "glob@npm:8.1.0"
   dependencies:
@@ -12491,7 +12584,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.11.0":
+"qs@npm:6.11.0, qs@npm:^6.11.0":
   version: 6.11.0
   resolution: "qs@npm:6.11.0"
   dependencies:
