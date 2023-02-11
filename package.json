@@ -40,7 +40,7 @@
     "@emotion/react": "^11.9.0",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "@typescript-eslint/parser": "^5.51.0",
-    "babel-jest": "^28.1.0",
+    "babel-jest": "^29.4.2",
     "babel-plugin-import": "^1.13.6",
     "babel-plugin-relay": "^14.1.0",
     "chalk": "^5.0.1",
@@ -55,7 +55,7 @@
     "graphql-config": "^4.3.1",
     "husky": "^8.0.1",
     "inquirer": "^8.2.4",
-    "jest": "^28.1.0",
+    "jest": "^29.4.2",
     "minimist": "^1.2.6",
     "prettier": "^2.6.2",
     "react": "^18.1.0",
@@ -63,11 +63,11 @@
     "zx": "^6.2.2"
   },
   "devDependencies": {
-    "@jest/types": "^28.1.0",
+    "@jest/types": "^29.4.2",
     "@types/babel__core": "^7.20.0",
     "@types/cross-spawn": "^6.0.2",
     "@types/inquirer": "^8.2.1",
-    "@types/jest": "^28.1.0",
+    "@types/jest": "^28.1.8",
     "@types/minimist": "^1.2.2",
     "@types/node": "^17.0.39"
   },
