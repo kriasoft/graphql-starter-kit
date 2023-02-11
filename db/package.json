@@ -29,7 +29,7 @@
     "@types/cross-spawn": "^6.0.2",
     "@types/lodash": "^4.14.182",
     "@types/minimist": "^1.2.2",
-    "@types/prettier": "^2.6.3",
+    "@types/prettier": "^2.7.2",
     "chalk": "^5.0.1",
     "cross-env": "^7.0.3",
     "cross-spawn": "^7.0.3",
@@ -41,7 +41,7 @@
     "nanoid": "^3.3.4",
     "ora": "^6.1.0",
     "pg": "^8.7.3",
-    "prettier": "^2.6.2"
+    "prettier": "^2.8.4"
   },
   "envars": {
     "cwd": "../env"
