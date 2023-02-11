@@ -4025,10 +4025,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:^4.14.182":
-  version: 4.14.182
-  resolution: "@types/lodash@npm:4.14.182"
-  checksum: 8224b6d4cf7ee471024875c7acae1f19fa7221d28bc1008d79d67503d0707a395f95a6996ee77863f1ffeee15709da0709241b6c3e27d7e498927399f53e7298
+"@types/lodash@npm:^4.14.191":
+  version: 4.14.191
+  resolution: "@types/lodash@npm:4.14.191"
+  checksum: e8762fec34eec79828b6b1e08243e25703bfad1b53a7032c0293b69f51d222c0a36ae08d3588ab8147c6a3f478096e02186a860b909cdbe29c7c745cefea2442
   languageName: node
   linkType: hard
 
@@ -4095,14 +4095,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/pg@npm:^8.6.5":
-  version: 8.6.5
-  resolution: "@types/pg@npm:8.6.5"
+"@types/pg@npm:^8.6.6":
+  version: 8.6.6
+  resolution: "@types/pg@npm:8.6.6"
   dependencies:
     "@types/node": "npm:*"
     pg-protocol: "npm:*"
     pg-types: "npm:^2.2.0"
-  checksum: 768676d354dee1928fa1f79bc48a199e83e7eeb6f2c8ca807b767ff6e696b2f045a0c789370f872154d2837585544fccd00730ad02b7c10392f7cb69f40eeb40
+  checksum: 10962da43d9892c3233460716d4b45fc76f28241c849f1316b54b7705a90022075c6e951a52637c63b70d5e64ba4d85054250f1f0ca8cb2a1bae6b251fee2ab7
   languageName: node
   linkType: hard
 
@@ -5040,10 +5040,10 @@ __metadata:
     "@types/gm": "npm:^1.18.12"
     "@types/http-errors": "npm:^1.8.2"
     "@types/jest": "npm:^29.4.0"
-    "@types/lodash": "npm:^4.14.182"
+    "@types/lodash": "npm:^4.14.191"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^18.13.0"
-    "@types/pg": "npm:^8.6.5"
+    "@types/pg": "npm:^8.6.6"
     "@types/simple-oauth2": "npm:^4.1.1"
     "@types/supertest": "npm:^2.0.12"
     "@types/validator": "npm:^13.7.2"
@@ -5073,7 +5073,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     minimist: "npm:^1.2.6"
     nanoid: "npm:^3.3.4"
-    pg: "npm:^8.7.3"
+    pg: "npm:^8.9.0"
     prettier: "npm:^2.8.4"
     pretty-error: "npm:^4.0.0"
     rollup: "npm:^3.15.0"
@@ -6655,7 +6655,7 @@ __metadata:
     "@faker-js/faker": "npm:^7.1.0"
     "@types/babel__core": "npm:^7.20.0"
     "@types/cross-spawn": "npm:^6.0.2"
-    "@types/lodash": "npm:^4.14.182"
+    "@types/lodash": "npm:^4.14.191"
     "@types/minimist": "npm:^1.2.2"
     "@types/prettier": "npm:^2.7.2"
     chalk: "npm:^5.0.1"
@@ -6668,7 +6668,7 @@ __metadata:
     minimist: "npm:^1.2.6"
     nanoid: "npm:^3.3.4"
     ora: "npm:^6.1.0"
-    pg: "npm:^8.7.3"
+    pg: "npm:^8.9.0"
     prettier: "npm:^2.8.4"
   languageName: unknown
   linkType: soft
@@ -12368,10 +12368,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pg-pool@npm:^3.5.2":
+  version: 3.5.2
+  resolution: "pg-pool@npm:3.5.2"
+  peerDependencies:
+    pg: ">=8.0"
+  checksum: 6fd6f417451b7a6ea288ad276316652dd72822cb99ab3a0555eeb9a6d178d334c0ac83a90fd51393685b3a81502186dd0cfb96be0a3ae3c0668f1453f603038b
+  languageName: node
+  linkType: hard
+
 "pg-protocol@npm:*, pg-protocol@npm:^1.5.0":
   version: 1.5.0
   resolution: "pg-protocol@npm:1.5.0"
   checksum: dc16e2408fbe1bbd4c46018a12695f8fc2261fc43a877f7db160bae1c64aad8a1b607813f5ef3cea862b6698e48b581ac4d8475d7dd5800fbb648a9336b8c56a
+  languageName: node
+  linkType: hard
+
+"pg-protocol@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "pg-protocol@npm:1.6.0"
+  checksum: 0a1540287c0927a3cebffed2f3d5d1b37cafe02d5a61e631e4c92457720daa9c3794a9afa6d4262e198e9a6a2f54aca12bb82d6b8a9ba7352c16bcbe25852652
   languageName: node
   linkType: hard
 
@@ -12405,6 +12421,26 @@ __metadata:
     pg-native:
       optional: true
   checksum: 71cbd82cbd87ba0dbcc0d8f197a2a277fa22913ca1850a4e7456de19d8806c2cc03b2ad27241512d49f25d0d6250e2e71396abe715e5549c2ee4d5548ad49dcf
+  languageName: node
+  linkType: hard
+
+"pg@npm:^8.9.0":
+  version: 8.9.0
+  resolution: "pg@npm:8.9.0"
+  dependencies:
+    buffer-writer: "npm:2.0.0"
+    packet-reader: "npm:1.0.0"
+    pg-connection-string: "npm:^2.5.0"
+    pg-pool: "npm:^3.5.2"
+    pg-protocol: "npm:^1.6.0"
+    pg-types: "npm:^2.1.0"
+    pgpass: "npm:1.x"
+  peerDependencies:
+    pg-native: ">=3.0.1"
+  peerDependenciesMeta:
+    pg-native:
+      optional: true
+  checksum: 14208bbd353b4283dc935bb881ee537dc836e5d4b06f074b99d3f568db730c42b530e2ecc68cb7f5878edc73bbeb209fa05dbb1654fa93eee3e540c071334b75
   languageName: node
   linkType: hard
 
