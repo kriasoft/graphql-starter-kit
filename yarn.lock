@@ -2769,9 +2769,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapbox/node-pre-gyp@npm:^1.0.8":
-  version: 1.0.9
-  resolution: "@mapbox/node-pre-gyp@npm:1.0.9"
+"@mapbox/node-pre-gyp@npm:^1.0.10":
+  version: 1.0.10
+  resolution: "@mapbox/node-pre-gyp@npm:1.0.10"
   dependencies:
     detect-libc: "npm:^2.0.0"
     https-proxy-agent: "npm:^5.0.0"
@@ -2784,7 +2784,7 @@ __metadata:
     tar: "npm:^6.1.11"
   bin:
     node-pre-gyp: bin/node-pre-gyp
-  checksum: 50b5e21ff42ecac4c431b2d02c4720da5e7f80aa977a103fd5f7103da8311781fa5aae352191075a5c1218d05556d92a4a460b2e2cc264dfc9f714ec9e0d07c3
+  checksum: e408e430752eed5a1e3603d87ed070d09ba7b1a3fed303da5522b04ce9b06da66a67ef064be350290d788483efc6b7bbf6cbc67a47d04feee4002e52a43bfbaf
   languageName: node
   linkType: hard
 
@@ -5047,7 +5047,7 @@ __metadata:
     "@types/simple-oauth2": "npm:^4.1.1"
     "@types/supertest": "npm:^2.0.12"
     "@types/validator": "npm:^13.7.2"
-    argon2: "npm:^0.28.5"
+    argon2: "npm:^0.30.3"
     cookie: "npm:^0.5.0"
     cross-env: "npm:^7.0.3"
     cross-spawn: "npm:^7.0.3"
@@ -5166,14 +5166,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"argon2@npm:^0.28.5":
-  version: 0.28.5
-  resolution: "argon2@npm:0.28.5"
+"argon2@npm:^0.30.3":
+  version: 0.30.3
+  resolution: "argon2@npm:0.30.3"
   dependencies:
-    "@mapbox/node-pre-gyp": "npm:^1.0.8"
+    "@mapbox/node-pre-gyp": "npm:^1.0.10"
     "@phc/format": "npm:^1.0.0"
-    node-addon-api: "npm:^4.3.0"
-  checksum: 49d4860fd2385eab0a924ce0d49ed3bc594435ca23c9324a503b8e6e0507fcb59c616e77d99cb39e10da2e38edd9fc44dc2ceb31649175ec1c3811747d5b5d32
+    node-addon-api: "npm:^5.0.0"
+  checksum: d179215eb42a6caee3c21902268d8dd5bfadd1dbd4a6e2d88247624a1ff92f878c797e5bb7aaa8b741aa43a14953c5a1bab387ae4cdc8dac6b56ef4f0045586a
   languageName: node
   linkType: hard
 
@@ -11681,12 +11681,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-addon-api@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "node-addon-api@npm:4.3.0"
+"node-addon-api@npm:^5.0.0":
+  version: 5.1.0
+  resolution: "node-addon-api@npm:5.1.0"
   dependencies:
     node-gyp: "npm:latest"
-  checksum: 0083fffe242738870a52af800f54f3f249a77f4652d4493682d2acc224f0aafbbae24b3f6f5c757dac6a091bd21e561f215bfce86608f8cf296ba3220591c38f
+  checksum: c5b513fd922614490d85f9cfb4325388b5a16d44258d74187f741fc80ef675d8bebae775e71ff1ef457b04ad242cb24dc101531b01762a47e7feedb48a7a91c8
   languageName: node
   linkType: hard
 
