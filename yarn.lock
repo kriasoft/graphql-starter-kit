@@ -4260,20 +4260,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/relay-compiler@npm:^8.0.2":
-  version: 8.0.2
-  resolution: "@types/relay-compiler@npm:8.0.2"
+"@types/relay-compiler@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@types/relay-compiler@npm:14.0.0"
   dependencies:
-    "@types/relay-runtime": "npm:*"
     graphql: "npm:^14.5.3"
-  checksum: a5b568507f4bee43482dcf8c51a932d928a26720a389a59e964a97948a31679df9d466096b634a98754a2dbc551fba32e028f13b186cdf66aee2a98d19a90d16
+  checksum: 3b56deca54d364136fcee07489cfa93ce54d48cb47996b218c34086a959fa4c4bd6000520561f47c95b3d8c00eb10785eae768ad6ff32276a3ccf8483f577f84
   languageName: node
   linkType: hard
 
-"@types/relay-runtime@npm:*, @types/relay-runtime@npm:^13.0.3":
+"@types/relay-runtime@npm:*":
   version: 13.0.3
   resolution: "@types/relay-runtime@npm:13.0.3"
   checksum: 2fa27a56a1a39b7bebb05643d40dee8cd5e2d14f478c707c5db8d6dcf2130aa4b7f66de13d5f41a9dc07660ad3ecc9e4e9fbbdbb8e9b2df9e391939e94a822d9
+  languageName: node
+  linkType: hard
+
+"@types/relay-runtime@npm:^14.1.6":
+  version: 14.1.6
+  resolution: "@types/relay-runtime@npm:14.1.6"
+  checksum: c795aab42d90e711c0f75db75607805ac50e4646e177d786dc49e3ebe8de0cc831fb62e755903f09cb60aadb72b8bcf1d26416510680a1d1ef17248c46ed3d87
   languageName: node
   linkType: hard
 
@@ -12665,18 +12671,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-relay@npm:13.2.0":
-  version: 13.2.0
-  resolution: "react-relay@npm:13.2.0"
+"react-relay@npm:14.1.0":
+  version: 14.1.0
+  resolution: "react-relay@npm:14.1.0"
   dependencies:
     "@babel/runtime": "npm:^7.0.0"
     fbjs: "npm:^3.0.2"
     invariant: "npm:^2.2.4"
     nullthrows: "npm:^1.1.1"
-    relay-runtime: "npm:13.2.0"
+    relay-runtime: "npm:14.1.0"
   peerDependencies:
     react: ^16.9.0 || ^17 || ^18
-  checksum: 99f5a4cd24061a4b32f8e2b0c596071ae28cbd437c7554e5523e3cf054baff1b37851be05eb8ff6f0186a3c4ca1a36c97f736dcbf85e9ad63402d6896990b9d6
+  checksum: 56af6ba0209d02067c14972e2558d62395c88a350e85a93ff6d13db1e9f7961ad1d5458d48ab7d271e7270b645fea516d9c455b44de40c2a9c0f7820914866e2
   languageName: node
   linkType: hard
 
@@ -12920,12 +12926,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"relay-compiler@npm:^13.2.0":
-  version: 13.2.0
-  resolution: "relay-compiler@npm:13.2.0"
+"relay-compiler@npm:^14.1.0":
+  version: 14.1.0
+  resolution: "relay-compiler@npm:14.1.0"
   bin:
     relay-compiler: cli.js
-  checksum: 4ec58d7d6fe029ac50140ac24c57fa8d0ee47efc08ea9e9c64ddfe8dd520a16233b4b74b9c3562196736fd581aefbba0e8208a4ebc37b781f0fc02c10d3e7cb7
+  checksum: b8368c637ee4a329b9a25e58968446e85739121bd4173eb3b986e975c19dd2f54af9e086fb0b0cbda80ef3990973d9dd16734d9af29955ea28dd11a6a4f1b031
   languageName: node
   linkType: hard
 
@@ -12938,14 +12944,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"relay-runtime@npm:13.2.0, relay-runtime@npm:^13.2.0":
-  version: 13.2.0
-  resolution: "relay-runtime@npm:13.2.0"
+"relay-runtime@npm:14.1.0, relay-runtime@npm:^14.1.0":
+  version: 14.1.0
+  resolution: "relay-runtime@npm:14.1.0"
   dependencies:
     "@babel/runtime": "npm:^7.0.0"
     fbjs: "npm:^3.0.2"
     invariant: "npm:^2.2.4"
-  checksum: e6f706888a48f9045103d3b57a80019c8f4eaa358cf6b6ee0c69ddf5610d2d84e72b1ef0ff9485a78e5de23cc117af7aee9f6d1d7866ecb5f69a460d6ea41dfa
+  checksum: 18dfd249677013892dbff5d6800e7875b71994175d20ef84897e1faaebfde08458cea14a6def7c403cd19f75b2a920dcc7757bb7eea838acbec061deaae19825
   languageName: node
   linkType: hard
 
@@ -14923,8 +14929,8 @@ __metadata:
     "@types/react": "npm:^18.0.27"
     "@types/react-dom": "npm:^18.0.10"
     "@types/react-relay": "npm:^14.1.3"
-    "@types/relay-compiler": "npm:^8.0.2"
-    "@types/relay-runtime": "npm:^13.0.3"
+    "@types/relay-compiler": "npm:^14.0.0"
+    "@types/relay-runtime": "npm:^14.1.6"
     "@types/webpack-dev-server": "npm:^4.7.2"
     "@types/webpack-env": "npm:^1.17.0"
     "@types/webpack-manifest-plugin": "npm:^3.0.5"
@@ -14952,10 +14958,10 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-refresh: "npm:^0.14.0"
-    react-relay: "npm:13.2.0"
-    relay-compiler: "npm:^13.2.0"
+    react-relay: "npm:14.1.0"
+    relay-compiler: "npm:^14.1.0"
     relay-config: "npm:^12.0.1"
-    relay-runtime: "npm:^13.2.0"
+    relay-runtime: "npm:^14.1.0"
     source-map-loader: "npm:^3.0.1"
     terser-webpack-plugin: "npm:^5.3.3"
     type-fest: "npm:^2.13.0"
