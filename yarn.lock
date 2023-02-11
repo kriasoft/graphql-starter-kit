@@ -5052,8 +5052,8 @@ __metadata:
     cross-env: "npm:^7.0.3"
     cross-spawn: "npm:^7.0.3"
     dataloader: "npm:^2.2.1"
-    date-fns: "npm:^2.28.0"
-    date-fns-tz: "npm:^1.3.4"
+    date-fns: "npm:^2.29.3"
+    date-fns-tz: "npm:^2.0.0"
     envalid: "npm:^7.3.1"
     envars: "npm:^0.4.0"
     express: "npm:^4.18.2"
@@ -6629,19 +6629,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns-tz@npm:^1.3.4":
-  version: 1.3.4
-  resolution: "date-fns-tz@npm:1.3.4"
+"date-fns-tz@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "date-fns-tz@npm:2.0.0"
   peerDependencies:
     date-fns: ">=2.0.0"
-  checksum: 744bf9ba7475ef43bb9c4950bae8e847e27fe960600b7c9d4b4fc9746cd84f02752a3521c25b7227cf1a151931666626020941ce7b4c83fc6d3c0d153abb664e
+  checksum: 14f3daea478d747894492d66230c76ea21360e1e465d069a936d5e3a7e83f925f9add0880e958b9003995e63e62d13f75f63531b55bbd3fb1bca86b2c29437a3
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.28.0":
-  version: 2.28.0
-  resolution: "date-fns@npm:2.28.0"
-  checksum: a1c079fb535697a5395e6f6bd9cf99c915ebe78c1bbd5959bd3d41ded181587db1068ef7bb5b78ddffc6e15afef040704fd7a2424b5d83cfdcc5934ab2be48c2
+"date-fns@npm:^2.29.3":
+  version: 2.29.3
+  resolution: "date-fns@npm:2.29.3"
+  checksum: 7e0d58b93506bb34184fd8a86ffc84fffa5188789a8afd22622e2f129f0adc40df755133705d95532beac53f2cecc812dc1753e801ae945a604c323cdaa3bbc1
   languageName: node
   linkType: hard
 
