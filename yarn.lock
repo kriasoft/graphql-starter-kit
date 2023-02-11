@@ -5068,8 +5068,8 @@ __metadata:
     http-errors: "npm:^2.0.0"
     image-size: "npm:^1.0.2"
     jose: "npm:^4.8.1"
-    knex: "npm:^2.1.0"
-    knex-types: "npm:^0.4.0"
+    knex: "npm:^2.4.2"
+    knex-types: "npm:^0.5.0"
     lodash: "npm:^4.17.21"
     minimist: "npm:^1.2.6"
     nanoid: "npm:^3.3.4"
@@ -6178,10 +6178,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colorette@npm:2.0.16, colorette@npm:^2.0.10, colorette@npm:^2.0.14":
-  version: 2.0.16
-  resolution: "colorette@npm:2.0.16"
-  checksum: 68ff163b8954e35676cf7b3176ef44df6a9c3d61d714b580dcc86b99b52e5530d23d6a32b8ff6e11aca4d2d373dd9af063ead6bc10cae40bc1d1c56de269f106
+"colorette@npm:2.0.19":
+  version: 2.0.19
+  resolution: "colorette@npm:2.0.19"
+  checksum: f887e4f7608a1a37037f0b9f7da4d1608e2e1ac0126b87c4c143ff0348bc586173b86fde37f71f1b7742cd1c04285d0cb3cbeab391935886c86a162f4f2b5b87
   languageName: node
   linkType: hard
 
@@ -6189,6 +6189,13 @@ __metadata:
   version: 1.4.0
   resolution: "colorette@npm:1.4.0"
   checksum: b971a805f9651a81a99051e53452d2553f26c4342aefc6424a6e3ef891a1a4161fc5345a80a6bedba63e06579b7150e890ec86c5e3c2805e887b7c4830bdb53d
+  languageName: node
+  linkType: hard
+
+"colorette@npm:^2.0.10, colorette@npm:^2.0.14":
+  version: 2.0.16
+  resolution: "colorette@npm:2.0.16"
+  checksum: 68ff163b8954e35676cf7b3176ef44df6a9c3d61d714b580dcc86b99b52e5530d23d6a32b8ff6e11aca4d2d373dd9af063ead6bc10cae40bc1d1c56de269f106
   languageName: node
   linkType: hard
 
@@ -6662,8 +6669,8 @@ __metadata:
     cross-env: "npm:^7.0.3"
     cross-spawn: "npm:^7.0.3"
     envars: "npm:^0.4.0"
-    knex: "npm:^2.1.0"
-    knex-types: "npm:^0.4.0"
+    knex: "npm:^2.4.2"
+    knex-types: "npm:^0.5.0"
     lodash: "npm:^4.17.21"
     minimist: "npm:^1.2.6"
     nanoid: "npm:^3.3.4"
@@ -10884,23 +10891,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knex-types@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "knex-types@npm:0.4.0"
+"knex-types@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "knex-types@npm:0.5.0"
   dependencies:
     lodash: "npm:^4.17.21"
-    pg: "npm:^8.7.3"
+    pg: "npm:^8.8.0"
   peerDependencies:
     knex: ">=0.95"
-  checksum: 16a6b8af6c2215d184e03d5a66fac5ab3a4837243857aa71f7be3608831caafeb087ba5f4674b770395b040456826bde90ba0d29d996e8829502e5a36cac30bc
+  checksum: 7eb407879751bff43f793078f14ba2a699e2dd595df8b09f42b041c71dc7a23e5bc26ac17905e38cf6228cc6ca596e1fbfa24c62a4e9ca88198e8018800b80e9
   languageName: node
   linkType: hard
 
-"knex@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "knex@npm:2.1.0"
+"knex@npm:^2.4.2":
+  version: 2.4.2
+  resolution: "knex@npm:2.4.2"
   dependencies:
-    colorette: "npm:2.0.16"
+    colorette: "npm:2.0.19"
     commander: "npm:^9.1.0"
     debug: "npm:4.3.4"
     escalade: "npm:^3.1.1"
@@ -10931,7 +10938,7 @@ __metadata:
       optional: true
   bin:
     knex: bin/cli.js
-  checksum: 650228db15f3b648c60358e7ab3e65903a1260d04aa90c0c89c4c40a10d4a6ccd86e119df796b3c3066942e2a35f2b3df45e1d03bf0baba1879b43ab1f86022d
+  checksum: 930b245dacc9352654b94ccfd7013c698fa845e27a790ea6821eaa177c80e9258772f6ff8751c84569ff58e539d1e732dedb3e45f8eebd68498a5ca0450d4865
   languageName: node
   linkType: hard
 
@@ -12359,15 +12366,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pg-pool@npm:^3.5.1":
-  version: 3.5.1
-  resolution: "pg-pool@npm:3.5.1"
-  peerDependencies:
-    pg: ">=8.0"
-  checksum: 9ab445815168c3e7955ca8d1caa3458cf062dce5fd820792dfa61a72b329f6565a3c299bebbe5ca578d7d31c871b7b136825fdcde5c4660bdb152beb173771fa
-  languageName: node
-  linkType: hard
-
 "pg-pool@npm:^3.5.2":
   version: 3.5.2
   resolution: "pg-pool@npm:3.5.2"
@@ -12377,7 +12375,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pg-protocol@npm:*, pg-protocol@npm:^1.5.0":
+"pg-protocol@npm:*":
   version: 1.5.0
   resolution: "pg-protocol@npm:1.5.0"
   checksum: dc16e2408fbe1bbd4c46018a12695f8fc2261fc43a877f7db160bae1c64aad8a1b607813f5ef3cea862b6698e48b581ac4d8475d7dd5800fbb648a9336b8c56a
@@ -12404,27 +12402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pg@npm:^8.7.3":
-  version: 8.7.3
-  resolution: "pg@npm:8.7.3"
-  dependencies:
-    buffer-writer: "npm:2.0.0"
-    packet-reader: "npm:1.0.0"
-    pg-connection-string: "npm:^2.5.0"
-    pg-pool: "npm:^3.5.1"
-    pg-protocol: "npm:^1.5.0"
-    pg-types: "npm:^2.1.0"
-    pgpass: "npm:1.x"
-  peerDependencies:
-    pg-native: ">=2.0.0"
-  peerDependenciesMeta:
-    pg-native:
-      optional: true
-  checksum: 71cbd82cbd87ba0dbcc0d8f197a2a277fa22913ca1850a4e7456de19d8806c2cc03b2ad27241512d49f25d0d6250e2e71396abe715e5549c2ee4d5548ad49dcf
-  languageName: node
-  linkType: hard
-
-"pg@npm:^8.9.0":
+"pg@npm:^8.8.0, pg@npm:^8.9.0":
   version: 8.9.0
   resolution: "pg@npm:8.9.0"
   dependencies:
