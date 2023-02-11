@@ -4201,12 +4201,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.5":
-  version: 18.0.5
-  resolution: "@types/react-dom@npm:18.0.5"
+"@types/react-dom@npm:^18.0.10":
+  version: 18.0.10
+  resolution: "@types/react-dom@npm:18.0.10"
   dependencies:
     "@types/react": "npm:*"
-  checksum: ec0ed6965cd21e78be6111c1ec0090e3be31d81a54aff392f3a2cec3c0b730a7fca21fc1109e92eb8260849f9e3d4ea01f4a9f0e0793a85883b533a8b71a317d
+  checksum: 2c191e8dbe394e0690f8e5caacdb5ef710491478a95ceefc97cc8697e6e7e02c6a2fc3562b37791f92a4c08a6a82dd9dc57d42e8f98bce5f7e7110965845c068
   languageName: node
   linkType: hard
 
@@ -4219,13 +4219,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-relay@npm:^13.0.2":
-  version: 13.0.2
-  resolution: "@types/react-relay@npm:13.0.2"
+"@types/react-relay@npm:^14.1.3":
+  version: 14.1.3
+  resolution: "@types/react-relay@npm:14.1.3"
   dependencies:
     "@types/react": "npm:*"
     "@types/relay-runtime": "npm:*"
-  checksum: 4f1aac7469cc17ba867627c6900fe786a6c6ad0a7270d649381727a6580b2765c95c4b04a2f0e2c76fc5265ab17bbe2f9ad820b0d4181583d0e574462e8333a0
+  checksum: f932979dcb690595f7be2dbfb300dc4cb9d9aee5144d6d1e38b46af9381bb102dfad08942068d3a0774a07d4a0eaa2a5d977d2548ccb1c7e3ef7ea52d4881297
   languageName: node
   linkType: hard
 
@@ -4249,14 +4249,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.0.11":
-  version: 18.0.11
-  resolution: "@types/react@npm:18.0.11"
+"@types/react@npm:^18.0.27":
+  version: 18.0.27
+  resolution: "@types/react@npm:18.0.27"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 357c8e6ae43d8983bef27d478aaee64f2d7b31f3bf79c48bc5b33bdc018b21f605d0dc6c895abca9cb398a47476935e69a62fc5380432e3d0cd786ef5b689e28
+  checksum: 75c0b64773dc36bd094b3cc7fff5fb4cc385f60d7696bec2e0243806de69f2a2e35bec25d31f51bbbd6681639d8682a2d6eb94379759c70afc2f3ef5f87927b5
   languageName: node
   linkType: hard
 
@@ -5170,7 +5170,7 @@ __metadata:
     jest: "npm:^29.4.2"
     minimist: "npm:^1.2.6"
     prettier: "npm:^2.8.4"
-    react: "npm:^18.1.0"
+    react: "npm:^18.2.0"
     typescript: "npm:^4.9.5"
     zx: "npm:^6.2.2"
   languageName: unknown
@@ -12625,15 +12625,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18.1.0":
-  version: 18.1.0
-  resolution: "react-dom@npm:18.1.0"
+"react-dom@npm:^18.2.0":
+  version: 18.2.0
+  resolution: "react-dom@npm:18.2.0"
   dependencies:
     loose-envify: "npm:^1.1.0"
-    scheduler: "npm:^0.22.0"
+    scheduler: "npm:^0.23.0"
   peerDependencies:
-    react: ^18.1.0
-  checksum: b8fdbb33e5462064e8a923b58ba529490c25f8680e040acc18b295f200fa2179ba01e1c94779a84c1c2a1d87339057bf716b061e53bd76db25dbd5c5e5d2755e
+    react: ^18.2.0
+  checksum: 7c5b915fb793d63563cec1f721e059e6ff0e2855ac116ab5cb7450b6c59398f5e25f95c960ce5cb93504cc58ab724a75a78e99282354e702a0e667d0d787d028
   languageName: node
   linkType: hard
 
@@ -12658,10 +12658,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-refresh@npm:^0.13.0":
-  version: 0.13.0
-  resolution: "react-refresh@npm:0.13.0"
-  checksum: 58d398b6474cd3ae8a4034f3500d0e0dab0e2cb06b9281d4926ad4b780df923800ce28d6e87c8c5abab5df6f58eb622665c291f9037f8f93e8d73fdbac3c0697
+"react-refresh@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "react-refresh@npm:0.14.0"
+  checksum: 0dc7d5a197ae193f0bddea2f8d712a2b8477ae401c9e3b04c85d0a046ac7847b24af573923ab4c3ca67735583a6b421edc43b39a07b4d1a46056289249f4f897
   languageName: node
   linkType: hard
 
@@ -12695,12 +12695,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.1.0":
-  version: 18.1.0
-  resolution: "react@npm:18.1.0"
+"react@npm:^18.2.0":
+  version: 18.2.0
+  resolution: "react@npm:18.2.0"
   dependencies:
     loose-envify: "npm:^1.1.0"
-  checksum: 2ec5d96c4af7aaf531f92a61167ce433d2095bf041586b8eec4e2474ed7320b3977c762e46a778236de857619709e2547a9c3bb189b2d59faff4cf4968ad142a
+  checksum: 8434e5782c52b3bf18a80b666348977924ee3827895fa03ec3ffb9faca90c460049f14130428dd1546bab6cf3b2c277f2c243d3c2a856501331d2e69c24b2bb9
   languageName: node
   linkType: hard
 
@@ -13314,12 +13314,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.22.0":
-  version: 0.22.0
-  resolution: "scheduler@npm:0.22.0"
+"scheduler@npm:^0.23.0":
+  version: 0.23.0
+  resolution: "scheduler@npm:0.23.0"
   dependencies:
     loose-envify: "npm:^1.1.0"
-  checksum: de5e75075cf8de38e0dc0e04f834a4ac67e75481b72cacd56f57aff26bc4e4db46cc8388f646b25a39d32dde97780a13cc63f4e4727d61a496d49c639c8e527c
+  checksum: f4022b95cdc282668643da4850f55fe70c899aa956d11819f196e2ca892271bdb253613e53997852094f9351f7c72d057eea8b28d9b4bcb93bcb1c6d09985c82
   languageName: node
   linkType: hard
 
@@ -14920,9 +14920,9 @@ __metadata:
     "@types/gtag.js": "npm:^0.0.10"
     "@types/jest": "npm:^29.4.0"
     "@types/node": "npm:^18.13.0"
-    "@types/react": "npm:^18.0.11"
-    "@types/react-dom": "npm:^18.0.5"
-    "@types/react-relay": "npm:^13.0.2"
+    "@types/react": "npm:^18.0.27"
+    "@types/react-dom": "npm:^18.0.10"
+    "@types/react-relay": "npm:^14.1.3"
     "@types/relay-compiler": "npm:^8.0.2"
     "@types/relay-runtime": "npm:^13.0.3"
     "@types/webpack-dev-server": "npm:^4.7.2"
@@ -14949,9 +14949,9 @@ __metadata:
     ignore-webpack-plugin: "npm:^0.3.0"
     inline-chunk-html-plugin: "npm:^1.1.1"
     path-to-regexp: "npm:^6.2.1"
-    react: "npm:^18.1.0"
-    react-dom: "npm:^18.1.0"
-    react-refresh: "npm:^0.13.0"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+    react-refresh: "npm:^0.14.0"
     react-relay: "npm:13.2.0"
     relay-compiler: "npm:^13.2.0"
     relay-config: "npm:^12.0.1"
