@@ -21,11 +21,11 @@
     "db:psql": "cross-env BABEL_DISABLE_CACHE=1 babel-node --root-mode=upward -o .,../api -x .ts ./scripts/psql.ts"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.2",
-    "@babel/node": "^7.17.10",
-    "@babel/register": "^7.17.7",
+    "@babel/core": "^7.20.12",
+    "@babel/node": "^7.20.7",
+    "@babel/register": "^7.18.9",
     "@faker-js/faker": "^7.1.0",
-    "@types/babel__core": "^7.1.19",
+    "@types/babel__core": "^7.20.0",
     "@types/cross-spawn": "^6.0.2",
     "@types/lodash": "^4.14.182",
     "@types/minimist": "^1.2.2",
