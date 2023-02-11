@@ -4127,10 +4127,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^17.0.39":
-  version: 17.0.39
-  resolution: "@types/node@npm:17.0.39"
-  checksum: 5ef819b2f50d08e91dd1c93ad35ccaf518f9788ef779ea345df34da431f21daa70a752532ef97ba1732e609602b3d08b6dfa8a0b0b62c80cd0d3c3c05245ca28
+"@types/node@npm:^18.13.0":
+  version: 18.13.0
+  resolution: "@types/node@npm:18.13.0"
+  checksum: 591b7b9a97dbeaa155c3fe1a00e22fc13241781bda02f4e96935811723e7719fe18ed003301551cfa3273488cc7cf2f99146b752abc9b60aaab57bcbc67da830
   languageName: node
   linkType: hard
 
@@ -5079,7 +5079,7 @@ __metadata:
     "@types/jest": "npm:^29.4.0"
     "@types/lodash": "npm:^4.14.182"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^17.0.39"
+    "@types/node": "npm:^18.13.0"
     "@types/pg": "npm:^8.6.5"
     "@types/simple-oauth2": "npm:^4.1.1"
     "@types/supertest": "npm:^2.0.12"
@@ -5120,7 +5120,7 @@ __metadata:
     slugify: "npm:^1.6.5"
     source-map-support: "npm:^0.5.21"
     supertest: "npm:^6.3.3"
-    typescript: "npm:^4.7.3"
+    typescript: "npm:^4.9.5"
     validator: "npm:^13.7.0"
     validator-fluent: "npm:^0.4.2"
   languageName: unknown
@@ -5149,7 +5149,7 @@ __metadata:
     "@types/inquirer": "npm:^8.2.1"
     "@types/jest": "npm:^29.4.0"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^17.0.39"
+    "@types/node": "npm:^18.13.0"
     "@typescript-eslint/eslint-plugin": "npm:^5.51.0"
     "@typescript-eslint/parser": "npm:^5.51.0"
     babel-jest: "npm:^29.4.2"
@@ -5171,7 +5171,7 @@ __metadata:
     minimist: "npm:^1.2.6"
     prettier: "npm:^2.8.4"
     react: "npm:^18.1.0"
-    typescript: "npm:^4.7.3"
+    typescript: "npm:^4.9.5"
     zx: "npm:^6.2.2"
   languageName: unknown
   linkType: soft
@@ -14528,23 +14528,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.7.3":
-  version: 4.7.3
-  resolution: "typescript@npm:4.7.3"
+"typescript@npm:^4.9.5":
+  version: 4.9.5
+  resolution: "typescript@npm:4.9.5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 3fee70212e0b9bf2dfec38cc135d148bcda84b57935ccabcacec0ea660dd137efbc65e7a287dcaf33098764227973d2846beb610d3eb9d9e41c664a50f67bd5a
+  checksum: 550217a465c00b1d7ef0e0ddc3a6a0b2ae1fd7c1b9f53cde5a1cfe56aa457c7a43fa83792c1b98b2185d2156d0467c9ad6f6600515ad4f4fc2acee54c4bd320e
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^4.7.3#optional!builtin<compat/typescript>":
-  version: 4.7.3
-  resolution: "typescript@patch:typescript@npm%3A4.7.3#optional!builtin<compat/typescript>::version=4.7.3&hash=65a307"
+"typescript@patch:typescript@npm%3A^4.9.5#optional!builtin<compat/typescript>":
+  version: 4.9.5
+  resolution: "typescript@patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=23ec76"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 66f9b24affbb4548fa09f405d13fed11358daaa35faae1ce8e6c331159b8aeea22026cdb48db54827ac8b1dcc732fd85c979e4e79716b29a3ed963b53cac988e
+  checksum: 09f82f25664c79d5cccc389502175093becf51d691b443c79294303681544a399fb42f8384b535ddeba48cadb64e7d14b42de40d8ade4418bb43174989dd8685
   languageName: node
   linkType: hard
 
@@ -14919,7 +14919,7 @@ __metadata:
     "@types/babel__preset-env": "npm:^7.9.2"
     "@types/gtag.js": "npm:^0.0.10"
     "@types/jest": "npm:^29.4.0"
-    "@types/node": "npm:^17.0.39"
+    "@types/node": "npm:^18.13.0"
     "@types/react": "npm:^18.0.11"
     "@types/react-dom": "npm:^18.0.5"
     "@types/react-relay": "npm:^13.0.2"
@@ -14959,7 +14959,7 @@ __metadata:
     source-map-loader: "npm:^3.0.1"
     terser-webpack-plugin: "npm:^5.3.3"
     type-fest: "npm:^2.13.0"
-    typescript: "npm:^4.7.3"
+    typescript: "npm:^4.9.5"
     url-loader: "npm:^4.1.1"
     webpack: "npm:^5.73.0"
     webpack-bundle-analyzer: "npm:^4.5.0"
