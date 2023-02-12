@@ -1,13 +1,13 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import spawn from "cross-spawn";
 import envars from "envars";
-import knex, { type Knex } from "knex";
+import { knex, type Knex } from "knex";
 import minimist from "minimist";
+import { createSpinner } from "nanospinner";
 import fs from "node:fs";
 import path from "node:path";
-import ora from "ora";
 import config from "../knexfile";
 import updateTypes from "./update-types";
 
@@ -43,13 +43,18 @@ async function reset() {
   process.env.PGDATABASE = "template1";
   db = knex(config);
   let cmd = db.raw(`CREATE DATABASE ?? WITH OWNER ??`, [PGDATABASE, PGUSER]);
-  let spinner = ora(cmd.toSQL().sql).start();
+  let spinner = createSpinner(cmd.toSQL().sql).start();
   await cmd
-    .catch((err) =>
-      err.code === "42P04" ? Promise.resolve() : Promise.reject(err),
-    )
-    .finally(() => db.destroy())
-    .then(() => spinner.succeed());
+    .then(() => spinner.success())
+    .catch((err) => {
+      if (err.code === "42P04") {
+        spinner.stop();
+      } else {
+        console.error(err);
+        spinner.error({ text: `${cmd.toSQL().sql}: ${err.message}` });
+      }
+    })
+    .finally(() => db.destroy());
 
   process.env.PGDATABASE = PGDATABASE;
   db = knex(config);
@@ -64,27 +69,27 @@ async function reset() {
   );
 
   cmd = db.raw(`DROP SCHEMA ?? CASCADE`, [schema]);
-  spinner = ora(cmd.toSQL().sql).start();
-  await cmd.then(() => spinner.succeed());
+  spinner = createSpinner(cmd.toSQL().sql).start();
+  await cmd.then(() => spinner.success());
 
   cmd = db.raw(`CREATE SCHEMA ?? AUTHORIZATION ??`, [schema, role]);
-  spinner = ora(cmd.toSQL().sql).start();
-  await cmd.then(() => spinner.succeed());
+  spinner = createSpinner(cmd.toSQL().sql).start();
+  await cmd.then(() => spinner.success());
 
   cmd = db.raw(`GRANT ALL ON SCHEMA ?? TO ??`, [schema, PGUSER]);
-  spinner = ora(cmd.toSQL().sql).start();
-  await cmd.then(() => spinner.succeed());
+  spinner = createSpinner(cmd.toSQL().sql).start();
+  await cmd.then(() => spinner.success());
 
   cmd = db.raw(`GRANT ALL ON SCHEMA ?? TO ??`, [schema, "public"]);
-  spinner = ora(cmd.toSQL().sql).start();
-  await cmd.then(() => spinner.succeed());
+  spinner = createSpinner(cmd.toSQL().sql).start();
+  await cmd.then(() => spinner.success());
 
-  spinner = ora("Migrate database schema");
+  spinner = createSpinner("Migrate database schema");
   let res = await db.migrate.latest();
-  spinner.succeed(`${spinner.text} (${res[1].length})`);
+  spinner.success({ text: `Migrate database schema (${res[1].length})` });
 
   if (args.restore) {
-    spinner = ora("Restore backup");
+    spinner = createSpinner("Restore backup");
     // Find the latest backup file for the selected environment
     const fromEnv = typeof args.restore === "string" ? args.restore : args.env;
     const file = fs
@@ -112,18 +117,20 @@ async function reset() {
       ).on("exit", (code) => (code === 0 ? resolve() : reject()));
     });
 
-    spinner.succeed();
+    spinner.success();
   }
 
   if (args.seed) {
-    spinner = ora("Import reference (seed) data");
+    spinner = createSpinner("Import reference (seed) data");
     res = await db.seed.run();
-    spinner.succeed(`${spinner.text} (${res[0].length})`);
+    spinner.success({
+      text: `Import reference (seed) data (${res[0].length})`,
+    });
   }
 
   if (args.env === "local") {
-    spinner = ora("Update TypeScript definitions").start();
-    await updateTypes().then(() => spinner.succeed());
+    spinner = createSpinner("Update TypeScript definitions").start();
+    await updateTypes().then(() => spinner.success());
   }
 }
 

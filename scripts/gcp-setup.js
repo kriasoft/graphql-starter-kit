@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import envars from "envars";
@@ -146,7 +146,7 @@ for (const bucket of buckets) {
       {
         origin: [
           env.APP_ORIGIN,
-          envName !== "prod" && "http://localhost:3000",
+          envName !== "prod" && "http://localhost:5173",
         ].filter(Boolean),
         responseHeader: ["Content-Type"],
         method: ["GET"],

@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 /**
@@ -7,7 +7,6 @@
  */
 
 import { Validator } from "validator-fluent";
-import { reservedUsernames } from "./usernames";
 export { validate, ValidationError } from "validator-fluent";
 
 /**
@@ -75,10 +74,6 @@ Validator.prototype.isUsername = function isUsername() {
 
     if (/\..*\./.test(this.value)) {
       this.errors.push("Cannot contain more than one period (.).");
-    }
-
-    if (reservedUsernames.includes(this.value)) {
-      this.errors.push("This username is not available.");
     }
   }
 

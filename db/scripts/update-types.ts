@@ -1,11 +1,11 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import { knex } from "knex";
 import { updateTypes } from "knex-types";
+import { createSpinner } from "nanospinner";
 import { basename } from "node:path";
 import { nextTick } from "node:process";
-import { promise as oraPromise } from "ora";
 import config from "../knexfile";
 
 /**
@@ -27,12 +27,12 @@ export default async function generateTypes() {
 }
 
 if (basename(process.argv[1]) === "update-types.ts") {
-  oraPromise(
-    generateTypes().catch((err) => {
+  const spinner = createSpinner("Generating db/types.ts...").start();
+  generateTypes()
+    .then(() => spinner.success())
+    .catch((err) => {
       nextTick(() => console.error(err));
       process.exitCode = 1;
-      return Promise.reject(err);
-    }),
-    { text: "Generating db/types.ts..." },
-  );
+      spinner.error();
+    });
 }

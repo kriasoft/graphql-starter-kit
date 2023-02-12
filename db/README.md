@@ -29,7 +29,7 @@ a PostgreSQL database.
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) v16 or newer, [Yarn](https://yarnpkg.com/) package manager
+- [Node.js](https://nodejs.org/) v18 or newer, [Yarn](https://yarnpkg.com/) package manager
 - The local or remote instance of [PostgreSQL](https://www.postgresql.org/) (see [`postgresql`](https://formulae.brew.sh/formula/postgresql), [Google Cloud SQL](https://cloud.google.com/sql))
 - Optionally, [`psql`](https://www.postgresql.org/docs/current/app-psql.html), [`pg_dump`](https://www.postgresql.org/docs/current/app-pgdump.html), [`pg_restore`](https://www.postgresql.org/docs/current/app-pgrestore.html) client utilities (`brew install libpq` [❐](https://stackoverflow.com/a/49689589/82686))
 

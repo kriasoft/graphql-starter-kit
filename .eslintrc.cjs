@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 /**
@@ -89,4 +89,15 @@ module.exports = {
     "/.pnp.cjs",
     "/.pnp.loader.mjs",
   ],
+
+  settings: {
+    "import/resolver": {
+      typescript: {
+        project: ["app/tsconfig.json", "edge/tsconfig.json"],
+      },
+    },
+    react: {
+      version: "detect",
+    },
+  },
 };

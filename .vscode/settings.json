@@ -38,6 +38,15 @@
     "**/.yarn": true,
     "**/.pnp.*": true
   },
+  "terminal.integrated.env.linux": {
+    "CACHE_DIR": "${workspaceFolder}/.cache"
+  },
+  "terminal.integrated.env.osx": {
+    "CACHE_DIR": "${workspaceFolder}/.cache"
+  },
+  "terminal.integrated.env.windows": {
+    "CACHE_DIR": "${workspaceFolder}\\.cache"
+  },
   "cSpell.ignoreWords": [
     "abcdefghijklmnopqrstuvwxyz",
     "browserslist",
@@ -49,6 +58,7 @@
     "datname",
     "devtool",
     "downlevel",
+    "endregion",
     "entrypoint",
     "envalid",
     "envars",
@@ -63,12 +73,16 @@
     "GraphQLID",
     "gsutil",
     "gtag",
+    "hono",
+    "identitytoolkit",
     "jsonb",
     "knexfile",
     "kriasoft",
     "linkedin",
     "miniflare",
+    "nanospinner",
     "nothrow",
+    "notistack",
     "octokit",
     "pathinfo",
     "pgappname",
@@ -89,6 +103,7 @@
     "psql",
     "refetchable",
     "sendgrid",
+    "signup",
     "sourcemap",
     "spdx",
     "tfvars",

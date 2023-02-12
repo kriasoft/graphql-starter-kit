@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import { formatISO } from "date-fns";
@@ -10,7 +10,7 @@ import {
   GraphQLString,
 } from "graphql";
 import { Knex } from "knex";
-import { Context } from "../core";
+import { Context } from "../core/index.js";
 
 type Source = { query: Knex.QueryBuilder };
 

@@ -1,15 +1,13 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import "express";
-import { User } from "./core";
+import { User } from "./core/index.js";
 
 declare global {
   namespace Express {
     interface Request {
       user: User | null;
-      signIn: (user: User | null | undefined) => Promise<User | null>;
-      signOut: () => void;
     }
   }
 }

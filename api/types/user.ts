@@ -1,19 +1,17 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import {
   GraphQLBoolean,
-  GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
 import { connectionDefinitions, globalIdField } from "graphql-relay";
-import { Context, User } from "../core";
-import { countField, dateField } from "./fields";
-import { IdentityType } from "./identity";
-import { nodeInterface } from "./node";
-import { PictureType } from "./picture";
+import { Context, User } from "../core/index.js";
+import { countField, dateField } from "./fields.js";
+import { nodeInterface } from "./node.js";
+import { PictureType } from "./picture.js";
 
 export const UserType = new GraphQLObjectType<User, Context>({
   name: "User",
@@ -53,20 +51,6 @@ export const UserType = new GraphQLObjectType<User, Context>({
       type: new GraphQLNonNull(PictureType),
     },
 
-    givenName: {
-      type: GraphQLString,
-      resolve(self) {
-        return self.given_name;
-      },
-    },
-
-    familyName: {
-      type: GraphQLString,
-      resolve(self) {
-        return self.family_name;
-      },
-    },
-
     timeZone: {
       type: GraphQLString,
       resolve(self) {
@@ -76,15 +60,6 @@ export const UserType = new GraphQLObjectType<User, Context>({
 
     locale: {
       type: GraphQLString,
-    },
-
-    identities: {
-      type: new GraphQLList(new GraphQLNonNull(IdentityType)),
-      resolve(self, args, ctx) {
-        return ctx.user && (ctx.user.id === self.id || ctx.user.admin)
-          ? ctx.identitiesByUserId.load(self.id)
-          : null;
-      },
     },
 
     created: dateField((self) => self.created),

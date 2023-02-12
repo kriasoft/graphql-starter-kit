@@ -11,41 +11,41 @@
 
 ## Features
 
-- Monorepo project structure powered by Yarn with PnP
-- GraphQL API using code-first development approach (TypeScript, GraphQL.js, Knex, PostgreSQL)
-- Stateless JWT cookie-based authentication (supporting SSR, OAuth 2.0 via Google, Facebook, etc.)
-- Database tooling — seed files, migrations, Knex.js REPL shell, etc.
-- Front-end boilerplate pre-configured with TypeScript, Webpack v5, React, Relay, and Materia UI
-- Serverless deployment — `api`, `img` → Cloud Functions, `web` → Cloudflare Workers
-- HTML page rendering (SSR) at CDN edge locations, all ~100 points on Lighthouse
-- Pre-configured dev, test / QA, production, and review (per PR) environments
-- Pre-configured VSCode code snippets and other VSCode settings
+- [Monorepo](https://monorepo.tools/) project structure powered by [Yarn](https://yarnpkg.com/) with [PnP](https://yarnpkg.com/features/pnp)
+- [GraphQL API](https://graphql.org/) using code-first development approach ([TypeScript](https://www.typescriptlang.org/), [GraphQL.js](https://github.com/graphql/graphql-js), [Google Cloud SQL](https://cloud.google.com/sql))
+- Authentication and authorization powered by [Google Identity Platform](https://cloud.google.com/identity-platform)
+- Database tooling — seed files, migrations, [Knex.js](https://knexjs.org/) REPL shell, etc.
+- Front-end boilerplate pre-configured with [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/), [React](https://beta.reactjs.org/), [Relay](https://relay.dev/), and [Materia UI](https://mui.com/core/)
+- Serverless deployment — `api`, `img` → [Cloud Functions](https://cloud.google.com/functions), `app` → [Cloudflare Workers](https://workers.cloudflare.com/)
+- Deployment to CDN edge locations, all ~100 points on [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/)
+- Pre-configured dev, test / QA, production, and preview environments
+- Pre-configured VSCode code snippets and other [VSCode](https://code.visualstudio.com/) settings
 - The ongoing design and development is supported by these wonderful companies:
 
 <a href="https://reactstarter.com/s/1"><img src="https://reactstarter.com/s/1.png" height="60" /></a>&nbsp;&nbsp;<a href="https://reactstarter.com/s/2"><img src="https://reactstarter.com/s/2.png" height="60" /></a>&nbsp;&nbsp;<a href="https://reactstarter.com/s/3"><img src="https://reactstarter.com/s/3.png" height="60" /></a>
 
 ---
 
-This project was bootstrapped with [GraphQL API Starter Kit](https://github.com/kriasoft/relay-starter-kit).
+This project was bootstrapped with [Relay Starter Kit](https://github.com/kriasoft/relay-starter-kit).
 Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for assistance.
 
 ## Directory Structure
 
 `├──`[`.github`](.github) — GitHub configuration including CI/CD workflows<br>
 `├──`[`.vscode`](.vscode) — VSCode settings including code snippets, recommended extensions etc.<br>
-`├──`[`env`](./env) — environment variables that are used for local development (`local`, `test`, `prod`)<br>
-`├──`[`db`](./db) — database schema, seeds, and migrations ([Cloud SQL](https://cloud.google.com/sql), [Knex.js](https://knexjs.org/))<br>
 `├──`[`api`](./api) — GraphQL API and authentication ([Could SQL](https://cloud.google.com/sql), [Cloud Functions](https://cloud.google.com/functions), [GraphQL.js](https://graphql.org/graphql-js/))<br>
-`├──`[`img`](./img) — dynamic image resizing ([Cloud Functions](https://cloud.google.com/functions), [Cloud Storage](https://
-cloud.google.com/storage))<br>
+`├──`[`app`](./app) — [React](https://reactjs.org/) / [Relay](https://relay.dev/) web application with CDN rendering ([Vite](https://vitejs.dev/), [Cloudflare Workers](https://workers.cloudflare.com/))<br>
+`├──`[`db`](./db) — database schema, seeds, and migrations ([Cloud SQL](https://cloud.google.com/sql), [Knex.js](https://knexjs.org/))<br>
+`├──`[`edge`](./edge) — [Cloudflare Workers](https://workers.cloudflare.com/) CDN endpoint (reverse proxy)<br>
+`├──`[`env`](./env) — environment variables that are used for local development (`local`, `test`, `prod`)<br>
+`├──`[`img`](./img) — dynamic image resizing ([Cloud Functions](https://cloud.google.com/functions), [Cloud Storage](https://cloud.google.com/storage))<br>
 `├──`[`infra`](./infra) — cloud infrastructure configuration ([Terraform](https://www.terraform.io/))<br>
-`├──`[`web`](./web) — [React](https://reactjs.org/) / [Relay](https://relay.dev/) web application with CDN rendering ([Webpack](https://webpack.js.org/), [Cloudflare Workers](https://workers.cloudflare.com/))<br>
-`├──`[`scripts`](./scripts) — Automation scripts shared across the project<br>
+`├──`[`scripts`](./scripts) — automation scripts shared across the project<br>
 `└── ...` — add more packages such as `worker`, `admin`, `mobile`, etc.
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) v16, [Yarn](https://yarnpkg.com/) package manager
+- [Node.js](https://nodejs.org/) v18 or newer with [Corepack](https://nodejs.org/api/corepack.html) enabled
 - Local or remote instance of [PostgreSQL](https://www.postgresql.org/) (see [Postgres.app](https://postgresapp.com/), [Google Cloud SQL](https://cloud.google.com/sql))
 - [VS Code](https://code.visualstudio.com/) editor with [recommended extensions](.vscode/extensions.json)
 
@@ -55,18 +55,17 @@ Just [clone](https://github.com/kriasoft/relay-starter-kit/generate) the repo
 and run `yarn install` followed by `yarn start`:
 
 ```bash
-$ git clone --origin=seed --branch=main --single-branch \
-    https://github.com/kriasoft/relay-starter-kit.git example
+$ git clone https://github.com/kriasoft/relay-starter-kit.git example
 $ cd ./example                  # Change current directory to the newly created one
 $ yarn install                  # Install project dependencies
 $ yarn setup                    # Configure environment variables
 $ yarn db:reset                 # Create or update PostgreSQL database
 $ yarn api:start                # Launch GraphQL API and authentication server
-$ yarn web:start                # Launch React/Relay front-end app
+$ yarn app:start                # Launch React/Relay front-end app
 ```
 
 The API server must become available at [http://localhost:8080/api](http://localhost:8080/api).<br>
-The web application front-end must become available at [http://localhost:3000/](http://localhost:3000/).
+The web application front-end must become available at [http://localhost:5173/](http://localhost:5173/).
 
 ## How to Deploy
 

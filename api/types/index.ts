@@ -1,5 +1,5 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-export * from "./enums";
-export * from "./user";
+export * from "./enums.js";
+export * from "./user.js";

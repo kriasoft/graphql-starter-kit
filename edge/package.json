@@ -1,0 +1,25 @@
+{
+  "name": "edge",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "cf": "yarn run --top-level zx ../scripts/cf.js ${npm_package_name}",
+    "build": "yarn run --top-level rollup --config ../rollup.config.mjs --environment TARGET:${npm_package_name},BABEL_ENV:production",
+    "deploy": "yarn cf publish"
+  },
+  "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.3.0",
+    "hono": "^2.7.8"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^3.19.0",
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.13.0",
+    "envars": "^0.4.0",
+    "typescript": "^4.9.5"
+  },
+  "envars": {
+    "cwd": "../env"
+  }
+}

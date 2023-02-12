@@ -1,16 +1,17 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import { bool, cleanEnv, json, num, str, url } from "envalid";
 
 /**
- * Ensures that all of the environment dependencies are met.
+ * Environment variables
  *
- * @see https://github.com/af/envalid
+ * @see https://github.com/af/envalid#readme
  */
 export default cleanEnv(process.env, {
   GOOGLE_CLOUD_PROJECT: str(),
   GOOGLE_CLOUD_REGION: str(),
+  FIREBASE_API_KEY: str(),
 
   APP_NAME: str(),
   APP_ORIGIN: url(),

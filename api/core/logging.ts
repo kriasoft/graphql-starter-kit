@@ -1,12 +1,12 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import { Request } from "express";
 import { RequestError } from "got";
-import { GraphQLParams } from "graphql-helix";
 import { HttpError } from "http-errors";
 import PrettyError from "pretty-error";
-import env from "../env";
+import env from "../env.js";
+import { GraphQLParams } from "./helix.js";
 
 // https://github.com/AriaMinaei/pretty-error#readme
 const pe = new PrettyError();

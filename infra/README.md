@@ -5,7 +5,7 @@ by the app and that can be bootstrapped via [Terraform](https://www.terraform.io
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/en/) v16+ with [Yarn](https://yarnpkg.com/) package manager
+- [Node.js](https://nodejs.org/en/) v18+ with [Yarn](https://yarnpkg.com/) package manager
 - [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) and [Terraform CLI](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 - Access to [Google Cloud Projects](https://cloud.google.com/resource-manager/docs/creating-managing-projects) and [Terraform Cloud](https://cloud.hashicorp.com/products/terraform) workspaces
 

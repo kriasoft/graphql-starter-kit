@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import envars from "envars";
@@ -49,7 +49,8 @@ await fs.writeFile(
     APP_NAME = "${env.APP_NAME}"
     APP_ORIGIN = "${env.APP_ORIGIN}"
     API_ORIGIN = "${env.API_ORIGIN}"
-    FIREBASE_AUTH_KEY = "${env.FIREBASE_AUTH_KEY}"
+    FIREBASE_APP_ID = "${env.FIREBASE_APP_ID}"
+    FIREBASE_API_KEY = "${env.FIREBASE_API_KEY}"
     GOOGLE_CLOUD_PROJECT = "${env.GOOGLE_CLOUD_PROJECT}"
     GA_MEASUREMENT_ID = "${env.GA_MEASUREMENT_ID}"
 
