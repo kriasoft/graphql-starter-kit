@@ -1,27 +1,35 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import { greenBright } from "chalk";
 import envars from "envars";
-import knex from "knex";
-import minimist from "minimist";
+import { knex } from "knex";
+import { createSpinner } from "nanospinner";
 import { basename } from "node:path";
-import config from "../../api/core/dbConfig";
+import { load } from "ts-import";
+import { getArgs } from "./utils";
 
 /**
  * Bootstraps a new PostgreSQL database if it doesn't exist.
  *
  *   $ yarn db:create [--env #0]
  */
-export default async function createDatabase() {
+export async function createDatabase(options: Options = {}) {
   const PGUSER = process.env.PGUSER as string;
   const PGDATABASE = process.env.PGDATABASE as string;
+
+  const spinner = createSpinner(`Create database: ${PGDATABASE}`);
+
+  if (options.silent !== true) spinner.start();
+
+  const { default: config } = await load("../api/core/db-config.ts");
   const schema: string = (config.searchPath as string) || "public";
 
   let db = knex(config);
 
   try {
     await db.select(db.raw("current_database()"));
+    if (options.silent !== true) spinner.stop();
   } catch (err) {
     /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
     if ((err as any).code !== "3D000" /* database does not exist */) throw err;
@@ -40,6 +48,8 @@ export default async function createDatabase() {
       schema,
       PGUSER,
     ]);
+
+    if (options.silent !== true) spinner.success();
   } finally {
     process.env.PGDATABASE = PGDATABASE;
     await db.destroy();
@@ -48,10 +58,15 @@ export default async function createDatabase() {
 
 if (basename(process.argv[1]) === "create.ts") {
   // Load environment variables (PGHOST, PGUSER, etc.)
-  envars.config({ env: minimist(process.argv.slice(2)).env });
+  const [envName] = getArgs();
+  envars.config({ env: envName });
 
   createDatabase().catch((err) => {
     console.error(err);
     process.exitCode = 1;
   });
 }
+
+type Options = {
+  silent?: true;
+};

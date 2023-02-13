@@ -1,9 +1,9 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import { GraphQLObjectType, GraphQLString } from "graphql";
-import { Context } from "../core";
-import env from "../env";
+import { Context } from "../core/index.js";
+import env from "../env.js";
 
 type Picture = {
   url?: string;

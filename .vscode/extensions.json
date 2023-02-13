@@ -11,6 +11,7 @@
     "mgmcdermott.vscode-language-babel",
     "mikestead.dotenv",
     "orta.vscode-jest",
-    "streetsidesoftware.code-spell-checker"
+    "streetsidesoftware.code-spell-checker",
+    "vscode-icons-team.vscode-icons"
   ]
 }

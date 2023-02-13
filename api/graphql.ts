@@ -1,20 +1,20 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import type { NextFunction, Request, Response } from "express";
 import { GraphQLError, printSchema } from "graphql";
+import { HttpError } from "http-errors";
+import fs from "node:fs/promises";
+import { ValidationError } from "validator-fluent";
 import {
   getGraphQLParameters,
   processRequest,
   renderGraphiQL,
   sendResult,
   shouldRenderGraphiQL,
-} from "graphql-helix";
-import { HttpError } from "http-errors";
-import fs from "node:fs/promises";
-import { ValidationError } from "validator-fluent";
-import { Context, log } from "./core";
-import schema from "./schema";
+} from "./core/helix.js";
+import { Context, log } from "./core/index.js";
+import schema from "./schema.js";
 
 // Customize GraphQL error serialization
 GraphQLError.prototype.toJSON = ((serialize) =>

@@ -1,9 +1,9 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import knex from "knex";
-import config from "./dbConfig";
-import { createNewId } from "./utils";
+import { knex } from "knex";
+import config from "./db-config.js";
+import { createNewId } from "./utils.js";
 
 /**
  * Knex.js database client and query builder for PostgreSQL.
@@ -17,7 +17,7 @@ db.fn.constructor.prototype.newUserId = createNewId(db, "user", 6);
 
 // Ensure that the database connections will be closed when
 // the Node.js process is being shut down.
-process.once("SIGTERM", function () {
+process.once("SIGTERM", function cleanup() {
   db.destroy();
 });
 

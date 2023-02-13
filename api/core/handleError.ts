@@ -1,10 +1,10 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import { ErrorRequestHandler } from "express";
 import { RequestError } from "got";
 import { isHttpError } from "http-errors";
-import { log } from "./logging";
+import { log } from "./logging.js";
 
 /**
  * Renders an error page.

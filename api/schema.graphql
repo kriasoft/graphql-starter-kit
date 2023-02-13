@@ -29,7 +29,7 @@ type Root {
     after: String
 
     """Returns the first n items from the list."""
-    first: Int
+    first: Int = 1000
   ): UserConnection
 }
 
@@ -48,11 +48,8 @@ type User implements Node {
   emailVerified: Boolean
   name: String
   picture: Picture!
-  givenName: String
-  familyName: String
   timeZone: String
   locale: String
-  identities: [Identity!]
   created(format: String): String
   updated(format: String): String
   lastLogin(format: String): String
@@ -60,31 +57,6 @@ type User implements Node {
 
 type Picture {
   url: String
-}
-
-"""The OAuth user identity (credentials)."""
-type Identity {
-  """The ID of an object"""
-  id: ID!
-  provider: IdentityProvider!
-  username: String
-  email: String
-  created(format: String): String
-  updated(format: String): String
-}
-
-"""OAuth identity provider"""
-enum IdentityProvider {
-  Google
-  Apple
-  Facebook
-  GitHub
-  LinkedIn
-  Microsoft
-  Twitter
-  Yahoo
-  GameCenter
-  PlayGames
 }
 
 """A connection to a list of items."""
@@ -122,64 +94,16 @@ type UserEdge {
 }
 
 type Mutation {
-  """Creates an authentication session"""
-  signIn(input: SignInInput): SignInPayload
-
-  """Clears authentication session"""
-  signOut: String
-
-  """Creates a new user account"""
-  createUser(input: CreateUserInput, dryRun: Boolean! = false): CreateUserPayload
   getUploadURL(fileName: String!, contentType: String): String
-
-  """Sends password recovery code to the user's email address"""
-  resetPassword(
-    """Username or email"""
-    username: String
-
-    """New password"""
-    password: String
-
-    """Verification code"""
-    code: String
-  ): ResetPasswordPayload
 
   """Saves the uploaded file (URL path) to the database"""
   saveUpload(id: ID!, uploadURL: String!, uploadType: UploadType!): SaveUploadPayload
 
+  """Get sign-in options and/or sends OTP code."""
+  signIn(input: SignInInput): SignInPayload
+
   """Updates the user account."""
   updateUser(input: UpdateUserInput, dryRun: Boolean! = false): UpdateUserPayload
-}
-
-type SignInPayload {
-  user: User
-}
-
-input SignInInput {
-  """Username or email"""
-  username: String
-
-  """User's password"""
-  password: String
-}
-
-type CreateUserPayload {
-  user: User
-}
-
-input CreateUserInput {
-  username: String
-  email: String
-  password: String
-  firstName: String
-  lastName: String
-  timeZone: String
-  locale: String
-  signIn: Boolean = false
-}
-
-type ResetPasswordPayload {
-  user: User
 }
 
 type SaveUploadPayload {
@@ -193,17 +117,29 @@ enum UploadType {
   ClassVideoImage
 }
 
+type SignInPayload {
+  newUser: Boolean!
+  emailVerified: Boolean!
+  registered: Boolean!
+  saml: String!
+  otpSent: Boolean
+  token: String
+}
+
+input SignInInput {
+  email: String
+  otp: String
+  saml: Boolean = false
+}
+
 type UpdateUserPayload {
   user: User
 }
 
 input UpdateUserInput {
   id: ID!
-  username: String
   email: String
   name: String
-  givenName: String
-  familyName: String
   timeZone: String
   locale: String
 }

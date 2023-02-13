@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft <hello@kriasoft.com> */
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import faker, { GenderType } from "@faker-js/faker";
@@ -48,11 +48,8 @@ async function generate(): Promise<void> {
 
     users.push({
       id,
-      username,
       email: internet.email(firstName, lastName).toLowerCase(),
       name: `${firstName} ${lastName}`,
-      given_name: firstName,
-      family_name: lastName,
       picture: { url: image.avatar() },
       created: createdAt,
       updated: createdAt,

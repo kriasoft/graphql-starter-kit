@@ -1,0 +1,33 @@
+# Cloudflare Workers configuration
+# https://developers.cloudflare.com/workers/wrangler/configuration/
+
+name = "example"
+main = "index.js"
+
+# https://developers.cloudflare.com/workers/platform/compatibility-dates/
+compatibility_date = "2022-11-30"
+send_metrics       = false
+
+account_id = "$CLOUDFLARE_ACCOUNT_ID"
+
+route = "$APP_HOSTNAME/*"
+
+[vars]
+APP_ENV              = "$APP_ENV"
+APP_NAME             = "$APP_NAME"
+APP_HOSTNAME         = "$APP_HOSTNAME"
+API_ORIGIN           = "$API_ORIGIN"
+GOOGLE_CLOUD_PROJECT = "$GOOGLE_CLOUD_PROJECT"
+FIREBASE_APP_ID      = "$FIREBASE_APP_ID"
+FIREBASE_API_KEY     = "$FIREBASE_API_KEY"
+FIREBASE_AUTH_DOMAIN = "$FIREBASE_AUTH_DOMAIN"
+
+# [secrets]
+# GOOGLE_CLOUD_CREDENTIALS
+
+[[rules]]
+type  = "ESModule"
+globs = ["**/*.js"]
+
+# [site]
+# bucket = "../app/dist"

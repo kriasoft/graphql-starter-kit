@@ -7,6 +7,6 @@ multiple projects within the monorepo (`api`, `web`, etc.).
 
 ## Pre-configured Environments
 
-- **`local`**: http://localhost:3000 (default)
+- **`local`**: http://localhost:5173 (default)
 - **`test`**: http://test.example.com
 - **`prod`**: http://example.com

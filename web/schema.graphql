@@ -1,6 +1,0 @@
-# Client Schema Extensions
-# https://relay.dev/docs/guides/client-schema-extensions/
-
-extend type User {
-  example: String
-}

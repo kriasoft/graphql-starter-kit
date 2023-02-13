@@ -6,7 +6,7 @@
 - Use helper functions for common fields such as dates etc.
 
 ```js
-import _ from "lodash";
+import _ from "lodash-es";
 import { globalIdField } from "graphql-relay";
 import { GraphQLObjectType, GraphQLNonNull, GraphQLString } from "graphql";
 

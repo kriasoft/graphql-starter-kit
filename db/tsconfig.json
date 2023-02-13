@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "outDir": "../typescript-db",
+    "moduleResolution": "node",
+    "module": "CommonJS",
+    "noEmit": true
+  },
+  "include": ["**/*.ts", "**/*.json"]
+}

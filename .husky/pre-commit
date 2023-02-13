@@ -1,6 +1,6 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
-yarn lint
 yarn prettier --check .
-
+yarn lint
+yarn tsc --build

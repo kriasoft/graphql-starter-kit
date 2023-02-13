@@ -43,7 +43,7 @@ assistance.
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) v16 or higher, [Yarn](https://yarnpkg.com/) package manager
+- [Node.js](https://nodejs.org/) v18 or higher, [Yarn](https://yarnpkg.com/) package manager
 - Local or remote instance of [PostgreSQL](https://www.postgresql.org/) (see [Postgres.app](https://postgresapp.com/), [Google Cloud SQL](https://cloud.google.com/sql))
 - [VS Code](https://code.visualstudio.com/) editor (highly recommended)
 
