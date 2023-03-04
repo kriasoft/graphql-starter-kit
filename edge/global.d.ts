@@ -6,17 +6,22 @@ declare module "__STATIC_CONTENT_MANIFEST" {
   export default JSON;
 }
 
-declare type Env = {
+declare type Bindings = {
   APP_ENV: "local" | "test" | "prod";
   APP_NAME: string;
   APP_HOSTNAME: string;
   APP_BUCKET?: string;
   API_ORIGIN: string;
   GOOGLE_CLOUD_PROJECT: string;
+  GOOGLE_CLOUD_CREDENTIALS: string;
   FIREBASE_APP_ID: string;
   FIREBASE_API_KEY: string;
   FIREBASE_AUTH_DOMAIN: string;
-  __STATIC_CONTENT: Record<string, string>;
+  __STATIC_CONTENT: KVNamespace;
 };
 
-declare function getMiniflareBindings<Bindings = Env>(): Bindings;
+declare type Env = {
+  Bindings: Bindings;
+};
+
+declare function getMiniflareBindings<T = Bindings>(): T;

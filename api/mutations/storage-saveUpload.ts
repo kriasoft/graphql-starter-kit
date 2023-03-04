@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import GraphicsMagick from "gm";
+import { default as GraphicsMagick } from "gm";
 import {
   GraphQLFieldConfig,
   GraphQLID,

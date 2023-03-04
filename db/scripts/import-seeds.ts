@@ -1,10 +1,10 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import knex from "knex";
+import { knex } from "knex";
 import fs from "node:fs/promises";
 import path from "node:path";
-import prettier from "prettier";
+import * as prettier from "prettier";
 import config from "../knexfile";
 
 const db = knex(config);

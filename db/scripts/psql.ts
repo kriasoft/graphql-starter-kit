@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import spawn from "cross-spawn";
+import { spawn } from "cross-spawn";
 import envars from "envars";
 import { createDatabase } from "./create";
 import { getArgs } from "./utils";

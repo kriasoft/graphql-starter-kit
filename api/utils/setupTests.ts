@@ -1,14 +1,25 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { getApps, initializeApp } from "firebase-admin/app";
-import path from "node:path";
-import env from "../env.js";
+import { cert, getApps, initializeApp } from "firebase-admin/app";
+import { readFileSync } from "node:fs";
+import { dirname } from "node:path";
 
 // Set the current working directory (CWD)
-process.chdir(path.dirname(__dirname));
+process.chdir(dirname(__dirname));
+
+// Load Google Cloud credentials
+const credentialsFile = process.env.GOOGLE_APPLICATION_CREDENTIALS ?? "";
+const credentials = JSON.parse(readFileSync(credentialsFile, "utf8"));
 
 // Initialize Firebase Admin SDK
 if (getApps().length === 0) {
-  initializeApp({ projectId: env.GOOGLE_CLOUD_PROJECT });
+  initializeApp({
+    projectId: credentials.project_id,
+    credential: cert({
+      projectId: credentials.project_id,
+      clientEmail: credentials.client_email,
+      privateKey: credentials.private_key,
+    }),
+  });
 }

@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { greenBright } from "chalk";
-import spawn from "cross-spawn";
+import { spawn, sync as spawnSync } from "cross-spawn";
 import envars from "envars";
 import minimist from "minimist";
 import fs from "node:fs";
@@ -32,7 +32,7 @@ console.log(
 );
 
 // Get the list of database tables
-const tablesCmd = spawn.sync(
+const tablesCmd = spawnSync(
   "psql",
   [
     "--no-align",

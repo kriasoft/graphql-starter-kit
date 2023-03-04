@@ -60,31 +60,20 @@ const questions = [
         .replace(/\./g, "_");
       const pkgBucket = /^(PKG_BUCKET)=.*$/m;
       const emailFrom = /^(EMAIL_FROM)=.*$/m;
-      const emailFromValue =
-        appNameValue[0].toUpperCase() +
-        appNameValue.substring(1) +
-        ` <no-reply@${domain}>`;
-      const emailReply = /^(EMAIL_REPLY_TO)=.*$/m;
-      const emailReplyValue =
-        appNameValue[0].toUpperCase() +
-        appNameValue.substring(1) +
-        ` <hello@${domain}>`;
+      const emailFromValue = `hello@${domain}`;
 
       return (
         replace("env/.local.env", appName, `$1=${appNameValue}`) &&
         replace("env/.local.env", pkgBucket, `$1=pkg.${domain}`) &&
         replace("env/.local.env", emailFrom, `$1=${emailFromValue}`) &&
-        replace("env/.local.env", emailReply, `$1=${emailReplyValue}`) &&
         replace("env/.test.env", appName, `$1=${appNameValue}`) &&
         replace("env/.test.env", appOrigin, `$1=https://test.${domain}`) &&
         replace("env/.test.env", pkgBucket, `$1=pkg.${domain}`) &&
         replace("env/.test.env", emailFrom, `$1=${emailFromValue}`) &&
-        replace("env/.test.env", emailReply, `$1=${emailReplyValue}`) &&
         replace("env/.prod.env", appName, `$1=${appNameValue}`) &&
         replace("env/.prod.env", appOrigin, `$1=https://${domain}`) &&
         replace("env/.prod.env", pkgBucket, `$1=pkg.${domain}`) &&
-        replace("env/.prod.env", emailFrom, `$1=${emailFromValue}`) &&
-        replace("env/.prod.env", emailReply, `$1=${emailReplyValue}`)
+        replace("env/.prod.env", emailFrom, `$1=${emailFromValue}`)
       );
     },
   },

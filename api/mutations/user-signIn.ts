@@ -137,8 +137,7 @@ export const signIn: GraphQLFieldConfig<unknown, Context> = {
     // Send OTP code
     await SendGrid.send({
       to: input.email,
-      from: env.EMAIL_FROM,
-      replyTo: env.EMAIL_REPLY_TO,
+      from: `${env.APP_NAME} <${env.EMAIL_FROM}>`,
       templateId: "d-325441f6419543c99baf74933d2ac815",
       dynamicTemplateData: { code: otp?.code },
     });

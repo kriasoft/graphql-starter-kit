@@ -5,9 +5,8 @@ import { Octokit } from "@octokit/rest";
 import envars from "envars";
 import minimist from "minimist";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { rootDir } from "./utils.js";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const env = process.env;
 
 /**
@@ -141,7 +140,7 @@ const options = {
   boolean: ["transient", "auto_inactive", "auto_merge"],
 };
 const args = minimist(process.argv.slice(2), options);
-envars.config({ env: args.env, cwd: path.resolve(__dirname, "../env") });
+envars.config({ env: args.env, cwd: path.resolve(rootDir, "env") });
 args.env = args.env === "prod" ? "production" : args.env;
 args.payload = args.payload && JSON.parse(args.payload);
 

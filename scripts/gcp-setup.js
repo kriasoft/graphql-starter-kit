@@ -5,6 +5,7 @@ import envars from "envars";
 import { execa as spawn } from "execa";
 import { URL } from "node:url";
 import { $, argv, chalk, fs, path, question } from "zx";
+import { rootDir } from "./utils.js";
 
 /**
  * This script can be used as a lightweight alternative to Terraform
@@ -102,7 +103,7 @@ cmd = await spawn("gcloud", [
 // Create a new service account (JSON) key if not exists
 if (!cmd.stdout.toString()) {
   await $`gcloud iam service-accounts keys create ${[
-    path.resolve(__dirname, `../env/gcp-key.${envName}.json`),
+    path.resolve(rootDir, `env/gcp-key.${envName}.json`),
     `--iam-account=${appAccount}`,
   ]}`;
 }
@@ -123,7 +124,7 @@ while (true) {
 
 // Fetch the list of existing GCS buckets
 cmd = await spawn("gcloud", ["alpha", "storage", "ls", "--project", project]);
-const corsFile = path.relative(cwd, path.join(__dirname, "cors.json"));
+const corsFile = path.relative(cwd, path.join(rootDir, ".cache/cors.json"));
 const existingBuckets = cmd.stdout.toString().split("\n");
 const buckets = Object.keys(env)
   .filter((key) => key.endsWith("_BUCKET"))

@@ -37,7 +37,6 @@ export default defineConfig({
         manualChunks: {
           firebase: ["firebase/analytics", "firebase/app", "firebase/auth"],
           react: ["react", "react-dom", "react-router-dom", "recoil"],
-          clarity: ["clarity-js"],
         },
       },
     },

@@ -4,13 +4,11 @@
 import { Octokit } from "@octokit/rest";
 import envars from "envars";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { $, nothrow } from "zx";
-import { deleteTestKVNamespace, deleteTestSubdomain } from "./cloudflare.js";
+import { rootDir } from "./utils.js";
 
 // Load environment variables
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-envars.config({ env: "test", cwd: path.resolve(__dirname, "../env") });
+envars.config({ env: "test", cwd: path.resolve(rootDir, "../env") });
 
 // Initialize GitHub client
 const env = process.env;
@@ -37,10 +35,8 @@ for (const pr of pulls.slice(3)) {
       repo,
       environment: `${pr.number}-test`,
     }),
-    deleteTestSubdomain(pr.number),
-    deleteTestKVNamespace(pr.number),
     nothrow(
-      $`gcloud functions delete api_${pr.number} --project=${env.GOOGLE_CLOUD_PROJECT} --region=${env.GOOGLE_CLOUD_REGION} --verbosity=none --quiet`,
+      $`gcloud functions delete api-${pr.number} --project=${env.GOOGLE_CLOUD_PROJECT} --region=${env.GOOGLE_CLOUD_REGION} --gen2 --verbosity=none --quiet`,
     ),
   ]);
 

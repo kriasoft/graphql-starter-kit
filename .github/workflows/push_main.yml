@@ -1,0 +1,50 @@
+# GitHub Actions workflow
+# https://help.github.com/actions
+
+name: Push (main)
+
+on:
+  push:
+    branches: [main]
+
+env:
+  VERSION: ${{ github.event.pull_request.number }}
+  HUSKY: 0
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19
+          cache: "yarn"
+
+      # Install dependencies
+      - run: yarn install
+
+      # Authenticate Google Cloud SDK
+      - name: gcloud auth activate-service-account
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          echo "$GCP_SA_KEY" | base64 --decode > "$GOOGLE_APPLICATION_CREDENTIALS"
+          gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
+
+      # Build
+      - run: yarn workspace app build
+      - run: yarn workspace api build
+
+      # Deploy
+      # - run: yarn db:migrate --env=test
+      # - run: yarn db:seed --env=test
+      # - run: yarn workspace api deploy --env=test
+      #   env:
+      #     GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
+      #     SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+      # - run: yarn workspace edge deploy --env=test
+      #   env:
+      #     CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

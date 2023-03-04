@@ -1,3 +1,6 @@
+/* SPDX-FileCopyrightText: 2016-present Kriasoft */
+/* SPDX-License-Identifier: MIT */
+
 import { execa } from "execa";
 import { $, fs, globby, path } from "zx";
 

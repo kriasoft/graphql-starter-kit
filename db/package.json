@@ -21,11 +21,11 @@
     "db:psql": "yarn ts-node --esm ./scripts/psql.ts"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.12",
+    "@babel/core": "^7.21.0",
     "@babel/node": "^7.20.7",
-    "@babel/register": "^7.18.9",
+    "@babel/register": "^7.21.0",
     "@faker-js/faker": "^7.6.0",
-    "@jest/types": "^29.4.2",
+    "@jest/types": "^29.4.3",
     "@types/cross-spawn": "^6.0.2",
     "@types/lodash": "^4.14.191",
     "@types/minimist": "^1.2.2",
@@ -46,7 +46,7 @@
     "prettier": "^2.8.4",
     "ts-import": "^4.0.0-beta.10",
     "ts-node": "^10.9.1",
-    "zx": "^7.1.1"
+    "zx": "^7.2.0"
   },
   "envars": {
     "cwd": "../env"

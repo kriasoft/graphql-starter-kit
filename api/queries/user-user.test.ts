@@ -2,6 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import request from "supertest";
+import { createIdToken } from "../core/auth.js";
 import { api, db } from "../index.js";
 
 beforeAll(async () => {
@@ -9,7 +10,6 @@ beforeAll(async () => {
     .table("user")
     .insert({
       id: "test01",
-      username: "test01",
       email: "test01@example.com",
     })
     .onConflict("id")
@@ -21,52 +21,53 @@ afterAll(async () => {
   await db.destroy();
 });
 
-test(`fetch user(username: "none")`, async () => {
+test(`fetch user(id: "none")`, async () => {
   const res = await request(api)
     .post("/api")
     .send({
       query: `#graphql
         query {
-          user(username: "none") { id email username }
+          user: node(id: "VXNlcjpub25l") {
+            ... on User {
+              id
+              email
+            }
+          }
         }
       `,
-    })
-    .expect(200)
-    .expect("Content-Type", "application/json");
+    });
 
-  expect(res.body).toMatchInlineSnapshot(`
-    Object {
-      "data": Object {
-        "user": null,
-      },
-    }
-  `);
+  expect({ status: res.status, ...res.body }).toEqual({
+    status: 200,
+    data: {
+      user: null,
+    },
+  });
 });
 
-test(`fetch user(username: "test01")`, async () => {
+test(`fetch user(email: "test01")`, async () => {
+  const idToken = await createIdToken("test01");
   const res = await request(api)
     .post("/api")
+    .auth(idToken, { type: "bearer" })
     .send({
       query: `#graphql
         query {
-          user(username: "test01") { id email username }
+          user(email: "test01@example.com") { id email }
         }
       `,
     })
     .expect(200)
     .expect("Content-Type", "application/json");
 
-  expect(res.body).toMatchInlineSnapshot(`
-    Object {
-      "data": Object {
-        "user": Object {
-          "email": null,
-          "id": "VXNlcjp0ZXN0MDE=",
-          "username": "test01",
-        },
+  expect(res.body).toEqual({
+    data: {
+      user: {
+        id: "VXNlcjp0ZXN0MDE=",
+        email: "test01@example.com",
       },
-    }
-  `);
+    },
+  });
 });
 
 test(`fetch user: node(id: "VXNlcjp0ZXN0MDE=")`, async () => {
@@ -79,7 +80,6 @@ test(`fetch user: node(id: "VXNlcjp0ZXN0MDE=")`, async () => {
             ... on User {
               id
               email
-              username
             }
           }
         }
@@ -88,15 +88,12 @@ test(`fetch user: node(id: "VXNlcjp0ZXN0MDE=")`, async () => {
     .expect(200)
     .expect("Content-Type", "application/json");
 
-  expect(res.body).toMatchInlineSnapshot(`
-    Object {
-      "data": Object {
-        "user": Object {
-          "email": null,
-          "id": "VXNlcjp0ZXN0MDE=",
-          "username": "test01",
-        },
+  expect(res.body).toEqual({
+    data: {
+      user: {
+        id: "VXNlcjp0ZXN0MDE=",
+        email: null,
       },
-    }
-  `);
+    },
+  });
 });
