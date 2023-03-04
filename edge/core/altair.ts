@@ -1,7 +1,10 @@
-const getScript = (env: Env) => `
+/* SPDX-FileCopyrightText: 2014-present Kriasoft */
+/* SPDX-License-Identifier: MIT */
+
+const getScript = (env: Bindings) => `
 <script type="module">
-  import { initializeApp, getApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-  import { getAuth } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+  import { initializeApp, getApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
 
   const app = initializeApp({
     projectId: "${env.GOOGLE_CLOUD_PROJECT}",
@@ -34,7 +37,7 @@ const getScript = (env: Env) => `
 </script>
 `;
 
-export function transform(res: Response, env: Env) {
+export function transform(res: Response, env: Bindings) {
   return new HTMLRewriter()
     .on("base:first-of-type", {
       element(el) {

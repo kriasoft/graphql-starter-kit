@@ -8,7 +8,7 @@
  */
 
 import { greenBright } from "chalk";
-import spawn from "cross-spawn";
+import { spawn } from "cross-spawn";
 import envars from "envars";
 import minimist from "minimist";
 import fs from "node:fs";

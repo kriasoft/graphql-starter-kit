@@ -5,7 +5,7 @@
   "type": "module",
   "exports": "./index.js",
   "scripts": {
-    "deploy": "yarn img:deploy"
+    "deploy": "node ../scripts/gcf-deploy.js img --entry=api"
   },
   "dependencies": {
     "image-resizing": "^0.1.3"

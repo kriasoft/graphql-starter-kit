@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { bool, cleanEnv, json, num, str, url } from "envalid";
+import { bool, cleanEnv, num, str, url } from "envalid";
 
 /**
  * Environment variables
@@ -17,11 +17,7 @@ export default cleanEnv(process.env, {
   APP_ORIGIN: url(),
   APP_ENV: str({ choices: ["prod", "test", "local"] }),
 
-  VERSION: str(),
-
-  PUBLIC_KEY: json(),
-  PRIVATE_KEY: json(),
-  SESSION_EXPIRES: num({ default: 60 * 60 * 24 * 30 /* 30 days */ }),
+  VERSION: str({ default: "latest" }),
 
   PGHOST: str(),
   PGPORT: num({ default: 5432 }),
@@ -36,20 +32,8 @@ export default cleanEnv(process.env, {
   PGAPPNAME: str({ default: "" }),
   PGDEBUG: bool({ default: false }),
 
-  GOOGLE_CLIENT_ID: str(),
-  GOOGLE_CLIENT_SECRET: str(),
-
-  FACEBOOK_APP_ID: str(),
-  FACEBOOK_APP_SECRET: str(),
-
-  // GITHUB_APP_ID: str(),
-  // GITHUB_APP_KEY: str(),
-  // GITHUB_CLIENT_ID: str(),
-  // GITHUB_CLIENT_SECRET: str(),
-
-  EMAIL_FROM: str(),
-  EMAIL_REPLY_TO: str(),
   SENDGRID_API_KEY: str(),
+  EMAIL_FROM: str(),
 
   UPLOAD_BUCKET: str(),
   STORAGE_BUCKET: str(),

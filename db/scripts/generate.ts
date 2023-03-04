@@ -1,12 +1,15 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import faker, { GenderType } from "@faker-js/faker";
+import { faker, SexType } from "@faker-js/faker";
 import envars from "envars";
+import { knex, Knex } from "knex";
 import minimist from "minimist";
-import ora from "ora";
-import { db } from "../../api/core/db";
-import { User } from "../types";
+import { createSpinner } from "nanospinner";
+import { load } from "ts-import";
+import { type User } from "../types";
+
+let db: Knex;
 
 const { date, image, internet, name, random } = faker;
 const args = minimist(process.argv.slice(2));
@@ -27,13 +30,18 @@ envars.config({ env: args.env ?? "local" });
  * @see https://fakerjs.dev/guide/
  */
 async function generate(): Promise<void> {
-  const spinner = ora("Generating fake user accounts...");
+  db = knex(await load("../api/core/db-config.ts"));
+  const spinner = createSpinner("Generating fake user accounts...").start();
   const users: Partial<User>[] = [];
   const usernames = new Set();
 
+  function newUserId() {
+    return `${Math.floor(Math.random() * 89999999 + 10000000)}`;
+  }
+
   for (let i = 0; i < 100; i++) {
-    const id = await db.fn.newUserId();
-    const gender = name.gender(true) as GenderType;
+    const id = newUserId();
+    const gender = name.gender(true) as SexType;
     const firstName = name.firstName(gender);
     const lastName = name.lastName(gender);
     let username = `${firstName.toLowerCase()}${random.numeric(2)}`;
@@ -62,7 +70,7 @@ async function generate(): Promise<void> {
 
   await db.table("user").insert(users).onConflict(["id"]).ignore();
 
-  spinner.succeed();
+  spinner.success();
 }
 
 generate()
@@ -70,4 +78,4 @@ generate()
     console.error(err);
     process.exitCode = 1;
   })
-  .finally(() => db.destroy());
+  .finally(() => db?.destroy());

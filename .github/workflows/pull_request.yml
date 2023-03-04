@@ -6,17 +6,13 @@ name: PR
 on: [pull_request]
 
 env:
-  HUSKY: 0
   VERSION: ${{ github.event.pull_request.number }}
-  GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
-  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  HUSKY: 0
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     env:
       PGHOST: localhost
       PGPORT: 5432
@@ -36,36 +32,38 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v3
+      - uses: actions/setup-node@v3
         with:
-          path: |
-            ${{ github.workspace }}/.yarn/cache
-            ${{ github.workspace }}/.yarn/unplugged
-            ${{ github.workspace }}/.yarn/install-state.gz
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
+          node-version: 19
+          cache: "yarn"
 
       # Install dependencies
-      - name: yarn install
-        run: |
-          yarn config set enableGlobalCache false
-          yarn install
+      - run: yarn install
 
       # Analyze code for potential problems
       - run: yarn prettier --check .
-      - run: yarn lint --no-cache
+      - run: yarn lint
+      - run: yarn tsc --build
 
-      # Test
-      - run: yarn api:tsc
-      - run: yarn web:tsc
+      # Setup test database
       - run: yarn db:migrate
       - run: yarn db:seed
-      - run: yarn test
+
+      - run: echo "$GCP_SA_KEY" | base64 --decode > "$GOOGLE_APPLICATION_CREDENTIALS"
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+
+      # Test
+      # - run: yarn test
+      #   env:
+      #     GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
+      #     FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
 
       # Compile
-      - run: yarn api:build
-      - run: yarn web:relay
-      - run: yarn web:build
+      - run: yarn workspace api build
+      - run: yarn workspace app relay
+      - run: yarn workspace app build
 
       # Upload to a cloud storage bucket
       # - run: yarn workspaces foreach -p run push
@@ -76,14 +74,10 @@ jobs:
     needs: [build]
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v3
+      - uses: actions/setup-node@v3
         with:
-          path: |
-            ${{ github.workspace }}/.yarn/cache
-            ${{ github.workspace }}/.yarn/unplugged
-            ${{ github.workspace }}/.yarn/install-state.gz
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
+          node-version: 19
+          cache: "yarn"
 
       # Install dependencies
       - name: yarn install
@@ -93,3 +87,8 @@ jobs:
 
       # TODO: Deploy from the previously built artifacts
       # - run: yarn workspaces foreach -p run deploy
+      #   env:
+      #     GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json
+      #     CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      #     SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

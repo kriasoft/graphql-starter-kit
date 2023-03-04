@@ -6,6 +6,7 @@
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
     "firsttris.vscode-jest-runner",
+    "github.copilot",
     "graphql.vscode-graphql",
     "hashicorp.terraform",
     "mgmcdermott.vscode-language-babel",
