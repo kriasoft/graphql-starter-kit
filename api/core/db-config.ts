@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { Knex } from "knex";
-import fs from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 
 /**
  * Configuration settings for Knex database client.
@@ -22,7 +22,7 @@ export default {
           process.env.PGSSLCERT,
           process.env.PGSSLKEY,
           process.env.PGSSLROOTCERT,
-        ].map((file) => fs.readFile(file as string, "ascii")),
+        ].map((file) => readFile(file as string, "ascii")),
       );
       config.ssl = { cert, key, ca, servername: process.env.PGSERVERNAME };
     }

@@ -22,6 +22,7 @@ envars.config({ env: envName });
 
 // The name of the Cloud Function, e.g. "api" or "api-123" (preview)
 const functionName = argv.pr ? `${name}-${argv.pr}` : name;
+const serviceAccount = $.env[`${name}_SERVICE_ACCOUNT`];
 
 // Load the list of environment variables required by the app
 const app = await import(path.join(process.cwd(), "./dist/index.js"));
@@ -48,6 +49,7 @@ await execa(
     `--entry-point=${argv.entry}`,
     "--memory=1Gi",
     "--runtime=nodejs18",
+    serviceAccount && `--service-account=${serviceAccount}`,
     "--source=./dist",
     "--timeout=30",
     app.env && `--env-vars-file=${envFile}`,
