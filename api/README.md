@@ -36,7 +36,6 @@ assistance.
 ├── graphql.ts                  # GraphQL API schema
 ├── index.ts                    # Node.js / Express server
 ├── package.json                # Node.js dependencies
-├── rollup.config.js            # Rollup bundler configuration
 ├── schema.graphql              # GraphQL schema (auto-generated)
 └── tsconfig.json               # TypeScript configuration
 ```

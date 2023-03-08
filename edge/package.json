@@ -15,10 +15,10 @@
     "hono": "^3.0.3",
     "jose": "^4.13.1",
     "web-auth-library": "^1.0.3",
-    "zod": "^3.21.0"
+    "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230228.0",
+    "@cloudflare/workers-types": "^4.20230307.0",
     "@types/node": "^18.14.6",
     "toml": "^3.0.0",
     "typescript": "^4.9.5",
