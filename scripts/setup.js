@@ -157,13 +157,15 @@ const questions = [
 async function done(answers) {
   // Remove this script
   if (answers.clean) {
-    fs.unlinkSync("./setup.js");
+    fs.unlinkSync("./scripts/setup.js");
     let text = fs.readFileSync("./package.json", "utf8");
     text = text.replace(/\n\s+"setup": ".*?\n/s, "\n");
     fs.writeFileSync("./package.json", text, "utf8");
-    spawn.sync("yarn", ["remove", "inquirer", "cross-spawn", "dotenv"], {
-      stdio: "inherit",
-    });
+    spawn.sync(
+      "yarn",
+      ["workspace", "scripts", "remove", "inquirer", "dotenv"],
+      { stdio: "inherit" },
+    );
   }
 
   if (answers.setup) {
@@ -193,7 +195,7 @@ async function done(answers) {
   console.log(`  `);
   console.log(`  $ yarn db:reset`);
   console.log(`  $ yarn api:start`);
-  console.log(`  $ yarn web:start`);
+  console.log(`  $ yarn app:start`);
   console.log(`  `);
 }
 

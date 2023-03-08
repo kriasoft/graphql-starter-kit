@@ -1,3 +1,6 @@
+/* SPDX-FileCopyrightText: 2014-present Kriasoft */
+/* SPDX-License-Identifier: MIT */
+
 import {
   Alert,
   Button,
@@ -138,7 +141,11 @@ export default function Login(props: Props): JSX.Element {
       />
 
       <Button
-        sx={{ backgroundColor: "white", order: isSignUp ? undefined : -2 }}
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === "light" ? "white" : undefined,
+          order: isSignUp ? undefined : -2,
+        }}
         color="inherit"
         type="submit"
         variant="outlined"
@@ -151,7 +158,11 @@ export default function Login(props: Props): JSX.Element {
       />
 
       <Button
-        sx={{ backgroundColor: "white", order: isSignUp ? undefined : -2 }}
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === "light" ? "white" : undefined,
+          order: isSignUp ? undefined : -2,
+        }}
         color="inherit"
         type="submit"
         variant="outlined"
@@ -164,13 +175,17 @@ export default function Login(props: Props): JSX.Element {
       />
 
       <Button
-        sx={{ backgroundColor: "white", order: isSignUp ? undefined : -2 }}
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === "light" ? "white" : undefined,
+          order: isSignUp ? undefined : -2,
+        }}
         color="inherit"
         type="submit"
         variant="outlined"
         size="large"
         children="Continue as anonymous"
-        startIcon={<AuthIcon variant="anonymous" />}
+        startIcon={<AuthIcon color="inherit" variant="anonymous" />}
         onClick={handleSignIn}
         data-method="anonymous"
         fullWidth
