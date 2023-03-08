@@ -94,8 +94,8 @@ $ yarn api:build
 $ yarn api:deploy --env=prod
 
 # Build and deploy the web front-end to Cloudflare Workers (CDN)
-$ yarn web:build
-$ yarn web:deploy --env=prod
+$ yarn app:build
+$ yarn app:deploy --env=prod
 
 # Migrate the target database to the latest version
 $ yarn db:migrate --env=prod

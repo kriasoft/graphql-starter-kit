@@ -27,8 +27,8 @@ Web application project built with TypeScript, React, and Relay.
 ## Getting Started
 
 ```bash
-$ yarn web:relay [--watch]      # Compile GraphQL fragments
-$ yarn web:start                # Launch the app using Vite dev server
+$ yarn app:relay [--watch]      # Compile GraphQL fragments
+$ yarn app:start                # Launch the app using Vite dev server
 ```
 
 The app must become available on [`http://localhost:5173/`](http://localhost:5173/).
@@ -40,14 +40,14 @@ for the target deployment environment (`test`, `prod`) are up-to-date. Push the
 required secrets to Cloudflare Workers environment, for example:
 
 ```
-$ yarn web:cf secret put GOOGLE_CLOUD_CREDENTIALS
+$ yarn edge:cf secret put GOOGLE_CLOUD_CREDENTIALS
 ```
 
 Finally, build and deploy the app by running:
 
 ```
-$ yarn web:build
-$ yarn web:deploy [--env #0] [--version #0]
+$ yarn app:build
+$ yarn app:deploy [--env #0] [--version #0]
 ```
 
 Where `--env` is the target deployment environment, e.g. `--env=test` (default).
@@ -55,7 +55,7 @@ Where `--env` is the target deployment environment, e.g. `--env=test` (default).
 Once the app was deployed, you can access Cloudflare Workers logs via:
 
 ```
-$ yarn web:cf tail [--env #0] [--version #0]
+$ yarn edge:cf tail [--env #0] [--version #0]
 ```
 
-For the full list of Cloudflare CLI options run `yarn web:cf --help`.
+For the full list of Cloudflare CLI options run `yarn edge:cf --help`.

@@ -8,7 +8,8 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "deploy": "node ../scripts/wrangler.js publish",
-    "wrangler": "node ../scripts/wrangler.js"
+    "wrangler": "node ../scripts/wrangler.js",
+    "edge:cf": "node ../scripts/wrangler.js"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.0.6",
