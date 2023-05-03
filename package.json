@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "packageManager": "yarn@4.0.0-rc.40",
+  "packageManager": "yarn@4.0.0-rc.43",
   "workspaces": [
     "api",
     "app",
