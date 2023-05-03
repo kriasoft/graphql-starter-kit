@@ -21,7 +21,7 @@
     "db:psql": "yarn ts-node --esm ./scripts/psql.ts"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.0",
+    "@babel/core": "^7.21.8",
     "@babel/node": "^7.20.7",
     "@babel/register": "^7.21.0",
     "@faker-js/faker": "^7.6.0",

@@ -16,7 +16,7 @@
     "app:deploy": "yarn workspace app deploy"
   },
   "dependencies": {
-    "@babel/runtime": "^7.21.0",
+    "@babel/runtime": "^7.21.5",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.11",

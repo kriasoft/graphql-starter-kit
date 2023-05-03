@@ -12,7 +12,7 @@
     "gh:delete-deployment": "node --no-warnings ./github.js delete-deployment"
   },
   "dependencies": {
-    "@babel/core": "^7.21.0",
+    "@babel/core": "^7.21.8",
     "@babel/register": "^7.21.0",
     "@google-cloud/storage": "^6.9.4",
     "@octokit/rest": "^19.0.7",
