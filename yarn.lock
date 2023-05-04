@@ -6073,6 +6073,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bl@npm:^5.0.0":
+  version: 5.1.0
+  resolution: "bl@npm:5.1.0"
+  dependencies:
+    buffer: "npm:^6.0.3"
+    inherits: "npm:^2.0.4"
+    readable-stream: "npm:^3.4.0"
+  checksum: a7ad15987292c2ff0725102c2e876eabc685ee31ac26112df595def0a904eda57105587777f6bf735713478c6adaa0010c70977febfd36468511d2c58d733743
+  languageName: node
+  linkType: hard
+
 "blake3-wasm@npm:^2.1.5":
   version: 2.1.5
   resolution: "blake3-wasm@npm:2.1.5"
@@ -6213,6 +6224,16 @@ __metadata:
     base64-js: "npm:^1.3.1"
     ieee754: "npm:^1.1.13"
   checksum: 8e611bed4d0309f68565f233d604882560f1c5aece713c7cd4c3111dbfad1ed82bb0e7610685e434f175ee4f39d98bf3a47c5b9b3a3370df0ec85a977dfe837e
+  languageName: node
+  linkType: hard
+
+"buffer@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "buffer@npm:6.0.3"
+  dependencies:
+    base64-js: "npm:^1.3.1"
+    ieee754: "npm:^1.2.1"
+  checksum: 8384c4bf1042f6e927d650af0053c54e57734c195f29152921aaa9c6976208e7210ec9202b8cbdac27782e1955497cde631ac9566122ad67062ddc1a04a886c9
   languageName: node
   linkType: hard
 
@@ -6415,6 +6436,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chalk@npm:^5.0.0":
+  version: 5.2.0
+  resolution: "chalk@npm:5.2.0"
+  checksum: c3c31253b9cb445ca917aab30767282a1c1951fb8d60e1e8389a3d6434eee296dae28a2b02871c89a866ed7e560438aaea4c5d290242e5fb50b5eda2b4ea4061
+  languageName: node
+  linkType: hard
+
 "char-regex@npm:^1.0.2":
   version: 1.0.2
   resolution: "char-regex@npm:1.0.2"
@@ -6505,6 +6533,13 @@ __metadata:
   version: 2.7.0
   resolution: "cli-spinners@npm:2.7.0"
   checksum: 46b7cce5a56a9c2d062d84947c552f517e1d23eb88afc9f1835851e905f9324bd2f21eebb24a99a3143f508581dcbe372e7528d9adf019f73e01a4bcbee178df
+  languageName: node
+  linkType: hard
+
+"cli-spinners@npm:^2.6.1":
+  version: 2.9.0
+  resolution: "cli-spinners@npm:2.9.0"
+  checksum: 24ec427655f8ed6f97bd348f08e4258de44b13402d669ce5909e11f956da18b8da98c9f36ec1a78a215169915ea131e330480c840f0861283d1aab39a1d83b69
   languageName: node
   linkType: hard
 
@@ -7012,7 +7047,7 @@ __metadata:
     minimist: "npm:^1.2.8"
     nanoid: "npm:^4.0.1"
     nanospinner: "npm:^1.1.0"
-    ora: "npm:^6.1.2"
+    ora: "npm:^6.3.0"
     pg: "npm:^8.10.0"
     prettier: "npm:^2.8.4"
     ts-import: "npm:^4.0.0-beta.10"
@@ -9652,7 +9687,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ieee754@npm:^1.1.13":
+"ieee754@npm:^1.1.13, ieee754@npm:^1.2.1":
   version: 1.2.1
   resolution: "ieee754@npm:1.2.1"
   checksum: b39fbc42879544ab1989f8ff439a3f3545d7c244a07f24607c4223291ba82ce95964a7b7fde24010ba899937046c4dfe01398c8f8bbddb53f9e562c29f18f615
@@ -9987,6 +10022,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-interactive@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "is-interactive@npm:2.0.0"
+  checksum: a5f83ea9113c6a9424e95edb962a907d0f6412bd086bdec38389b576345bc29cec8d57b22c6ff389549c4bdf7540b96612dac743032e875beaef55bb59cd7b06
+  languageName: node
+  linkType: hard
+
 "is-lambda@npm:^1.0.1":
   version: 1.0.1
   resolution: "is-lambda@npm:1.0.1"
@@ -10153,7 +10195,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-unicode-supported@npm:^1.2.0":
+"is-unicode-supported@npm:^1.1.0, is-unicode-supported@npm:^1.2.0":
   version: 1.3.0
   resolution: "is-unicode-supported@npm:1.3.0"
   checksum: 649beee681fe5d53f9a84f52de4efeebcad5f3295fe9cc095f1d16759fa00b628f6e43d22e33eadeaa9754b3ba57a7123fcbce5739ff04cd288169e1fa0984b1
@@ -11287,6 +11329,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"log-symbols@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "log-symbols@npm:5.1.0"
+  dependencies:
+    chalk: "npm:^5.0.0"
+    is-unicode-supported: "npm:^1.1.0"
+  checksum: 9211e88b6345eecdd4a96ffdd95d5376d4db77ebd9e5d7f4fd9b41f536c64738bd3c68b6bb6d8ec05a16670269bc7797e0ad9cde35907f1e56fec93208f96e81
+  languageName: node
+  linkType: hard
+
 "long@npm:^4.0.0":
   version: 4.0.0
   resolution: "long@npm:4.0.0"
@@ -12404,6 +12456,23 @@ __metadata:
     strip-ansi: "npm:^6.0.0"
     wcwidth: "npm:^1.0.1"
   checksum: 843f0c7449064ab6bb53277c5df6120d7a1a2887bca6dcd9f843c6d4924ab2fccbf8caeb87e0864d98cabd7cf9477fc990d8752bc9149c854d863a545f808a00
+  languageName: node
+  linkType: hard
+
+"ora@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "ora@npm:6.3.0"
+  dependencies:
+    chalk: "npm:^5.0.0"
+    cli-cursor: "npm:^4.0.0"
+    cli-spinners: "npm:^2.6.1"
+    is-interactive: "npm:^2.0.0"
+    is-unicode-supported: "npm:^1.1.0"
+    log-symbols: "npm:^5.1.0"
+    stdin-discarder: "npm:^0.1.0"
+    strip-ansi: "npm:^7.0.1"
+    wcwidth: "npm:^1.0.1"
+  checksum: f2fd82a6a89e48a89a32333544f099e475b658b4c6af5d3ec01af1830542220991b0a73917d4fab95dfe4f26b323b1dd026043830f0581ec5ea13665c4cdbb6c
   languageName: node
   linkType: hard
 
@@ -13852,7 +13921,7 @@ __metadata:
     inquirer: "npm:^9.2.0"
     lodash-es: "npm:^4.17.21"
     minimist: "npm:^1.2.8"
-    ora: "npm:^6.1.2"
+    ora: "npm:^6.3.0"
     toml: "npm:^3.0.0"
     ts-node: "npm:^10.9.1"
     typescript: "npm:^4.9.5"
@@ -14264,6 +14333,15 @@ __metadata:
   version: 3.3.2
   resolution: "std-env@npm:3.3.2"
   checksum: 383486453a3b34c9db54c3aab112e066f32c6afda55c89362fe56576a82564d60526578040f7fe3ff6173f18c426597cbf1be69be9de83f56b984533aa2c2599
+  languageName: node
+  linkType: hard
+
+"stdin-discarder@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "stdin-discarder@npm:0.1.0"
+  dependencies:
+    bl: "npm:^5.0.0"
+  checksum: a2d11612ec44968e24185fd189bb41561918f0f43b208603899b387b4f87448c87b6d7b904abe1f89f979d682ca37b35efdd649a9ae7232812240842c1a6bdd0
   languageName: node
   linkType: hard
 

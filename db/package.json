@@ -41,7 +41,7 @@
     "minimist": "^1.2.8",
     "nanoid": "^4.0.1",
     "nanospinner": "^1.1.0",
-    "ora": "^6.1.2",
+    "ora": "^6.3.0",
     "pg": "^8.10.0",
     "prettier": "^2.8.4",
     "ts-import": "^4.0.0-beta.10",
