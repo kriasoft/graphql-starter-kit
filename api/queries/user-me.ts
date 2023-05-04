@@ -19,6 +19,6 @@ export const me: GraphQLFieldConfig<User, Context> = {
   type: UserType,
 
   resolve(self, args, ctx) {
-    return ctx.user;
+    return ctx.token && ctx.userById.load(ctx.token.uid);
   },
 };

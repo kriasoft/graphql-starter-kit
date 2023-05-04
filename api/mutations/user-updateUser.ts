@@ -10,10 +10,10 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
-import { BadRequest } from "http-errors";
-import { Context, db } from "../core/index.js";
+import { BadRequest, Forbidden, Unauthorized } from "http-errors";
+import { Context } from "../core/index.js";
 import { UserType } from "../types/index.js";
-import { fromGlobalId, validate, ValidationError } from "../utils/index.js";
+import { ValidationError, fromGlobalId, validate } from "../utils/index.js";
 
 /**
  * @example
@@ -53,12 +53,18 @@ export const updateUser: GraphQLFieldConfig<unknown, Context> = {
   },
 
   async resolve(self, args, ctx) {
+    if (!ctx.token) {
+      throw new Unauthorized();
+    }
+
     const input = args.input as UpdateUserInput;
     const dryRun = args.dryRun as boolean;
     const id = fromGlobalId(input.id, "User");
 
     // Check permissions
-    ctx.ensureAuthorized((user) => user.id === id || user.admin);
+    if (id !== ctx.token.uid) {
+      throw new Forbidden();
+    }
 
     // Validate and sanitize user input
     const [data, errors] = validate(input, (value) => ({
@@ -80,11 +86,10 @@ export const updateUser: GraphQLFieldConfig<unknown, Context> = {
       return { user: await ctx.userById.load(id) };
     }
 
-    const [user] = await db
-      .table("user")
-      .where({ id })
-      .update({ ...data, updated: db.fn.now() })
-      .returning("*");
+    const user = await ctx.auth.updateUser(ctx.token.uid, {
+      ...(data.email && { email: data.email }),
+      ...(data.name && { displayName: data.name }),
+    });
 
     return { user };
   },

@@ -3,12 +3,10 @@
 
 import DataLoader from "dataloader";
 import { Request } from "express";
-import { Forbidden, Unauthorized } from "http-errors";
-import { User } from "../db/types.js";
-import { db } from "./core/db.js";
+import { Auth, DecodedIdToken, UserRecord, getAuth } from "firebase-admin/auth";
+import { Firestore, getFirestore } from "firebase-admin/firestore";
 import { GraphQLParams } from "./core/helix.js";
-import { log, LogSeverity } from "./core/logging.js";
-import { mapTo } from "./utils/map.js";
+import { LogSeverity, log } from "./core/logging.js";
 
 /**
  * GraphQL execution context.
@@ -17,16 +15,17 @@ import { mapTo } from "./utils/map.js";
 export class Context extends Map<symbol, unknown> {
   readonly req: Request;
   readonly params: GraphQLParams;
+  readonly token: DecodedIdToken | null;
+  readonly auth: Auth;
+  readonly db: Firestore;
 
   constructor(req: Request, params: GraphQLParams) {
     super();
     this.req = req;
     this.params = params;
-
-    // Add the currently logged in user object to the cache
-    if (this.req.user) {
-      this.userById.prime(this.req.user.id, this.req.user);
-    }
+    this.token = req.token;
+    this.auth = getAuth();
+    this.db = getFirestore();
   }
 
   log(
@@ -37,32 +36,10 @@ export class Context extends Map<symbol, unknown> {
   }
 
   /*
-   * Authentication and authorization
-   * ------------------------------------------------------------------------ */
-
-  get user(): User | null {
-    return this.req.user;
-  }
-
-  ensureAuthorized(check?: (user: User) => boolean): void {
-    if (!this.req.user) {
-      throw new Unauthorized();
-    }
-
-    if (check && !check(this.req.user)) {
-      throw new Forbidden();
-    }
-  }
-
-  /*
    * Data loaders
    * ------------------------------------------------------------------------ */
 
-  userById = new DataLoader<string, User | null>((keys) =>
-    db
-      .table<User>("user")
-      .whereIn("id", keys)
-      .select()
-      .then((rows) => mapTo(rows, keys, (x) => x.id)),
+  userById = new DataLoader<string, UserRecord | null>((keys) =>
+    Promise.all(keys.map((id) => this.auth.getUser(id).catch(() => null))),
   );
 }

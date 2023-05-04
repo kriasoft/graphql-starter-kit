@@ -44,7 +44,7 @@ export function dateField<TSource>(
 
       if (date) {
         if (args.format) {
-          const timeZone = ctx.user?.time_zone || "America/New_York";
+          const timeZone = ctx.token?.tz || "America/New_York";
           return format(date, args.format, { timeZone });
         }
         return formatISO(date);

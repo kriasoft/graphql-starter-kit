@@ -8,7 +8,7 @@ import {
   forwardConnectionArgs,
 } from "graphql-relay";
 import { Forbidden } from "http-errors";
-import { Context, db, User } from "../core/index.js";
+import { Context, User, db } from "../core/index.js";
 import { UserConnection } from "../types/index.js";
 
 /**
@@ -34,7 +34,7 @@ export const users: GraphQLFieldConfig<unknown, Context> = {
 
   async resolve(root, args, ctx) {
     // Only admins are allowed to fetch the list of user accounts.
-    if (!ctx.user?.admin) {
+    if (!ctx.token?.admin) {
       throw new Forbidden();
     }
 

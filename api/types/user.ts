@@ -1,6 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
+import { UserRecord } from "firebase-admin/auth";
 import {
   GraphQLBoolean,
   GraphQLNonNull,
@@ -8,27 +9,23 @@ import {
   GraphQLString,
 } from "graphql";
 import { connectionDefinitions, globalIdField } from "graphql-relay";
-import { Context, User } from "../core/index.js";
+import { Context } from "../core/index.js";
 import { countField, dateField } from "./fields.js";
 import { nodeInterface } from "./node.js";
 import { PictureType } from "./picture.js";
 
-export const UserType = new GraphQLObjectType<User, Context>({
+export const UserType = new GraphQLObjectType<UserRecord, Context>({
   name: "User",
   description: "The registered user account.",
   interfaces: [nodeInterface],
 
   fields: {
-    id: globalIdField(),
-
-    username: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
+    id: globalIdField("User", (self) => self.uid),
 
     email: {
       type: GraphQLString,
       resolve(self, args, ctx) {
-        return ctx.user && (ctx.user.id === self.id || ctx.user.admin)
+        return ctx.token && (ctx.token.uid === self.uid || ctx.token?.admin)
           ? self.email
           : null;
       },
@@ -37,34 +34,38 @@ export const UserType = new GraphQLObjectType<User, Context>({
     emailVerified: {
       type: GraphQLBoolean,
       resolve(self, args, ctx) {
-        return ctx.user && (ctx.user.id === self.id || ctx.user.admin)
-          ? self.email_verified
+        return ctx.token && (ctx.token.uid === self.uid || ctx.token?.admin)
+          ? self.emailVerified
           : null;
       },
     },
 
-    name: {
+    displayName: {
       type: GraphQLString,
     },
 
     picture: {
       type: new GraphQLNonNull(PictureType),
-    },
-
-    timeZone: {
-      type: GraphQLString,
       resolve(self) {
-        return self.time_zone;
+        return { url: self.photoURL };
       },
     },
 
-    locale: {
-      type: GraphQLString,
+    // timeZone: {
+    //   type: GraphQLString,
+    // },
+
+    // locale: {
+    //   type: GraphQLString,
+    // },
+
+    disabled: {
+      type: new GraphQLNonNull(GraphQLBoolean),
     },
 
-    created: dateField((self) => self.created),
-    updated: dateField((self) => self.updated),
-    lastLogin: dateField((self) => self.last_login),
+    created: dateField((self) => self.metadata.creationTime),
+    updated: dateField((self) => self.metadata.lastRefreshTime),
+    lastLogin: dateField((self) => self.metadata.lastSignInTime),
   },
 });
 

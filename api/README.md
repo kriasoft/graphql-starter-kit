@@ -21,9 +21,7 @@ assistance.
 
 ```bash
 .
-├── auth/                       # Authentication middleware
 ├── core/                       # Common application modules
-├── db/                         # PostgreSQL client and query builder
 ├── mutations/                  # GraphQL API mutation endpoints
 ├── queries/                    # Top-level GraphQL API query fields
 ├── types/                      # GrapHQL API schema types
@@ -31,13 +29,14 @@ assistance.
 ├── views/                      # Handlebar views
 ├── context.ts                  # GraphQL API context variable(s)
 ├── env.ts                      # Environment variables validator
-├── errors.ts                   # Application errors middleware
 ├── global.d.ts                 # TypeScript definition overrides
 ├── graphql.ts                  # GraphQL API schema
 ├── index.ts                    # Node.js / Express server
 ├── package.json                # Node.js dependencies
 ├── schema.graphql              # GraphQL schema (auto-generated)
-└── tsconfig.json               # TypeScript configuration
+├── schema.ts                   # GraphQL schema (code-first)
+├── tsconfig.json               # TypeScript configuration
+└── vite.config.ts              # Bundler configuration
 ```
 
 ## Requirements

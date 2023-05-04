@@ -5,6 +5,7 @@ Please, prefer creating UPSERT mutations in instead of CREATE + UPDATE whenever 
 ```js
 import { mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLID, GraphQLString } from "graphql";
+import { Unauthorized } from "http-errors";
 
 import { db } from "../core";
 import { StoryType } from "../types";
@@ -24,7 +25,9 @@ export const upsertStory = mutationWithClientMutationId({
   },
 
   async mutateAndGetPayload({ id, ...data }, ctx) {
-    ctx.ensureAuthorized();
+    if (!ctx.token) {
+      throw new Unauthorized();
+    }
 
     let story;
 
@@ -45,13 +48,18 @@ export const upsertStory = mutationWithClientMutationId({
 });
 ```
 
-Don't forget to check permissions using `ctx.ensureAuthorized()` helper method
-from `src/server/context.js`. For example:
+Don't forget to verify permissions by checking the `ctx.token` variable. For example:
 
 ```js
+if (!ctx.token) {
+  throw new Unauthorized();
+}
+
 const story = await db.table("stories").where({ id }).first();
 
-ctx.ensureAuthorized((user) => story.author_id === user.id);
+if (story.author_id !== ctx.token.uid) {
+  throw new Forbidden();
+}
 ```
 
 Always validate user and sanitize user input! We use [`validator.js`](https://github.com/validatorjs/validator.js) + a custom helper function `validate(input, validator => /* rules */)` for that. For example:

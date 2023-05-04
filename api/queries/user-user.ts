@@ -2,13 +2,14 @@
 /* SPDX-License-Identifier: MIT */
 
 import { GraphQLFieldConfig, GraphQLString } from "graphql";
-import { Context, db, User } from "../core/index.js";
+import { BadRequest, Forbidden, Unauthorized } from "http-errors";
+import { Context, User } from "../core/index.js";
 import { UserType } from "../types/index.js";
 
 /**
  * @example
  *   query {
- *     user(username: "john") {
+ *     user(email: "john@example.com") {
  *       id
  *       email
  *     }
@@ -19,22 +20,22 @@ export const user: GraphQLFieldConfig<User, Context> = {
   type: UserType,
 
   args: {
-    username: { type: GraphQLString },
     email: { type: GraphQLString },
   },
 
   resolve(self, args, ctx) {
-    const query = db.table<User>("user");
+    if (args.email) {
+      if (!ctx.token) {
+        throw new Unauthorized();
+      }
 
-    if (args.username) {
-      query.where("username", "=", args.username);
-    } else if (args.email) {
-      ctx.ensureAuthorized();
-      query.where("email", "=", args.email);
+      if (!(args.email === ctx.token.email || ctx.token.admin)) {
+        throw new Forbidden();
+      }
+
+      return ctx.auth.getUserByEmail(args.email);
     } else {
-      throw new Error("The username argument is required.");
+      throw new BadRequest("The email argument is required.");
     }
-
-    return query.first();
   },
 };

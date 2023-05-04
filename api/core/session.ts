@@ -2,22 +2,21 @@
 /* SPDX-License-Identifier: MIT */
 
 import { NextFunction, Request, Response } from "express";
+import { FirebaseError } from "firebase-admin/app";
 import { DecodedIdToken, getAuth } from "firebase-admin/auth";
 import { Unauthorized } from "http-errors";
 import { LRUCache } from "lru-cache";
-import { User, db, log } from "./index.js";
+import { createHash } from "node:crypto";
 
-const tokensCache = new LRUCache<string, DecodedIdToken>({
+const tokensCache = new LRUCache<string, CacheValue, CacheContext>({
   ttl: 1000 * 60,
   max: 10000,
   allowStale: true,
-  fetchMethod(idToken, staleValue) {
+  async fetchMethod(key, staleValue, { context }) {
     return getAuth()
-      .verifyIdToken(idToken, staleValue === undefined ? false : true)
-      .catch((err) => {
-        console.error(err);
-        return {} as DecodedIdToken;
-      });
+      .verifyIdToken(context.idToken, staleValue ? true : false)
+      .then((token) => ({ token }))
+      .catch((error) => ({ error }));
   },
 });
 
@@ -41,45 +40,35 @@ const tokensCache = new LRUCache<string, DecodedIdToken>({
  *    });
  */
 export async function session(req: Request, res: Response, next: NextFunction) {
-  try {
-    // Set the currently logged in user object to `null` by default
-    req.user = null;
+  // Set the currently logged in user object to `null` by default
+  req.token = null;
 
-    // Attempts to get an ID token from the `Authorization` HTTP header
-    const idToken = req.headers.authorization?.match(/^[Bb]earer (\S+)/)?.[1];
+  // Extract the ID token from the `Authorization` HTTP header
+  const idToken = req.headers.authorization?.match(/^[Bb]earer (\S+)/)?.[1];
 
-    if (idToken) {
-      // Verify if the ID token is valid
-      const token = await tokensCache.fetch(idToken);
+  if (idToken) {
+    // Verify the ID token and cache the result for a faster token revocation check
+    const key = createHash("sha1").update(idToken).digest("base64");
+    const context: CacheContext = { idToken };
+    const status: LRUCache.Status<CacheValue> = {};
+    const value = await tokensCache.fetch(key, { context, status });
 
-      if (!token?.uid) {
-        throw new Unauthorized();
-      }
-
-      // Fetch the currently logged in User object from the database
-      let user = await db.table<User>("user").where({ id: token.sub }).first();
-
-      // Create the matching User record if it doesn't exist
-      if (!user) {
-        [user] = await db
-          .table("user")
-          .insert({
-            id: token.sub,
-            email: token.email,
-            email_verified: token.email_verified,
-          })
-          .returning("*");
-      }
-
-      req.user = user ?? null;
+    // If the token is missing in the cache, check if it has been revoked
+    if (status.fetch === "miss") {
+      tokensCache.fetch(key, { context, forceRefresh: true });
     }
 
-    next();
-  } catch (err) {
-    log(req, "WARNING", err as Error);
-    res.status(401);
-    res.end();
+    if (!value?.token) {
+      const err = new Unauthorized();
+      err.cause = value?.error;
+      return next(err);
+    }
+
+    req.token = value.token;
   }
+
+  next();
 }
 
-export default session;
+type CacheValue = { token?: DecodedIdToken; error?: FirebaseError };
+type CacheContext = { idToken: string; checkRevoked?: boolean };
