@@ -2,12 +2,12 @@
 /* SPDX-License-Identifier: MIT */
 
 import "express";
-import { User } from "./core/index.js";
+import { DecodedIdToken } from "firebase-admin/auth";
 
 declare global {
   namespace Express {
     interface Request {
-      user: User | null;
+      token: DecodedIdToken | null;
     }
   }
 }

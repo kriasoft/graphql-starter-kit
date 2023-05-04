@@ -1,4 +1,5 @@
 import { GraphQLFieldConfig, GraphQLNonNull, GraphQLString } from "graphql";
+import { Unauthorized } from "http-errors";
 import { customAlphabet } from "nanoid/async";
 import path from "node:path";
 import { Context, storage } from "../core/index.js";
@@ -24,7 +25,9 @@ export const getUploadURL: GraphQLFieldConfig<unknown, Context> = {
 
   async resolve(self, args, ctx) {
     // Only authenticated users can upload files
-    ctx.ensureAuthorized();
+    if (!ctx.token) {
+      throw new Unauthorized();
+    }
 
     // Create a temporary for the uploaded content
     // https://googleapis.dev/nodejs/storage/latest/Bucket.html#getSignedUrl

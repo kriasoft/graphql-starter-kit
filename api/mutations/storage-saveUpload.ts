@@ -1,7 +1,6 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { default as GraphicsMagick } from "gm";
 import {
   GraphQLFieldConfig,
   GraphQLID,
@@ -10,14 +9,12 @@ import {
   GraphQLString,
 } from "graphql";
 import { fromGlobalId } from "graphql-relay";
-import { BadRequest } from "http-errors";
+import { BadRequest, Forbidden, Unauthorized } from "http-errors";
 import { extname } from "node:path";
 import { URL } from "node:url";
-import { Context, db, uploadBucket, User } from "../core/index.js";
+import { Context, uploadBucket } from "../core/index.js";
 import env from "../env.js";
 import { UploadTypeType, UserType } from "../types/index.js";
-
-const gm = GraphicsMagick.subClass({ imageMagick: true });
 
 /**
  * Saves the uploaded file (URL path) to the database.
@@ -52,7 +49,9 @@ export const saveUpload: GraphQLFieldConfig<unknown, Context> = {
 
   async resolve(self, args, ctx) {
     // Check permissions
-    ctx.ensureAuthorized();
+    if (!ctx.token) {
+      throw new Unauthorized();
+    }
 
     // Parse input arguments
     const { id, type } = fromGlobalId(args.id);
@@ -65,28 +64,24 @@ export const saveUpload: GraphQLFieldConfig<unknown, Context> = {
 
     // Save user profile picture
     if (type === "User" && args.uploadType === "profile-picture") {
-      ctx.ensureAuthorized((user) => user.id === id || user.admin);
-      let user = await db.table<User>("user").where({ id }).first();
+      if (ctx.token.uid !== id && !ctx.token.admin) {
+        throw new Forbidden();
+      }
+
+      let user = await ctx.userById.load(ctx.token.uid);
       if (!user) throw new BadRequest(`User not found (id: ${id}).`);
 
       // Copy the uploaded image to the primary storage bucket
-      const size = await getImageSize(url);
-      const filename = `u/${user.id}${extname(url.pathname)}`;
-      const version = ((user.picture.version as number) ?? 0) + 1;
+      const filename = `u/${user.uid}${extname(url.pathname)}`;
       await uploadBucket
         .file(url.pathname.substring(1))
         .copy(`gs://${env.STORAGE_BUCKET}/${filename}`);
 
-      // Update profile picture filename, version
-      [user] = await db
-        .table<User>("user")
-        .where({ id })
-        .update("picture", {
-          filename,
-          version,
-          ...size,
-        })
-        .returning("*");
+      await ctx.auth.updateUser(ctx.token.uid, {
+        photoURL: `https://${env.STORAGE_BUCKET}.storage.googleapis.com/${filename}`,
+      });
+
+      user = await ctx.auth.getUser(ctx.token.uid);
 
       return { user };
     }
@@ -94,14 +89,3 @@ export const saveUpload: GraphQLFieldConfig<unknown, Context> = {
     throw new BadRequest();
   },
 };
-
-async function getImageSize(
-  url: URL,
-): Promise<{ width: number; height: number }> {
-  // Download the original file
-  const [file] = await uploadBucket.file(url.pathname.substring(1)).download();
-  // Get the uploaded image size using ImageMagick
-  return new Promise((resolve, reject) =>
-    gm(file).size((err, size) => (err ? reject(err) : resolve(size))),
-  );
-}
