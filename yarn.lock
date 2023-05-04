@@ -4986,19 +4986,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/relay-compiler@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "@types/relay-compiler@npm:14.0.0"
-  dependencies:
-    graphql: "npm:^14.5.3"
-  checksum: 3b56deca54d364136fcee07489cfa93ce54d48cb47996b218c34086a959fa4c4bd6000520561f47c95b3d8c00eb10785eae768ad6ff32276a3ccf8483f577f84
+"@types/relay-compiler@npm:^14.0.1":
+  version: 14.0.1
+  resolution: "@types/relay-compiler@npm:14.0.1"
+  checksum: d587c5a2c9ade50d91f2ba7230312f0ce5c49b477e9d407347f3cee2c5533cc35847214d9b7cdf36685fcf6b1cadb2726b45f7e7466aaae645452ee9516f0c7c
   languageName: node
   linkType: hard
 
-"@types/relay-runtime@npm:*, @types/relay-runtime@npm:^14.1.8":
+"@types/relay-runtime@npm:*":
   version: 14.1.8
   resolution: "@types/relay-runtime@npm:14.1.8"
   checksum: 9825cf371868e6cc0797f89bbb54400dc40106539ad32cd9bb6f72049c681021b796d4b3f69ac2232fafeab711951ba1cd8c4ce0ac14e6d1b7b679e9da81c93b
+  languageName: node
+  linkType: hard
+
+"@types/relay-runtime@npm:^14.1.10":
+  version: 14.1.10
+  resolution: "@types/relay-runtime@npm:14.1.10"
+  checksum: e08185c55f619c6dfed9649c76d94c19217cba722a51108e14a93081fd255b31eedd5b825837f11cb4454da44772d39708895d362fca97175ff4115312f7f2d9
   languageName: node
   linkType: hard
 
@@ -5609,22 +5614,22 @@ __metadata:
     "@types/react": "npm:^18.0.28"
     "@types/react-dom": "npm:^18.0.11"
     "@types/react-relay": "npm:^14.1.3"
-    "@types/relay-compiler": "npm:^14.0.0"
-    "@types/relay-runtime": "npm:^14.1.8"
+    "@types/relay-compiler": "npm:^14.0.1"
+    "@types/relay-runtime": "npm:^14.1.10"
     "@vitejs/plugin-react": "npm:^3.1.0"
-    babel-plugin-relay: "npm:^14.1.0"
+    babel-plugin-relay: "npm:^15.0.0"
     envars: "npm:^0.4.0"
     firebase: "npm:^9.17.2"
     localforage: "npm:^1.10.0"
     notistack: "npm:^3.0.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    react-relay: "npm:14.1.0"
+    react-relay: "npm:15.0.0"
     react-router-dom: "npm:^6.8.2"
     recoil: "npm:^0.7.7"
-    relay-compiler: "npm:^14.1.0"
+    relay-compiler: "npm:^15.0.0"
     relay-config: "npm:^12.0.1"
-    relay-runtime: "npm:^14.1.0"
+    relay-runtime: "npm:^15.0.0"
     typescript: "npm:^4.9.5"
     vite: "npm:^4.1.4"
     vite-plugin-relay: "npm:^2.0.0"
@@ -5974,14 +5979,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-relay@npm:^14.1.0":
-  version: 14.1.0
-  resolution: "babel-plugin-relay@npm:14.1.0"
+"babel-plugin-relay@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "babel-plugin-relay@npm:15.0.0"
   dependencies:
     babel-plugin-macros: "npm:^2.0.0"
     cosmiconfig: "npm:^5.0.5"
     graphql: "npm:15.3.0"
-  checksum: 0a7a9f723ef168d533b8b120a51b4e6c5d1d24e59be807d278744ff69d871466ea4f1cf2c7d150bd28bfa7e00af31fb3009e0ccb734e8346ae48643469938e74
+  checksum: 2f06161849277eab4a708dc27b45ec63ba34e8aacbc738bf512bb55fdb5577a521d2b4e7d3fbfdbf5430ff540e6a45adeee2191a4d98ba5bab4982e1dd651f6b
   languageName: node
   linkType: hard
 
@@ -9266,15 +9271,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:^14.5.3":
-  version: 14.7.0
-  resolution: "graphql@npm:14.7.0"
-  dependencies:
-    iterall: "npm:^1.2.2"
-  checksum: 6b86e22940ee8a6d3445f6ac0671b6cedf7b261137c951666faeac1eb7e047e352fb9797bcca4a6962a432892374766296a6a20f25cbd2170eebb1ff8c470654
-  languageName: node
-  linkType: hard
-
 "graphql@npm:^16.6.0":
   version: 16.6.0
   resolution: "graphql@npm:16.6.0"
@@ -10230,13 +10226,6 @@ __metadata:
     html-escaper: "npm:^2.0.0"
     istanbul-lib-report: "npm:^3.0.0"
   checksum: 1dbb467f79cdc6498b27b4579a00f0faeea03678af0f92f4705e8877095043b258e8022e036cae8ee524dbf1eb5615281c92da1fb5b88706642ab865eea71b8a
-  languageName: node
-  linkType: hard
-
-"iterall@npm:^1.2.2":
-  version: 1.3.0
-  resolution: "iterall@npm:1.3.0"
-  checksum: 4e49cae82d50a04258b50080aa85b9e590704b420c1aa529a7eb492264b1550e1a06ece4faecae995719b72b511651692a9f38b2950fcdd23320e703c61cc345
   languageName: node
   linkType: hard
 
@@ -13135,18 +13124,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-relay@npm:14.1.0":
-  version: 14.1.0
-  resolution: "react-relay@npm:14.1.0"
+"react-relay@npm:15.0.0":
+  version: 15.0.0
+  resolution: "react-relay@npm:15.0.0"
   dependencies:
     "@babel/runtime": "npm:^7.0.0"
     fbjs: "npm:^3.0.2"
     invariant: "npm:^2.2.4"
     nullthrows: "npm:^1.1.1"
-    relay-runtime: "npm:14.1.0"
+    relay-runtime: "npm:15.0.0"
   peerDependencies:
     react: ^16.9.0 || ^17 || ^18
-  checksum: 56af6ba0209d02067c14972e2558d62395c88a350e85a93ff6d13db1e9f7961ad1d5458d48ab7d271e7270b645fea516d9c455b44de40c2a9c0f7820914866e2
+  checksum: 0ac463e3c0197b7b72dd1dfbb380b95e8a828db4ebec97e78b4594aa2eebcbed6baf2b39eea0d22e5fde93c14b57f17d57ecbebb7665ddf137475fc4bd2a2edf
   languageName: node
   linkType: hard
 
@@ -13344,12 +13333,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"relay-compiler@npm:^14.1.0":
-  version: 14.1.0
-  resolution: "relay-compiler@npm:14.1.0"
+"relay-compiler@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "relay-compiler@npm:15.0.0"
   bin:
     relay-compiler: cli.js
-  checksum: b8368c637ee4a329b9a25e58968446e85739121bd4173eb3b986e975c19dd2f54af9e086fb0b0cbda80ef3990973d9dd16734d9af29955ea28dd11a6a4f1b031
+  checksum: 3d2959e61a622babb8c0ec1456becf71ccca68df8bc3c3513d8d85c3b6fab082208e19ca55e5ce1b2795bca39322b6eecb76b7449cb04e80f275fb8a408cbaf4
   languageName: node
   linkType: hard
 
@@ -13362,14 +13351,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"relay-runtime@npm:14.1.0, relay-runtime@npm:^14.1.0":
-  version: 14.1.0
-  resolution: "relay-runtime@npm:14.1.0"
+"relay-runtime@npm:15.0.0, relay-runtime@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "relay-runtime@npm:15.0.0"
   dependencies:
     "@babel/runtime": "npm:^7.0.0"
     fbjs: "npm:^3.0.2"
     invariant: "npm:^2.2.4"
-  checksum: 18dfd249677013892dbff5d6800e7875b71994175d20ef84897e1faaebfde08458cea14a6def7c403cd19f75b2a920dcc7757bb7eea838acbec061deaae19825
+  checksum: 4419fdd09d1b448eeaa27c804210b3792da21fccb42088f4f910d55ffd4a5f0982010675a0de54eaffe0e43e6cd334be43a6d96f136d784cab8de16e05dac5c8
   languageName: node
   linkType: hard
 
@@ -13671,7 +13660,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^5.59.2"
     babel-jest: "npm:^29.5.0"
     babel-plugin-import: "npm:^1.13.6"
-    babel-plugin-relay: "npm:^14.1.0"
+    babel-plugin-relay: "npm:^15.0.0"
     babel-plugin-replace-import-extension: "npm:^1.1.3"
     envars: "npm:^0.4.0"
     eslint: "npm:^8.39.0"
