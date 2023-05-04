@@ -5560,7 +5560,7 @@ __metadata:
     "@types/validator": "npm:^13.7.13"
     cookie: "npm:^0.5.0"
     dataloader: "npm:^2.2.2"
-    date-fns: "npm:^2.29.3"
+    date-fns: "npm:^2.30.0"
     date-fns-tz: "npm:^2.0.0"
     envalid: "npm:^7.3.1"
     envars: "npm:^0.4.0"
@@ -6990,10 +6990,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.29.3":
-  version: 2.29.3
-  resolution: "date-fns@npm:2.29.3"
-  checksum: 7e0d58b93506bb34184fd8a86ffc84fffa5188789a8afd22622e2f129f0adc40df755133705d95532beac53f2cecc812dc1753e801ae945a604c323cdaa3bbc1
+"date-fns@npm:^2.30.0":
+  version: 2.30.0
+  resolution: "date-fns@npm:2.30.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.21.0"
+  checksum: 1edbb6ae2e10008de7f5ef37faee6c993926b008c98ca1d0cb4b0263c8448f2d3db5d84ac9475044f2295dee5d0d80bf6e92fe289f7f397420f0c8ad4bd7c069
   languageName: node
   linkType: hard
 
