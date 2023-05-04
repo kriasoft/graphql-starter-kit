@@ -34,7 +34,7 @@
     "cross-env": "^7.0.3",
     "cross-spawn": "^7.0.3",
     "envars": "^0.4.0",
-    "execa": "^7.0.0",
+    "execa": "^7.1.1",
     "knex": "^2.4.2",
     "knex-types": "^0.5.0",
     "lodash": "^4.17.21",
