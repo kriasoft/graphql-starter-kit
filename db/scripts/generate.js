@@ -1,21 +1,10 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { faker, SexType } from "@faker-js/faker";
-import envars from "envars";
-import { knex, Knex } from "knex";
-import minimist from "minimist";
+import { faker } from "@faker-js/faker";
+import knex from "knex";
 import { createSpinner } from "nanospinner";
-import { load } from "ts-import";
-import { type User } from "../types";
-
-let db: Knex;
-
-const { date, image, internet, name, random } = faker;
-const args = minimist(process.argv.slice(2));
-
-// Load environment variables (PGHOST, PGUSER, etc.)
-envars.config({ env: args.env ?? "local" });
+import config from "../knexfile.js";
 
 /**
  * Generates fake (but reasonable) data that can be used for things such as:
@@ -29,19 +18,23 @@ envars.config({ env: args.env ?? "local" });
  *
  * @see https://fakerjs.dev/guide/
  */
-async function generate(): Promise<void> {
-  db = knex(await load("../api/core/db-config.ts"));
-  const spinner = createSpinner("Generating fake user accounts...").start();
-  const users: Partial<User>[] = [];
-  const usernames = new Set();
 
-  function newUserId() {
-    return `${Math.floor(Math.random() * 89999999 + 10000000)}`;
-  }
+const { date, image, internet, name, random } = faker;
+
+function newUserId() {
+  return `${Math.floor(Math.random() * 89999999 + 10000000)}`;
+}
+
+const db = knex(config);
+
+try {
+  const spinner = createSpinner("Generating fake user accounts...").start();
+  const users = [];
+  const usernames = new Set();
 
   for (let i = 0; i < 100; i++) {
     const id = newUserId();
-    const gender = name.gender(true) as SexType;
+    const gender = name.sex();
     const firstName = name.firstName(gender);
     const lastName = name.lastName(gender);
     let username = `${firstName.toLowerCase()}${random.numeric(2)}`;
@@ -71,11 +64,6 @@ async function generate(): Promise<void> {
   await db.table("user").insert(users).onConflict(["id"]).ignore();
 
   spinner.success();
+} finally {
+  db?.destroy();
 }
-
-generate()
-  .catch((err) => {
-    console.error(err);
-    process.exitCode = 1;
-  })
-  .finally(() => db?.destroy());

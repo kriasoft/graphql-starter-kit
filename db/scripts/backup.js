@@ -1,25 +1,19 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { greenBright } from "chalk";
-import { spawn, sync as spawnSync } from "cross-spawn";
+import chalk from "chalk";
 import envars from "envars";
-import minimist from "minimist";
-import fs from "node:fs";
+import { execa, execaSync } from "execa";
 import { EOL } from "node:os";
-import path from "node:path";
 import readline from "node:readline";
-import { type Readable } from "node:stream";
+import { fs, path } from "zx";
+import { getArgs } from "./utils.js";
 
 // Parse CLI arguments
-const args: string[] = [];
-const { env } = minimist(process.argv.slice(2), {
-  string: ["env"],
-  unknown: (arg) => !args.push(arg),
-});
+const [envName, args] = getArgs();
 
 // Load environment variables (PGHOST, PGUSER, etc.)
-envars.config({ env });
+envars.config({ env: envName });
 
 const { APP_ENV, PGDATABASE } = process.env;
 const backupDir = path.join(__dirname, "../backups");
@@ -28,11 +22,11 @@ if (!fs.existsSync(backupDir)) fs.mkdirSync(backupDir);
 
 console.log(
   `Creating a backup of the %s (${APP_ENV}) database...`,
-  greenBright(PGDATABASE),
+  chalk.greenBright(PGDATABASE),
 );
 
 // Get the list of database tables
-const tablesCmd = spawnSync(
+const tablesCmd = execaSync(
   "psql",
   [
     "--no-align",
@@ -62,7 +56,7 @@ const tables = tablesCmd.stdout
  *
  *   yarn db:backup [--env #0]
  */
-const cmd = spawn(
+const cmd = execa(
   "pg_dump",
   [
     "--verbose",
@@ -86,10 +80,7 @@ const cmd = spawn(
 const timestamp = new Date().toISOString().replace(/(-|:|\.\d{3})/g, "");
 const file = path.join(backupDir, `${timestamp}_${APP_ENV}.sql`);
 const out = fs.createWriteStream(file, { encoding: "utf8" });
-const rl = readline.createInterface({
-  input: cmd.stdout as Readable,
-  terminal: false,
-});
+const rl = readline.createInterface({ input: cmd.stdout, terminal: false });
 
 rl.on("line", (line) => {
   // Some (system) triggers cannot be disabled in a cloud environment

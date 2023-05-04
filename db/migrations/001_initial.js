@@ -1,13 +1,12 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { Knex } from "knex";
-
 /**
  * The initial database schema (migration).
  * @see https://knexjs.org/#Schema
+ * @param {import("knex").Knex} db
  */
-export async function up(db: Knex) {
+export async function up(db) {
   // PostgreSQL extensions
   // https://cloud.google.com/sql/docs/postgres/extensions
   await db.raw(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
@@ -38,11 +37,12 @@ export async function up(db: Knex) {
 
 /**
  * Rollback function for the migration.
+ * @param {Knex} db
  */
-export async function down(db: Knex) {
+export async function down(db) {
   await db.schema.dropTableIfExists("user");
   await db.raw("DROP DOMAIN IF EXISTS short_id");
   await db.raw("DROP DOMAIN IF EXISTS email");
 }
 
-export const configuration = { transaction: true };
+// export const config = { transaction: true };

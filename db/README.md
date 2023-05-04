@@ -10,19 +10,19 @@ a PostgreSQL database.
 ├── backups                     # Database backup files
 │   └── ...                     #   - for example "20200101T120000_local.sql"
 ├── migrations                  # Database schema migration files
-│   ├── 001_initial.ts          #   - initial schema
+│   ├── 001_initial.js          #   - initial schema
 │   └── ...                     #   - the reset of the migration files
 ├── scripts                     # Automation scripts (Knex.js REPL shell, etc.)
 │   └── ...                     #   - ...
 ├── seeds                       # Database seed files
-│   ├── 00_reset.ts             #   - removes existing db records
+│   ├── 00_reset.js             #   - removes existing db records
+│   ├── 01_users.js             #   - creates user accounts
 │   ├── 01_users.json           #   - user accounts dataset
-│   ├── 01_users.ts             #   - creates user accounts
+│   ├── 02_identities.js        #   - creates user accounts
 │   ├── 02_identities.json      #   - user accounts dataset
-│   ├── 02_identities.ts        #   - creates user accounts
 │   └── ...                     #   - the reset of the seed files
 ├── ssl                         # TLS/SSL certificates for database access
-├── knexfile.ts                 # Configuration file for Knex.js CLI
+├── knexfile.js                 # Configuration file for Knex.js CLI
 ├── package.json                # Node.js dependencies
 └── README.md                   # This file
 ```
@@ -54,9 +54,9 @@ $ yarn db:repl --env=prod
 
 ## How to create a new migration
 
-Create a new `.ts` file inside of the [`migrations`](./migrations) folder,
+Create a new `.js` file inside of the [`migrations`](./migrations) folder,
 give it a descriptive name prefixed with the migration version number, for
-example `002_products.ts`. Open it in the editor, start typing `migration`
+example `002_products.js`. Open it in the editor, start typing `migration`
 and hit `TAB` which should insert a VS Code snippet.
 
 <p align="center"><img src="https://github.com/koistya/files/blob/gh-pages/db-migration.gif?raw=true" width="679" height="501" /></p>
@@ -73,7 +73,7 @@ $ yarn db:reset [--env #0] [--no-seed]
 
 This approach works well during local development, or before the app was
 released to production. This way you can even make changes to the existing
-migration files (e.g. [`001_initial.ts`](./migrations/001_initial.ts)), as
+migration files (e.g. [`001_initial.js`](./migrations/001_initial.js)), as
 opposed to creating a new migration file per each database schema change.
 
 If you want to reset the database AND keep all the data, you would just need
@@ -126,7 +126,7 @@ that can be used for unit testing, performance testing, demos, etc.
 $ yarn db:generate [--env #0]
 ```
 
-See [`/scripts/generate.ts`](./scripts/generate.ts) script file.
+See [`/scripts/generate.js`](./scripts/generate.js) script file.
 
 You can also import data from the database into [`/seeds/*.json`](./seeds))
 files by running:
