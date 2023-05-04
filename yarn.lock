@@ -6419,13 +6419,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^5.1.2":
-  version: 5.2.0
-  resolution: "chalk@npm:5.2.0"
-  checksum: c3c31253b9cb445ca917aab30767282a1c1951fb8d60e1e8389a3d6434eee296dae28a2b02871c89a866ed7e560438aaea4c5d290242e5fb50b5eda2b4ea4061
-  languageName: node
-  linkType: hard
-
 "char-regex@npm:^1.0.2":
   version: 1.0.2
   resolution: "char-regex@npm:1.0.2"
@@ -9727,26 +9720,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^9.1.4":
-  version: 9.1.4
-  resolution: "inquirer@npm:9.1.4"
+"inquirer@npm:^9.2.0":
+  version: 9.2.0
+  resolution: "inquirer@npm:9.2.0"
   dependencies:
     ansi-escapes: "npm:^6.0.0"
-    chalk: "npm:^5.1.2"
+    chalk: "npm:^5.2.0"
     cli-cursor: "npm:^4.0.0"
     cli-width: "npm:^4.0.0"
     external-editor: "npm:^3.0.3"
     figures: "npm:^5.0.0"
     lodash: "npm:^4.17.21"
-    mute-stream: "npm:0.0.8"
+    mute-stream: "npm:1.0.0"
     ora: "npm:^6.1.2"
     run-async: "npm:^2.4.0"
-    rxjs: "npm:^7.5.7"
+    rxjs: "npm:^7.8.0"
     string-width: "npm:^5.1.2"
     strip-ansi: "npm:^7.0.1"
     through: "npm:^2.3.6"
-    wrap-ansi: "npm:^8.0.1"
-  checksum: 18154e2f8db31bf8d9df4b5fb05fbbf919c1465ae1337210891462573e37a0a3c0cbe7fa0c2e21045430c1f14e7fbb77ab647127f475fbd6d3ebd8d9b6734395
+    wrap-ansi: "npm:^8.1.0"
+  checksum: 9b5d89c845e8d48eb0ed4e3cc24d4c285e837c6a799ddb41617df7caf1706c50463ac9655c7e2f78902280c15d18b378e0e84ab7e083cf964f3ec8ee91c4f7ed
   languageName: node
   linkType: hard
 
@@ -11835,10 +11828,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mute-stream@npm:0.0.8":
-  version: 0.0.8
-  resolution: "mute-stream@npm:0.0.8"
-  checksum: 93cf7e69722c5c56365fb005bfcb31aa3bbcaeb96098223e8893983a65bd6f025bfb44916a7efb658559e59da2d351c50a8441180e5451443c0e8e5d99a35e1b
+"mute-stream@npm:1.0.0":
+  version: 1.0.0
+  resolution: "mute-stream@npm:1.0.0"
+  checksum: e011979fe55ee4ee9b8f3e5cead12c978cb50ad1f812688e3c048b7d82d24700231996c7a9feded7de7227398e5b74638d5f975ad74c7eba70caa84e44289e5f
   languageName: node
   linkType: hard
 
@@ -13701,12 +13694,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:^7.2.0, rxjs@npm:^7.5.7":
+"rxjs@npm:^7.2.0":
   version: 7.8.0
   resolution: "rxjs@npm:7.8.0"
   dependencies:
     tslib: "npm:^2.1.0"
   checksum: 56dfebbd1f868935809688075a33d940954a66ddec9ea3b92cc7031e50fc4040e9962416d5ca009b9da9e1edda6ff4f1fc3155786e7e521ec6eb3100e30f0317
+  languageName: node
+  linkType: hard
+
+"rxjs@npm:^7.8.0":
+  version: 7.8.1
+  resolution: "rxjs@npm:7.8.1"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  checksum: d7daafba4296c4360b19bdff02d24e2f8acc7731605b0d99a0c920373d0af995bcb6b3c58c211e02db50aabddd9e854250a195f87ed193b56e79f245494774f5
   languageName: node
   linkType: hard
 
@@ -13760,7 +13762,7 @@ __metadata:
     execa: "npm:^7.1.1"
     globby: "npm:^13.1.3"
     got: "npm:^12.6.0"
-    inquirer: "npm:^9.1.4"
+    inquirer: "npm:^9.2.0"
     lodash-es: "npm:^4.17.21"
     minimist: "npm:^1.2.8"
     ora: "npm:^6.1.2"
@@ -15569,7 +15571,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrap-ansi@npm:^8.0.1":
+"wrap-ansi@npm:^8.1.0":
   version: 8.1.0
   resolution: "wrap-ansi@npm:8.1.0"
   dependencies:
