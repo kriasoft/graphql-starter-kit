@@ -2275,7 +2275,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/busboy@npm:^1.1.0":
+"@fastify/busboy@npm:^1.2.1":
   version: 1.2.1
   resolution: "@fastify/busboy@npm:1.2.1"
   dependencies:
@@ -2456,7 +2456,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@firebase/database-compat@npm:0.3.4, @firebase/database-compat@npm:^0.3.0":
+"@firebase/database-compat@npm:0.3.4, @firebase/database-compat@npm:^0.3.4":
   version: 0.3.4
   resolution: "@firebase/database-compat@npm:0.3.4"
   dependencies:
@@ -2470,7 +2470,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@firebase/database-types@npm:0.10.4, @firebase/database-types@npm:^0.10.0":
+"@firebase/database-types@npm:0.10.4, @firebase/database-types@npm:^0.10.4":
   version: 0.10.4
   resolution: "@firebase/database-types@npm:0.10.4"
   dependencies:
@@ -2798,7 +2798,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@google-cloud/firestore@npm:^6.4.0":
+"@google-cloud/firestore@npm:^6.5.0":
   version: 6.5.0
   resolution: "@google-cloud/firestore@npm:6.5.0"
   dependencies:
@@ -2898,7 +2898,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@google-cloud/storage@npm:^6.10.0":
+"@google-cloud/storage@npm:^6.10.0, @google-cloud/storage@npm:^6.9.5":
   version: 6.10.0
   resolution: "@google-cloud/storage@npm:6.10.0"
   dependencies:
@@ -2920,31 +2920,6 @@ __metadata:
     teeny-request: "npm:^8.0.0"
     uuid: "npm:^8.0.0"
   checksum: 6526a04366de9033166c940c0e9bd65b7b93ee15802f99d5e6953c0ee3d8bee66d3395d99de44940c36020828b8cdf2663a548316a4c5599ce6d1f51e83c7b2b
-  languageName: node
-  linkType: hard
-
-"@google-cloud/storage@npm:^6.5.2":
-  version: 6.9.4
-  resolution: "@google-cloud/storage@npm:6.9.4"
-  dependencies:
-    "@google-cloud/paginator": "npm:^3.0.7"
-    "@google-cloud/projectify": "npm:^3.0.0"
-    "@google-cloud/promisify": "npm:^3.0.0"
-    abort-controller: "npm:^3.0.0"
-    async-retry: "npm:^1.3.3"
-    compressible: "npm:^2.0.12"
-    duplexify: "npm:^4.0.0"
-    ent: "npm:^2.2.0"
-    extend: "npm:^3.0.2"
-    gaxios: "npm:^5.0.0"
-    google-auth-library: "npm:^8.0.1"
-    mime: "npm:^3.0.0"
-    mime-types: "npm:^2.0.8"
-    p-limit: "npm:^3.0.1"
-    retry-request: "npm:^5.0.0"
-    teeny-request: "npm:^8.0.0"
-    uuid: "npm:^8.0.0"
-  checksum: f4abe9e6ef9937cab7060acbaa7a7e8cb01c8639c2f1706b54504c12b1fd8b375ba99dec247ad6b394c0b11eafb934d03131bab93b902bdb59a22f6e678a50b7
   languageName: node
   linkType: hard
 
@@ -5588,7 +5563,7 @@ __metadata:
     execa: "npm:^7.1.1"
     express: "npm:^4.18.2"
     express-handlebars: "npm:^7.0.7"
-    firebase-admin: "npm:^11.5.0"
+    firebase-admin: "npm:^11.7.0"
     gm: "npm:^1.25.0"
     google-auth-library: "npm:^8.7.0"
     got: "npm:^12.6.0"
@@ -8590,15 +8565,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"firebase-admin@npm:^11.5.0":
-  version: 11.5.0
-  resolution: "firebase-admin@npm:11.5.0"
+"firebase-admin@npm:^11.7.0":
+  version: 11.7.0
+  resolution: "firebase-admin@npm:11.7.0"
   dependencies:
-    "@fastify/busboy": "npm:^1.1.0"
-    "@firebase/database-compat": "npm:^0.3.0"
-    "@firebase/database-types": "npm:^0.10.0"
-    "@google-cloud/firestore": "npm:^6.4.0"
-    "@google-cloud/storage": "npm:^6.5.2"
+    "@fastify/busboy": "npm:^1.2.1"
+    "@firebase/database-compat": "npm:^0.3.4"
+    "@firebase/database-types": "npm:^0.10.4"
+    "@google-cloud/firestore": "npm:^6.5.0"
+    "@google-cloud/storage": "npm:^6.9.5"
     "@types/node": "npm:>=12.12.47"
     jsonwebtoken: "npm:^9.0.0"
     jwks-rsa: "npm:^3.0.1"
@@ -8609,7 +8584,7 @@ __metadata:
       optional: true
     "@google-cloud/storage":
       optional: true
-  checksum: 8ae2899b225a7932a979f5b12b7c3ee4d012e6be857cc1bd1a56e676bc76d11c3e87f7ca757bd9531b2ff77cf68fa403d3add7ca70a75998995d23474f0f46df
+  checksum: 6f0199ac08f567d0ebdf10bcd404eabae24814912e996ce751db56da54229d8b16bdba816619d27e9c56c389fc696dba493009e5106b276a9bcc998c01f8bc79
   languageName: node
   linkType: hard
 
