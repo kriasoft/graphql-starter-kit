@@ -12,7 +12,7 @@
     "edge:cf": "node ../scripts/wrangler.js"
   },
   "dependencies": {
-    "@hono/zod-validator": "^0.0.6",
+    "@hono/zod-validator": "^0.1.2",
     "hono": "^3.0.3",
     "jose": "^4.13.1",
     "web-auth-library": "^1.0.3",

@@ -3292,13 +3292,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hono/zod-validator@npm:^0.0.6":
-  version: 0.0.6
-  resolution: "@hono/zod-validator@npm:0.0.6"
+"@hono/zod-validator@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "@hono/zod-validator@npm:0.1.2"
   peerDependencies:
     hono: 3.*
     zod: ^3.19.1
-  checksum: b806751713410a90ee454ffeca684b0974f93f96a1125107771491e8f1b4287cb91a463a7fccd4c053657a74deefe9402655ac9f12690dd465cb6e4757afeec1
+  checksum: da15537f27d308f7660f0ed2f40b46603c47fbe6039016e08622dc1b060329e75c698a5a1c5dcb7ca2b358a74c47ea7254b14c13f6206666bd5834150974b8a3
   languageName: node
   linkType: hard
 
@@ -7396,7 +7396,7 @@ __metadata:
   resolution: "edge@workspace:edge"
   dependencies:
     "@cloudflare/workers-types": "npm:^4.20230307.0"
-    "@hono/zod-validator": "npm:^0.0.6"
+    "@hono/zod-validator": "npm:^0.1.2"
     "@types/node": "npm:^18.14.6"
     hono: "npm:^3.0.3"
     jose: "npm:^4.13.1"
