@@ -27,7 +27,7 @@
     "@faker-js/faker": "^7.6.0",
     "@jest/types": "^29.5.0",
     "@types/cross-spawn": "^6.0.2",
-    "@types/lodash": "^4.14.191",
+    "@types/lodash": "^4.14.194",
     "@types/minimist": "^1.2.2",
     "@types/prettier": "^2.7.2",
     "chalk": "^5.2.0",
@@ -39,14 +39,14 @@
     "knex-types": "^0.5.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.8",
-    "nanoid": "^4.0.1",
+    "nanoid": "^4.0.2",
     "nanospinner": "^1.1.0",
     "ora": "^6.3.0",
     "pg": "^8.10.0",
     "prettier": "^2.8.8",
-    "ts-import": "^4.0.0-beta.10",
+    "ts-import": "^5.0.0-beta.0",
     "ts-node": "^10.9.1",
-    "zx": "^7.2.0"
+    "zx": "^7.2.2"
   },
   "envars": {
     "cwd": "../env"
