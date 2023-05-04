@@ -67,7 +67,7 @@
     "knex-types": "^0.5.0",
     "supertest": "^6.3.3",
     "typescript": "^5.0.4",
-    "vite": "^4.1.4",
+    "vite": "^4.3.4",
     "vite-plugin-node": "^3.0.2"
   },
   "envars": {
