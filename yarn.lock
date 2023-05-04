@@ -5565,7 +5565,7 @@ __metadata:
     express-handlebars: "npm:^7.0.7"
     firebase-admin: "npm:^11.7.0"
     gm: "npm:^1.25.0"
-    google-auth-library: "npm:^8.7.0"
+    google-auth-library: "npm:^8.8.0"
     got: "npm:^12.6.0"
     graphql: "npm:^16.6.0"
     graphql-helix: "npm:^1.13.0"
@@ -8865,7 +8865,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gcp-metadata@npm:^5.0.0":
+"gcp-metadata@npm:^5.0.0, gcp-metadata@npm:^5.2.0":
   version: 5.2.0
   resolution: "gcp-metadata@npm:5.2.0"
   dependencies:
@@ -9064,6 +9064,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"globby@npm:^13.1.4":
+  version: 13.1.4
+  resolution: "globby@npm:13.1.4"
+  dependencies:
+    dir-glob: "npm:^3.0.1"
+    fast-glob: "npm:^3.2.11"
+    ignore: "npm:^5.2.0"
+    merge2: "npm:^1.4.1"
+    slash: "npm:^4.0.0"
+  checksum: 3e433409da6b65206694b0d3fec692f42b9eb9a1d1406851a1237508e6dd12a4e70c3ba3d7b6b26a8c8e71aab6a84e648fca6b955abc18dd37341a44ac341567
+  languageName: node
+  linkType: hard
+
 "globrex@npm:^0.1.2":
   version: 0.1.2
   resolution: "globrex@npm:0.1.2"
@@ -9109,7 +9122,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"google-auth-library@npm:^8.0.1, google-auth-library@npm:^8.0.2, google-auth-library@npm:^8.7.0":
+"google-auth-library@npm:^8.0.1, google-auth-library@npm:^8.0.2":
   version: 8.7.0
   resolution: "google-auth-library@npm:8.7.0"
   dependencies:
@@ -9123,6 +9136,23 @@ __metadata:
     jws: "npm:^4.0.0"
     lru-cache: "npm:^6.0.0"
   checksum: 2da7227065a509f41145c90f365a979c9fb07487da984bdb2b1ead975decff3ae1779d9e35fe6ee581d2d1b01c8ec3e60e80e14bb04b9f0191b1323e002cf231
+  languageName: node
+  linkType: hard
+
+"google-auth-library@npm:^8.8.0":
+  version: 8.8.0
+  resolution: "google-auth-library@npm:8.8.0"
+  dependencies:
+    arrify: "npm:^2.0.0"
+    base64-js: "npm:^1.3.0"
+    ecdsa-sig-formatter: "npm:^1.0.11"
+    fast-text-encoding: "npm:^1.0.0"
+    gaxios: "npm:^5.0.0"
+    gcp-metadata: "npm:^5.2.0"
+    gtoken: "npm:^6.1.0"
+    jws: "npm:^4.0.0"
+    lru-cache: "npm:^6.0.0"
+  checksum: 0f7458052be472ddf7fd2a9b17bc557ee934cc542311fd65d1b360d7a157c64c9d3a41728705c40fb574fd5c4dc899d8612a3f4f47bd5b3fe4d0c14c5e048d66
   languageName: node
   linkType: hard
 
@@ -13810,7 +13840,7 @@ __metadata:
     dotenv: "npm:^16.0.3"
     envars: "npm:^0.4.0"
     execa: "npm:^7.1.1"
-    globby: "npm:^13.1.3"
+    globby: "npm:^13.1.4"
     got: "npm:^12.6.0"
     inquirer: "npm:^9.2.0"
     lodash-es: "npm:^4.17.21"

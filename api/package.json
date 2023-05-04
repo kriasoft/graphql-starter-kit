@@ -27,7 +27,7 @@
     "express-handlebars": "^7.0.7",
     "firebase-admin": "^11.7.0",
     "gm": "^1.25.0",
-    "google-auth-library": "^8.7.0",
+    "google-auth-library": "^8.8.0",
     "got": "^12.6.0",
     "graphql": "^16.6.0",
     "graphql-helix": "^1.13.0",
