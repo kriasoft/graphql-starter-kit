@@ -5577,7 +5577,7 @@ __metadata:
     knex: "npm:^2.4.2"
     knex-types: "npm:^0.5.0"
     lodash-es: "npm:^4.17.21"
-    lru-cache: "npm:^7.18.3"
+    lru-cache: "npm:^9.1.1"
     minimist: "npm:^1.2.8"
     nanoid: "npm:^4.0.1"
     pg: "npm:^8.10.0"
@@ -11356,14 +11356,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^7.18.3, lru-cache@npm:^7.7.1":
+"lru-cache@npm:^7.7.1":
   version: 7.18.3
   resolution: "lru-cache@npm:7.18.3"
   checksum: 884c7cb51963cc45bc0d864c704d141c904c93db1bbc236be0eed759e35fc44b5e794a34b0666e193926e5a4320b66e787b1cf531f4f89ed8514a97156f07cb1
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^9.0.0":
+"lru-cache@npm:^9.0.0, lru-cache@npm:^9.1.1":
   version: 9.1.1
   resolution: "lru-cache@npm:9.1.1"
   checksum: 38c35791c90181b6810cbcd03f3808f335d4d9602fa86591b729dea72d7fb67e91765f97f94fa8af5dbe9b04f8e0e41f62223fd7249163c37354442bb26c8a61

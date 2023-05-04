@@ -4,10 +4,10 @@
 import { NextFunction, Request, Response } from "express";
 import { DecodedIdToken, getAuth } from "firebase-admin/auth";
 import { Unauthorized } from "http-errors";
-import { default as LRU } from "lru-cache";
-import { db, log, User } from "./index.js";
+import { LRUCache } from "lru-cache";
+import { User, db, log } from "./index.js";
 
-const tokensCache = new LRU<string, DecodedIdToken | null>({
+const tokensCache = new LRUCache<string, DecodedIdToken>({
   ttl: 1000 * 60,
   max: 10000,
   allowStale: true,
@@ -16,7 +16,7 @@ const tokensCache = new LRU<string, DecodedIdToken | null>({
       .verifyIdToken(idToken, staleValue === undefined ? false : true)
       .catch((err) => {
         console.error(err);
-        return null;
+        return {} as DecodedIdToken;
       });
   },
 });
@@ -52,7 +52,7 @@ export async function session(req: Request, res: Response, next: NextFunction) {
       // Verify if the ID token is valid
       const token = await tokensCache.fetch(idToken);
 
-      if (!token) {
+      if (!token?.uid) {
         throw new Unauthorized();
       }
 
