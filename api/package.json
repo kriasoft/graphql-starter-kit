@@ -35,7 +35,7 @@
     "handlebars": "^4.7.7",
     "http-errors": "^2.0.0",
     "image-size": "^1.0.2",
-    "jose": "^4.13.1",
+    "jose": "^4.14.4",
     "knex": "^2.4.2",
     "lodash-es": "^4.17.21",
     "lru-cache": "^7.18.3",

@@ -5573,7 +5573,7 @@ __metadata:
     handlebars: "npm:^4.7.7"
     http-errors: "npm:^2.0.0"
     image-size: "npm:^1.0.2"
-    jose: "npm:^4.13.1"
+    jose: "npm:^4.14.4"
     knex: "npm:^2.4.2"
     knex-types: "npm:^0.5.0"
     lodash-es: "npm:^4.17.21"
@@ -7395,7 +7395,7 @@ __metadata:
     "@hono/zod-validator": "npm:^0.1.2"
     "@types/node": "npm:^18.14.6"
     hono: "npm:^3.0.3"
-    jose: "npm:^4.13.1"
+    jose: "npm:^4.14.4"
     toml: "npm:^3.0.0"
     typescript: "npm:^4.9.5"
     vite: "npm:^4.1.4"
@@ -10754,10 +10754,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jose@npm:>= 4.12.0 < 5.0.0, jose@npm:^4.10.4, jose@npm:^4.13.1":
+"jose@npm:>= 4.12.0 < 5.0.0, jose@npm:^4.10.4":
   version: 4.13.1
   resolution: "jose@npm:4.13.1"
   checksum: 9f71534baee6f0159074b02a4116529e500e8bcd66b33ba4596e914ad85e5a51101cfe5df0aa8d5a9e466db40eaefc6d93f50d373a73b78a62c2df93ba801c82
+  languageName: node
+  linkType: hard
+
+"jose@npm:^4.14.4":
+  version: 4.14.4
+  resolution: "jose@npm:4.14.4"
+  checksum: 134a0432ea92fd589194007589db5f5b0b0c8aedcca01841c82267f392f87fde6c4af845235e7f4596d27682b38c0e60f209b65719cd509d38e63e1f0ab3c599
   languageName: node
   linkType: hard
 
