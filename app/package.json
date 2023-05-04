@@ -28,7 +28,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-relay": "15.0.0",
-    "react-router-dom": "^6.8.2",
+    "react-router-dom": "^6.11.1",
     "recoil": "^0.7.7",
     "relay-runtime": "^15.0.0"
   },
