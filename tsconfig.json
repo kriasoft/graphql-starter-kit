@@ -1,9 +1,4 @@
 {
   "files": [],
-  "references": [
-    { "path": "./api" },
-    { "path": "./app" },
-    { "path": "./db" },
-    { "path": "./edge" }
-  ]
+  "references": [{ "path": "./api" }, { "path": "./app" }, { "path": "./edge" }]
 }

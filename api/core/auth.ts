@@ -3,10 +3,10 @@
 
 import { getAuth } from "firebase-admin/auth";
 import { got } from "got";
-import { default as LRU } from "lru-cache";
+import { LRUCache } from "lru-cache";
 import env from "../env.js";
 
-const cache = new LRU<string, IdTokenResponse>({
+const cache = new LRUCache<string, IdTokenResponse>({
   ttl: 3.3e6 /* 55 minutes */,
   max: 10000,
 });

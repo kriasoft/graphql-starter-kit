@@ -68,12 +68,6 @@ module.exports = {
         node: false,
       },
     },
-    {
-      files: ["db/**/*.js"],
-      parserOptions: {
-        sourceType: "script",
-      },
-    },
   ],
 
   ignorePatterns: [

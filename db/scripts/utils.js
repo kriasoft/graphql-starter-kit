@@ -3,9 +3,10 @@
 
 /**
  * Extracts the [--env #] flag from the CLI arguments
+ * @returns {[envName: string, argv: string[]]}
  */
-export function getArgs(): [envName: string, argv: string[]] {
-  const argv = process.argv.slice(2);
+export function getArgs() {
+  const argv = process.argv.slice(3);
   let envName = "local";
 
   argv.forEach((val, i) => {

@@ -1,15 +1,21 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { spawn } from "cross-spawn";
-import envars from "envars";
-import { knex, type Knex } from "knex";
+import { execa } from "execa";
+import knex from "knex";
 import minimist from "minimist";
 import { createSpinner } from "nanospinner";
 import fs from "node:fs";
 import path from "node:path";
-import config from "../knexfile";
-import updateTypes from "./update-types";
+import config from "../knexfile.js";
+import updateTypes from "./update-types.js";
+
+/**
+ * Resets database to its initial state. Usage:
+ *
+ *   yarn db:reset [--env #0]
+ *   yarn db:reset [--env #0] [--no-seed]
+ */
 
 // Parse the command line arguments
 const args = minimist(process.argv.slice(2), {
@@ -22,26 +28,21 @@ const args = minimist(process.argv.slice(2), {
   },
 });
 
-// Load environment variables (PGHOST, PGUSER, etc.)
-envars.config({ env: args.env });
+if (typeof config.connection === "function") {
+  await config.connection();
+}
 
-let db: Knex;
-const PGHOST: string = process.env.PGHOST as string;
-const PGUSER: string = process.env.PGUSER as string;
-const PGDATABASE: string = process.env.PGDATABASE as string;
+let db = knex(config);
+
+const PGHOST = process.env.PGHOST ?? "";
+const PGUSER = process.env.PGUSER ?? "";
+const PGDATABASE = process.env.PGDATABASE ?? "";
 const schema = config.migrations?.schemaName ?? "public";
 const role = PGHOST === "localhost" ? "postgres" : "cloudsqlsuperuser";
 
-/**
- * Resets database to its initial state. Usage:
- *
- *   yarn db:reset [--env #0]
- *   yarn db:reset [--env #0] [--no-seed]
- */
-async function reset() {
+try {
   // Ensure that the target database exists
   process.env.PGDATABASE = "template1";
-  db = knex(config);
   let cmd = db.raw(`CREATE DATABASE ?? WITH OWNER ??`, [PGDATABASE, PGUSER]);
   let spinner = createSpinner(cmd.toSQL().sql).start();
   await cmd
@@ -65,7 +66,7 @@ async function reset() {
       FROM pg_stat_activity
       WHERE pg_stat_activity.datname = ?
       AND pid <> pg_backend_pid()`,
-    [PGDATABASE as string],
+    [PGDATABASE],
   );
 
   cmd = db.raw(`DROP SCHEMA ?? CASCADE`, [schema]);
@@ -104,18 +105,16 @@ async function reset() {
       );
     }
 
-    await new Promise<void>((resolve, reject) => {
-      spawn(
-        "psql",
-        [
-          "--file",
-          path.resolve(__dirname, `../backups/${file}`),
-          "--echo-errors",
-          "--no-readline",
-        ],
-        { stdio: "inherit" },
-      ).on("exit", (code) => (code === 0 ? resolve() : reject()));
-    });
+    await execa(
+      "psql",
+      [
+        "--file",
+        path.resolve(__dirname, `../backups/${file}`),
+        "--echo-errors",
+        "--no-readline",
+      ],
+      { stdio: "inherit" },
+    );
 
     spinner.success();
   }
@@ -132,11 +131,6 @@ async function reset() {
     spinner = createSpinner("Update TypeScript definitions").start();
     await updateTypes().then(() => spinner.success());
   }
+} finally {
+  db.destroy();
 }
-
-reset()
-  .finally(() => db?.destroy())
-  .catch((err) => {
-    if (err) console.error(err);
-    process.exitCode = 1;
-  });

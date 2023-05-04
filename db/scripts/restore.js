@@ -7,22 +7,23 @@
  *   $ yarn db:restore [--env #0] [--from #0]
  */
 
-import { greenBright } from "chalk";
-import { spawn } from "cross-spawn";
+import chalk from "chalk";
 import envars from "envars";
+import { execa } from "execa";
 import minimist from "minimist";
 import fs from "node:fs";
 import path from "node:path";
+import { getArgs } from "./utils.js";
 
 // Parse CLI arguments
-const args: string[] = [];
-const { env, from } = minimist(process.argv.slice(2), {
-  string: ["env", "from"],
+const [envName, args] = getArgs();
+const { from } = minimist(args.splice(0), {
+  string: ["from"],
   unknown: (arg) => !args.push(arg),
 });
 
 // Load environment variables (PGHOST, PGUSER, etc.)
-envars.config({ env });
+envars.config({ env: envName });
 
 const { APP_ENV, PGDATABASE } = process.env;
 const fromEnv = from || APP_ENV;
@@ -40,12 +41,12 @@ if (!file) {
 }
 
 console.log(
-  `Restoring ${greenBright(file)} to ${greenBright(
+  `Restoring ${chalk.greenBright(file)} to ${chalk.greenBright(
     PGDATABASE,
   )} (${APP_ENV})...`,
 );
 
-spawn(
+await execa(
   "psql",
   [
     "--file",
@@ -55,4 +56,4 @@ spawn(
     ...args,
   ],
   { stdio: "inherit" },
-).on("exit", process.exit);
+);

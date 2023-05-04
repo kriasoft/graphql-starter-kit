@@ -1,40 +1,39 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { greenBright } from "chalk";
+import chalk from "chalk";
 import envars from "envars";
-import { knex } from "knex";
+import knex from "knex";
 import { createSpinner } from "nanospinner";
 import { basename } from "node:path";
-import { load } from "ts-import";
-import { getArgs } from "./utils";
+import config from "../knexfile.js";
+import { getArgs } from "./utils.js";
 
 /**
  * Bootstraps a new PostgreSQL database if it doesn't exist.
  *
  *   $ yarn db:create [--env #0]
+ * @param {{ silent?: boolean}} options
  */
-export async function createDatabase(options: Options = {}) {
-  const PGUSER = process.env.PGUSER as string;
-  const PGDATABASE = process.env.PGDATABASE as string;
+export async function createDatabase(options = {}) {
+  const PGUSER = process.env.PGUSER ?? "";
+  const PGDATABASE = process.env.PGDATABASE ?? "";
 
-  const spinner = createSpinner(`Create database: ${PGDATABASE}`);
+  const spinner = createSpinner(
+    `Create database: ${chalk.greenBright(PGDATABASE)}`,
+  );
 
   if (options.silent !== true) spinner.start();
 
-  const { default: config } = await load("../api/core/db-config.ts");
-  const schema: string = (config.searchPath as string) || "public";
-
   let db = knex(config);
+  const schema = config.searchPath || "public";
 
   try {
     await db.select(db.raw("current_database()"));
     if (options.silent !== true) spinner.stop();
   } catch (err) {
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-    if ((err as any).code !== "3D000" /* database does not exist */) throw err;
+    if (err.code !== "3D000" /* database does not exist */) throw err;
 
-    console.log(`Creating ${greenBright(PGDATABASE)} database.`);
     await db.destroy();
 
     process.env.PGDATABASE = "template1";
@@ -56,7 +55,7 @@ export async function createDatabase(options: Options = {}) {
   }
 }
 
-if (basename(process.argv[1]) === "create.ts") {
+if (basename(__filename) === "create.js") {
   // Load environment variables (PGHOST, PGUSER, etc.)
   const [envName] = getArgs();
   envars.config({ env: envName });
@@ -66,7 +65,3 @@ if (basename(process.argv[1]) === "create.ts") {
     process.exitCode = 1;
   });
 }
-
-type Options = {
-  silent?: true;
-};
