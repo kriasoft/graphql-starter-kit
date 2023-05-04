@@ -14,7 +14,7 @@
   "dependencies": {
     "@babel/core": "^7.21.8",
     "@babel/register": "^7.21.0",
-    "@google-cloud/storage": "^6.9.4",
+    "@google-cloud/storage": "^6.10.0",
     "@octokit/rest": "^19.0.7",
     "@types/cross-spawn": "^6.0.2",
     "api": "workspace:*",
