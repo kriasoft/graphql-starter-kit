@@ -21,7 +21,7 @@ type Root {
   me: User
 
   """Fetches a user account by username or email."""
-  user(username: String, email: String): User
+  user(email: String): User
 
   """Fetches user accounts."""
   users(
@@ -43,13 +43,11 @@ interface Node {
 type User implements Node {
   """The ID of an object"""
   id: ID!
-  username: String!
   email: String
   emailVerified: Boolean
-  name: String
+  displayName: String
   picture: Picture!
-  timeZone: String
-  locale: String
+  disabled: Boolean!
   created(format: String): String
   updated(format: String): String
   lastLogin(format: String): String
