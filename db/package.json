@@ -27,7 +27,7 @@
     "db:psql": "yarn zx ./scripts/psql.js"
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0",
+    "@faker-js/faker": "^8.0.1",
     "@jest/types": "^29.5.0",
     "@types/minimist": "^1.2.2",
     "@types/prettier": "^2.7.2",
