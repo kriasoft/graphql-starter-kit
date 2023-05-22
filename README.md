@@ -11,7 +11,7 @@
 
 ## Features
 
-- [Monorepo](https://monorepo.tools/) project structure powered by [Yarn](https://yarnpkg.com/) with [PnP](https://yarnpkg.com/features/pnp)
+- [Monorepo](https://yarnpkg.com/features/workspaces) project structure powered by [Yarn](https://yarnpkg.com/) with [PnP](https://yarnpkg.com/features/pnp)
 - [GraphQL API](https://graphql.org/) using code-first development approach ([TypeScript](https://www.typescriptlang.org/), [GraphQL.js](https://github.com/graphql/graphql-js), [Google Cloud SQL](https://cloud.google.com/sql))
 - Authentication and authorization powered by [Google Identity Platform](https://cloud.google.com/identity-platform)
 - Database tooling — seed files, migrations, [Knex.js](https://knexjs.org/) REPL shell, etc.

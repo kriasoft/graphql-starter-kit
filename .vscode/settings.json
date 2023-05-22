@@ -13,7 +13,7 @@
   "jest.jestCommandLine": "yarn jest",
   "jestrunner.jestCommand": "yarn jest",
   "jestrunner.enableYarnPnpSupport": true,
-  "jestrunner.yarnPnpCommand": "yarn-4.0.0-rc.43.cjs",
+  "jestrunner.yarnPnpCommand": "yarn-4.0.0-rc.44.cjs",
   "files.associations": {
     ".terraformrc": "terraform"
   },
