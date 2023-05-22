@@ -21,9 +21,14 @@ test("GET /echo", async () => {
   expect({ status: res.status, body }).toEqual({
     status: 200,
     body: {
+      method: "GET",
+      url: "https://localhost/echo",
       headers: {
         "content-type": "application/json",
       },
+      env: expect.objectContaining({
+        APP_HOSTNAME: "localhost",
+      }),
     },
   });
 });

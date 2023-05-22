@@ -3,8 +3,8 @@
 
 import react from "@vitejs/plugin-react";
 import envars from "envars";
-import { defineConfig } from "vite";
 import relay from "vite-plugin-relay";
+import { defineProject } from "vitest/config";
 
 // Load environment variables for the target environment
 envars.config();
@@ -26,7 +26,7 @@ envars.config();
  * Vite configuration
  * https://vitejs.dev/config/
  */
-export default defineConfig({
+export default defineProject({
   cacheDir: `../.cache/vite-app`,
 
   build: {
@@ -60,5 +60,10 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+  },
+
+  test: {
+    ...{ cache: { dir: "../.cache/vitest" } },
+    environment: "happy-dom",
   },
 });

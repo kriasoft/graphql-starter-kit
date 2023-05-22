@@ -56,12 +56,6 @@ module.exports = {
       },
     },
     {
-      files: ["*.test.js", "*.test.ts", "*.test.tsx"],
-      env: {
-        jest: true,
-      },
-    },
-    {
       files: ["proxy/**/*.ts"],
       env: {
         worker: true,

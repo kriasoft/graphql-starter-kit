@@ -5,10 +5,9 @@ import type { ErrorRequestHandler } from "express";
 import express from "express";
 import { getAuth } from "firebase-admin/auth";
 import request from "supertest";
+import { afterAll, beforeAll, expect, test } from "vitest";
 import { createIdToken } from "./auth.js";
 import { session } from "./session.js";
-
-jest.setTimeout(30000);
 
 const uid = "test-bulqp";
 const app = express();

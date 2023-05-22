@@ -5,14 +5,13 @@
     "eamodio.gitlens",
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
-    "firsttris.vscode-jest-runner",
     "github.copilot",
     "graphql.vscode-graphql",
     "hashicorp.terraform",
     "mgmcdermott.vscode-language-babel",
     "mikestead.dotenv",
-    "orta.vscode-jest",
     "streetsidesoftware.code-spell-checker",
-    "vscode-icons-team.vscode-icons"
+    "vscode-icons-team.vscode-icons",
+    "ZixuanChen.vitest-explorer"
   ]
 }

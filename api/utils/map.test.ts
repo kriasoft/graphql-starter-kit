@@ -1,6 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
+import { expect, test } from "vitest";
 import { mapTo, mapToMany, mapToManyValues, mapToValues } from "./map.js";
 
 test("mapTo()", () => {

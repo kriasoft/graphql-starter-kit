@@ -2,15 +2,10 @@
 /* SPDX-License-Identifier: MIT */
 
 import { cert, getApps, initializeApp } from "firebase-admin/app";
-import { readFileSync } from "node:fs";
-import { dirname } from "node:path";
-
-// Set the current working directory (CWD)
-process.chdir(dirname(__dirname));
 
 // Load Google Cloud credentials
-const credentialsFile = process.env.GOOGLE_APPLICATION_CREDENTIALS ?? "";
-const credentials = JSON.parse(readFileSync(credentialsFile, "utf8"));
+// Load Google Cloud credentials
+const credentials = JSON.parse(process.env.GOOGLE_CLOUD_CREDENTIALS ?? "{}");
 
 // Initialize Firebase Admin SDK
 if (getApps().length === 0) {
