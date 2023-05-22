@@ -47,7 +47,7 @@
     "relay-compiler": "^15.0.0",
     "relay-config": "^12.0.1",
     "typescript": "^5.0.4",
-    "vite": "^4.3.4",
+    "vite": "^4.3.8",
     "vite-plugin-relay": "^2.0.0"
   },
   "envars": {
