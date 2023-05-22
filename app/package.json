@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.21.5",
-    "@emotion/react": "^11.10.8",
-    "@emotion/styled": "^11.10.8",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/lab": "^5.0.0-alpha.129",
     "@mui/material": "^5.12.3",
@@ -33,7 +33,7 @@
     "relay-runtime": "^15.0.0"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "^11.10.8",
+    "@emotion/babel-plugin": "^11.11.0",
     "@jest/types": "^29.5.0",
     "@types/node": "^18.16.3",
     "@types/react": "^18.2.4",
