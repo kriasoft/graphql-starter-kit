@@ -14,6 +14,7 @@ import {
   shouldRenderGraphiQL,
 } from "./core/helix.js";
 import { Context, log } from "./core/index.js";
+import env from "./env.js";
 import schema from "./schema.js";
 
 // Customize GraphQL error serialization
@@ -42,7 +43,11 @@ GraphQLError.prototype.toJSON = ((serialize) =>
 async function handleGraphQL(req: Request, res: Response, next: NextFunction) {
   try {
     if (shouldRenderGraphiQL(req)) {
-      res.send(renderGraphiQL({ endpoint: "/api" }));
+      res.send(
+        renderGraphiQL({
+          endpoint: "/api",
+        }).replace("</body>", `${authScript}\n</body>`),
+      );
     } else {
       const params = getGraphQLParameters(req);
       const result = await processRequest<Context>({
@@ -73,5 +78,34 @@ function updateSchema(): Promise<void> {
   const output = printSchema(schema);
   return fs.writeFile("./schema.graphql", output, { encoding: "utf-8" });
 }
+
+const authScript = `
+    <script type="module">
+      import { initializeApp, getApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+      import { getAuth } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+
+      const app = initializeApp({
+        projectId: "${env.GOOGLE_CLOUD_PROJECT}",
+        appId: "${env.FIREBASE_APP_ID}",
+        apiKey: "${env.FIREBASE_API_KEY}",
+        authDomain: "${env.FIREBASE_AUTH_DOMAIN}"
+      });
+
+      function setAuthHeader(token) {
+        const editor = document.querySelectorAll('.variable-editor .CodeMirror')[1].CodeMirror;
+        const headers = JSON.parse(editor.getValue());
+        headers.Authorization = token ? "Bearer " + token : undefined;
+        editor.setValue(JSON.stringify(headers, null, 2));
+      }
+
+      getAuth(app).onAuthStateChanged((user) => {
+        if (user) {
+          user.getIdToken().then(token => setAuthHeader(token));
+        } else {
+          setAuthHeader(null);
+        }
+      });
+    </script>
+`;
 
 export { handleGraphQL, updateSchema };
