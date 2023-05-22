@@ -7,7 +7,7 @@
     "build": "vite build",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "deploy": "node ../scripts/wrangler.js publish",
+    "deploy": "node ../scripts/wrangler.js deploy",
     "wrangler": "node ../scripts/wrangler.js",
     "edge:cf": "node ../scripts/wrangler.js"
   },
@@ -19,7 +19,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230419.0",
+    "@cloudflare/workers-types": "^4.20230518.0",
     "@types/node": "^18.16.3",
     "toml": "^3.0.0",
     "typescript": "^5.0.4",

@@ -31,7 +31,7 @@
     "toml": "^3.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
-    "wrangler": "^2.19.0",
+    "wrangler": "^3.0.0",
     "zx": "^7.2.2"
   },
   "envars": {
