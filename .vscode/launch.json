@@ -6,38 +6,34 @@
   "configurations": [
     {
       "name": "api:start",
-      "program": "${workspaceFolder}/app.js",
       "request": "launch",
       "runtimeExecutable": "yarn",
-      "runtimeArgs": ["api:start"],
+      "runtimeArgs": ["workspace", "api", "run", "vite"],
       "skipFiles": ["<node_internals>/**"],
-      "type": "pwa-node"
+      "type": "node"
     },
     {
-      "name": "Build Web",
+      "name": "app:start",
       "request": "launch",
-      "runtimeArgs": [
-        "run",
-        "webpack",
-        "build",
-        "--mode",
-        "development",
-        "--profile",
-        "--json",
-        "${workspaceFolder}/dist/web.json"
-      ],
       "runtimeExecutable": "yarn",
+      "runtimeArgs": ["workspace", "app", "run", "vite"],
       "skipFiles": ["<node_internals>/**"],
-      "type": "pwa-node",
-      "cwd": "${workspaceFolder}/web"
+      "type": "node"
+    },
+    {
+      "name": "edge:start",
+      "request": "launch",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["workspace", "edge", "run", "vite"],
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
     },
     {
       "type": "node",
       "request": "attach",
       "name": "Attach to Node.js",
       "processId": "${command:PickProcess}",
-      "restart": true,
-      "protocol": "inspector"
+      "restart": true
     }
   ]
 }
