@@ -98,7 +98,7 @@ const authScript = `
         editor.setValue(JSON.stringify(headers, null, 2));
       }
 
-      getAuth(app).onAuthStateChanged((user) => {
+      getAuth(app).onIdTokenChanged((user) => {
         if (user) {
           user.getIdToken().then(token => setAuthHeader(token));
         } else {
