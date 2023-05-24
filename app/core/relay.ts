@@ -1,8 +1,8 @@
 /* SPDX-FileCopyrightText: 2014-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { getAuth } from "firebase/auth";
 import { Environment, Network, RecordSource, Store } from "relay-runtime";
+import { getIdToken } from "./auth.js";
 
 /**
  * Initializes a new instance of Relay environment.
@@ -12,12 +12,11 @@ export function createRelay(): Environment {
   // Configure a network layer that fetches data from the GraphQL API
   // https://relay.dev/docs/guides/network-layer/
   const network = Network.create(async function fetchFn(operation, variables) {
-    const auth = getAuth();
     const headers = new Headers({ ["Content-Type"]: "application/json" });
+    const idToken = await getIdToken();
 
     // When the user is authenticated append the ID token to the request
-    if (auth.currentUser) {
-      const idToken = await auth.currentUser.getIdToken();
+    if (idToken) {
       headers.set("Authorization", `Bearer ${idToken}`);
     }
 
