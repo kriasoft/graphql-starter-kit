@@ -5,6 +5,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "test:file",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["test", "${file}", "--no-watch"],
+      "skipFiles": ["<node_internals>/**", "node_modules/**"]
+    },
+    {
       "name": "api:start",
       "request": "launch",
       "runtimeExecutable": "yarn",

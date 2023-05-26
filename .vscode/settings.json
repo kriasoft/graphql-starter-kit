@@ -10,10 +10,7 @@
   "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "jest.jestCommandLine": "yarn jest",
-  "jestrunner.jestCommand": "yarn jest",
-  "jestrunner.enableYarnPnpSupport": true,
-  "jestrunner.yarnPnpCommand": "yarn-4.0.0-rc.44.cjs",
+  "vitest.commandLine": "yarn vitest",
   "files.associations": {
     ".terraformrc": "terraform"
   },

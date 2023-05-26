@@ -2,9 +2,8 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "lib": ["ESNext"],
-    "types": ["@types/jest"],
     "outDir": "./dist",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "nodenext",
     "noEmit": true
   },
   "include": ["**/*.ts", "**/*.cjs", "**/*.js", "**/*.json", "../db/types"],

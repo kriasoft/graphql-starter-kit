@@ -5,11 +5,13 @@
   "type": "module",
   "exports": "./index.js",
   "scripts": {
+    "test": "test",
     "start": "vite serve",
     "build": "vite build --ssr ./index.ts && node ../scripts/bundle-yarn.js",
     "update-schema": "node -r envars/config ../scripts/update-schema.js",
     "deploy": "node ../scripts/gcf-deploy.js api --entry=api",
     "api:tsc": "tsc",
+    "api:test": "vitest",
     "api:start": "yarn workspace api run start",
     "api:update-schema": "yarn workspace api run update-schema",
     "api:build": "yarn workspace api run build"
@@ -50,25 +52,26 @@
     "validator-fluent": "^0.4.2"
   },
   "devDependencies": {
-    "@jest/types": "^29.5.0",
+    "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@types/cookie": "^0.5.1",
     "@types/express": "^4.17.17",
     "@types/gm": "^1.25.1",
     "@types/http-errors": "^2.0.1",
-    "@types/jest": "^29.5.1",
     "@types/lodash-es": "^4.17.7",
-    "@types/node": "^18.16.14",
-    "@types/pg": "^8.6.6",
+    "@types/node": "^18.16.16",
+    "@types/pg": "^8.10.1",
     "@types/source-map-support": "^0.5.6",
     "@types/supertest": "^2.0.12",
     "@types/validator": "^13.7.17",
     "envars": "^0.4.0",
     "execa": "^7.1.1",
+    "happy-dom": "^9.20.3",
     "knex-types": "^0.5.0",
     "supertest": "^6.3.3",
     "typescript": "^5.0.4",
-    "vite": "^4.3.8",
-    "vite-plugin-node": "^3.0.2"
+    "vite": "^4.3.9",
+    "vite-plugin-node": "^3.0.2",
+    "vitest": "^0.31.1"
   },
   "envars": {
     "cwd": "../env"

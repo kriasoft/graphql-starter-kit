@@ -4,26 +4,30 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build",
     "test": "vitest",
+    "build": "vite build",
     "coverage": "vitest run --coverage",
     "deploy": "node ../scripts/wrangler.js deploy",
     "wrangler": "node ../scripts/wrangler.js",
-    "edge:cf": "node ../scripts/wrangler.js"
+    "edge:cf": "node ../scripts/wrangler.js",
+    "edge:tsc": "tsc",
+    "edge:test": "vitest",
+    "edge:deploy": "node ../scripts/wrangler.js deploy"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.1.2",
-    "hono": "^3.2.1",
+    "hono": "^3.2.2",
     "jose": "^4.14.4",
     "web-auth-library": "^1.0.3",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
-    "@types/node": "^18.16.14",
+    "@types/node": "^18.16.16",
+    "happy-dom": "^9.20.3",
     "toml": "^3.0.0",
     "typescript": "^5.0.4",
-    "vite": "^4.3.8",
+    "vite": "^4.3.9",
     "vitest": "^0.31.1",
     "vitest-environment-miniflare": "^2.14.0"
   }

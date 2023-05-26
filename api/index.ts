@@ -5,7 +5,7 @@ import "./core/source-map-support.js";
 
 import SendGrid from "@sendgrid/mail";
 import { default as express } from "express";
-import { getApps, initializeApp } from "firebase-admin/app";
+import { cert, getApps, initializeApp } from "firebase-admin/app";
 import { NotFound } from "http-errors";
 import { db, handleError } from "./core/index.js";
 import { session } from "./core/session.js";
@@ -25,7 +25,21 @@ api.use((req, res, next) => {
 
     // Configure Firebase Admin SDK
     if (getApps().length === 0) {
-      initializeApp({ projectId: env.GOOGLE_CLOUD_PROJECT });
+      if (env.GOOGLE_CLOUD_CREDENTIALS) {
+        const credentials = JSON.parse(env.GOOGLE_CLOUD_CREDENTIALS);
+        initializeApp({
+          projectId: env.GOOGLE_CLOUD_PROJECT,
+          credential: cert({
+            projectId: credentials.project_id,
+            clientEmail: credentials.client_email,
+            privateKey: credentials.private_key,
+          }),
+        });
+      } else {
+        initializeApp({
+          projectId: env.GOOGLE_CLOUD_PROJECT,
+        });
+      }
     }
 
     req.app.locals.initialized = true;

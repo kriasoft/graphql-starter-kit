@@ -4,6 +4,7 @@
 import { getAuth } from "firebase-admin/auth";
 import { toGlobalId } from "graphql-relay";
 import request from "supertest";
+import { afterAll, beforeAll, expect, test } from "vitest";
 import { createIdToken } from "../core/auth.js";
 import { api } from "../index.js";
 

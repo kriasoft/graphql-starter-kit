@@ -7,7 +7,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseToml } from "toml";
-import { $, fs, YAML } from "zx";
+import { $, YAML, fs } from "zx";
 
 export const rootDir = dirname(dirname(fileURLToPath(import.meta.url)));
 export const envDir = resolve(rootDir, "env");

@@ -2,6 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { getAuth } from "firebase-admin/auth";
+import { afterAll, expect, test } from "vitest";
 import { createIdToken } from "./auth.js";
 
 const uid = "test-kl5dp";

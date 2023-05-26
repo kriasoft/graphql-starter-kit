@@ -11,6 +11,7 @@ import { bool, cleanEnv, num, str, url } from "envalid";
 export default cleanEnv(process.env, {
   GOOGLE_CLOUD_PROJECT: str(),
   GOOGLE_CLOUD_REGION: str(),
+  GOOGLE_CLOUD_CREDENTIALS: str({ default: "" }),
   FIREBASE_APP_ID: str(),
   FIREBASE_API_KEY: str(),
   FIREBASE_AUTH_DOMAIN: str(),
