@@ -51,12 +51,16 @@ Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for as
 
 ## Getting Started
 
-Just [clone](https://github.com/kriasoft/relay-starter-kit/generate) the repo
-and run `yarn install` followed by `yarn start`:
+Just [clone](https://github.com/kriasoft/relay-starter-kit/generate) the repo or if you are using VS Code, [click here](https://runme.dev/api/runme?repository=https%3A%2F%2Fgithub.com%2Fkriasoft%2Frelay-starter-kit.git&fileToOpen=README.md).
 
 ```bash
 $ git clone https://github.com/kriasoft/relay-starter-kit.git example
 $ cd ./example                  # Change current directory to the newly created one
+```
+
+Then install dependencies and run `yarn install` followed by `yarn start`:
+
+```bash
 $ yarn install                  # Install project dependencies
 $ yarn setup                    # Configure environment variables
 $ yarn db:reset                 # Create or update PostgreSQL database
