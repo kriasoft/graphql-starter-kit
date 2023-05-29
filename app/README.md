@@ -11,18 +11,21 @@ Web application project built with TypeScript, React, and Relay.
 
 ## Directory Structure
 
-`├──`[`common`](./common) — common React components, UI building blocks<br>
-`├──`[`core`](./core) — core application modules (Relay store, router, etc.)<br>
-`├──`[`dialogs`](./dialogs) — modal dialog components<br>
+`├──`[`common`](./common) — Common (shared) React components<br>
+`├──`[`core`](./core) — Core modules, React hooks, customized theme, etc.<br>
+`├──`[`dialogs`](./dialogs) — React components implementing modal dialogs<br>
 `├──`[`icons`](./icons) — custom SVG icons in addition to `@mui/icons-material`<br>
-`├──`[`menus`](./menus) — pop-up menu components<br>
+`├──`[`layout`](./layout) — Layout related components<br>
 `├──`[`public`](./public) — static files such as `robots.txt`, `favicon.ico`, etc.<br>
 `├──`[`queries`](./queries) — generated GraphQL query fragments<br>
 `├──`[`routes`](./routes) — application routes / pages<br>
 `├──`[`theme`](./theme) — customized Material UI theme<br>
-`├──`[`index.tsx`](./index.tsx) — application entry<br>
-`├──`[`tsconfig.json`](./tsconfig.json) — TypeScript configuration<br>
-`└──`[`vite.config.ts`](./vite.config.ts) — bundler configuration<br>
+`├──`[`global.d.ts`](./global.d.ts) — Global TypeScript declarations<br>
+`├──`[`index.html`](./index.html) — HTML page containing application entry point<br>
+`├──`[`index.tsx`](./index.tsx) — Single-page application (SPA) entry point<br>
+`├──`[`package.json`](./package.json) — Workspace settings and NPM dependencies<br>
+`├──`[`tsconfig.ts`](./tsconfig.json) — TypeScript configuration<br>
+`└──`[`vite.config.ts`](./vite.config.ts) — JavaScript bundler configuration ([docs](https://vitejs.dev/config/))<br>
 
 ## Getting Started
 
@@ -59,3 +62,11 @@ $ yarn edge:cf tail [--env #0] [--version #0]
 ```
 
 For the full list of Cloudflare CLI options run `yarn edge:cf --help`.
+
+## References
+
+- https://react.dev/ — React.js documentation
+- https://mui.com/core/ — Material UI library documentation
+- https://www.typescriptlang.org/ — TypeScript reference
+- https://vitejs.dev/ — Front-end tooling (bundler)
+- https://vitest.dev/ — Unit test framework

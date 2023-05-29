@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import { Link as NavLink, useNavigate } from "react-router-dom";
-import { useSignOut } from "../core/auth.js";
-import { useTheme, useToggleTheme } from "../theme/index.js";
+import { useSignOut } from "../../core/auth.js";
+import { useTheme, useToggleTheme } from "../../theme/index.js";
 
 export function UserMenu(props: UserMenuProps): JSX.Element {
   const { PaperProps, MenuListProps, ...other } = props;
@@ -34,7 +34,7 @@ export function UserMenu(props: UserMenuProps): JSX.Element {
       MenuListProps={{ ...MenuListProps, dense: true }}
       {...other}
     >
-      <MenuItem component={NavLink} to="/account" onClick={close}>
+      <MenuItem component={NavLink} to="/settings" onClick={close}>
         <ListItemIcon sx={{ minWidth: 40 }} children={<Settings />} />
         <ListItemText primary="Account Details" />
       </MenuItem>
