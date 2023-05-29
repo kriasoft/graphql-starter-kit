@@ -1,6 +1,8 @@
 /* SPDX-FileCopyrightText: 2014-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
+import * as React from "react";
+import { RelayEnvironmentProvider as Provider } from "react-relay";
 import { Environment, Network, RecordSource, Store } from "relay-runtime";
 import { getIdToken } from "./auth.js";
 
@@ -53,4 +55,14 @@ export class HttpError extends Error {
 
 export function toRawId<T extends string | null | undefined>(globalId: T): T {
   return globalId && (atob(globalId).split(":")[1] as T);
+}
+
+/**
+ * This component makes the `relay` environment available down the React tree.
+ */
+export function RelayEnvironmentProvider(props: {
+  children: React.ReactNode;
+}): JSX.Element {
+  const environment = React.useMemo(() => createRelay(), []);
+  return React.createElement(Provider, { environment, ...props });
 }
