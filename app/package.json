@@ -18,12 +18,12 @@
     "app:deploy": "yarn workspace app deploy"
   },
   "dependencies": {
-    "@babel/runtime": "^7.22.0",
+    "@babel/runtime": "^7.22.3",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
-    "@mui/lab": "^5.0.0-alpha.131",
-    "@mui/material": "^5.13.2",
+    "@mui/lab": "^5.0.0-alpha.132",
+    "@mui/material": "^5.13.3",
     "firebase": "^9.22.1",
     "localforage": "^1.10.0",
     "notistack": "^3.0.1",

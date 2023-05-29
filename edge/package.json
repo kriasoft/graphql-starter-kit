@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@hono/zod-validator": "^0.1.2",
-    "hono": "^3.2.2",
+    "hono": "^3.2.3",
     "jose": "^4.14.4",
     "web-auth-library": "^1.0.3",
     "zod": "^3.21.4"
