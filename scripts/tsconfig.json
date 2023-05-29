@@ -5,5 +5,5 @@
     "moduleResolution": "node",
     "noEmit": true
   },
-  "include": ["**/*.js", "**/*.ts"]
+  "include": ["**/*.ts", "**/*.js"]
 }

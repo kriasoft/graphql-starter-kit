@@ -5,11 +5,10 @@ import { CssBaseline } from "@mui/material";
 import { SnackbarProvider } from "notistack";
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import { ErrorBoundary } from "./common/ErrorBoundary.js";
 import { RelayEnvironmentProvider } from "./core/relay.js";
-import { AppRoutes } from "./routes/index.js";
+import { router } from "./routes/index.js";
 import { ThemeProvider } from "./theme/index.js";
 
 const container = document.getElementById("root") as HTMLElement;
@@ -19,18 +18,14 @@ const root = ReactDOM.createRoot(container);
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <BrowserRouter>
-        <ThemeProvider>
-          <RelayEnvironmentProvider>
-            <SnackbarProvider>
-              <ErrorBoundary>
-                <CssBaseline />
-                <AppRoutes />
-              </ErrorBoundary>
-            </SnackbarProvider>
-          </RelayEnvironmentProvider>
-        </ThemeProvider>
-      </BrowserRouter>
+      <ThemeProvider>
+        <RelayEnvironmentProvider>
+          <SnackbarProvider>
+            <CssBaseline />
+            <RouterProvider router={router} />
+          </SnackbarProvider>
+        </RelayEnvironmentProvider>
+      </ThemeProvider>
     </RecoilRoot>
   </React.StrictMode>,
 );
