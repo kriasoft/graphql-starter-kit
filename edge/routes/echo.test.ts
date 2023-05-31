@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { expect, test } from "vitest";
-import { handler } from "./echo.js";
+import { handler } from "./echo";
 
 test("GET /echo", async () => {
   // Initialize an HTTP GET request object

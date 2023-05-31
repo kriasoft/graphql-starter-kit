@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { AuthIcon } from "../../icons/AuthIcon.js";
+import { AuthIcon } from "../../icons/AuthIcon";
 import {
   Props,
   useHandleChange,
@@ -19,8 +19,8 @@ import {
   useHandleSubmit,
   useState,
   useSwitchSAML,
-} from "./Login.hooks.js";
-import { Notice } from "./Notice.js";
+} from "./Login.hooks";
+import { Notice } from "./Notice";
 
 /**
  * The login and registration page inspired by Notion. Example:

@@ -2,8 +2,8 @@
 /* SPDX-License-Identifier: MIT */
 
 import { GraphQLFieldConfig } from "graphql";
-import { Context, User } from "../core/index.js";
-import { UserType } from "../types/index.js";
+import { Context, User } from "../core";
+import { UserType } from "../types";
 
 /**
  * @example

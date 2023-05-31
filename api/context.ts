@@ -5,8 +5,8 @@ import DataLoader from "dataloader";
 import { Request } from "express";
 import { Auth, DecodedIdToken, UserRecord, getAuth } from "firebase-admin/auth";
 import { Firestore, getFirestore } from "firebase-admin/firestore";
-import { GraphQLParams } from "./core/helix.js";
-import { LogSeverity, log } from "./core/logging.js";
+import { GraphQLParams } from "./core/helix";
+import { LogSeverity, log } from "./core/logging";
 
 /**
  * GraphQL execution context.

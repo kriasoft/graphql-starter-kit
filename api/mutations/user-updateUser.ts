@@ -11,9 +11,9 @@ import {
   GraphQLString,
 } from "graphql";
 import { BadRequest, Forbidden, Unauthorized } from "http-errors";
-import { Context } from "../core/index.js";
-import { UserType } from "../types/index.js";
-import { ValidationError, fromGlobalId, validate } from "../utils/index.js";
+import { Context } from "../core";
+import { UserType } from "../types";
+import { ValidationError, fromGlobalId, validate } from "../utils";
 
 /**
  * @example

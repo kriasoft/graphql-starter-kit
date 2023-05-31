@@ -4,7 +4,7 @@
 import { getAnalytics, logEvent } from "firebase/analytics";
 import * as React from "react";
 import { useLocation } from "react-router-dom";
-import { config } from "./config.js";
+import { config } from "./config";
 
 export function usePageEffect(options?: Options, deps?: React.DependencyList) {
   const location = useLocation();

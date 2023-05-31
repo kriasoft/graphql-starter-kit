@@ -6,5 +6,5 @@
     "outDir": "../.cache/typescript-edge"
   },
   "include": ["**/*.ts", "**/*.json"],
-  "exclude": ["dist/**/*"]
+  "exclude": ["dist/**/*", "vite.config.ts"]
 }

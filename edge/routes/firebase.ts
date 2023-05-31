@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2014-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { app } from "../core/app.js";
+import { app } from "../core/app";
 
 export const handler = app.all("/__/*", ({ req, env }) => {
   const url = new URL(req.url);

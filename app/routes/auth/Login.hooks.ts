@@ -2,8 +2,8 @@ import { signInWithCustomToken } from "firebase/auth";
 import * as React from "react";
 import { Disposable, graphql, useMutation } from "react-relay";
 import { useNavigate } from "react-router-dom";
-import { auth, signIn, SignInMethod } from "../../core/firebase.js";
-import { LoginMutation } from "../../queries/LoginMutation.graphql.js";
+import { SignInMethod, auth, signIn } from "../../core/firebase";
+import { LoginMutation } from "../../queries/LoginMutation.graphql";
 
 /**
  * Handles login / signup via Email

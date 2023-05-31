@@ -1,10 +1,10 @@
 /* SPDX-FileCopyrightText: 2014-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
+import assetManifest from "__STATIC_CONTENT_MANIFEST";
 import { serveStatic } from "hono/cloudflare-workers";
 import { getMimeType } from "hono/utils/mime";
-import assetManifest from "__STATIC_CONTENT_MANIFEST";
-import { app } from "../core/app.js";
+import { app } from "../core/app";
 
 const manifest = JSON.parse(assetManifest);
 

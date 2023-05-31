@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { Link, Typography, TypographyProps } from "@mui/material";
-import { config } from "../../core/config.js";
+import { config } from "../../core/config";
 
 export function Notice(props: NoticeProps): JSX.Element {
   const { sx, ...other } = props;

@@ -1,14 +1,14 @@
 /* SPDX-FileCopyrightText: 2014-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { app } from "./core/app.js";
+import { app } from "./core/app";
 // Register `/__/*` middleware (Firebase Auth)
-import "./routes/firebase.js";
+import "./routes/firebase";
 // Register `/api/*` route handler (GraphQL API)
-import "./routes/api.js";
+import "./routes/api";
 // Register `/echo` route handler (debugging)
-import "./routes/echo.js";
+import "./routes/echo";
 // Register `*` static assets handler (HTML, CSS, JS, etc.)
-import "./routes/assets.js";
+import "./routes/assets";
 
 export default app;

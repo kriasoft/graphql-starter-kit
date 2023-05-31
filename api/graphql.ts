@@ -12,10 +12,10 @@ import {
   renderGraphiQL,
   sendResult,
   shouldRenderGraphiQL,
-} from "./core/helix.js";
-import { Context, log } from "./core/index.js";
-import env from "./env.js";
-import schema from "./schema.js";
+} from "./core/helix";
+import { Context, log } from "./core/index";
+import env from "./env";
+import schema from "./schema";
 
 // Customize GraphQL error serialization
 GraphQLError.prototype.toJSON = ((serialize) =>

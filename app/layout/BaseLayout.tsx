@@ -4,7 +4,7 @@
 import { GlobalStyles, Toolbar } from "@mui/material";
 import * as React from "react";
 import { Outlet } from "react-router-dom";
-import { BaseToolbar } from "./components/BaseToolbar.js";
+import { BaseToolbar } from "./components/BaseToolbar";
 
 /**
  * The minimal app layout to be used on pages such Login/Signup,

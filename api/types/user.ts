@@ -9,10 +9,10 @@ import {
   GraphQLString,
 } from "graphql";
 import { connectionDefinitions, globalIdField } from "graphql-relay";
-import { Context } from "../core/index.js";
-import { countField, dateField } from "./fields.js";
-import { nodeInterface } from "./node.js";
-import { PictureType } from "./picture.js";
+import { Context } from "../core";
+import { countField, dateField } from "./fields";
+import { nodeInterface } from "./node";
+import { PictureType } from "./picture";
 
 export const UserType = new GraphQLObjectType<UserRecord, Context>({
   name: "User",

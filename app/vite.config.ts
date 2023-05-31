@@ -7,7 +7,7 @@ import { resolve } from "node:path";
 import { URL } from "node:url";
 import relay from "vite-plugin-relay";
 import { defineProject } from "vitest/config";
-import { Config, EnvName } from "./core/config.js";
+import { Config, EnvName } from "./core/config";
 
 // The list of supported environments
 const envNames: EnvName[] = ["prod", "test", "local"];

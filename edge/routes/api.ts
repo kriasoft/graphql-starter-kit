@@ -1,8 +1,8 @@
 /* SPDX-FileCopyrightText: 2014-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import * as Altair from "../core/altair.js";
-import { app } from "../core/app.js";
+import * as Altair from "../core/altair";
+import { app } from "../core/app";
 
 // Rewrite requests to a Google Cloud Function serving GraphQL API
 // https://example.com/api => https://api-5oemu2yxnw-uc.a.run.app/api

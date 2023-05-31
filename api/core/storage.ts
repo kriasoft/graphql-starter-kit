@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { Storage } from "@google-cloud/storage";
-import env from "../env.js";
+import env from "../env";
 
 export const storage = new Storage();
 export const uploadBucket = storage.bucket(env.UPLOAD_BUCKET);

@@ -3,9 +3,9 @@
 
 import { lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { AppLayout } from "../layout/AppLayout.js";
-import { BaseLayout } from "../layout/BaseLayout.js";
-import { RootError } from "../layout/RootError.js";
+import { AppLayout } from "../layout/AppLayout";
+import { BaseLayout } from "../layout/BaseLayout";
+import { RootError } from "../layout/RootError";
 
 const Login = lazy(() => import("./auth/Login.js"));
 const Privacy = lazy(() => import("./legal/Privacy.js"));

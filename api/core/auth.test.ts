@@ -3,7 +3,7 @@
 
 import { getAuth } from "firebase-admin/auth";
 import { afterAll, expect, test } from "vitest";
-import { createIdToken } from "./auth.js";
+import { createIdToken } from "./auth";
 
 const uid = "test-kl5dp";
 

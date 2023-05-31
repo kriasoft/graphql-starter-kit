@@ -12,9 +12,9 @@ import { fromGlobalId } from "graphql-relay";
 import { BadRequest, Forbidden, Unauthorized } from "http-errors";
 import { extname } from "node:path";
 import { URL } from "node:url";
-import { Context, uploadBucket } from "../core/index.js";
-import env from "../env.js";
-import { UploadTypeType, UserType } from "../types/index.js";
+import { Context, uploadBucket } from "../core";
+import env from "../env";
+import { UploadTypeType, UserType } from "../types";
 
 /**
  * Saves the uploaded file (URL path) to the database.

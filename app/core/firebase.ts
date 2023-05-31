@@ -5,16 +5,16 @@ import { getAnalytics } from "firebase/analytics";
 import { FirebaseError, initializeApp, type FirebaseApp } from "firebase/app";
 import {
   FacebookAuthProvider,
-  fetchSignInMethodsForEmail,
-  getAuth,
   GoogleAuthProvider,
   OAuthCredential,
+  fetchSignInMethodsForEmail,
+  getAuth,
   signInAnonymously,
   signInWithPopup,
   type Auth,
   type UserCredential,
 } from "firebase/auth";
-import { config } from "./config.js";
+import { config } from "./config";
 export { AuthErrorCodes, linkWithCredential } from "firebase/auth";
 export { FirebaseError };
 

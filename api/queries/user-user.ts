@@ -3,8 +3,8 @@
 
 import { GraphQLFieldConfig, GraphQLString } from "graphql";
 import { BadRequest, Forbidden, Unauthorized } from "http-errors";
-import { Context, User } from "../core/index.js";
-import { UserType } from "../types/index.js";
+import { Context, User } from "../core";
+import { UserType } from "../types";
 
 /**
  * @example

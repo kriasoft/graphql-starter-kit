@@ -4,13 +4,13 @@
 import { type User, type UserCredential } from "firebase/auth";
 import * as React from "react";
 import { atom, useRecoilValueLoadable } from "recoil";
-import { useOpenLoginDialog } from "../dialogs/LoginDialog.js";
+import { useOpenLoginDialog } from "../dialogs/LoginDialog";
 import {
   auth,
   signIn,
   type SignInMethod,
   type SignInOptions,
-} from "./firebase.js";
+} from "./firebase";
 
 let idTokenPromise: Promise<string | null> | undefined;
 let idTokenPromiseResolve:
@@ -78,7 +78,7 @@ export const CurrentUser = atom<User | null>({
  * The currently logged-in (authenticated) user object.
  *
  * @example
- *   const { useCurrentUser } from "../core/auth.js";
+ *   const { useCurrentUser } from "../core/auth";
  *
  *   function Example(): JSX.Element {
  *     const me = useCurrentUser();
