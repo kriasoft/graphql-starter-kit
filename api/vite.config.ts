@@ -4,13 +4,13 @@ import { viteCommonjs } from "@originjs/vite-plugin-commonjs";
 import envars from "envars";
 import { execa } from "execa";
 import { debounce } from "lodash-es";
-import path from "node:path";
+import { resolve } from "node:path";
 import { PluginOption } from "vite";
 import { VitePluginNode } from "vite-plugin-node";
 import { defineProject } from "vitest/config";
 
 // Load environment variables for the target environment
-envars.config();
+envars.config({ cwd: resolve(__dirname, "../env") });
 
 /**
  * Vite configuration
@@ -56,7 +56,7 @@ export default defineProject(({ mode }) => ({
               await execa(
                 "yarn",
                 ["prettier", "--write", "./api/schema.graphql"],
-                { cwd: path.resolve(process.cwd(), "..") },
+                { cwd: resolve(process.cwd(), "..") },
               );
             } catch (err) {
               console.error(err);
@@ -78,7 +78,7 @@ export default defineProject(({ mode }) => ({
   },
 
   test: {
-    ...{ cache: { dir: "../.cache/vitest" } },
+    ...{ cache: { dir: resolve(__dirname, "../.cache/vitest") } },
     environment: "node",
     setupFiles: ["./utils/setupTests.ts"],
     testTimeout: 10000,
