@@ -37,7 +37,7 @@
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
     "@types/node": "^18.16.16",
-    "@types/react": "^18.2.7",
+    "@types/react": "^18.2.8",
     "@types/react-dom": "^18.2.4",
     "@types/react-relay": "^14.1.4",
     "@types/relay-compiler": "^14.0.1",
@@ -51,7 +51,7 @@
     "typescript": "^5.0.4",
     "vite": "^4.3.9",
     "vite-plugin-relay": "^2.0.0",
-    "vitest": "^0.31.1"
+    "vitest": "^0.31.4"
   },
   "envars": {
     "cwd": "../env"

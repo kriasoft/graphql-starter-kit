@@ -29,7 +29,7 @@
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
     "@types/minimist": "^1.2.2",
-    "@types/prettier": "^2.7.2",
+    "@types/prettier": "^2.7.3",
     "chalk": "^5.2.0",
     "envars": "^0.4.0",
     "execa": "^7.1.1",
