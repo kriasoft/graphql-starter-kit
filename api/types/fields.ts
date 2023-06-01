@@ -10,7 +10,7 @@ import {
   GraphQLString,
 } from "graphql";
 import { Knex } from "knex";
-import { Context } from "../core/index.js";
+import { Context } from "../core";
 
 type Source = { query: Knex.QueryBuilder };
 

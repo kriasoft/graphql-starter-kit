@@ -13,12 +13,12 @@ import {
   Toolbar,
 } from "@mui/material";
 import * as React from "react";
-import { Link as NavLink } from "../../common/Link.js";
-import { useCurrentUser } from "../../core/auth.js";
-import { Logo } from "./Logo.js";
-import { NotificationsMenu } from "./NotificationsMenu.js";
-import { ThemeButton } from "./ThemeButton.js";
-import { UserMenu } from "./UserMenu.js";
+import { Link as NavLink } from "../../common/Link";
+import { useCurrentUser } from "../../core/auth";
+import { Logo } from "./Logo";
+import { NotificationsMenu } from "./NotificationsMenu";
+import { ThemeButton } from "./ThemeButton";
+import { UserMenu } from "./UserMenu";
 
 export function AppToolbar(props: AppToolbarProps): JSX.Element {
   const { sx, ...other } = props;

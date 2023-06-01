@@ -1,17 +1,17 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import "./core/source-map-support.js";
+import "./core/source-map-support";
 
 import SendGrid from "@sendgrid/mail";
 import { default as express } from "express";
 import { cert, getApps, initializeApp } from "firebase-admin/app";
 import { NotFound } from "http-errors";
-import { db, handleError } from "./core/index.js";
-import { session } from "./core/session.js";
-import env from "./env.js";
-import { handleGraphQL, updateSchema } from "./graphql.js";
-import { withViews } from "./views/index.js";
+import { db, handleError } from "./core";
+import { session } from "./core/session";
+import env from "./env";
+import { handleGraphQL, updateSchema } from "./graphql";
+import { withViews } from "./views";
 
 const api = withViews(express());
 

@@ -5,8 +5,8 @@ import { Request } from "express";
 import { RequestError } from "got";
 import { HttpError } from "http-errors";
 import PrettyError from "pretty-error";
-import env from "../env.js";
-import { GraphQLParams } from "./helix.js";
+import env from "../env";
+import { GraphQLParams } from "./helix";
 
 // https://github.com/AriaMinaei/pretty-error#readme
 const pe = new PrettyError();

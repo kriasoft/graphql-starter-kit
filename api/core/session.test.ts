@@ -6,8 +6,8 @@ import express from "express";
 import { getAuth } from "firebase-admin/auth";
 import request from "supertest";
 import { afterAll, beforeAll, expect, test } from "vitest";
-import { createIdToken } from "./auth.js";
-import { session } from "./session.js";
+import { createIdToken } from "./auth";
+import { session } from "./session";
 
 const uid = "test-bulqp";
 const app = express();

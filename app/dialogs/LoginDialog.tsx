@@ -14,12 +14,12 @@ import {
 import { type UserCredential } from "firebase/auth";
 import * as React from "react";
 import { atom, useRecoilCallback, useRecoilValue } from "recoil";
-import { SignInMethods } from "../core/auth.js";
-import { type ExistingAccount, type FirebaseError } from "../core/firebase.js";
+import { SignInMethods } from "../core/auth";
+import { type ExistingAccount, type FirebaseError } from "../core/firebase";
 import {
   LoginButton,
   LoginButtonProps,
-} from "../layout/components/LoginButton.js";
+} from "../layout/components/LoginButton";
 
 export const LoginDialogState = atom<LoginDialogAtom>({
   key: "LoginDialogState",

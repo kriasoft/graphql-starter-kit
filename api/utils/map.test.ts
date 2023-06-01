@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { expect, test } from "vitest";
-import { mapTo, mapToMany, mapToManyValues, mapToValues } from "./map.js";
+import { mapTo, mapToMany, mapToManyValues, mapToValues } from "./map";
 
 test("mapTo()", () => {
   const result = mapTo(

@@ -15,8 +15,8 @@ import {
 import { BadRequest } from "http-errors";
 import { nanoid } from "nanoid/async";
 import { ValidationError } from "validator-fluent";
-import { Context } from "../core/index.js";
-import env from "../env.js";
+import { Context } from "../core";
+import env from "../env";
 
 /**
  * @example

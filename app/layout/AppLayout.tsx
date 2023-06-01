@@ -4,7 +4,7 @@
 import { Toolbar } from "@mui/material";
 import * as React from "react";
 import { Outlet } from "react-router-dom";
-import { AppToolbar } from "./components/AppToolbar.js";
+import { AppToolbar } from "./components/AppToolbar";
 
 /**
  * The primary application layout.

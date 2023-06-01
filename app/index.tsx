@@ -7,9 +7,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import { RelayEnvironmentProvider } from "./core/relay.js";
-import { router } from "./routes/index.js";
-import { ThemeProvider } from "./theme/index.js";
+import { RelayEnvironmentProvider } from "./core/relay";
+import { router } from "./routes";
+import { ThemeProvider } from "./theme";
 
 const container = document.getElementById("root") as HTMLElement;
 const root = ReactDOM.createRoot(container);

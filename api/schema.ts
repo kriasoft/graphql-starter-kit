@@ -2,8 +2,8 @@
 /* SPDX-License-Identifier: MIT */
 
 import { GraphQLObjectType, GraphQLSchema } from "graphql";
-import * as mutations from "./mutations/index.js";
-import * as queries from "./queries/index.js";
+import * as mutations from "./mutations";
+import * as queries from "./queries";
 
 /**
  * GraphQL API schema.

@@ -3,7 +3,6 @@
   "compilerOptions": {
     "lib": ["ESNext"],
     "outDir": "./dist",
-    "moduleResolution": "nodenext",
     "noEmit": true
   },
   "include": ["**/*.ts", "**/*.cjs", "**/*.js", "**/*.json", "../db/types"],

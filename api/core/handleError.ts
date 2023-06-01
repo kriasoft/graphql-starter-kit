@@ -4,7 +4,7 @@
 import { ErrorRequestHandler } from "express";
 import { RequestError } from "got";
 import { isHttpError } from "http-errors";
-import { log } from "./logging.js";
+import { log } from "./logging";
 
 /**
  * Renders an error page.

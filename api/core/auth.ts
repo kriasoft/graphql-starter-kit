@@ -4,7 +4,7 @@
 import { getAuth } from "firebase-admin/auth";
 import { got } from "got";
 import { LRUCache } from "lru-cache";
-import env from "../env.js";
+import env from "../env";
 
 const cache = new LRUCache<string, IdTokenResponse>({
   ttl: 3.3e6 /* 55 minutes */,

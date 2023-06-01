@@ -3,7 +3,7 @@
 
 import { resolve } from "node:path";
 import { defineProject } from "vitest/config";
-import { getCloudflareBindings } from "../scripts/utils.js";
+import { getCloudflareBindings } from "../scripts/utils";
 
 export default defineProject({
   cacheDir: "../.cache/vite-edge",

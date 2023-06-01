@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { updateEmail, updateProfile } from "firebase/auth";
 import * as React from "react";
-import { useAuthCallback, useCurrentUser } from "../../core/auth.js";
-import { usePageEffect } from "../../core/page.js";
+import { useAuthCallback, useCurrentUser } from "../../core/auth";
+import { usePageEffect } from "../../core/page";
 
 export default function AccountDetails(): JSX.Element {
   const [{ input, ...state }, setState] = useState();

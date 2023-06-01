@@ -4,7 +4,7 @@
 import * as React from "react";
 import { RelayEnvironmentProvider as Provider } from "react-relay";
 import { Environment, Network, RecordSource, Store } from "relay-runtime";
-import { getIdToken } from "./auth.js";
+import { getIdToken } from "./auth";
 
 /**
  * Initializes a new instance of Relay environment.

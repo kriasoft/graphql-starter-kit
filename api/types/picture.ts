@@ -2,8 +2,8 @@
 /* SPDX-License-Identifier: MIT */
 
 import { GraphQLObjectType, GraphQLString } from "graphql";
-import { Context } from "../core/index.js";
-import env from "../env.js";
+import { Context } from "../core";
+import env from "../env";
 
 type Picture = {
   url?: string;

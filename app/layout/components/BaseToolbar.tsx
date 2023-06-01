@@ -3,8 +3,8 @@
 
 import { Close } from "@mui/icons-material";
 import { AppBar, AppBarProps, Box, IconButton, Toolbar } from "@mui/material";
-import { Link } from "../../common/Link.js";
-import { Logo } from "./Logo.js";
+import { Link } from "../../common/Link";
+import { Logo } from "./Logo";
 
 export function BaseToolbar(props: AppBarProps): JSX.Element {
   return (
