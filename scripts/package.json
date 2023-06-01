@@ -19,7 +19,7 @@
     "@types/cross-spawn": "^6.0.2",
     "api": "workspace:*",
     "cross-spawn": "^7.0.3",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.1.3",
     "envars": "^0.4.0",
     "execa": "^7.1.1",
     "globby": "^13.1.4",

@@ -27,7 +27,7 @@
     "envalid": "^7.3.1",
     "express": "^4.18.2",
     "express-handlebars": "^7.0.7",
-    "firebase-admin": "^11.8.0",
+    "firebase-admin": "^11.9.0",
     "gm": "^1.25.0",
     "google-auth-library": "^8.8.0",
     "got": "^13.0.0",
@@ -40,7 +40,7 @@
     "jose": "^4.14.4",
     "knex": "^2.4.2",
     "lodash-es": "^4.17.21",
-    "lru-cache": "^9.1.1",
+    "lru-cache": "^9.1.2",
     "minimist": "^1.2.8",
     "nanoid": "^4.0.2",
     "pg": "^8.11.0",
@@ -71,7 +71,7 @@
     "typescript": "^5.0.4",
     "vite": "^4.3.9",
     "vite-plugin-node": "^3.0.2",
-    "vitest": "^0.31.1"
+    "vitest": "^0.31.4"
   },
   "envars": {
     "cwd": "../env"
