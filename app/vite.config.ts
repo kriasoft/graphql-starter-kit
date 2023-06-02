@@ -42,6 +42,7 @@ const configs = envNames.map((envName): [EnvName, Config] => {
 // https://vitejs.dev/guide/env-and-mode.html#env-variables-and-modes
 process.env = initialEnv;
 process.env.VITE_CONFIG = JSON.stringify(Object.fromEntries(configs));
+envars.config({ env: "local", cwd: resolve(__dirname, "../env") });
 
 /**
  * Vite configuration

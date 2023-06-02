@@ -32,7 +32,7 @@
     "google-auth-library": "^8.8.0",
     "got": "^13.0.0",
     "graphql": "^16.6.0",
-    "graphql-helix": "^1.13.0",
+    "graphql-http": "^1.18.0",
     "graphql-relay": "^0.10.0",
     "handlebars": "^4.7.7",
     "http-errors": "^2.0.0",
@@ -49,7 +49,8 @@
     "slugify": "^1.6.6",
     "source-map-support": "^0.5.21",
     "validator": "^13.9.0",
-    "validator-fluent": "^0.4.2"
+    "validator-fluent": "^0.4.2",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@originjs/vite-plugin-commonjs": "^1.0.3",
@@ -68,7 +69,7 @@
     "happy-dom": "^9.20.3",
     "knex-types": "^0.5.0",
     "supertest": "^6.3.3",
-    "typescript": "^5.0.4",
+    "typescript": "~5.0.4",
     "vite": "^4.3.9",
     "vite-plugin-node": "^3.0.2",
     "vitest": "^0.31.4"

@@ -2,28 +2,39 @@
 /* SPDX-License-Identifier: MIT */
 
 import DataLoader from "dataloader";
-import { Request } from "express";
+import { Request, Response } from "express";
 import { Auth, DecodedIdToken, UserRecord, getAuth } from "firebase-admin/auth";
 import { Firestore, getFirestore } from "firebase-admin/firestore";
-import { GraphQLParams } from "./core/helix";
+import { Request as GraphQLRequest, RequestParams } from "graphql-http";
 import { LogSeverity, log } from "./core/logging";
 
 /**
  * GraphQL execution context.
  * @see https://graphql.org/learn/execution/
  */
-export class Context extends Map<symbol, unknown> {
+export class Context extends Map<string | number | symbol, unknown> {
+  [key: string | number | symbol]: unknown;
+
   readonly req: Request;
-  readonly params: GraphQLParams;
+  readonly operationName?: string;
+  readonly query: string;
+  readonly variables?: Record<string, unknown>;
+  readonly extensions?: Record<string, unknown>;
   readonly token: DecodedIdToken | null;
   readonly auth: Auth;
   readonly db: Firestore;
 
-  constructor(req: Request, params: GraphQLParams) {
+  constructor(
+    req: GraphQLRequest<Request, { res: Response }>,
+    params: RequestParams,
+  ) {
     super();
-    this.req = req;
-    this.params = params;
-    this.token = req.token;
+    this.req = req.raw;
+    this.token = this.req.token;
+    this.operationName = params.operationName;
+    this.query = params.query;
+    this.variables = params.variables;
+    this.extensions = params.extensions;
     this.auth = getAuth();
     this.db = getFirestore();
   }
@@ -32,7 +43,10 @@ export class Context extends Map<symbol, unknown> {
     severity: LogSeverity,
     data: string | Record<string, unknown> | Error,
   ): void {
-    log(this.req, severity, data, this.params);
+    log(this.req, severity, data, {
+      operationName: this.operationName,
+      query: this.query,
+    });
   }
 
   /*

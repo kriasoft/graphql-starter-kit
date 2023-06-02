@@ -6,6 +6,6 @@
     "noEmit": true
   },
   "include": ["**/*.ts", "**/*.cjs", "**/*.js", "**/*.json", "../db/types"],
-  "exclude": ["dist/**/*", "core/helix.ts", "vite.config.ts"],
+  "exclude": ["dist/**/*", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

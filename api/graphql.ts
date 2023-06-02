@@ -1,111 +1,86 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import type { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { GraphQLError, printSchema } from "graphql";
-import { HttpError } from "http-errors";
-import fs from "node:fs/promises";
-import { ValidationError } from "validator-fluent";
-import {
-  getGraphQLParameters,
-  processRequest,
-  renderGraphiQL,
-  sendResult,
-  shouldRenderGraphiQL,
-} from "./core/helix";
+import { createHandler } from "graphql-http";
+import { isHttpError } from "http-errors";
+import { writeFile } from "node:fs/promises";
+import { ZodError } from "zod";
 import { Context, log } from "./core/index";
 import env from "./env";
 import schema from "./schema";
 
-// Customize GraphQL error serialization
-GraphQLError.prototype.toJSON = ((serialize) =>
-  function toJSON(this: GraphQLError) {
-    // The original serialized GraphQL error output
-    const output = serialize.call(this as GraphQLError);
-
-    // Append the `HttpError` code
-    if (this.originalError instanceof HttpError) {
-      output.status = this.originalError.statusCode;
-    }
-
-    // Append the list of user input validation errors
-    if (this.originalError instanceof ValidationError) {
-      output.status = 400;
-      output.errors = this.originalError.errors;
-    }
-
-    return output;
-  })(GraphQLError.prototype.toJSON);
-
 /**
  * GraphQL middleware for Express.js
  */
-async function handleGraphQL(req: Request, res: Response, next: NextFunction) {
-  try {
-    if (shouldRenderGraphiQL(req)) {
-      res.send(
-        renderGraphiQL({
-          endpoint: "/api",
-        }).replace("</body>", `${authScript}\n</body>`),
-      );
-    } else {
-      const params = getGraphQLParameters(req);
-      const result = await processRequest<Context>({
-        operationName: params.operationName,
-        query: params.query,
-        variables: params.variables,
-        request: req,
-        schema,
-        contextFactory: () => new Context(req, params),
-      });
+async function handleGraphQL(req: Request, res: Response) {
+  // Render GraphiQL UI
+  // https://github.com/graphql/graphiql
+  if (req.method === "GET" && req.accepts("text/html")) {
+    res.render("api", {
+      projectId: env.GOOGLE_CLOUD_PROJECT,
+      appId: env.FIREBASE_APP_ID,
+      apiKey: env.FIREBASE_API_KEY,
+      authDomain: env.FIREBASE_AUTH_DOMAIN,
+    });
+    return;
+  }
 
-      sendResult(result, res, (result) => ({
-        data: result.data,
-        errors: result.errors?.map((err) => {
-          if (!(err.originalError instanceof ValidationError)) {
-            log(req, "ERROR", err.originalError ?? err, params);
-          }
-          return err;
-        }),
-      }));
-    }
+  const handle = createHandler<Request, { res: Response }, Context>({
+    schema,
+    context(req, params) {
+      return new Context(req, params);
+    },
+    formatError(err) {
+      if (err instanceof GraphQLError) {
+        // Append the statusCode, formErrors, and fieldErrors fields
+        // to the error response.
+        if (err.originalError instanceof ZodError) {
+          const zodError = err.originalError;
+          const json = { ...err.toJSON(), message: err.message };
+          const message = "Invalid input.";
+          const errors = zodError.flatten();
+          err.toJSON = () => ({ ...json, ...errors, message, statusCode: 422 });
+        }
+        // Otherwise, append just the statusCode field to the error response.
+        else if (isHttpError(err.originalError)) {
+          const json = { ...err.toJSON(), message: err.message };
+          const statusCode = err.originalError.status;
+          err.toJSON = () => ({ ...json, statusCode });
+          log(req, "ERROR", err.originalError);
+        } else {
+          log(req, "ERROR", err.originalError || err);
+        }
+      } else {
+        log(req, "ERROR", err);
+      }
+
+      return err;
+    },
+  });
+
+  try {
+    const [body, init] = await handle({
+      url: req.url,
+      method: req.method,
+      headers: req.headers,
+      body: req.body,
+      raw: req,
+      context: { res },
+    });
+    res.writeHead(init.status, init.statusText, init.headers);
+    res.end(body);
   } catch (err) {
-    next(err);
+    log(req, "ERROR", err as Error);
+    res.writeHead(500);
+    res.end();
   }
 }
 
-function updateSchema(): Promise<void> {
+async function updateSchema(): Promise<void> {
   const output = printSchema(schema);
-  return fs.writeFile("./schema.graphql", output, { encoding: "utf-8" });
+  await writeFile("./schema.graphql", output, { encoding: "utf-8" });
 }
-
-const authScript = `
-    <script type="module">
-      import { initializeApp, getApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-      import { getAuth } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-
-      const app = initializeApp({
-        projectId: "${env.GOOGLE_CLOUD_PROJECT}",
-        appId: "${env.FIREBASE_APP_ID}",
-        apiKey: "${env.FIREBASE_API_KEY}",
-        authDomain: "${env.FIREBASE_AUTH_DOMAIN}"
-      });
-
-      function setAuthHeader(token) {
-        const editor = document.querySelectorAll('.variable-editor .CodeMirror')[1].CodeMirror;
-        const headers = JSON.parse(editor.getValue());
-        headers.Authorization = token ? "Bearer " + token : undefined;
-        editor.setValue(JSON.stringify(headers, null, 2));
-      }
-
-      getAuth(app).onIdTokenChanged((user) => {
-        if (user) {
-          user.getIdToken().then(token => setAuthHeader(token));
-        } else {
-          setAuthHeader(null);
-        }
-      });
-    </script>
-`;
 
 export { handleGraphQL, updateSchema };

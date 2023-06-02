@@ -7,5 +7,5 @@
     "outDir": "../.cache/typescript-api",
     "emitDeclarationOnly": true
   },
-  "include": ["core/helix.ts", "vite.config.ts"]
+  "include": ["vite.config.ts"]
 }
