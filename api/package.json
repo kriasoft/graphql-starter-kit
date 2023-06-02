@@ -72,6 +72,7 @@
     "typescript": "~5.0.4",
     "vite": "^4.3.9",
     "vite-plugin-node": "^3.0.2",
+    "vite-plugin-static-copy": "^0.15.0",
     "vitest": "^0.31.4"
   },
   "envars": {
