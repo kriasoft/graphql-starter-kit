@@ -7,6 +7,7 @@ import { debounce } from "lodash-es";
 import { resolve } from "node:path";
 import { PluginOption } from "vite";
 import { VitePluginNode } from "vite-plugin-node";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 import { defineProject } from "vitest/config";
 
 // Load environment variables for the target environment
@@ -39,6 +40,9 @@ export default defineProject(({ mode }) => ({
   plugins: [
     viteCommonjs({
       include: ["graphql-relay"],
+    }),
+    viteStaticCopy({
+      targets: [{ src: "./views", dest: "." }],
     }),
     ...(VitePluginNode({
       adapter: "express",

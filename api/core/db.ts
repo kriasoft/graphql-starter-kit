@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: 2016-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { knex } from "knex";
+import knex from "knex";
 import config from "./db-config";
 import { createNewId } from "./utils";
 
