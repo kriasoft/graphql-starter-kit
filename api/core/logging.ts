@@ -3,10 +3,10 @@
 
 import { Request } from "express";
 import { RequestError } from "got";
+import { RequestParams } from "graphql-http";
 import { HttpError } from "http-errors";
 import PrettyError from "pretty-error";
 import env from "../env";
-import { GraphQLParams } from "./helix";
 
 // https://github.com/AriaMinaei/pretty-error#readme
 const pe = new PrettyError();
@@ -34,7 +34,7 @@ export function log(
   req: Request,
   severity: LogSeverity,
   data: string | Record<string, unknown> | Error | HttpError,
-  context?: GraphQLParams | Record<string, unknown>,
+  context?: RequestParams | Record<string, unknown>,
 ) {
   if (req.get("x-log-level") === "none") {
     return;

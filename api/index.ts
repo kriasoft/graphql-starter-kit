@@ -59,7 +59,7 @@ api.use(session);
 api.use("/api", handleGraphQL);
 
 api.get("/", (req, res) => {
-  res.render("home");
+  res.redirect("/api");
 });
 
 api.get("/favicon.ico", function (req, res) {
