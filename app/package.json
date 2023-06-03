@@ -25,6 +25,7 @@
     "@mui/lab": "^5.0.0-alpha.132",
     "@mui/material": "^5.13.3",
     "firebase": "^9.22.1",
+    "js-cookie": "^3.0.5",
     "localforage": "^1.10.0",
     "notistack": "^3.0.1",
     "react": "^18.2.0",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
+    "@types/js-cookie": "^3.0.3",
     "@types/node": "^18.16.16",
     "@types/react": "^18.2.8",
     "@types/react-dom": "^18.2.4",

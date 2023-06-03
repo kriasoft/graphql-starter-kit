@@ -890,10 +890,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.41.0":
-  version: 8.41.0
-  resolution: "@eslint/js@npm:8.41.0"
-  checksum: 7f4b1d920b5216c2c6a14574e5fc970c7858784c007358e5271c17bd8a8c51fcd5972ac4904c082722bb0fdf404bfe67f7d518c4b1e90ec77a82c92b3ef1e484
+"@eslint/js@npm:8.42.0":
+  version: 8.42.0
+  resolution: "@eslint/js@npm:8.42.0"
+  checksum: 3d9e3276394de4945481164c88820cf873ea85c015d0ec0f96cdc89c9f59b546462dd018e425a96f4071c17e7d5aaafff32c95420b738bce7b9829345eebae20
   languageName: node
   linkType: hard
 
@@ -1906,14 +1906,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanwhocodes/config-array@npm:^0.11.8":
-  version: 0.11.9
-  resolution: "@humanwhocodes/config-array@npm:0.11.9"
+"@humanwhocodes/config-array@npm:^0.11.10":
+  version: 0.11.10
+  resolution: "@humanwhocodes/config-array@npm:0.11.10"
   dependencies:
     "@humanwhocodes/object-schema": "npm:^1.2.1"
     debug: "npm:^4.1.1"
     minimatch: "npm:^3.0.5"
-  checksum: a169095d93c0312a397d2426d41db2b8b5d9eb81f6a89a29795b160393a634c65a4418d15cbf8b1e4da094256862fe575711d07877b13117dc1606d34ac4b548
+  checksum: d8b3afa90dc46f4cbad48dd54e9bb39918a01fbfb16cc931fb55db8c967c1575fc21d4a5f8055f4728697246eafafc95e23c97370ff30ada621f4b581bed3f9d
   languageName: node
   linkType: hard
 
@@ -2972,6 +2972,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/js-cookie@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "@types/js-cookie@npm:3.0.3"
+  checksum: 8fbbbcdcdfa6be3896a80992282f2da10a319b6e5ef4744d7378ac728f520a1a20bbb1f744245bd277923cf1dd08f26b81795a4abce19db66c4d4ce588902614
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.9":
   version: 7.0.12
   resolution: "@types/json-schema@npm:7.0.12"
@@ -3786,6 +3793,7 @@ __metadata:
     "@mui/icons-material": "npm:^5.11.16"
     "@mui/lab": "npm:^5.0.0-alpha.132"
     "@mui/material": "npm:^5.13.3"
+    "@types/js-cookie": "npm:^3.0.3"
     "@types/node": "npm:^18.16.16"
     "@types/react": "npm:^18.2.8"
     "@types/react-dom": "npm:^18.2.4"
@@ -3797,6 +3805,7 @@ __metadata:
     envars: "npm:^0.4.0"
     firebase: "npm:^9.22.1"
     happy-dom: "npm:^9.20.3"
+    js-cookie: "npm:^3.0.5"
     localforage: "npm:^1.10.0"
     notistack: "npm:^3.0.1"
     react: "npm:^18.2.0"
@@ -6280,15 +6289,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.41.0":
-  version: 8.41.0
-  resolution: "eslint@npm:8.41.0"
+"eslint@npm:^8.42.0":
+  version: 8.42.0
+  resolution: "eslint@npm:8.42.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.2.0"
     "@eslint-community/regexpp": "npm:^4.4.0"
     "@eslint/eslintrc": "npm:^2.0.3"
-    "@eslint/js": "npm:8.41.0"
-    "@humanwhocodes/config-array": "npm:^0.11.8"
+    "@eslint/js": "npm:8.42.0"
+    "@humanwhocodes/config-array": "npm:^0.11.10"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
     "@nodelib/fs.walk": "npm:^1.2.8"
     ajv: "npm:^6.10.0"
@@ -6325,7 +6334,7 @@ __metadata:
     text-table: "npm:^0.2.0"
   bin:
     eslint: bin/eslint.js
-  checksum: 82a4a6fd28d88b15e2c8769d291449b93a2241934883d15236eccddce7154f60bf84657923a4840d62988ab099118b71b4ffa1bb7e3039bf1c69aad2ba15f236
+  checksum: 1fd613026fd7d8f448e919def158ca92295ed85c28712e318be4fe82758beb7659a31aff3c5047c564dbb3f48ec129184210634a287335bcb189bb3b6fc755a1
   languageName: node
   linkType: hard
 
@@ -8503,6 +8512,13 @@ __metadata:
   version: 4.14.4
   resolution: "jose@npm:4.14.4"
   checksum: 134a0432ea92fd589194007589db5f5b0b0c8aedcca01841c82267f392f87fde6c4af845235e7f4596d27682b38c0e60f209b65719cd509d38e63e1f0ab3c599
+  languageName: node
+  linkType: hard
+
+"js-cookie@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "js-cookie@npm:3.0.5"
+  checksum: 70da0a57f86f08a1e46bcbac52dbb1ca0466cf046a6d90ad315a847a4b0b4e79492ff1334ea94d923035c713d163c77713132a2ea2809dfc1912e6b204f63351
   languageName: node
   linkType: hard
 
@@ -11437,7 +11453,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^5.59.8"
     "@typescript-eslint/parser": "npm:^5.59.8"
     envars: "npm:^0.4.0"
-    eslint: "npm:^8.41.0"
+    eslint: "npm:^8.42.0"
     eslint-config-prettier: "npm:^8.8.0"
     eslint-import-resolver-typescript: "npm:^3.5.5"
     eslint-plugin-import: "npm:^2.27.5"

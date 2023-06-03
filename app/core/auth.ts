@@ -2,6 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { type User, type UserCredential } from "firebase/auth";
+import Cookie from "js-cookie";
 import * as React from "react";
 import { atom, useRecoilValueLoadable } from "recoil";
 import { useOpenLoginDialog } from "../dialogs/LoginDialog";
@@ -68,6 +69,10 @@ export const CurrentUser = atom<User | null>({
       if (ctx.trigger === "get") {
         return auth.onAuthStateChanged((user) => {
           ctx.setSelf(user);
+
+          // Store the authentication status in a cookie
+          // to be used when rendering the lading/home page
+          Cookie.set("auth", user ? "1" : "0");
         });
       }
     },
