@@ -21,4 +21,5 @@
 # Misc
 /.husky
 *.hbs
+*.ejs
 

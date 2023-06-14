@@ -3,7 +3,6 @@
 
 import assetManifest from "__STATIC_CONTENT_MANIFEST";
 import { serveStatic } from "hono/cloudflare-workers";
-import { getCookie } from "hono/cookie";
 import { getMimeType } from "hono/utils/mime";
 import { app } from "../core/app";
 
@@ -18,17 +17,6 @@ const fallback = serveStatic({ path: "/index.html", manifest });
 // the worker script from the `../app/dist` folder
 export const handler = app.use("*", async (ctx, next) => {
   const url = new URL(ctx.req.url);
-
-  // Indicates whether the user was previously authenticated
-  const isAuthenticated = getCookie(ctx, "auth") === "1";
-
-  if (url.pathname === "/" && isAuthenticated) {
-    // TODO: Render the app dashboard
-    // url.pathname === "/dashboard";
-  } else {
-    // TODO: Render the app landing page
-    // return await fetch("https://example.framer.app/", ctx.req.raw);
-  }
 
   // Alternatively, import the list of routes from the `app` package
   const isKnownRoute = [
