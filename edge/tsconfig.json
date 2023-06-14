@@ -5,6 +5,6 @@
     "types": ["@cloudflare/workers-types", "vite/client"],
     "outDir": "../.cache/typescript-edge"
   },
-  "include": ["**/*.ts", "**/*.json"],
+  "include": ["**/*.ts", "**/*.json", "**/*.ejs"],
   "exclude": ["dist/**/*", "vite.config.ts"]
 }

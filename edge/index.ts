@@ -8,6 +8,8 @@ import "./routes/firebase";
 import "./routes/api";
 // Register `/echo` route handler (debugging)
 import "./routes/echo";
+// Register `*` route handler for landing pages
+import "./routes/landing";
 // Register `*` static assets handler (HTML, CSS, JS, etc.)
 import "./routes/assets";
 

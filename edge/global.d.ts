@@ -17,6 +17,7 @@ declare type Bindings = {
   FIREBASE_APP_ID: string;
   FIREBASE_API_KEY: string;
   FIREBASE_AUTH_DOMAIN: string;
+  GA_MEASUREMENT_ID: string;
   __STATIC_CONTENT: KVNamespace;
 };
 
@@ -25,3 +26,23 @@ declare type Env = {
 };
 
 declare function getMiniflareBindings<T = Bindings>(): T;
+
+declare module "*.ejs" {
+  /**
+   * Generates HTML markup from an EJS template.
+   *
+   * @param locals an object of data to be passed into the template.
+   * @param escape callback used to escape variables
+   * @param include callback used to include files at runtime with `include()`
+   * @param rethrow callback used to handle and rethrow errors
+   *
+   * @return Return type depends on `Options.async`.
+   */
+  const fn: (
+    locals?: Data,
+    escape?: EscapeCallback,
+    include?: IncludeCallback,
+    rethrow?: RethrowCallback,
+  ) => string;
+  export default fn;
+}
