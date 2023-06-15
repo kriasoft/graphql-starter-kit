@@ -37,18 +37,18 @@ export const handler = app.use("*", async (ctx, next) => {
   }
 
   // Otherwise attempt to serve the static asset (file)
-  const res = await asset(ctx, next);
+  const res = await asset(ctx, () => Promise.resolve(undefined));
 
   // Serve index.html for unknown URL routes with 404 status code
   if (!res && !getMimeType(url.pathname)) {
-    const res = await fallback(ctx, next);
+    const res = await fallback(ctx, () => Promise.resolve(undefined));
 
     if (res) {
       return new Response(res.body, { ...res, status: 404 });
     }
   }
 
-  return res;
+  return res || ctx.notFound();
 });
 
 export type AssetsHandler = typeof handler;
