@@ -18,29 +18,29 @@
     "app:deploy": "yarn workspace app deploy"
   },
   "dependencies": {
-    "@babel/runtime": "^7.22.3",
-    "@emotion/react": "^11.11.0",
+    "@babel/runtime": "^7.22.5",
+    "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
-    "@mui/lab": "^5.0.0-alpha.132",
-    "@mui/material": "^5.13.3",
-    "firebase": "^9.22.1",
+    "@mui/lab": "^5.0.0-alpha.134",
+    "@mui/material": "^5.13.5",
+    "firebase": "^9.22.2",
     "js-cookie": "^3.0.5",
     "localforage": "^1.10.0",
     "notistack": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-relay": "15.0.0",
-    "react-router-dom": "^6.11.2",
+    "react-router-dom": "^6.13.0",
     "recoil": "^0.7.7",
     "relay-runtime": "^15.0.0"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
     "@types/js-cookie": "^3.0.3",
-    "@types/node": "^18.16.16",
-    "@types/react": "^18.2.8",
-    "@types/react-dom": "^18.2.4",
+    "@types/node": "^18.16.18",
+    "@types/react": "^18.2.12",
+    "@types/react-dom": "^18.2.5",
     "@types/react-relay": "^14.1.4",
     "@types/relay-compiler": "^14.0.1",
     "@types/relay-runtime": "^14.1.10",
@@ -50,10 +50,10 @@
     "happy-dom": "^9.20.3",
     "relay-compiler": "^15.0.0",
     "relay-config": "^12.0.1",
-    "typescript": "~5.0.4",
+    "typescript": "~5.1.3",
     "vite": "^4.3.9",
     "vite-plugin-relay": "^2.0.0",
-    "vitest": "^0.31.4"
+    "vitest": "^0.32.0"
   },
   "envars": {
     "cwd": "../env"
