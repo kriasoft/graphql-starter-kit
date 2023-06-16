@@ -32,7 +32,7 @@ export default defineProject(({ mode }) => ({
         mode === "production"
           ? ["http-errors", "firebase-admin/app", "firebase-admin/auth", "jose"]
           : mode === "test"
-          ? ["graphql-relay"]
+          ? ["graphql", "graphql-relay"]
           : undefined,
     }),
   },
@@ -88,7 +88,7 @@ export default defineProject(({ mode }) => ({
     testTimeout: 10000,
     teardownTimeout: 10000,
     deps: {
-      inline: ["graphql-relay"],
+      inline: ["graphql", "graphql-relay"],
     },
   },
 }));

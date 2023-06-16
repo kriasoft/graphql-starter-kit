@@ -46,7 +46,7 @@ test(`fetch me (as anonymous)`, async () => {
     body: res.body,
   }).toEqual({
     status: 200,
-    contentType: "application/json",
+    contentType: "application/json; charset=utf-8",
     body: {
       data: {
         me: null,
@@ -73,7 +73,7 @@ test(`fetch me (as a registered user)`, async () => {
     body: res.body,
   }).toEqual({
     status: 200,
-    contentType: "application/json",
+    contentType: "application/json; charset=utf-8",
     body: {
       data: {
         me: {
