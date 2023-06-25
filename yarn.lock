@@ -3746,7 +3746,7 @@ __metadata:
     gm: "npm:^1.25.0"
     google-auth-library: "npm:^8.8.0"
     got: "npm:^13.0.0"
-    graphql: "npm:^16.6.0"
+    graphql: "npm:^16.7.1"
     graphql-http: "npm:^1.19.0"
     graphql-relay: "npm:^0.10.0"
     handlebars: "npm:^4.7.7"
@@ -7552,10 +7552,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:^16.6.0":
-  version: 16.6.0
-  resolution: "graphql@npm:16.6.0"
-  checksum: f2ce5fdd5e1d8f66b40143b791e1063efe50b17071e0b06b30b8cd597a7fc08135d606586935db7e65dbd5ebbf207cd2f9b56c9c5cf4ad818f080d98f47282a4
+"graphql@npm:^16.7.1":
+  version: 16.7.1
+  resolution: "graphql@npm:16.7.1"
+  checksum: fa9fd383fb9be6d44dc985b3b3f4c858dbe3dcb10ca74c8f8c85ceb5ceddf57a73b77cea719f702e246a46b48b71ffd34cf939fe3686821650a6bd3d9ba2ce4a
   languageName: node
   linkType: hard
 

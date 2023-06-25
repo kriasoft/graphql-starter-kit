@@ -31,7 +31,7 @@
     "gm": "^1.25.0",
     "google-auth-library": "^8.8.0",
     "got": "^13.0.0",
-    "graphql": "^16.6.0",
+    "graphql": "^16.7.1",
     "graphql-http": "^1.19.0",
     "graphql-relay": "^0.10.0",
     "handlebars": "^4.7.7",
