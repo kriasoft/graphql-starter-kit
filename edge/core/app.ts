@@ -11,7 +11,17 @@ export const app = new Hono<Env>();
 
 // Configure environment variables for review deployments
 app.use("*", async function (ctx, next) {
-  const { hostname } = new URL(ctx.req.url);
+  const { hostname, pathname } = new URL(ctx.req.url);
+
+  // Block all web crawlers from non-production deployments
+  // https://moz.com/learn/seo/robotstxt
+  if (
+    pathname === "/robots.txt" &&
+    ctx.env.APP_ENV !== "prod" &&
+    ctx.req.method === "GET"
+  ) {
+    return ctx.text("User-agent: *\nDisallow: /\n");
+  }
 
   // Resolve the review deployment version (PR number), for example:
   //   `https://example.com` => null
@@ -34,14 +44,6 @@ app.use("*", async function (ctx, next) {
   }
 
   await next();
-});
-
-// Block all web crawlers from non-production deployments
-// https://moz.com/learn/seo/robotstxt
-app.get("/robots.txt", function (ctx) {
-  return ctx.env.APP_ENV === "prod"
-    ? fetch(ctx.req.url, ctx.req)
-    : ctx.text("User-agent: *\nDisallow: /\n");
 });
 
 app.onError((err, ctx) => {

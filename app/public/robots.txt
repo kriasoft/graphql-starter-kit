@@ -1,5 +1,8 @@
-# www.robotstxt.org/
-
 # Allow crawling of all content
+# https://moz.com/learn/seo/robotstxt
 User-agent: *
 Disallow:
+
+# The list of website pages
+# https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview
+Sitemap: /sitemap.xml

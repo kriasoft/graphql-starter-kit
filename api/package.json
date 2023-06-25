@@ -17,7 +17,7 @@
     "api:build": "yarn workspace api run build"
   },
   "dependencies": {
-    "@google-cloud/functions-framework": "^3.2.0",
+    "@google-cloud/functions-framework": "^3.2.1",
     "@google-cloud/storage": "^6.11.0",
     "@sendgrid/mail": "^7.7.0",
     "cookie": "^0.5.0",
@@ -31,7 +31,7 @@
     "gm": "^1.25.0",
     "google-auth-library": "^8.8.0",
     "got": "^13.0.0",
-    "graphql": "^16.6.0",
+    "graphql": "^16.7.1",
     "graphql-http": "^1.19.0",
     "graphql-relay": "^0.10.0",
     "handlebars": "^4.7.7",
@@ -59,7 +59,7 @@
     "@types/gm": "^1.25.1",
     "@types/http-errors": "^2.0.1",
     "@types/lodash-es": "^4.17.7",
-    "@types/node": "^18.16.18",
+    "@types/node": "^20.3.1",
     "@types/pg": "^8.10.2",
     "@types/source-map-support": "^0.5.6",
     "@types/supertest": "^2.0.12",
@@ -73,7 +73,7 @@
     "vite": "^4.3.9",
     "vite-plugin-node": "^3.0.2",
     "vite-plugin-static-copy": "^0.16.0",
-    "vitest": "^0.32.0"
+    "vitest": "^0.32.2"
   },
   "envars": {
     "cwd": "../env"
