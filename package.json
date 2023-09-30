@@ -13,12 +13,12 @@
     "scripts"
   ],
   "scripts": {
-    "postinstall": "node ./scripts/postinstall.js",
+    "postinstall": "node ./scripts/post-install.js",
     "start": "yarn workspaces foreach -ip -j unlimited run start",
     "build": "yarn workspaces foreach -p -j unlimited run build",
     "setup": "node ./scripts/setup.js",
     "lint": "eslint --cache --report-unused-disable-directives .",
-    "test": "vitest",
+    "test": "pnpify vitest",
     "tf": "node --no-warnings ./scripts/tf.js",
     "g:lint": "yarn lint \"$INIT_CWD\"",
     "psql": "yarn db:psql",
@@ -31,6 +31,7 @@
     "@types/node": "^20.8.0",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
+    "@yarnpkg/pnpify": "^4.0.0-rc.52",
     "envars": "^0.4.0",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
@@ -47,7 +48,7 @@
     "react": "^18.2.0",
     "relay-config": "^12.0.1",
     "typescript": "~5.2.2",
-    "vitest": "^0.34.6",
+    "vitest": "~0.34.6",
     "wrangler": "^3.10.1",
     "zx": "^7.2.3"
   },

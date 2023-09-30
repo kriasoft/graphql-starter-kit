@@ -89,6 +89,11 @@ export default defineProject(({ mode }) => ({
     teardownTimeout: 10000,
     deps: {
       inline: ["graphql", "graphql-relay"],
+      optimizer: {
+        ssr: {
+          include: ["graphql", "graphql-relay"],
+        },
+      },
     },
   },
 }));

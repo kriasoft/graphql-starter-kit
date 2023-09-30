@@ -4,14 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "vitest",
+    "test": "pnpify vitest",
     "build": "vite build",
-    "coverage": "vitest run --coverage",
     "deploy": "node ../scripts/wrangler.js deploy",
     "wrangler": "node ../scripts/wrangler.js",
     "edge:cf": "node ../scripts/wrangler.js",
     "edge:tsc": "tsc",
-    "edge:test": "vitest",
+    "edge:test": "pnpify vitest",
     "edge:deploy": "node ../scripts/wrangler.js deploy"
   },
   "dependencies": {
@@ -26,11 +25,12 @@
     "@cloudflare/workers-types": "^4.20230922.0",
     "@types/ejs": "^3.1.3",
     "@types/node": "^20.8.0",
+    "@yarnpkg/pnpify": "^4.0.0-rc.52",
     "happy-dom": "^12.2.1",
     "toml": "^3.0.0",
     "typescript": "~5.2.2",
-    "vite": "^4.4.9",
-    "vitest": "^0.34.6",
+    "vite": "~4.4.9",
+    "vitest": "~0.34.6",
     "vitest-environment-miniflare": "^2.14.1"
   }
 }

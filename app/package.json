@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "vitest",
+    "test": "pnpify vitest",
     "relay": "relay-compiler",
     "start": "vite serve",
     "build": "vite build",
@@ -45,15 +45,16 @@
     "@types/relay-compiler": "^14.0.1",
     "@types/relay-runtime": "^14.1.14",
     "@vitejs/plugin-react": "^4.1.0",
+    "@yarnpkg/pnpify": "^4.0.0-rc.52",
     "babel-plugin-relay": "^15.0.0",
     "envars": "^0.4.0",
     "happy-dom": "^12.2.1",
     "relay-compiler": "^15.0.0",
     "relay-config": "^12.0.1",
     "typescript": "~5.2.2",
-    "vite": "^4.4.9",
+    "vite": "~4.4.9",
     "vite-plugin-relay": "^2.0.0",
-    "vitest": "^0.34.6"
+    "vitest": "~0.34.6"
   },
   "envars": {
     "cwd": "../env"

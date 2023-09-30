@@ -5,13 +5,13 @@
   "type": "module",
   "exports": "./index.js",
   "scripts": {
-    "test": "vitest",
+    "test": "pnpify vitest",
     "start": "vite serve",
     "build": "vite build --ssr ./index.ts && node ../scripts/bundle-yarn.js",
     "update-schema": "node -r envars/config ../scripts/update-schema.js",
     "deploy": "node ../scripts/gcf-deploy.js api --entry=api",
     "api:tsc": "tsc",
-    "api:test": "vitest",
+    "api:test": "pnpify vitest",
     "api:start": "yarn workspace api run start",
     "api:update-schema": "yarn workspace api run update-schema",
     "api:build": "yarn workspace api run build"
@@ -64,16 +64,17 @@
     "@types/source-map-support": "^0.5.8",
     "@types/supertest": "^2.0.13",
     "@types/validator": "^13.11.2",
+    "@yarnpkg/pnpify": "^4.0.0-rc.52",
     "envars": "^0.4.0",
     "execa": "^8.0.1",
     "happy-dom": "^12.2.1",
     "knex-types": "^0.5.0",
     "supertest": "^6.3.3",
     "typescript": "~5.2.2",
-    "vite": "^4.4.9",
+    "vite": "~4.4.9",
     "vite-plugin-node": "^3.0.2",
     "vite-plugin-static-copy": "^0.17.0",
-    "vitest": "^0.34.6"
+    "vitest": "~0.34.6"
   },
   "envars": {
     "cwd": "../env"
