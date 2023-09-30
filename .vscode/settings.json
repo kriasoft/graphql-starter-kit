@@ -110,6 +110,8 @@
     "typechecking",
     "unprocessable",
     "upsert",
+    "vite",
+    "vitest",
     "webflow",
     "websql",
     "yarnpkg",

@@ -1,10 +1,9 @@
 /* SPDX-FileCopyrightText: 2014-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { readFileSync } from "node:fs";
+import { existsSync } from "node:fs";
 import { defineWorkspace } from "vitest/config";
-
-const pkg = JSON.parse(readFileSync("./package.json", "utf-8"));
+import { workspaces } from "./package.json";
 
 /**
  * Inline Vitest configuration for all workspaces.
@@ -12,9 +11,9 @@ const pkg = JSON.parse(readFileSync("./package.json", "utf-8"));
  * @see https://vitest.dev/guide/workspace
  */
 export default defineWorkspace(
-  pkg.workspaces
-    .filter((name: string) => !["db", "img", "scripts"].includes(name))
-    .map((name: string) => ({
+  workspaces
+    .filter((name) => existsSync(`./${name}/vite.config.ts`))
+    .map((name) => ({
       extends: `./${name}/vite.config.ts`,
       test: {
         name,

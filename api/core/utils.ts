@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 import { Knex } from "knex";
-import { customAlphabet } from "nanoid/async";
+import { customAlphabet } from "nanoid";
 
 // An alphabet for generating short IDs.
 const alphabet = "0123456789abcdefghijklmnopqrstuvwxyz";
@@ -17,7 +17,7 @@ export function createNewId(
   const generateId = customAlphabet(alphabet, size);
 
   return async function newId(unique = true) {
-    let id = await generateId();
+    let id = generateId();
 
     // Ensures that the generated ID is unique
     while (unique) {
@@ -25,7 +25,7 @@ export function createNewId(
 
       if (record) {
         console.warn(`Re-generating new ${table} ID.`);
-        id = await generateId();
+        id = generateId();
       } else {
         break;
       }

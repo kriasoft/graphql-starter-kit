@@ -1,6 +1,6 @@
 import { GraphQLFieldConfig, GraphQLNonNull, GraphQLString } from "graphql";
 import { Unauthorized } from "http-errors";
-import { customAlphabet } from "nanoid/async";
+import { customAlphabet } from "nanoid";
 import path from "node:path";
 import { Context, storage } from "../core";
 import env from "../env";
@@ -31,7 +31,7 @@ export const getUploadURL: GraphQLFieldConfig<unknown, Context> = {
 
     // Create a temporary for the uploaded content
     // https://googleapis.dev/nodejs/storage/latest/Bucket.html#getSignedUrl
-    const fileName = `${await newId()}${path.extname(args.fileName)}`;
+    const fileName = `${newId()}${path.extname(args.fileName)}`;
     const [url] = await storage
       .bucket(env.UPLOAD_BUCKET)
       .file(fileName)

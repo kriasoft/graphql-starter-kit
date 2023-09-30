@@ -27,21 +27,21 @@
     "db:psql": "yarn zx ./scripts/psql.js"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.0.2",
-    "@types/minimist": "^1.2.2",
-    "@types/prettier": "^2.7.3",
-    "chalk": "^5.2.0",
+    "@faker-js/faker": "^8.1.0",
+    "@types/minimist": "^1.2.3",
+    "@types/prettier": "^3.0.0",
+    "chalk": "^5.3.0",
     "envars": "^0.4.0",
-    "execa": "^7.1.1",
-    "knex": "^2.4.2",
+    "execa": "^8.0.1",
+    "knex": "^2.5.1",
     "knex-types": "^0.5.0",
     "minimist": "^1.2.8",
-    "nanoid": "^4.0.2",
+    "nanoid": "^5.0.1",
     "nanospinner": "^1.1.0",
-    "ora": "^6.3.1",
-    "pg": "^8.11.0",
-    "prettier": "^2.8.8",
-    "zx": "^7.2.2"
+    "ora": "^7.0.1",
+    "pg": "^8.11.3",
+    "prettier": "^3.0.3",
+    "zx": "^7.2.3"
   },
   "envars": {
     "cwd": "../env"

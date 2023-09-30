@@ -53,8 +53,11 @@ export default defineProject({
   test: {
     ...{ cache: { dir: "../.cache/vitest" } },
     deps: {
-      // ...{ registerNodeLoader: true },
-      external: ["__STATIC_CONTENT_MANIFEST"],
+      optimizer: {
+        ssr: {
+          exclude: ["__STATIC_CONTENT_MANIFEST"],
+        },
+      },
     },
     environment: "miniflare",
     environmentOptions: {

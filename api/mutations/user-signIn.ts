@@ -13,7 +13,7 @@ import {
   GraphQLString,
 } from "graphql";
 import { BadRequest } from "http-errors";
-import { nanoid } from "nanoid/async";
+import { nanoid } from "nanoid";
 import { ValidationError } from "validator-fluent";
 import { Context } from "../core";
 import env from "../env";
@@ -102,7 +102,7 @@ export const signIn: GraphQLFieldConfig<unknown, Context> = {
       if (otpExists && otp?.code === input.otp) {
         if (!user) {
           user = await auth.createUser({
-            uid: await nanoid(6),
+            uid: nanoid(6),
             email: input.email,
             emailVerified: true,
           });

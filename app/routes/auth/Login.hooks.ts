@@ -10,20 +10,18 @@ import { LoginMutation } from "../../queries/LoginMutation.graphql";
  */
 export function useHandleSubmit(state: State, setState: SetState) {
   const navigate = useNavigate();
-  const [commit, inFlight] = useMutation<LoginMutation>(
-    graphql`
-      mutation LoginMutation($input: SignInInput!) {
-        signIn(input: $input) {
-          newUser
-          emailVerified
-          registered
-          otpSent
-          token
-          saml
-        }
+  const [commit, inFlight] = useMutation<LoginMutation>(graphql`
+    mutation LoginMutation($input: SignInInput!) {
+      signIn(input: $input) {
+        newUser
+        emailVerified
+        registered
+        otpSent
+        token
+        saml
       }
-    `,
-  );
+    }
+  `);
 
   const self = React.useRef<Disposable>();
 

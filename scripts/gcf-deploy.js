@@ -31,6 +31,7 @@ const envFile = `../.cache/${name}-${envName}.yml`;
 // Save the required environment variables to .yml file before deployment
 if (app.env) {
   const envEntries = Object.keys(app.env).map((key) => [key, $.env[key]]);
+  await fs.ensureDir(path.dirname(envFile));
   await saveEnvVars(Object.fromEntries(envEntries), envFile, functionName);
   process.once("exit", () => fs.unlinkSync(envFile));
 }

@@ -16,10 +16,10 @@ export class Context extends Map<string | number | symbol, unknown> {
   [key: string | number | symbol]: unknown;
 
   readonly req: Request;
-  readonly operationName?: string;
+  readonly operationName?: string | null;
   readonly query: string;
-  readonly variables?: Record<string, unknown>;
-  readonly extensions?: Record<string, unknown>;
+  readonly variables?: Record<string, unknown> | null;
+  readonly extensions?: Record<string, unknown> | null;
   readonly token: DecodedIdToken | null;
   readonly auth: Auth;
   readonly db: Firestore;
