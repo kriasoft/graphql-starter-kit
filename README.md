@@ -57,8 +57,12 @@ and run `yarn install` followed by `yarn start`:
 ```bash
 $ git clone https://github.com/kriasoft/relay-starter-kit.git example
 $ cd ./example                  # Change current directory to the newly created one
-$ yarn install                  # Install project dependencies
+$ corepack enable               # Ensure Yarn is installed
 $ yarn setup                    # Configure environment variables
+```
+
+```bash
+$ yarn install                  # Install project dependencies
 $ yarn db:reset                 # Create or update PostgreSQL database
 $ yarn api:start                # Launch GraphQL API and authentication server
 $ yarn app:start                # Launch React/Relay front-end app
