@@ -48,7 +48,7 @@
     "@yarnpkg/pnpify": "^4.0.0-rc.52",
     "babel-plugin-relay": "^15.0.0",
     "envars": "^0.4.0",
-    "happy-dom": "^12.2.1",
+    "happy-dom": "^12.2.2",
     "relay-compiler": "^15.0.0",
     "relay-config": "^12.0.1",
     "typescript": "~5.2.2",

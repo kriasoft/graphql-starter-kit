@@ -42,7 +42,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "graphql": "^16.8.1",
     "graphql-config": "^5.0.2",
-    "happy-dom": "^12.2.1",
+    "happy-dom": "^12.2.2",
     "husky": "^8.0.3",
     "prettier": "^3.0.3",
     "react": "^18.2.0",
@@ -51,6 +51,9 @@
     "vitest": "~0.34.6",
     "wrangler": "^3.10.1",
     "zx": "^7.2.3"
+  },
+  "resolutions": {
+    "vite": "~4.4.9"
   },
   "envars": {
     "cwd": "./env"

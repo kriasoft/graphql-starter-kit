@@ -67,7 +67,7 @@
     "@yarnpkg/pnpify": "^4.0.0-rc.52",
     "envars": "^0.4.0",
     "execa": "^8.0.1",
-    "happy-dom": "^12.2.1",
+    "happy-dom": "^12.2.2",
     "knex-types": "^0.5.0",
     "supertest": "^6.3.3",
     "typescript": "~5.2.2",
