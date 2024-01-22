@@ -17,8 +17,8 @@
       "    return db.table<${1/^(.)(.*?)s?$/${1:/upcase}$2/}>(\"${1/^(.*?)s?$/$1/}\").select();",
       "  },",
       "};",
-      ""
+      "",
     ],
-    "description": "Query List Field"
-  }
+    "description": "Query List Field",
+  },
 }

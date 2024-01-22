@@ -2,7 +2,7 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "types": ["vite/client"],
     "allowSyntheticDefaultImports": true,
     "outDir": "../.cache/typescript-app",

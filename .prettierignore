@@ -3,6 +3,7 @@
 /app/queries/
 /api/schema.graphql
 /db/types.ts
+/db/models/*
 
 # Cache
 /.cache

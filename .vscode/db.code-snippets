@@ -3,7 +3,7 @@
     "scope": "javascript,typescript",
     "prefix": "migration",
     "body": [
-      "import { Knex } from \"knex\";",
+      "import type { Knex } from \"knex\";",
       "",
       "/**",
       " * Migrates database schema to the next version.",
@@ -12,7 +12,6 @@
       "export async function up(db: Knex) {",
       "  await db.schema.createTable(\"${1:table}\", (table) => {",
       "    table$0",
-      "    table.boolean(\"archived\").notNullable().defaultTo(false);",
       "    table.timestamps(false, true);",
       "  });",
       "}",
@@ -22,8 +21,8 @@
       "}",
       "",
       "export const configuration = { transaction: true };",
-      ""
-    ]
+      "",
+    ],
   },
   "Database seed": {
     "scope": "javascript,typescript",
@@ -42,7 +41,7 @@
       "  await db.table(\"${1:table}\").delete();",
       "  await db.table(\"${1:table}\").insert(${1:table});",
       "};",
-      ""
-    ]
-  }
+      "",
+    ],
+  },
 }

@@ -4,73 +4,47 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "pnpify vitest",
-    "relay": "relay-compiler",
     "start": "vite serve",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "node ../scripts/app-deploy.js",
-    "app:test": "yarn workspace app test",
-    "app:relay": "yarn workspace app relay",
+    "test": "vitest",
+    "coverage": "vitest --coverage",
+    "deploy": "yarn workspace edge deploy",
     "app:start": "yarn workspace app start",
     "app:build": "yarn workspace app build",
     "app:preview": "yarn workspace app preview",
     "app:deploy": "yarn workspace app deploy"
   },
   "dependencies": {
-    "@babel/runtime": "^7.23.1",
-    "@emotion/react": "^11.11.1",
+    "@babel/runtime": "^7.23.8",
+    "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.14.11",
-    "@mui/lab": "^5.0.0-alpha.146",
-    "@mui/material": "^5.14.11",
-    "firebase": "^10.4.0",
-    "js-cookie": "^3.0.5",
+    "@mui/base": "^5.0.0-beta.32",
+    "@mui/icons-material": "^5.15.5",
+    "@mui/joy": "^5.0.0-beta.23",
+    "@mui/lab": "^5.0.0-alpha.161",
+    "@mui/material": "^5.15.5",
+    "firebase": "^10.7.2",
+    "jotai": "^2.6.2",
+    "jotai-effect": "^0.3.2",
     "localforage": "^1.10.0",
     "notistack": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-relay": "15.0.0",
-    "react-router-dom": "^6.16.0",
-    "recoil": "^0.7.7",
-    "relay-runtime": "^15.0.0"
+    "react-router-dom": "^6.21.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.7",
     "@emotion/babel-plugin": "^11.11.0",
-    "@types/js-cookie": "^3.0.4",
-    "@types/node": "^20.8.0",
-    "@types/react": "^18.2.23",
-    "@types/react-dom": "^18.2.8",
-    "@types/react-relay": "^14.1.6",
-    "@types/relay-compiler": "^14.0.1",
-    "@types/relay-runtime": "^14.1.14",
-    "@vitejs/plugin-react": "^4.1.0",
-    "@yarnpkg/pnpify": "^4.0.0-rc.52",
-    "babel-plugin-relay": "^15.0.0",
-    "envars": "^0.4.0",
-    "happy-dom": "^12.2.2",
-    "relay-compiler": "^15.0.0",
-    "relay-config": "^12.0.1",
-    "typescript": "~5.2.2",
-    "vite": "~4.4.9",
-    "vite-plugin-relay": "^2.0.0",
-    "vitest": "~0.34.6"
-  },
-  "envars": {
-    "cwd": "../env"
-  },
-  "relay": {
-    "src": ".",
-    "schema": "../api/schema.graphql",
-    "language": "typescript",
-    "artifactDirectory": "./queries",
-    "exclude": [
-      "**/dist/**",
-      "**/public/**"
-    ],
-    "schemaExtensions": [
-      "."
-    ],
-    "eagerEsModules": true
+    "@rollup/plugin-graphql": "^2.0.4",
+    "@types/node": "^20.11.5",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "envars": "^1.0.2",
+    "happy-dom": "^13.2.0",
+    "typescript": "~5.3.3",
+    "vite": "~5.0.12",
+    "vitest": "~1.2.1"
   }
 }

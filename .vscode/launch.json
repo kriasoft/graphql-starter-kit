@@ -29,14 +29,6 @@
       "type": "node"
     },
     {
-      "name": "edge:start",
-      "request": "launch",
-      "runtimeExecutable": "yarn",
-      "runtimeArgs": ["workspace", "edge", "run", "vite"],
-      "skipFiles": ["<node_internals>/**"],
-      "type": "node"
-    },
-    {
       "type": "node",
       "request": "attach",
       "name": "Attach to Node.js",

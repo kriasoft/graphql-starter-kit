@@ -1,31 +1,30 @@
 /* SPDX-FileCopyrightText: 2014-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, CssVarsProvider } from "@mui/joy";
 import { SnackbarProvider } from "notistack";
-import * as React from "react";
-import * as ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
-import { RecoilRoot } from "recoil";
-import { RelayEnvironmentProvider } from "./core/relay";
-import { router } from "./routes";
-import { ThemeProvider } from "./theme";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { StoreProvider } from "./core/store";
+import { theme } from "./core/theme";
+import { Router } from "./routes/index";
 
-const container = document.getElementById("root") as HTMLElement;
-const root = ReactDOM.createRoot(container);
+const container = document.getElementById("root");
+const root = createRoot(container!);
 
-// Render the top-level React component
 root.render(
-  <React.StrictMode>
-    <RecoilRoot>
-      <ThemeProvider>
-        <RelayEnvironmentProvider>
-          <SnackbarProvider>
-            <CssBaseline />
-            <RouterProvider router={router} />
-          </SnackbarProvider>
-        </RelayEnvironmentProvider>
-      </ThemeProvider>
-    </RecoilRoot>
-  </React.StrictMode>,
+  <StrictMode>
+    <CssVarsProvider theme={theme}>
+      <SnackbarProvider>
+        <CssBaseline />
+        <StoreProvider>
+          <Router />
+        </StoreProvider>
+      </SnackbarProvider>
+    </CssVarsProvider>
+  </StrictMode>,
 );
+
+if (import.meta.hot) {
+  import.meta.hot.dispose(() => root.unmount());
+}
