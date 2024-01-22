@@ -4,9 +4,13 @@
 import { getAnalytics, logEvent } from "firebase/analytics";
 import * as React from "react";
 import { useLocation } from "react-router-dom";
-import { config } from "./config";
 
-export function usePageEffect(options?: Options, deps?: React.DependencyList) {
+const appName = import.meta.env.VITE_APP_NAME;
+
+export function usePageEffect(
+  options?: Options,
+  deps: React.DependencyList = [],
+) {
   const location = useLocation();
 
   // Once the page component was rendered, update the HTML document's title
@@ -15,22 +19,22 @@ export function usePageEffect(options?: Options, deps?: React.DependencyList) {
 
     document.title =
       location.pathname === "/"
-        ? options?.title ?? config.app.name
+        ? options?.title ?? appName
         : options?.title
-        ? `${options.title} - ${config.app.name}`
-        : config.app.name;
+          ? `${options.title} - ${appName}`
+          : appName;
 
     return function () {
       document.title = previousTitle;
     };
-  }, [...(deps ?? []), location, options?.title]);
+  }, [...deps, location, options?.title]);
 
   // Send "page view" event to Google Analytics
   // https://support.google.com/analytics/answer/11403294?hl=en
   React.useEffect(() => {
     if (!(options?.trackPageView === false)) {
       logEvent(getAnalytics(), "page_view", {
-        page_title: options?.title ?? config.app.name,
+        page_title: options?.title ?? appName,
         page_path: `${location.pathname}${location.search}`,
       });
     }

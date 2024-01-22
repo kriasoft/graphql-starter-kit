@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "outDir": "../.cache/ts-server",
+    "types": ["vite/client"],
+    "noEmit": true,
+  },
+  "include": ["**/*.ts", "**/*.cjs", "**/*.js", "**/*.json", "../db/types"],
+  "exclude": ["dist/**/*"],
+}

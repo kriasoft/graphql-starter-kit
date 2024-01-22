@@ -19,9 +19,9 @@
       "}",
       "",
       "export { ${TM_FILENAME_BASE}, type ${TM_FILENAME_BASE}Props };",
-      ""
+      "",
     ],
-    "description": "React Component"
+    "description": "React Component",
   },
   "Mutation": {
     "scope": "typescript",
@@ -88,8 +88,8 @@
       "}",
       "",
       "export { use${1}, type Input, type InputErrors };",
-      ""
+      "",
     ],
-    "description": "Mutation React Hook"
-  }
+    "description": "Mutation React Hook",
+  },
 }

@@ -1,20 +1,13 @@
 /* SPDX-FileCopyrightText: 2014-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
-import { lazy } from "react";
-import { createBrowserRouter, Navigate } from "react-router-dom";
-import { AppLayout } from "../layout/AppLayout";
-import { BaseLayout } from "../layout/BaseLayout";
-import { RootError } from "../layout/RootError";
-
-const Login = lazy(() => import("./auth/Login.js"));
-const Privacy = lazy(() => import("./legal/Privacy.js"));
-const Terms = lazy(() => import("./legal/Terms.js"));
-
-const Dashboard = lazy(() => import("./dashboard/Dashboard.js"));
-
-const SettingsLayout = lazy(() => import("./settings/SettingsLayout.js"));
-const AccountDetails = lazy(() => import("./settings/AccountDetails.js"));
+import { createElement } from "react";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import { BaseLayout, MainLayout, RootError } from "../components";
 
 /**
  * Application routes
@@ -26,30 +19,27 @@ export const router = createBrowserRouter([
     element: <BaseLayout />,
     errorElement: <RootError />,
     children: [
-      { path: "login", element: <Login mode="login" /> },
-      { path: "signup", element: <Login mode="signup" /> },
-      { path: "privacy", element: <Privacy /> },
-      { path: "terms", element: <Terms /> },
+      { path: "login", lazy: () => import("./login") },
+      { path: "privacy", lazy: () => import("./privacy") },
+      { path: "terms", lazy: () => import("./terms") },
     ],
   },
   {
     path: "",
-    element: <AppLayout />,
+    element: <MainLayout />,
     errorElement: <RootError />,
     children: [
       { index: true, element: <Navigate to="/dashboard" replace /> },
-      { path: "dashboard", element: <Dashboard /> },
-      {
-        path: "settings",
-        element: <SettingsLayout />,
-        children: [
-          { index: true, element: <Navigate to="/settings/account" /> },
-          { path: "account", element: <AccountDetails /> },
-        ],
-      },
+      { path: "dashboard", lazy: () => import("./dashboard") },
+      { path: "tasks", lazy: () => import("./tasks") },
+      { path: "messages", lazy: () => import("./messages") },
     ],
   },
 ]);
+
+export function Router(): JSX.Element {
+  return createElement(RouterProvider, { router });
+}
 
 // Clean up on module reload (HMR)
 // https://vitejs.dev/guide/api-hmr

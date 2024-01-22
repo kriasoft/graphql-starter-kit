@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: 2016-present Kriasoft */
+/* SPDX-FileCopyrightText: 2014-present Kriasoft */
 /* SPDX-License-Identifier: MIT */
 
 import { execa } from "execa";
