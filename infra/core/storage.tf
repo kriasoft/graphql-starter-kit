@@ -9,7 +9,7 @@
 
 resource "google_storage_bucket" "pkg" {
   name          = "pkg.${var.root_level_domain}"
-  location      = "US"
+  location      = var.gcp_region
   force_destroy = false
 
   uniform_bucket_level_access = true
