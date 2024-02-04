@@ -19,9 +19,7 @@
     "test": "pnpify vitest",
     "tf": "node --no-warnings ./scripts/tf.js",
     "g:lint": "yarn lint \"$INIT_CWD\"",
-    "db": "tsx ./db/cli.ts",
-    "psql": "yarn db:psql",
-    "repl": "yarn db:repl"
+    "db": "tsx ./db/cli.ts"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
