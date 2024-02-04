@@ -9,12 +9,12 @@
   <a href="https://twitter.com/koistya"><img src="https://img.shields.io/twitter/follow/koistya.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
 </h1>
 
-High-performance GraphQL API server and React front-end.
+High-performance GraphQL API server, database dev tools, and React front-end.
 
 ## Features
 
 - [Monorepo](https://yarnpkg.com/features/workspaces) project structure powered by [Yarn](https://yarnpkg.com/) with [PnP](https://yarnpkg.com/features/pnp).
-- [GraphQL API](https://graphql.org/) powered by [GraphQL Yoga](https://the-guild.dev/graphql/yoga-server) and [Pothos GraphQL](https://pothos-graphql.dev/).
+- [GraphQL API](https://graphql.org/) powered by [GraphQL Yoga](https://the-guild.dev/graphql/yoga-server), [Pothos GraphQL](https://pothos-graphql.dev/), and [μWebSockets](https://github.com/uNetworking/uWebSockets.js).
 - Authentication and authorization powered by [Google Identity Platform](https://cloud.google.com/identity-platform).
 - Database tooling — seed files, migrations, [Knex.js](https://knexjs.org/) REPL shell, etc.
 - Front-end boilerplate pre-configured with [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/), [React](https://beta.reactjs.org/), and [Joy UI](https://mui.com/joy-ui/getting-started/).
@@ -33,7 +33,7 @@ Be sure to join our [Discord channel](https://discord.com/invite/bSsv7XM) for as
 
 `├──`[`.github`](.github) — GitHub configuration including CI/CD workflows.<br>
 `├──`[`.vscode`](.vscode) — VSCode settings including code snippets, recommended extensions etc.<br>
-`├──`[`app`](./app) — front-end application ([Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), [React](https://reactjs.org/)).<br>
+`├──`[`app`](./app) — front-end application ([Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), [React](https://reactjs.org/), [Joy UI](https://mui.com/joy-ui/getting-started/templates/)).<br>
 `├──`[`db`](./db) — database schema, seeds, and migrations ([PostgreSQL](https://www.postgresql.org/)).<br>
 `├──`[`infra`](./infra) — cloud infrastructure configuration ([Terraform](https://www.terraform.io/)).<br>
 `├──`[`scripts`](./scripts) — automation scripts shared across the project.<br>
@@ -99,11 +99,7 @@ $ yarn dlx @yarnpkg/sdks vscode # Update VSCode settings
 
 ## How to Contribute
 
-Anyone and everyone is welcome to [contribute](.github/CONTRIBUTING.md). Start
-by checking out the list of [open issues](https://github.com/kriasoft/graphql-starter-kit/issues)
-marked [help wanted](https://github.com/kriasoft/graphql-starter-kit/issues?q=label:"help+wanted").
-However, if you decide to get involved, please take a moment to review the
-[guidelines](.github/CONTRIBUTING.md).
+We welcome contributions through pull requests and issues on our GitHub repository. Feel free to also start a conversation on our [Discord server](https://discord.com/invite/PkRad23) to discuss potential contributions or seek guidance.
 
 ## License
 
