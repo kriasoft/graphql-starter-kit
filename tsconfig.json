@@ -3,6 +3,6 @@
   "references": [
     { "path": "./app" },
     { "path": "./db" },
-    { "path": "./server" },
-  ],
+    { "path": "./server" }
+  ]
 }

@@ -1,6 +1,6 @@
 # Terraform Cloud Project
 
-This folder contains the Terraform configurations for our project's infrastructure, managed through Terraform Cloud. The infrastructure is divided into multiple workspaces to handle different environments and shared resources.
+This folder contains the Terraform configurations for our project's infrastructure, managed through [Terraform Cloud](https://developer.hashicorp.com/terraform/cloud-docs). The infrastructure is divided into multiple workspaces to handle different environments and shared resources.
 
 ## Directory Structure
 
@@ -18,12 +18,12 @@ The repository is organized into the following directories, each corresponding t
 
 ### Prerequisites
 
-- Terraform
-- Access to the Terraform Cloud workspace
+- [Terraform CLI](https://developer.hashicorp.com/terraform/install)
+- Access to the [Terraform Cloud](https://app.terraform.io/) workspace
 
 ### Setting Up Workspaces in Terraform Cloud
 
-1. Log in to Terraform Cloud.
+1. Log in to [Terraform Cloud](https://app.terraform.io/).
 2. Create a workspace for each directory/environment.
 3. Link each workspace to the corresponding directory in this repository.
 4. Save Terraform API token to the `../.terraformrc` file.
@@ -42,13 +42,13 @@ Ensure that you are working in the correct workspace to avoid misconfigurations.
 
 Please follow our contribution guidelines for making changes or adding new configurations. Ensure you test configurations in the test and preview environments before applying them to production.
 
-## Support
-
-For any issues or questions related to this Terraform setup, please contact [@koistya](https://github.com/koistya) on our [Discord server](https://discord.com/invite/bSsv7XM).
-
 ### References
 
 - https://learn.hashicorp.com/terraform
 - https://cloud.google.com/docs/terraform/best-practices-for-terraform
 - https://cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines
 - https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference.html
+
+## Support
+
+For any issues or questions related to this Terraform setup, please contact [@koistya](https://github.com/koistya) on our [Discord server](https://discord.com/invite/bSsv7XM).

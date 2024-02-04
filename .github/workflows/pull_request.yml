@@ -46,8 +46,7 @@ jobs:
       - run: yarn tsc --build
 
       # Setup test database
-      - run: yarn db:migrate
-      - run: yarn db:seed
+      - run: yarn db migrate --seed
 
       - run: echo "$GCP_SA_KEY" | base64 --decode > "$GOOGLE_APPLICATION_CREDENTIALS"
         env:

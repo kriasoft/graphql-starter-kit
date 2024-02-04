@@ -39,8 +39,7 @@ jobs:
       - run: yarn workspace api build
 
       # Deploy
-      # - run: yarn db:migrate --env=test
-      # - run: yarn db:seed --env=test
+      # - run: yarn db migrate --seed --env=test
       # - run: yarn workspace api deploy --env=test
       #   env:
       #     GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcp-key.json

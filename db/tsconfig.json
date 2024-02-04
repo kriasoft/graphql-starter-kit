@@ -4,8 +4,8 @@
     "lib": ["ESNext"],
     "noEmit": true,
     "outDir": "../.cache/ts-db",
-    "types": ["node"],
+    "types": ["node"]
   },
   "include": ["**/*.ts", "**/*.cjs", "**/*.js", "**/*.json"],
-  "exclude": ["dist/**/*"],
+  "exclude": ["dist/**/*"]
 }
