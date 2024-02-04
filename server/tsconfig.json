@@ -4,8 +4,8 @@
     "lib": ["ESNext"],
     "outDir": "../.cache/ts-server",
     "types": ["vite/client"],
-    "noEmit": true,
+    "noEmit": true
   },
   "include": ["**/*.ts", "**/*.cjs", "**/*.js", "**/*.json", "../db/types"],
-  "exclude": ["dist/**/*"],
+  "exclude": ["dist/**/*"]
 }
