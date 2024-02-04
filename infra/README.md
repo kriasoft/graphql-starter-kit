@@ -1,85 +1,54 @@
-# Cloud Infrastructure
+# Terraform Cloud Project
 
-The Google Cloud Platform (GCP) and Cloudflare infrastructure resources required
-by the app and that can be bootstrapped via [Terraform](https://www.terraform.io/).
+This folder contains the Terraform configurations for our project's infrastructure, managed through Terraform Cloud. The infrastructure is divided into multiple workspaces to handle different environments and shared resources.
 
-## Requirements
+## Directory Structure
 
-- [Node.js](https://nodejs.org/en/) v18+ with [Yarn](https://yarnpkg.com/) package manager
-- [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) and [Terraform CLI](https://learn.hashicorp.com/tutorials/terraform/install-cli)
-- Access to [Google Cloud Projects](https://cloud.google.com/resource-manager/docs/creating-managing-projects) and [Terraform Cloud](https://cloud.hashicorp.com/products/terraform) workspaces
+The repository is organized into the following directories, each corresponding to a specific Terraform Cloud workspace:
 
-<details>
-  <summary>How to install Terraform CLI on macOS?</summary><br>
+- **[`/core`](./core/)** - This directory contains the Terraform configurations for the global/shared resources used across all environments. These may include VPCs, shared databases, IAM roles, etc.
 
-```bash
-$ brew tap hashicorp/tap
-$ brew install hashicorp/tap/terraform
-$ brew update
-$ brew upgrade hashicorp/tap/terraform
-$ yarn tf -version
-```
+- **[`/server-prod`](./server-prod/)** - Contains the Terraform configurations for the production web server. This workspace should be configured with production-grade settings, ensuring high availability and security.
 
-</details>
+- **[`/server-test`](./server-test/)** - Holds the configurations for the testing/QA web server. This environment mirrors production closely and is used for final testing before deploying to production.
 
-<details>
-  <summary>How to create Google Cloud Platform projects?</summary><br>
+- **[`/server-preview`](./server-preview/)** - This directory is for the preview web server, typically used for staging and pre-release reviews. It might contain configurations that are under testing or not yet approved for the testing environment.
 
-Simply navigate to [Google Cloud Resource Manager](https://console.cloud.google.com/cloud-resource-manager)
-and create two GCP projects for both `test` (QA) and `prod` (production)
-environments, e.g. "example" and "example-test".
+## Usage
 
-Fore more information visit https://cloud.google.com/resource-manager/docs/creating-managing-projects<br>
+### Prerequisites
 
-</details>
+- Terraform
+- Access to the Terraform Cloud workspace
 
-<details>
-  <summary>How to configure Terraform Cloud workspaces?</summary><br>
+### Setting Up Workspaces in Terraform Cloud
 
-1. Sign in to [Terraform Cloud](https://cloud.hashicorp.com/products/terraform) dashboard.
-2. Create or join an organization.
-3. Create two workspaces — `app-test` and `app-prod` for test/QA and production environments.
-4. In each of these workspaces create an environment variable called `GOOGLE_CREDENTIALS` with the value containing JSON key of a GCP [service account](https://cloud.google.com/iam/docs/service-accounts). Note, this GCP service account needs to have `Owner` or `Editor` + `Service Usage Admin` roles.
+1. Log in to Terraform Cloud.
+2. Create a workspace for each directory/environment.
+3. Link each workspace to the corresponding directory in this repository.
+4. Save Terraform API token to the `../.terraformrc` file.
 
-For more information visit https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference<br>
+### Working with Terraform
 
-</details>
+To work with Terraform configurations:
 
-<details>
-  <summary>How to authenticate Terraform CLI in Terraform Cloud?</summary><br>
+1. Navigate to the appropriate directory (e.g., `cd server-prod`).
+2. Initialize Terraform: `terraform init`.
+3. Apply configurations: `terraform apply`.
 
-1. Create a personal or team [API Token](https://learn.hashicorp.com/tutorials/terraform/cloud-login) via [Terraform Cloud](https://app.terraform.io/app/) dashboard → [Settings](https://app.terraform.io/app/settings/tokens).
-2. Save API token to the `.terraformrc` file in root of the project:
+Ensure that you are working in the correct workspace to avoid misconfigurations.
 
-```
-credentials "app.terraform.io" {
-  token = "xxxxxx.atlasv1.zzzzzzzzzzzzz"
-}
-```
+### Contributions
 
-**NOTE**: This would allow to using different Terraform credentials per software project if you want to.<br>
+Please follow our contribution guidelines for making changes or adding new configurations. Ensure you test configurations in the test and preview environments before applying them to production.
 
-</details>
+## Support
 
-## Getting Started
+For any issues or questions related to this Terraform setup, please contact [@koistya](https://github.com/koistya) on our [Discord server](https://discord.com/invite/bSsv7XM).
 
-- `yarn tf init -upgrade` — Initializes a Terraform workspace
-- `yarn tf plan` — creates an execution plan
-- `yarn tf apply` — executes the actions proposed by the `yarn tf plan` command
+### References
 
-**NOTE**: By default the `app-test` Terraform workspace is used. In order to use
-the production workspace, set `TF_WORKSPACE` environment variable to `prod`. For
-example:
-
-```bash
-$ TF_WORKSPACE=prod tf plan
-$ TF_WORKSPACE=prod tf apply
-```
-
-**NOTE**: You need to run Terraform commands via `yarn tf <command> [...args]`.
-
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=tomUWcQ0P3k"><img src="https://user-images.githubusercontent.com/197134/151321818-d47fe54f-c19e-4d4c-9834-c33e589a33e1.png" alt="" width="640" height="360" /></a>
-</p>
-
-Fore more information visit https://learn.hashicorp.com/terraform
+- https://learn.hashicorp.com/terraform
+- https://cloud.google.com/docs/terraform/best-practices-for-terraform
+- https://cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines
+- https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference.html
