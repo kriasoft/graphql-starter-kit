@@ -54,10 +54,13 @@ yarn-error.log*
 *.tfstate.*
 *.tfvars
 *.tfvars.json
-.terraformrc
 override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
 crash.log
 crash.*.log
+.terraformrc
 
 # WebStorm
 .idea

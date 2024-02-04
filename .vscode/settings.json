@@ -35,14 +35,17 @@
     "**/yarn.lock": true
   },
   "terminal.integrated.env.linux": {
+    "TF_CLI_CONFIG_FILE": "${workspaceFolder}/.terraformrc",
     "CLOUDSDK_ACTIVE_CONFIG_NAME": "default",
     "CACHE_DIR": "${workspaceFolder}/.cache"
   },
   "terminal.integrated.env.osx": {
+    "TF_CLI_CONFIG_FILE": "${workspaceFolder}/.terraformrc",
     "CLOUDSDK_ACTIVE_CONFIG_NAME": "default",
     "CACHE_DIR": "${workspaceFolder}/.cache"
   },
   "terminal.integrated.env.windows": {
+    "TF_CLI_CONFIG_FILE": "${workspaceFolder}/.terraformrc",
     "CLOUDSDK_ACTIVE_CONFIG_NAME": "default",
     "CACHE_DIR": "${workspaceFolder}\\.cache"
   },
