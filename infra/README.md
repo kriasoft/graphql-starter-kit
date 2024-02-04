@@ -8,11 +8,11 @@ The repository is organized into the following directories, each corresponding t
 
 - **[`/core`](./core/)** - This directory contains the Terraform configurations for the global/shared resources used across all environments. These may include VPCs, shared databases, IAM roles, etc.
 
-- **[`/server-prod`](./server-prod/)** - Contains the Terraform configurations for the production web server. This workspace should be configured with production-grade settings, ensuring high availability and security.
+- **[`/server`](./server/)** - Contains the Terraform configurations for the production web server. This workspace should be configured with production-grade settings, ensuring high availability and security.
+
+- **[`/server-preview`](./server-preview/)** - This directory is for the preview web server, typically used for pull request reviews. It might contain configurations that are under testing or not yet approved for the testing environment.
 
 - **[`/server-test`](./server-test/)** - Holds the configurations for the testing/QA web server. This environment mirrors production closely and is used for final testing before deploying to production.
-
-- **[`/server-preview`](./server-preview/)** - This directory is for the preview web server, typically used for staging and pre-release reviews. It might contain configurations that are under testing or not yet approved for the testing environment.
 
 ## Usage
 
@@ -32,7 +32,7 @@ The repository is organized into the following directories, each corresponding t
 
 To work with Terraform configurations:
 
-1. Navigate to the appropriate directory (e.g., `cd server-prod`).
+1. Navigate to the appropriate directory (e.g., `cd server`).
 2. Initialize Terraform: `terraform init`.
 3. Apply configurations: `terraform apply`.
 

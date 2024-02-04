@@ -7,7 +7,7 @@ terraform {
 
     workspaces {
       project = "default"
-      name    = "server-prod"
+      name    = "server"
     }
   }
 
