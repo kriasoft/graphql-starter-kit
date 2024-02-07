@@ -41,7 +41,7 @@
     "ts-node": "^10.9.2",
     "typescript": "~5.3.3",
     "vite": "~5.0.12",
-    "wrangler": "^3.26.0",
+    "wrangler": "^3.27.0",
     "zx": "^7.2.3"
   },
   "envars": {
