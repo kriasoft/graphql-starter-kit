@@ -18,6 +18,9 @@ delete pkg.scripts;
 delete pkg.devDependencies;
 delete pkg.babel;
 delete pkg.envars;
+pkg.bundledDependencies?.forEach((name) => {
+  delete pkg.dependencies[name];
+});
 await fs.writeFile("./dist/package.json", toJSON(pkg), "utf-8");
 
 // Copy Yarn files
