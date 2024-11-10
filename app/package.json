@@ -37,14 +37,14 @@
     "@babel/core": "^7.23.9",
     "@emotion/babel-plugin": "^11.11.0",
     "@rollup/plugin-graphql": "^2.0.4",
-    "@types/node": "^20.11.16",
+    "@types/node": "^22.9.0",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "^4.3.3",
     "envars": "^1.0.2",
     "happy-dom": "^13.3.8",
-    "typescript": "~5.3.3",
-    "vite": "~5.0.12",
-    "vitest": "~1.2.2"
+    "typescript": "~5.6.3",
+    "vite": "~5.4.10",
+    "vitest": "~2.1.4"
   }
 }

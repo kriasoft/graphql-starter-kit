@@ -25,7 +25,7 @@
     "@emotion/babel-plugin": "^11.11.0",
     "@emotion/eslint-plugin": "^11.11.0",
     "@emotion/react": "^11.11.3",
-    "@types/node": "^20.11.16",
+    "@types/node": "^22.9.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@yarnpkg/pnpify": "^4.0.1",
@@ -44,11 +44,11 @@
     "prettier": "^3.2.5",
     "react": "^18.2.0",
     "relay-config": "^12.0.1",
-    "tsx": "~4.7.0",
-    "typescript": "~5.3.3",
-    "vitest": "~1.2.2",
+    "tsx": "~4.19.2",
+    "typescript": "~5.6.3",
+    "vitest": "~2.1.4",
     "wrangler": "^3.27.0",
-    "zx": "^7.2.3"
+    "zx": "^8.2.1"
   },
   "resolutions": {
     "graphql": "^16.8.1",

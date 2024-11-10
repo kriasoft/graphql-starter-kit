@@ -24,7 +24,7 @@
     "@google-cloud/storage": "^7.7.0",
     "@octokit/rest": "^20.0.2",
     "@types/cross-spawn": "^6.0.6",
-    "@types/node": "^20.11.16",
+    "@types/node": "^22.9.0",
     "cross-spawn": "^7.0.3",
     "dotenv": "^16.4.1",
     "envars": "^1.0.2",
@@ -39,10 +39,10 @@
     "toml": "^3.0.0",
     "ts-import": "^5.0.0-beta.0",
     "ts-node": "^10.9.2",
-    "typescript": "~5.3.3",
-    "vite": "~5.0.12",
+    "typescript": "~5.6.3",
+    "vite": "~5.4.10",
     "wrangler": "^3.27.0",
-    "zx": "^7.2.3"
+    "zx": "^8.2.1"
   },
   "envars": {
     "cwd": "../env"
