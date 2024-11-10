@@ -113,7 +113,6 @@ const prodEnv = envars.config({ env: "prod" });
 const domain = new URL(prodEnv.APP_ORIGIN).hostname;
 
 // Ensure that the domain name is verified
-/* eslint-disable-next-line no-constant-condition */
 while (true) {
   cmd = await spawn("gcloud", ["domains", "list-user-verified"]);
   const verifiedDomains = cmd.stdout.toString().split("\n").slice(1);

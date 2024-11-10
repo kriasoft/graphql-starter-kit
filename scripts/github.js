@@ -89,6 +89,7 @@ async function deleteDeployment(options = {}) {
  * https://octokit.github.io/rest.js/v18#repos-create-deployment-status
  */
 async function createDeploymentStatus(options = {}) {
+  /* eslint-disable @typescript-eslint/no-unused-expressions */
   options.state === "cancelled" ? "inactive" : options.state;
   const [owner, repo] = env.GITHUB_REPOSITORY?.split("/") ?? [];
   const gh = new Octokit({ auth: env.GITHUB_TOKEN });
