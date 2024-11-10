@@ -19,6 +19,7 @@ root.render(
         <CssBaseline />
         <StoreProvider>
           <Router />
+          <div children="Hello, world!" />
         </StoreProvider>
       </SnackbarProvider>
     </CssVarsProvider>
