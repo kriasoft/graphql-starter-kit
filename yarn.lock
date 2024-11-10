@@ -12104,7 +12104,7 @@ __metadata:
     supertest: "npm:^6.3.4"
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.3.3"
-    uWebSockets.js: "https://github.com/uNetworking/uWebSockets.js#v20.41.0"
+    uWebSockets.js: "https://github.com/uNetworking/uWebSockets.js#v20.49.0"
     vite: "npm:~5.0.12"
     vite-node: "npm:1.2.2"
     vite-plugin-node: "npm:^3.1.0"
@@ -13130,10 +13130,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uWebSockets.js@https://github.com/uNetworking/uWebSockets.js#v20.41.0":
-  version: 20.41.0
-  resolution: "uWebSockets.js@https://github.com/uNetworking/uWebSockets.js.git#commit=105d9ec47126cb82e4a6f3a08aa2ac78b4bb14f1"
-  checksum: 10/033ba6dec32feb46a5557c9095c60fc09362ae082e81b4f35d25405c2bef0e1fa8a36f98e9f6e22c8a32827b3d98244870c2fe463f48d912de177bfe52d6c6d2
+"uWebSockets.js@https://github.com/uNetworking/uWebSockets.js#v20.49.0":
+  version: 20.49.0
+  resolution: "uWebSockets.js@https://github.com/uNetworking/uWebSockets.js.git#commit=442087c0a01bf146acb7386910739ec81df06700"
+  checksum: 10/6af483b05f6638274f3698737fba7e13b50713ff6b5f0fb0dbbf3dd72d26ff2539338c310c24a6032072178345e85b4a39654a0fa2d9e95d03e0262c5e31a307
   languageName: node
   linkType: hard
 
