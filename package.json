@@ -38,7 +38,7 @@
     "graphql-config": "^5.0.3",
     "happy-dom": "^13.3.8",
     "husky": "^9.0.10",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.3",
     "react": "^18.2.0",
     "relay-config": "^12.0.1",
     "tsx": "~4.19.2",
