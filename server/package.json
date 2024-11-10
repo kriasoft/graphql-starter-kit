@@ -34,7 +34,7 @@
     "quick-lru": "^7.0.0",
     "slugify": "^1.6.6",
     "source-map-support": "^0.5.21",
-    "uWebSockets.js": "https://github.com/uNetworking/uWebSockets.js#v20.41.0",
+    "uWebSockets.js": "https://github.com/uNetworking/uWebSockets.js#v20.49.0",
     "zod": "^3.22.4"
   },
   "bundledDependencies": [
